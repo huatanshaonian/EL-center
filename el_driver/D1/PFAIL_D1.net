@@ -1,0 +1,1373 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+U_PF
+FOOTPRINT
+DIP-8_L10.1-W6.3-P2.54-LS7.6-BL-1
+PARTTYPE
+LM393P full 8 pins
+DESCRIPTION
+比较器数:双路;输入失调电压(Vos):2mV;输入偏置电流(Ib):25nA;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Designator
+U_PF
+Device
+LM393P full 8 pins
+PCB Layer
+Default
+Symbol
+LM393P_D1_FULL8
+LCSC Part Name
+双差分比较器
+Supplier Part
+C5209
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+LM393P
+Supplier Footprint
+PDIP-8
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/lm393.pdf
+Supplier
+LCSC
+3D Model Title
+DIP-8_L10.1-W6.3-P2.54-LS7.6-BL-1
+Number of Channels
+双路
+Vos - Input Offset Voltage
+2mV
+Ib - Input Bias Current
+25nA
+Input Hysteresis Voltage (Vhys)
+-
+Common Mode Rejection Ratio(CMRR)
+-
+Output Type
+开漏
+Output Mode
+TTL；CMOS
+Quiescent Current
+400uA
+Operating Temperature
+0℃~+70℃
+Maximum Power Supply Range (Vdd-Vss)
+36V
+Single Supply
+2V~36V
+Dual Supply
+2V~18V；-18V~-2V
+Input Offset Current(Ios)
+5nA
+Response Time (tr)
+1.3us
+Features
+ESD保护
+Name
+LM393P
+Description
+比较器数:双路;输入失调电压(Vos):2mV;输入偏置电流(Ib):25nA;
+Unique ID
+D1_U_PF
+
+*
+]
+[
+DESIGNATOR
+U_REF
+FOOTPRINT
+TO-92-3_L4.9-W3.7-P1.27-L
+PARTTYPE
+LM4040AIZ-2.5/NOPB
+DESCRIPTION
+输出类型:固定;工作电压:-;输出电压:2.5V;输出电流:15mA;精度:±0.1%;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+LM4040AIZ-2.5/NOPB
+PCB Layer
+Default
+Name
+LM4040AIZ-2.5/NOPB
+Designator
+U_REF
+Symbol
+LM4040AIZ-2.5/NOPB
+LCSC Part Name
+并联 60uA 100ppm/℃
+Supplier Part
+C544355
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+LM4040AIZ-2.5/NOPB
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/lm4040-n.pdf
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.9-W3.7-P1.27-L
+Output Type
+固定
+Voltage - Supply
+-
+Output Voltage
+2.5V
+Output Current
+15mA
+Tolerance
+±0.1%
+Temperature Coefficient
+100ppm/℃
+Reference Type
+并联
+Quiescent Current
+60uA
+Minimum Cathode Current for Regulation
+60uA
+Noise - 10Hz to 10kHz
+35uVrms
+Operating Temperature
+-40℃~+85℃
+Features
+-
+Description
+输出类型:固定;工作电压:-;输出电压:2.5V;输出电流:15mA;精度:±0.1%;
+Unique ID
+D1_U_REF
+
+*
+]
+[
+DESIGNATOR
+RREF
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RREF
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+1k
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+Verify stock
+Operating Temperature
+-55℃~+155℃
+Name
+1k
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RREF
+
+*
+]
+[
+DESIGNATOR
+RPFPU
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFPU
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+2.2k
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+Verify stock
+Operating Temperature
+-55℃~+155℃
+Name
+2.2k
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFPU
+
+*
+]
+[
+DESIGNATOR
+RPFT
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFT
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+100k
+Tolerance
+±0.1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+≤25ppm/°C
+Operating Temperature
+-55℃~+155℃
+Name
+100k 0.1%
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFT
+
+*
+]
+[
+DESIGNATOR
+RPFH
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFH
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+499k
+Tolerance
+±0.1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+≤25ppm/°C
+Operating Temperature
+-55℃~+155℃
+Name
+499k 0.1%
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFH
+
+*
+]
+[
+DESIGNATOR
+RPFB1
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFB1
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+13k
+Tolerance
+±0.1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+≤25ppm/°C
+Operating Temperature
+-55℃~+155℃
+Name
+13k 0.1%
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFB1
+
+*
+]
+[
+DESIGNATOR
+RPFB2
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFB2
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+150
+Tolerance
+±0.1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+≤25ppm/°C
+Operating Temperature
+-55℃~+155℃
+Name
+150 0.1%
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFB2
+
+*
+]
+[
+DESIGNATOR
+RPFIB
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFIB
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+68k
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+Verify stock
+Operating Temperature
+-55℃~+155℃
+Name
+68k
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFIB
+
+*
+]
+[
+DESIGNATOR
+RPFIP
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFIP
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+10k
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+Verify stock
+Operating Temperature
+-55℃~+155℃
+Name
+10k
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFIP
+
+*
+]
+[
+DESIGNATOR
+Q_PFI
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P1.27-L-1
+PARTTYPE
+Stock 2N3904; verify EBC
+DESCRIPTION
+Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Stock 2N3904; verify EBC
+PCB Layer
+Default
+Symbol
+2N3904_C3201969
+Designator
+Q_PFI
+LCSC Part Name
+2N3904
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20230915/7D786376E98AC7A66496576E117FB661.pdf
+Supplier
+
+3D Model Title
+
+Transistor type
+NPN
+Collector Current (Ic)
+200mA
+Collector-Emitter Breakdown Voltage (Vceo)
+40V
+Power Dissipation (Pd)
+625mW
+DC Current Gain (hFE@Ic,Vce)
+100@10mA,1V
+Transition Frequency (fT)
+300MHz
+Collector Cut-Off Current (Icbo)
+50nA
+Collector-Emitter Saturation Voltage (VCE(sat)@Ic,Ib)
+300mV@50mA,5mA
+Operating Temperature
+-55℃~+150℃@(Tj)
+Name
+2N3904 STOCK
+Description
+Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
+Unique ID
+D1_Q_PFI
+
+*
+]
+[
+DESIGNATOR
+RPFD_B
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFD_B
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+10k
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+Verify stock
+Operating Temperature
+-55℃~+155℃
+Name
+10k
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFD_B
+
+*
+]
+[
+DESIGNATOR
+RPFO_B
+FOOTPRINT
+R0603
+PARTTYPE
+Axial resistor P10.5mm
+DESCRIPTION
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Axial resistor P10.5mm
+PCB Layer
+Default
+Symbol
+0603WAF1002T5E
+Designator
+RPFO_B
+LCSC Part Name
+Generic axial metal film resistor
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+AXIAL P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film
+Value
+10k
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+Verify stock
+Operating Temperature
+-55℃~+155℃
+Name
+10k
+Description
+Axial metal film. Ordinary stock unless precision tolerance explicitly stated.
+Unique ID
+D1_RPFO_B
+
+*
+]
+[
+DESIGNATOR
+Q_PFD
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P1.27-L-1
+PARTTYPE
+Stock 2N3904; verify EBC
+DESCRIPTION
+Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Stock 2N3904; verify EBC
+PCB Layer
+Default
+Symbol
+2N3904_C3201969
+Designator
+Q_PFD
+LCSC Part Name
+2N3904
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20230915/7D786376E98AC7A66496576E117FB661.pdf
+Supplier
+
+3D Model Title
+
+Transistor type
+NPN
+Collector Current (Ic)
+200mA
+Collector-Emitter Breakdown Voltage (Vceo)
+40V
+Power Dissipation (Pd)
+625mW
+DC Current Gain (hFE@Ic,Vce)
+100@10mA,1V
+Transition Frequency (fT)
+300MHz
+Collector Cut-Off Current (Icbo)
+50nA
+Collector-Emitter Saturation Voltage (VCE(sat)@Ic,Ib)
+300mV@50mA,5mA
+Operating Temperature
+-55℃~+150℃@(Tj)
+Name
+2N3904 STOCK
+Description
+Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
+Unique ID
+D1_Q_PFD
+
+*
+]
+[
+DESIGNATOR
+Q_PFO
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P1.27-L-1
+PARTTYPE
+Stock 2N3904; verify EBC
+DESCRIPTION
+Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Stock 2N3904; verify EBC
+PCB Layer
+Default
+Symbol
+2N3904_C3201969
+Designator
+Q_PFO
+LCSC Part Name
+2N3904
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20230915/7D786376E98AC7A66496576E117FB661.pdf
+Supplier
+
+3D Model Title
+
+Transistor type
+NPN
+Collector Current (Ic)
+200mA
+Collector-Emitter Breakdown Voltage (Vceo)
+40V
+Power Dissipation (Pd)
+625mW
+DC Current Gain (hFE@Ic,Vce)
+100@10mA,1V
+Transition Frequency (fT)
+300MHz
+Collector Cut-Off Current (Icbo)
+50nA
+Collector-Emitter Saturation Voltage (VCE(sat)@Ic,Ib)
+300mV@50mA,5mA
+Operating Temperature
+-55℃~+150℃@(Tj)
+Name
+2N3904 STOCK
+Description
+Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
+Unique ID
+D1_Q_PFO
+
+*
+]
+[
+DESIGNATOR
+CPF
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+CPF
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Unique ID
+D1_CPF
+
+*
+]
+[
+DESIGNATOR
+TPPF24
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TPPF24
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TPPF24
+
+*
+]
+[
+DESIGNATOR
+TPPF5
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TPPF5
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TPPF5
+
+*
+]
+[
+DESIGNATOR
+TPPFD
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TPPFD
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TPPFD
+
+*
+]
+[
+DESIGNATOR
+TPPFO
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TPPFO
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TPPFO
+
+*
+]
+[
+DESIGNATOR
+TPPFG
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TPPFG
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TPPFG
+
+*
+]
+(
+PF_COMP 
+U_PF-1 LM393P full 8 pins-OUT_A Output  
+RPFPU-2 Axial resistor P10.5mm-2 Input   
+RPFH-1 Axial resistor P10.5mm-1 Input   
+RPFIB-1 Axial resistor P10.5mm-1 Input   
+)
+(
+PF_REF 
+U_PF-2 LM393P full 8 pins-IN_A- Passive 
+U_PF-6 LM393P full 8 pins-IN_B- Passive 
+U_REF-3 LM4040AIZ-2.5/NOPB-Cathode Passive 
+RREF-2 Axial resistor P10.5mm-2 Input   
+)
+(
+PF_SENSE 
+U_PF-3 LM393P full 8 pins-IN_A+ Passive 
+RPFT-2 Axial resistor P10.5mm-2 Input   
+RPFH-2 Axial resistor P10.5mm-2 Input   
+RPFB1-1 Axial resistor P10.5mm-1 Input   
+)
+(
+GND 
+U_PF-4 LM393P full 8 pins-GND Passive 
+U_PF-5 LM393P full 8 pins-IN_B+ Passive 
+U_REF-2 LM4040AIZ-2.5/NOPB-Anode Passive 
+RPFB2-2 Axial resistor P10.5mm-2 Input   
+Q_PFI-1 Stock 2N3904; verify EBC-E Passive 
+Q_PFD-1 Stock 2N3904; verify EBC-E Passive 
+Q_PFO-1 Stock 2N3904; verify EBC-E Passive 
+CPF-2 K104K15X7RF53H5-2 Passive 
+TPPFG-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
++5V_IN 
+U_PF-8 LM393P full 8 pins-VCC Passive 
+RREF-1 Axial resistor P10.5mm-1 Input   
+RPFPU-1 Axial resistor P10.5mm-1 Input   
+RPFIP-1 Axial resistor P10.5mm-1 Input   
+CPF-1 K104K15X7RF53H5-1 Passive 
+TPPF5-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
++24V_SENSE 
+RPFT-1 Axial resistor P10.5mm-1 Input   
+TPPF24-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+PF_DIV 
+RPFB1-2 Axial resistor P10.5mm-2 Input   
+RPFB2-1 Axial resistor P10.5mm-1 Input   
+)
+(
+PF_INV_B 
+RPFIB-2 Axial resistor P10.5mm-2 Input   
+Q_PFI-2 Stock 2N3904; verify EBC-B Passive 
+)
+(
+PF_INV 
+RPFIP-2 Axial resistor P10.5mm-2 Input   
+Q_PFI-3 Stock 2N3904; verify EBC-C Passive 
+RPFD_B-1 Axial resistor P10.5mm-1 Input   
+RPFO_B-1 Axial resistor P10.5mm-1 Input   
+)
+(
+PF_D_B 
+RPFD_B-2 Axial resistor P10.5mm-2 Input   
+Q_PFD-2 Stock 2N3904; verify EBC-B Passive 
+)
+(
+PF_O_B 
+RPFO_B-2 Axial resistor P10.5mm-2 Input   
+Q_PFO-2 Stock 2N3904; verify EBC-B Passive 
+)
+(
+PFAIL_DOCK_N 
+Q_PFD-3 Stock 2N3904; verify EBC-C Passive 
+TPPFD-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+PFAIL_OPI_N 
+Q_PFO-3 Stock 2N3904; verify EBC-C Passive 
+TPPFO-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)

@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "protected_inputs": [
+    {
+      "path": "E:/modeling/MIS-01/el_driver/面包板实验接线与验收_D1.md",
+      "sha256": "2867fe54b520542920957b4a07f9c8b56b5cc16db9bf0c8081006046675fa303",
+      "unchanged": true
+    },
+    {
+      "path": "E:/modeling/MIS-01/el_driver/D1.1/EL_IF_D1.1.net",
+      "sha256": "aa864d5f45000296e6baafd49ea27d7fb1e5fba9fdef317b9c268906ff962a9f",
+      "unchanged": true
+    },
+    {
+      "path": "E:/modeling/MIS-01/el_driver/D1.1/PFAIL_D1.1.net",
+      "sha256": "8d8e73f32e97393dbdd4ea8be8e698d017263d8f7ccea920a6d3b22aba3a2b67",
+      "unchanged": true
+    },
+    {
+      "path": "E:/modeling/MIS-01/el_driver/D1.1/MIS-01-EL-Driver-D1.1.epro2",
+      "sha256": "13c113c571511cfd8d32ee2be1d72cb2172a63db2377ad4c5ebdd5d0a2f94713",
+      "unchanged": true
+    }
+  ],
+  "images": [
+    {
+      "file": "图1_掉电检测PFAIL.png",
+      "width": 4800,
+      "height": 2900,
+      "sha256": "bc8db94a37397a1ed7462596989e7e889bdfbbdad5ab5029d2a974b6236175ff"
+    },
+    {
+      "file": "图2A_U1_245顶视引脚.png",
+      "width": 2800,
+      "height": 2050,
+      "sha256": "b18f0377330910236fb0a30dffb8b2628024bb4e6be48647cfbdb75d237c8c2a"
+    },
+    {
+      "file": "图2B_U2_245顶视引脚.png",
+      "width": 2800,
+      "height": 2050,
+      "sha256": "71e7431d751047d5c48b9a45496dea3a9c787c1b526235dc711e349be1c81d62"
+    },
+    {
+      "file": "图3_单路信号链与11路对照.png",
+      "width": 4000,
+      "height": 2700,
+      "sha256": "703271b2a831c9846a0772957c10e5dc48ca007de08daddd20563cf7b8818a0c"
+    },
+    {
+      "file": "图4_静态测试接线.png",
+      "width": 3600,
+      "height": 2050,
+      "sha256": "cf36a7f2ba93483fc85489f182a4e81b766cc6cbb4c72da9c8ee8857ed677643"
+    },
+    {
+      "file": "图5_真屏供电端子接线.png",
+      "width": 3600,
+      "height": 2100,
+      "sha256": "d19a16990bce44867f4c02752c4f9d66bd1e3d0813b831c5e362206508149fa1"
+    },
+    {
+      "file": "图6_DF11针号与待确认视向.png",
+      "width": 3600,
+      "height": 2050,
+      "sha256": "42bc820b36d961a67b0835156e73b215162af4c8d988ed2045904b66e012f4ae"
+    },
+    {
+      "file": "图7_面包板摆放分区.png",
+      "width": 3600,
+      "height": 2400,
+      "sha256": "fe04688284041e615f0bd120d794121cbd3ab55f0c52deae2c0526a5c3b09781"
+    }
+  ],
+  "markdown_image_links": "PASS",
+  "forbidden_legacy_terms": "PASS：新MD与所有绘图文字无9项禁用词",
+  "experiment_structure": "PASS：0–4均有设备、接线、步骤、测量期望、实测记录及常见问题",
+  "threshold_estimates": [
+    {
+      "下臂Ω": 13150,
+      "下降估算V": 21.007,
+      "回升估算V": 21.938,
+      "迟滞V": 0.931,
+      "假设": "Vref2.495V, VcompH4.85V, VcompL0.10V；忽略偏置/公差/温漂"
+    },
+    {
+      "下臂Ω": 13200,
+      "下降估算V": 20.935,
+      "回升估算V": 21.866,
+      "迟滞V": 0.931,
+      "假设": "Vref2.495V, VcompH4.85V, VcompL0.10V；忽略偏置/公差/温漂"
+    },
+    {
+      "下臂Ω": 13000,
+      "下降估算V": 21.226,
+      "回升估算V": 22.157,
+      "迟滞V": 0.931,
+      "假设": "Vref2.495V, VcompH4.85V, VcompL0.10V；忽略偏置/公差/温漂"
+    }
+  ],
+  "remaining": [
+    "DF11官方机械视图图像及实物观察方向待核验",
+    "FPGA测试程序尚未完成",
+    "物理实验未进行",
+    "Claude独立审核未进行"
+  ]
+}

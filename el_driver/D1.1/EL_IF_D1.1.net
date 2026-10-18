@@ -1,0 +1,9518 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+P1
+FOOTPRINT
+HDR-TH_12P-P2.54-V-M-R2-C6-S2.54-EH
+PARTTYPE
+PH2.54,2*6P
+DESCRIPTION
+
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PH2.54,2*6P
+PCB Layer
+Default
+Symbol
+PH2.54,2*6P
+Designator
+P1
+Unique ID
+gge1
+Name
+PH2.54,2*6P
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+PH2.54,2*6P
+Supplier
+LCSC
+Supplier Part
+C9900165112
+LCSC Part Name
+PH2.54,2*6P
+Supplier Footprint
+TH-2X6P-2.54
+JLCPCB Part Class
+Extended Part
+Datasheet
+
+Description
+
+3D Model Title
+HDR-TH_12P-P2.54-V-M-R2-C6-S2.54-EH
+
+*
+]
+[
+DESIGNATOR
+P2
+FOOTPRINT
+HDR-TH_12P-P2.54-V-M-R2-C6-S2.54-EH
+PARTTYPE
+PH2.54,2*6P
+DESCRIPTION
+
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PH2.54,2*6P
+PCB Layer
+Default
+Symbol
+PH2.54,2*6P
+Designator
+P2
+Unique ID
+gge2
+Name
+PH2.54,2*6P
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+PH2.54,2*6P
+Supplier
+LCSC
+Supplier Part
+C9900165112
+LCSC Part Name
+PH2.54,2*6P
+Supplier Footprint
+TH-2X6P-2.54
+JLCPCB Part Class
+Extended Part
+Datasheet
+
+Description
+
+3D Model Title
+HDR-TH_12P-P2.54-V-M-R2-C6-S2.54-EH
+
+*
+]
+[
+DESIGNATOR
+P3
+FOOTPRINT
+HDR-TH_12P-P2.54-V-M-R2-C6-S2.54-EH
+PARTTYPE
+PH2.54,2*6P
+DESCRIPTION
+
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PH2.54,2*6P
+PCB Layer
+Default
+Symbol
+PH2.54,2*6P
+Designator
+P3
+Unique ID
+gge3
+Name
+PH2.54,2*6P
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+PH2.54,2*6P
+Supplier
+LCSC
+Supplier Part
+C9900165112
+LCSC Part Name
+PH2.54,2*6P
+Supplier Footprint
+TH-2X6P-2.54
+JLCPCB Part Class
+Extended Part
+Datasheet
+
+Description
+
+3D Model Title
+HDR-TH_12P-P2.54-V-M-R2-C6-S2.54-EH
+
+*
+]
+[
+DESIGNATOR
+J_EL
+FOOTPRINT
+CONN-TH_DF11-20DP-2DS-24
+PARTTYPE
+DF11-20DP-2DS(24)
+DESCRIPTION
+插针结构:2x10P;间距:2mm;安装方式:弯插;总PIN数:20P;排数:2;每排PIN数:10;行距:2mm;额定电流:2A;触头材质:黄铜;触头镀层:锡;工作温度:-40℃~+85℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DF11-20DP-2DS(24)
+PCB Layer
+Default
+Symbol
+DF11-20DP-2DS(24)
+Designator
+J_EL
+Unique ID
+gge4
+Name
+DF11-20DP-2DS(24)
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+HRS(广濑)
+Manufacturer Part
+DF11-20DP-2DS(24)
+Supplier
+LCSC
+Supplier Part
+C7506813
+LCSC Part Name
+2x10P 间距:2mm 弯插
+Supplier Footprint
+弯插,P=2mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DF11-20DP-2DS(24)/8597465.html
+Pins Structure
+2x10P
+Pitch
+2mm
+Mounting Type
+弯插
+Number of Pins
+20P
+Number of Rows
+2
+Number of PINs Per Row
+10
+Row Spacing
+2mm
+Current Rating
+2A
+Contact Material
+黄铜
+Contact Plating
+锡
+Operating Temperature
+-40℃~+85℃
+Voltage Rating
+250V
+Flame Retardant Rating
+UL94V-0
+Color
+黑色
+Z-Height of the Board
+5mm
+X-Length of Bottom Edge on Board (Spacing Line)
+22mm
+Y-Width of Bottom Edge on Board
+10mm
+Description
+插针结构:2x10P;间距:2mm;安装方式:弯插;总PIN数:20P;排数:2;每排PIN数:10;行距:2mm;额定电流:2A;触头材质:黄铜;触头镀层:锡;工作温度:-40℃~+85℃;
+3D Model Title
+CONN-TH_DF11-20DP-2DS-24
+
+*
+]
+[
+DESIGNATOR
+U2
+FOOTPRINT
+PDIP-20_L25.9-W6.6-P2.54-LS7.9-BL
+PARTTYPE
+SN74AHCT245N
+DESCRIPTION
+输入类型:-;工作电压:4.5V~5.5V;元件数:1;每个元件位数:8;灌电流(IOL):8mA;拉电流(IOH):8mA;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74AHCT245N
+PCB Layer
+Default
+Symbol
+SN74AHCT245N
+Designator
+U2
+Unique ID
+gge6
+Name
+SN74AHCT245N
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74AHCT245N
+Supplier
+LCSC
+Supplier Part
+C1548096
+LCSC Part Name
+具有三态输出的八路总线收发器
+Supplier Footprint
+PDIP-20
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/sn74ahct245.pdf
+Description
+输入类型:-;工作电压:4.5V~5.5V;元件数:1;每个元件位数:8;灌电流(IOL):8mA;拉电流(IOH):8mA;
+3D Model Title
+PDIP-20_L25.9-W6.6-P2.54-LS7.9-BL
+Input type
+-
+output type
+三态
+Voltage - Supply
+4.5V~5.5V
+Number of Elements
+1
+Number of Bits per Element
+8
+Channel Type
+双向
+Current - Output Low(IOL)
+8mA
+Current - Output High(IOH)
+8mA
+Logic Family
+74AHCT
+Operating Temperature
+-40℃~+125℃
+Quiescent Current
+40uA
+Propagation Delay
+11ns@5V,50pF
+Features
+边沿速率可控；输出使能；电平转换
+
+*
+]
+[
+DESIGNATOR
+C1
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+TH 100nF ±10% 50V radial P5mm
+DESCRIPTION
+100nF ±10% 50V X7R radial through-hole P5mm; verify stock body and lead dimensions.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100nF ±10% 50V radial P5mm
+PCB Layer
+Default
+Name
+100nF
+Designator
+C1
+Symbol
+Radial_Capacitor
+Unique ID
+gge7
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+Radial P5mm
+JLCPCB Part Class
+
+Datasheet
+
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+100nF ±10% 50V X7R radial through-hole P5mm; verify stock body and lead dimensions.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+C2
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+TH 100nF ±10% 50V radial P5mm
+DESCRIPTION
+100nF ±10% 50V X7R radial through-hole P5mm; verify stock body and lead dimensions.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100nF ±10% 50V radial P5mm
+PCB Layer
+Default
+Name
+100nF
+Designator
+C2
+Symbol
+Radial_Capacitor
+Unique ID
+gge8
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+Radial P5mm
+JLCPCB Part Class
+
+Datasheet
+
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+100nF ±10% 50V X7R radial through-hole P5mm; verify stock body and lead dimensions.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+U1
+FOOTPRINT
+PDIP-20_L25.9-W6.6-P2.54-LS7.9-BL
+PARTTYPE
+SN74AHCT245N
+DESCRIPTION
+输入类型:-;工作电压:4.5V~5.5V;元件数:1;每个元件位数:8;灌电流(IOL):8mA;拉电流(IOH):8mA;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74AHCT245N
+PCB Layer
+Default
+Symbol
+SN74AHCT245N
+Designator
+U1
+Unique ID
+gge5
+Name
+SN74AHCT245N
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74AHCT245N
+Supplier
+LCSC
+Supplier Part
+C1548096
+LCSC Part Name
+具有三态输出的八路总线收发器
+Supplier Footprint
+PDIP-20
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/sn74ahct245.pdf
+Input type
+-
+output type
+三态
+Voltage - Supply
+4.5V~5.5V
+Number of Elements
+1
+Number of Bits per Element
+8
+Channel Type
+双向
+Current - Output Low(IOL)
+8mA
+Current - Output High(IOH)
+8mA
+Logic Family
+74AHCT
+Operating Temperature
+-40℃~+125℃
+Quiescent Current
+40uA
+Propagation Delay
+11ns@5V,50pF
+Features
+边沿速率可控；输出使能；电平转换
+Description
+输入类型:-;工作电压:4.5V~5.5V;元件数:1;每个元件位数:8;灌电流(IOL):8mA;拉电流(IOH):8mA;
+3D Model Title
+PDIP-20_L25.9-W6.6-P2.54-LS7.9-BL
+
+*
+]
+[
+DESIGNATOR
+C3
+FOOTPRINT
+CAP-TH_BD5.0-P2.00-D0.8-FD
+PARTTYPE
+Stock 10uF 50V radial; footprint verify
+DESCRIPTION
+Stock 10uF/50V buffer bulk. Candidate D5 P2mm footprint; verify actual stock dimensions before PCB.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Stock 10uF 50V radial; footprint verify
+PCB Layer
+Default
+Symbol
+EEUFR1E470
+Designator
+C3
+LCSC Part Name
+47uF ±20% 25V
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+插件,D5xL11mm
+JLCPCB Part Class
+
+Datasheet
+https://item.szlcsc.com/datasheet/EEUFR1E470/396922.html
+Supplier
+
+3D Model Title
+
+Value
+10uF
+Tolerance
+±20%
+Voltage Rating
+50V
+Ripple Current
+280mA@100kHz
+Equivalent Series Resistance(ESR)
+300mΩ@100kHz
+Pin Spacing
+2mm
+Diameter
+5mm
+Height - Seated (Max)
+11mm
+Lifetime
+5000hrs@105℃
+Operating Temperature
+-40℃~+105℃
+Name
+10uF / 50V STOCK
+Description
+Stock 10uF/50V buffer bulk. Candidate D5 P2mm footprint; verify actual stock dimensions before PCB.
+Unique ID
+D1_C3
+
+*
+]
+[
+DESIGNATOR
+RA1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA1
+Unique ID
+gge9
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA1
+Unique ID
+gge10
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB1
+Unique ID
+gge11
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB1
+Unique ID
+gge12
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA2
+Unique ID
+gge13
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA2
+Unique ID
+gge14
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB2
+Unique ID
+gge15
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB2
+Unique ID
+gge16
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA3
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA3
+Unique ID
+gge17
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA3
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA3
+Unique ID
+gge18
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB3
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB3
+Unique ID
+gge19
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB3
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB3
+Unique ID
+gge20
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA4
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA4
+Unique ID
+gge21
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA4
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA4
+Unique ID
+gge22
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB4
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB4
+Unique ID
+gge23
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB4
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB4
+Unique ID
+gge24
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA5
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA5
+Unique ID
+gge25
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA5
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA5
+Unique ID
+gge26
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB5
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB5
+Unique ID
+gge27
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB5
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB5
+Unique ID
+gge28
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA6
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA6
+Unique ID
+gge29
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA6
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA6
+Unique ID
+gge30
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB6
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB6
+Unique ID
+gge31
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB6
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB6
+Unique ID
+gge32
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA7
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA7
+Unique ID
+gge33
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA7
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA7
+Unique ID
+gge34
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB7
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB7
+Unique ID
+gge35
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB7
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB7
+Unique ID
+gge36
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA8
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA8
+Unique ID
+gge37
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA8
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA8
+Unique ID
+gge38
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB8
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33Ω ±1% 0.25W
+DESCRIPTION
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB8
+Unique ID
+gge39
+Name
+33R (trial)
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 33Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+33Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 33Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB8
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB8
+Unique ID
+gge40
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA9
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA9
+Unique ID
+gge41
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA9
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA9
+Unique ID
+gge42
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB9
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 47Ω ±1% 0.25W
+DESCRIPTION
+TH 47Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 47Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB9
+Unique ID
+gge43
+Name
+47Ω
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 47Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+47Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 47Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB9
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB9
+Unique ID
+gge44
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA10
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA10
+Unique ID
+gge45
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA10
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA10
+Unique ID
+gge46
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB10
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 47Ω ±1% 0.25W
+DESCRIPTION
+TH 47Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 47Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB10
+Unique ID
+gge47
+Name
+47Ω
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 47Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+47Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 47Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB10
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB10
+Unique ID
+gge48
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RA11
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1kΩ ±1% 0.25W
+DESCRIPTION
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RA11
+Unique ID
+gge49
+Name
+1kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 1kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPA11
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPA11
+Unique ID
+gge50
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RB11
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 47Ω ±1% 0.25W
+DESCRIPTION
+TH 47Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 47Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RB11
+Unique ID
+gge51
+Name
+47Ω
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 47Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+47Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 47Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPB11
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPB11
+Unique ID
+gge52
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+ROE
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+ROE
+Unique ID
+gge53
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+U_VL
+FOOTPRINT
+VQFN-10_L2.0-W2.0-P0.45-TL
+PARTTYPE
+TPS259470LRPWR
+DESCRIPTION
+通道数:1;工作电压:2.7V~23V;安装方式:表面安装;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TPS259470LRPWR
+PCB Layer
+Default
+Symbol
+TPS259470LRPWR
+Designator
+U_VL
+Unique ID
+gge54
+Name
+TPS259470LRPWR
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+TPS259470LRPWR
+Supplier
+LCSC
+Supplier Part
+C3662793
+LCSC Part Name
+2.7V至23V、5.5A、28mΩ真反向电流阻断电子保险丝
+Supplier Footprint
+VQFN-10-HR(2x2)
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/tps25947.pdf
+FET Type
+内置FET
+Number of Lines
+1
+Threshold Voltage
+-
+Trigger Current
+500mA~6A
+Voltage Rating
+2.7V~23V
+Reset Voltage
+-
+Mounting Type
+表面安装
+Peak Output Current(Source)
+-
+Peak Output Current(Sink)
+-
+RDS(on)
+28.3mΩ
+Operating temperature
+-40℃~+125℃
+Length
+2mm
+Width
+2mm
+Height
+1mm
+Features
+热保护；过流保护；过压钳位保护；欠压锁定；短路保护
+Description
+通道数:1;工作电压:2.7V~23V;安装方式:表面安装;
+3D Model Title
+VQFN-10_L2.0-W2.0-P0.45-TL
+
+*
+]
+[
+DESIGNATOR
+U_VD
+FOOTPRINT
+VQFN-10_L2.0-W2.0-P0.45-TL
+PARTTYPE
+TPS259470LRPWR
+DESCRIPTION
+通道数:1;工作电压:2.7V~23V;安装方式:表面安装;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TPS259470LRPWR
+PCB Layer
+Default
+Symbol
+TPS259470LRPWR
+Designator
+U_VD
+Unique ID
+gge55
+Name
+TPS259470LRPWR
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+TPS259470LRPWR
+Supplier
+LCSC
+Supplier Part
+C3662793
+LCSC Part Name
+2.7V至23V、5.5A、28mΩ真反向电流阻断电子保险丝
+Supplier Footprint
+VQFN-10-HR(2x2)
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/tps25947.pdf
+FET Type
+内置FET
+Number of Lines
+1
+Threshold Voltage
+-
+Trigger Current
+500mA~6A
+Voltage Rating
+2.7V~23V
+Reset Voltage
+-
+Mounting Type
+表面安装
+Peak Output Current(Source)
+-
+Peak Output Current(Sink)
+-
+RDS(on)
+28.3mΩ
+Operating temperature
+-40℃~+125℃
+Length
+2mm
+Width
+2mm
+Height
+1mm
+Features
+热保护；过流保护；过压钳位保护；欠压锁定；短路保护
+Description
+通道数:1;工作电压:2.7V~23V;安装方式:表面安装;
+3D Model Title
+VQFN-10_L2.0-W2.0-P0.45-TL
+
+*
+]
+[
+DESIGNATOR
+U_NOR
+FOOTPRINT
+SOT-23-5_L3.0-W1.7-P0.95-LS2.8-BR
+PARTTYPE
+SN74LVC1G02DBVR
+DESCRIPTION
+逻辑类型:或非门;门电路数量:1;工作电压:1.65V~5.5V;静态电流(Iq):10uA;传播延迟(tpd):4.5ns@5V,50pF;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74LVC1G02DBVR
+PCB Layer
+Default
+Symbol
+SN74LVC1G02DBVR
+Designator
+U_NOR
+Unique ID
+gge56
+Name
+SN74LVC1G02DBVR
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74LVC1G02DBVR
+Supplier
+LCSC
+Supplier Part
+C16360
+LCSC Part Name
+单路2输入正或非门
+Supplier Footprint
+SOT-23-5
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/sn74lvc1g02.pdf
+Logic Type
+或非门
+Number of Gates
+1
+Voltage - Supply
+1.65V~5.5V
+Quiescent Current
+10uA
+Current - Output Low(IOL)
+32mA
+Current - Output High(IOH)
+32mA
+Input Logic Level - High
+1.7V~2V
+Input Logic Level - Low
+700mV~800mV
+Output Logic Level - High
+1.9V；2.4V；1.2V；3.8V
+Output Logic Level - Low
+550mV；300mV；400mV；450mV
+Series
+74LVC系列
+Propagation Delay
+4.5ns@5V,50pF
+Operating Temperature
+-40℃~+125℃
+Inputs per Gates
+2
+Features
+局部关断模式；过压容忍输入；带电插入保护；后驱动保护
+Description
+逻辑类型:或非门;门电路数量:1;工作电压:1.65V~5.5V;静态电流(Iq):10uA;传播延迟(tpd):4.5ns@5V,50pF;
+3D Model Title
+SOT-23-5_L2.9-W1.6-H1.1-LS2.8-P0.95
+
+*
+]
+[
+DESIGNATOR
+Q_VL
+FOOTPRINT
+SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR
+PARTTYPE
+AO3400A AOS C20917 project symbol
+DESCRIPTION
+数量:1个N沟道;漏源电压(Vdss):30V;连续漏极电流(Id):5.7A;导通电阻(RDS(on)):48mΩ@2.5V;耗散功率(Pd):1.4W;阈值电压(Vgs(th)):1.45V;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+AO3400A AOS C20917 project symbol
+PCB Layer
+Default
+Symbol
+AO3400A_C700953
+Designator
+Q_VL
+Unique ID
+gge57
+Name
+AO3400A
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+AOS
+Manufacturer Part
+AO3400A
+Supplier
+LCSC
+Supplier Part
+C20917
+LCSC Part Name
+N沟道 耐压:30V
+Supplier Footprint
+SOT-23
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/AO3400A/21629.html
+Number
+1个N沟道
+Drain to Source Voltage
+30V
+Current - Continuous Drain(Id)
+5.7A
+RDS(on)
+48mΩ@2.5V
+Pd - Power Dissipation
+1.4W
+Gate Threshold Voltage (Vgs(th))
+1.45V
+Gate Charge(Qg)
+7nC@10V
+Input Capacitance(Ciss)
+630pF
+Reverse Transfer Capacitance (Crss@Vds)
+50pF
+Operating Temperature
+-55℃~+150℃
+Configuration
+-
+Type
+N沟道
+Output Capacitance(Coss)
+75pF
+Vgs
+±12V
+Description
+数量:1个N沟道;漏源电压(Vdss):30V;连续漏极电流(Id):5.7A;导通电阻(RDS(on)):48mΩ@2.5V;耗散功率(Pd):1.4W;阈值电压(Vgs(th)):1.45V;
+3D Model Title
+SOT-23-3P_L2.9-W1.3-H1.0-LS2.4-P0.95
+
+*
+]
+[
+DESIGNATOR
+U_SUP
+FOOTPRINT
+SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR
+PARTTYPE
+TPS3808G01DBVR
+DESCRIPTION
+工作电压:1.7V~6.5V;复位有效电平:低电平有效;受监控电压数:1;复位超时:20us;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TPS3808G01DBVR
+PCB Layer
+Default
+Symbol
+TPS3808G01DBVR
+Designator
+U_SUP
+Unique ID
+gge58
+Name
+TPS3808G01DBVR
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+TPS3808G01DBVR
+Supplier
+LCSC
+Supplier Part
+C19653
+LCSC Part Name
+低静态电流、可编程延迟监控电路
+Supplier Footprint
+SOT-23-6
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/tps3808.pdf
+ChipType
+电压监控器
+Output Type
+开漏
+Voltage - Supply
+1.7V~6.5V
+Reset Active Level
+低电平有效
+Threshold Voltage
+405mV
+Number of Voltages Monitored
+1
+Reset Timeout
+20us
+Operating Temperature
+-40℃~+125℃
+Function
+手动复位输入
+Quiescent Current
+2.4uA
+Description
+工作电压:1.7V~6.5V;复位有效电平:低电平有效;受监控电压数:1;复位超时:20us;
+3D Model Title
+SOT-23-6_L2.9-W1.6-H1.5-LS2.8-P0.95
+
+*
+]
+[
+DESIGNATOR
+RUV1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 27kΩ ±1% 0.25W
+DESCRIPTION
+TH 27kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 27kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RUV1
+Unique ID
+gge59
+Name
+27kΩ
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-27KΩ±1% T
+Supplier
+LCSC
+Supplier Part
+C119356
+LCSC Part Name
+27kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Type
+Axial metal film resistor
+Value
+27kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 27kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RUV2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RUV2
+Unique ID
+gge60
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+ROV51
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 36kΩ ±1% 0.25W
+DESCRIPTION
+TH 36kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 36kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+ROV51
+Unique ID
+gge61
+Name
+36kΩ
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-36KΩ±1% T
+Supplier
+LCSC
+Supplier Part
+C119359
+LCSC Part Name
+36kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-36K%25CE%25A9%25C2%25B11%2525%2520T/120628.html
+Type
+Axial metal film resistor
+Value
+36kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 36kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+ROV52
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+ROV52
+Unique ID
+gge62
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+ROV121
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+ROV121
+Unique ID
+gge63
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+ROV122
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+ROV122
+Unique ID
+gge64
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RIL5
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 4.3kΩ ±1% 0.25W
+DESCRIPTION
+TH 4.3kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 4.3kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RIL5
+Unique ID
+gge65
+Name
+4.3kΩ
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+MFR-25FRF52-4K3
+Supplier
+LCSC
+Supplier Part
+C1744259
+LCSC Part Name
+金属膜电阻 4.3kΩ ±1% 250mW
+Supplier Footprint
+插件,D2.4xL6.3mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MFR-25FRF52-4K3/1835040.html
+Type
+Axial metal film resistor
+Value
+4.3kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 4.3kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RIL12
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1.3kΩ ±1% 0.25W
+DESCRIPTION
+TH 1.3kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1.3kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RIL12
+Unique ID
+gge66
+Name
+1.3kΩ
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+MF0S4FF1301A50
+Supplier
+LCSC
+Supplier Part
+C28144345
+LCSC Part Name
+轴向金属膜电阻 1.3kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+1.3kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1.3kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+REN
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+REN
+Unique ID
+gge67
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+REND
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+REND
+Unique ID
+gge68
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVDP
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVDP
+Unique ID
+gge69
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVAP
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVAP
+Unique ID
+gge70
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVGU
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVGU
+Unique ID
+gge71
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVGD
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVGD
+Unique ID
+gge72
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVOK
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVOK
+Unique ID
+gge73
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RFLT
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RFLT
+Unique ID
+gge74
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RPF
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RPF
+Unique ID
+gge75
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVS1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVS1
+Unique ID
+gge76
+Name
+100kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVS2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 1.2kΩ ±1% 0.25W
+DESCRIPTION
+TH 1.2kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 1.2kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVS2
+Unique ID
+gge77
+Name
+1.2kΩ
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-1.2KΩ±1% T
+Supplier
+LCSC
+Supplier Part
+C119326
+LCSC Part Name
+1.2kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Type
+Axial metal film resistor
+Value
+1.2kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 1.2kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RVS3
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVS3
+Unique ID
+gge78
+Name
+10kΩ
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+CDV5A
+FOOTPRINT
+C0603
+PARTTYPE
+CL10C102JB8NNNC
+DESCRIPTION
+容值:1nF;精度:±5%;额定电压:50V;温度系数:C0G;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL10C102JB8NNNC
+PCB Layer
+Default
+Symbol
+CL10C102JB8NNNC
+Designator
+CDV5A
+Unique ID
+gge79
+Name
+1nF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL10C102JB8NNNC
+Supplier
+LCSC
+Supplier Part
+C163508
+LCSC Part Name
+1nF ±5% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL10C102JB8NNNC/174890.html
+Value
+1nF
+Tolerance
+±5%
+Voltage Rating
+50V
+Temperature Coefficient
+C0G
+Description
+容值:1nF;精度:±5%;额定电压:50V;温度系数:C0G;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CDV5B
+FOOTPRINT
+C0603
+PARTTYPE
+CL10C102JB8NNNC
+DESCRIPTION
+容值:1nF;精度:±5%;额定电压:50V;温度系数:C0G;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL10C102JB8NNNC
+PCB Layer
+Default
+Symbol
+CL10C102JB8NNNC
+Designator
+CDV5B
+Unique ID
+gge80
+Name
+1nF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL10C102JB8NNNC
+Supplier
+LCSC
+Supplier Part
+C163508
+LCSC Part Name
+1nF ±5% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL10C102JB8NNNC/174890.html
+Value
+1nF
+Tolerance
+±5%
+Voltage Rating
+50V
+Temperature Coefficient
+C0G
+Description
+容值:1nF;精度:±5%;额定电压:50V;温度系数:C0G;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CDV12
+FOOTPRINT
+C0805
+PARTTYPE
+C2012C0G1H272JT0H0N
+DESCRIPTION
+容值:2.7nF;精度:±5%;额定电压:50V;温度系数:C0G;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+C2012C0G1H272JT0H0N
+PCB Layer
+Default
+Symbol
+C2012C0G1H272JT0H0N
+Designator
+CDV12
+Unique ID
+gge81
+Name
+2.7nF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+TDK
+Manufacturer Part
+C2012C0G1H272JT0H0N
+Supplier
+LCSC
+Supplier Part
+C343017
+LCSC Part Name
+2.7nF ±5% 50V
+Supplier Footprint
+0805
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/C2012C0G1H272JT0H0N/319867.html
+Value
+2.7nF
+Tolerance
+±5%
+Voltage Rating
+50V
+Temperature Coefficient
+C0G
+Description
+容值:2.7nF;精度:±5%;额定电压:50V;温度系数:C0G;
+3D Model Title
+C0805_L2.0-W1.3-H1.3
+
+*
+]
+[
+DESIGNATOR
+C5IN
+FOOTPRINT
+C0805
+PARTTYPE
+CL21A106KAYNNNE_C15850
+DESCRIPTION
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL21A106KAYNNNE_C15850
+PCB Layer
+Default
+Symbol
+CL21A106KAYNNNE
+Designator
+C5IN
+Unique ID
+gge83
+Name
+10uF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL21A106KAYNNNE
+Supplier
+LCSC
+Supplier Part
+C15850
+LCSC Part Name
+10uF ±10% 25V
+Supplier Footprint
+0805
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL21A106KAYNNNE/16532.html
+Value
+10uF
+Tolerance
+±10%
+Voltage Rating
+25V
+Temperature Coefficient
+X5R
+Description
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+3D Model Title
+C0805_L2.0-W1.3-H1.3
+
+*
+]
+[
+DESIGNATOR
+C5OUT
+FOOTPRINT
+C0805
+PARTTYPE
+CL21A106KAYNNNE_C15850
+DESCRIPTION
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL21A106KAYNNNE_C15850
+PCB Layer
+Default
+Symbol
+CL21A106KAYNNNE
+Designator
+C5OUT
+Unique ID
+gge84
+Name
+10uF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL21A106KAYNNNE
+Supplier
+LCSC
+Supplier Part
+C15850
+LCSC Part Name
+10uF ±10% 25V
+Supplier Footprint
+0805
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL21A106KAYNNNE/16532.html
+Value
+10uF
+Tolerance
+±10%
+Voltage Rating
+25V
+Temperature Coefficient
+X5R
+Description
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+3D Model Title
+C0805_L2.0-W1.3-H1.3
+
+*
+]
+[
+DESIGNATOR
+C12IN
+FOOTPRINT
+C0805
+PARTTYPE
+CL21A106KAYNNNE_C15850
+DESCRIPTION
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL21A106KAYNNNE_C15850
+PCB Layer
+Default
+Symbol
+CL21A106KAYNNNE
+Designator
+C12IN
+Unique ID
+gge85
+Name
+10uF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL21A106KAYNNNE
+Supplier
+LCSC
+Supplier Part
+C15850
+LCSC Part Name
+10uF ±10% 25V
+Supplier Footprint
+0805
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL21A106KAYNNNE/16532.html
+Value
+10uF
+Tolerance
+±10%
+Voltage Rating
+25V
+Temperature Coefficient
+X5R
+Description
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+3D Model Title
+C0805_L2.0-W1.3-H1.3
+
+*
+]
+[
+DESIGNATOR
+C12OUT
+FOOTPRINT
+C0805
+PARTTYPE
+CL21A106KAYNNNE_C15850
+DESCRIPTION
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL21A106KAYNNNE_C15850
+PCB Layer
+Default
+Symbol
+CL21A106KAYNNNE
+Designator
+C12OUT
+Unique ID
+gge86
+Name
+10uF
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL21A106KAYNNNE
+Supplier
+LCSC
+Supplier Part
+C15850
+LCSC Part Name
+10uF ±10% 25V
+Supplier Footprint
+0805
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL21A106KAYNNNE/16532.html
+Value
+10uF
+Tolerance
+±10%
+Voltage Rating
+25V
+Temperature Coefficient
+X5R
+Description
+容值:10uF;精度:±10%;额定电压:25V;温度系数:X5R;
+3D Model Title
+C0805_L2.0-W1.3-H1.3
+
+*
+]
+[
+DESIGNATOR
+CB5IN
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+CB5IN
+Symbol
+CC0603KRX7R9BB104
+Unique ID
+gge87
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier
+LCSC
+Supplier Part
+C14663
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CB5OUT
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+CB5OUT
+Symbol
+CC0603KRX7R9BB104
+Unique ID
+gge88
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier
+LCSC
+Supplier Part
+C14663
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CB12IN
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+CB12IN
+Symbol
+CC0603KRX7R9BB104
+Unique ID
+gge89
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier
+LCSC
+Supplier Part
+C14663
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CB12OUT
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+CB12OUT
+Symbol
+CC0603KRX7R9BB104
+Unique ID
+gge90
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier
+LCSC
+Supplier Part
+C14663
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CSUP
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+CSUP
+Symbol
+CC0603KRX7R9BB104
+Unique ID
+gge91
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier
+LCSC
+Supplier Part
+C14663
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+CNOR
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+CNOR
+Symbol
+CC0603KRX7R9BB104
+Unique ID
+gge92
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier
+LCSC
+Supplier Part
+C14663
+LCSC Part Name
+100nF ±10% 50V
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+
+*
+]
+[
+DESIGNATOR
+D2
+FOOTPRINT
+SOD-323_L1.8-W1.3-LS2.5-RD
+PARTTYPE
+BAT54WS-7-F
+DESCRIPTION
+二极管配置:1个独立式;正向压降(Vf):1V@100mA;直流反向耐压(Vr):30V;整流电流:100mA;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+BAT54WS-7-F
+PCB Layer
+Default
+Symbol
+BAT54WS-7-F
+Designator
+D2
+Unique ID
+gge93
+Name
+BAT54WS-7-F
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+DIODES(美台)
+Manufacturer Part
+BAT54WS-7-F
+Supplier
+LCSC
+Supplier Part
+C124205
+LCSC Part Name
+电压:30V 电流:100mA
+Supplier Footprint
+SOD-323
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/BAT54WS-7-F/125480.html
+Diode Configuration
+1个独立式
+Voltage - Forward(Vf@If)
+1V@100mA
+Voltage - DC Reverse(Vr)
+30V
+Current - Rectified
+100mA
+Reverse Leakage Current (Ir)
+2uA@25V
+Non-Repetitive Peak Forward Surge Current
+600mA
+Description
+二极管配置:1个独立式;正向压降(Vf):1V@100mA;直流反向耐压(Vr):30V;整流电流:100mA;
+3D Model Title
+SOD-323_L1.8-W1.3-LS2.5-RD
+
+*
+]
+[
+DESIGNATOR
+D3
+FOOTPRINT
+SOD-323_L1.8-W1.3-LS2.5-RD
+PARTTYPE
+BAT54WS-7-F
+DESCRIPTION
+二极管配置:1个独立式;正向压降(Vf):1V@100mA;直流反向耐压(Vr):30V;整流电流:100mA;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+BAT54WS-7-F
+PCB Layer
+Default
+Symbol
+BAT54WS-7-F
+Designator
+D3
+Unique ID
+gge94
+Name
+BAT54WS-7-F
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+DIODES(美台)
+Manufacturer Part
+BAT54WS-7-F
+Supplier
+LCSC
+Supplier Part
+C124205
+LCSC Part Name
+电压:30V 电流:100mA
+Supplier Footprint
+SOD-323
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/BAT54WS-7-F/125480.html
+Diode Configuration
+1个独立式
+Voltage - Forward(Vf@If)
+1V@100mA
+Voltage - DC Reverse(Vr)
+30V
+Current - Rectified
+100mA
+Reverse Leakage Current (Ir)
+2uA@25V
+Non-Repetitive Peak Forward Surge Current
+600mA
+Description
+二极管配置:1个独立式;正向压降(Vf):1V@100mA;直流反向耐压(Vr):30V;整流电流:100mA;
+3D Model Title
+SOD-323_L1.8-W1.3-LS2.5-RD
+
+*
+]
+[
+DESIGNATOR
+J_PWR
+FOOTPRINT
+CONN-TH_4P-P5.08_KF128-5.08-4P
+PARTTYPE
+XY128V-A-5.08-4P
+DESCRIPTION
+结构:1x4P;间距:5.08mm;颜色:绿色;安装类型:直插;排数:1;每排PIN数:4;额定电流:15A;额定电压:300V;线规 - AWG:12~24;线规 - 平方毫米:2.5;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+XY128V-A-5.08-4P
+PCB Layer
+Default
+Symbol
+XY128V-A-5.08-4P
+Designator
+J_PWR
+Unique ID
+gge95
+Name
+XY128V-A-5.08-4P
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+XINLAIYA(新莱亚)
+Manufacturer Part
+XY128V-A-5.08-4P
+Supplier
+LCSC
+Supplier Part
+C22450485
+LCSC Part Name
+1x4P 5.08mm 直插 排数:1 每排P数:4
+Supplier Footprint
+插件,P=5.08mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/XY128V-A-5.08-4P/24114918.html
+Number of Positions or Pins
+1x4P
+Pitch
+5.08mm
+Color
+绿色
+Mounting Type
+直插
+Number of Pins
+4P
+Number of Rows
+1
+Number of PINs Per Row
+4
+Screw Specification
+M2.5
+Current Rating
+15A
+Voltage Rating (Max)
+300V
+Wire Gauge - AWG
+12~24
+Wire Gauge - mm2
+2.5
+Height Above Board
+14.1mm
+Description
+结构:1x4P;间距:5.08mm;颜色:绿色;安装类型:直插;排数:1;每排PIN数:4;额定电流:15A;额定电压:300V;线规 - AWG:12~24;线规 - 平方毫米:2.5;
+3D Model Title
+CONN-TH_4P-P5.08_KF128-5.08-4P
+
+*
+]
+[
+DESIGNATOR
+J_PF
+FOOTPRINT
+CONN-TH_2P-P2.50_HCTL_XH-2A-X
+PARTTYPE
+XH-2A
+DESCRIPTION
+插针结构:1x2P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:2P;排数:1;每排PIN数:2;行距:-;额定电流:3A;触头材质:黄铜;触头镀层:锡;工作温度:-25℃~+85℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+XH-2A
+PCB Layer
+Default
+Symbol
+XH-2A_C2908600
+Designator
+J_PF
+Unique ID
+gge96
+Name
+XH-2A
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+XH-2A
+Supplier
+LCSC
+Supplier Part
+C2908600
+LCSC Part Name
+1x2P 间距:2.5mm 直插 系列:XH
+Supplier Footprint
+插件,P=2.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/XH-2A/3184371.html
+Pins Structure
+1x2P
+Pitch
+2.5mm
+Mounting Type
+直插
+Reference Series
+XH
+Number of Pins
+2P
+Number of Rows
+1
+Number of PINs Per Row
+2
+Row Spacing
+-
+Current Rating
+3A
+Contact Material
+黄铜
+Contact Plating
+锡
+Operating Temperature
+-25℃~+85℃
+Voltage Rating
+250V
+Plastic Material
+PA66
+Flame Retardant Rating
+UL94V-0
+Z-Height of the Board
+7mm
+Y-Width of Bottom Edge on Board
+5.9mm
+Description
+插针结构:1x2P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:2P;排数:1;每排PIN数:2;行距:-;额定电流:3A;触头材质:黄铜;触头镀层:锡;工作温度:-25℃~+85℃;
+3D Model Title
+CONN-TH_2P-P2.50_HCTL_XH-2A-X
+
+*
+]
+[
+DESIGNATOR
+J_UART
+FOOTPRINT
+CONN-TH_XH-3A
+PARTTYPE
+XH-3A
+DESCRIPTION
+插针结构:1x3P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:3P;排数:1;每排PIN数:3;行距:-;额定电流:3A;触头材质:黄铜;触头镀层:锡;工作温度:-25℃~+85℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+XH-3A
+PCB Layer
+Default
+Symbol
+XH-3A_C2908601
+Designator
+J_UART
+Unique ID
+gge97
+Name
+XH-3A
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+XH-3A
+Supplier
+LCSC
+Supplier Part
+C2908601
+LCSC Part Name
+1x3P 间距:2.5mm 直插 系列:XH
+Supplier Footprint
+插件,P=2.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/XH-3A/3184372.html
+Pins Structure
+1x3P
+Pitch
+2.5mm
+Mounting Type
+直插
+Reference Series
+XH
+Number of Pins
+3P
+Number of Rows
+1
+Number of PINs Per Row
+3
+Row Spacing
+-
+Current Rating
+3A
+Contact Material
+黄铜
+Contact Plating
+锡
+Operating Temperature
+-25℃~+85℃
+Voltage Rating
+250V
+Plastic Material
+PA66
+Flame Retardant Rating
+UL94V-0
+Z-Height of the Board
+7mm
+Y-Width of Bottom Edge on Board
+5.9mm
+Description
+插针结构:1x3P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:3P;排数:1;每排PIN数:3;行距:-;额定电流:3A;触头材质:黄铜;触头镀层:锡;工作温度:-25℃~+85℃;
+3D Model Title
+XH2.5-3A
+
+*
+]
+[
+DESIGNATOR
+RTX
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100Ω ±1% 0.25W
+DESCRIPTION
+TH 100Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RTX
+Unique ID
+gge98
+Name
+100Ω
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+RRX
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100Ω ±1% 0.25W
+DESCRIPTION
+TH 100Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RRX
+Unique ID
+gge99
+Name
+100Ω
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+LCSC Part Name
+轴向金属膜电阻 100Ω ±1% 0.25W
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Type
+Axial metal film resistor
+Value
+100Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Description
+TH 100Ω ±1% 0.25W; axial through-hole P10.5mm.
+3D Model Title
+
+
+*
+]
+[
+DESIGNATOR
+TP_VDH
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Test Point 测试点
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP_VDH
+Symbol
+Test-Point
+Unique ID
+gge100
+Name
+TP-2.4mm
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+Description
+Test Point 测试点
+3D Model Title
+
+JLCPCB Part Class
+
+Value
+TP
+
+*
+]
+[
+DESIGNATOR
+TP_VLFLT
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Test Point 测试点
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP_VLFLT
+Symbol
+Test-Point
+Unique ID
+gge101
+Name
+TP-2.4mm
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+Description
+Test Point 测试点
+3D Model Title
+
+JLCPCB Part Class
+
+Value
+TP
+
+*
+]
+[
+DESIGNATOR
+TP_SP3
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Test Point 测试点
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP_SP3
+Symbol
+Test-Point
+Unique ID
+gge102
+Name
+TP-2.4mm
+Reuse Block
+
+Group ID
+
+Channel ID
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier
+
+Supplier Part
+
+Description
+Test Point 测试点
+3D Model Title
+
+JLCPCB Part Class
+
+Value
+TP
+
+*
+]
+[
+DESIGNATOR
+RVHU
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVHU
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Name
+100k
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Unique ID
+D1_RVHU
+
+*
+]
+[
+DESIGNATOR
+RVHD
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 33kΩ ±1% 0.25W
+DESCRIPTION
+TH 33kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 33kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVHD
+LCSC Part Name
+轴向金属膜电阻 33kΩ ±1% 0.25W
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film resistor
+Value
+33kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Name
+33k
+Description
+TH 33kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Unique ID
+D1_RVHD
+
+*
+]
+[
+DESIGNATOR
+Q_VH
+FOOTPRINT
+SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR
+PARTTYPE
+AO3400A AOS C20917 project symbol
+DESCRIPTION
+数量:1个N沟道;漏源电压(Vdss):30V;连续漏极电流(Id):5.7A;导通电阻(RDS(on)):48mΩ@2.5V;耗散功率(Pd):1.4W;阈值电压(Vgs(th)):1.45V;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+AO3400A AOS C20917 project symbol
+PCB Layer
+Default
+Symbol
+AO3400A_C700953
+Designator
+Q_VH
+LCSC Part Name
+N沟道 耐压:30V
+Supplier Part
+C20917
+Manufacturer
+AOS
+Manufacturer Part
+AO3400A
+Supplier Footprint
+SOT-23
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/AO3400A/21629.html
+Supplier
+LCSC
+3D Model Title
+SOT-23-3P_L2.9-W1.3-H1.0-LS2.4-P0.95
+Number
+1个N沟道
+Drain to Source Voltage
+30V
+Current - Continuous Drain(Id)
+5.7A
+RDS(on)
+48mΩ@2.5V
+Pd - Power Dissipation
+1.4W
+Gate Threshold Voltage (Vgs(th))
+1.45V
+Gate Charge(Qg)
+7nC@10V
+Input Capacitance(Ciss)
+630pF
+Reverse Transfer Capacitance (Crss@Vds)
+50pF
+Operating Temperature
+-55℃~+150℃
+Configuration
+-
+Type
+N沟道
+Output Capacitance(Coss)
+75pF
+Vgs
+±12V
+Name
+AO3400A
+Description
+数量:1个N沟道;漏源电压(Vdss):30V;连续漏极电流(Id):5.7A;导通电阻(RDS(on)):48mΩ@2.5V;耗散功率(Pd):1.4W;阈值电压(Vgs(th)):1.45V;
+Unique ID
+D1_Q_VH
+
+*
+]
+[
+DESIGNATOR
+RVHP
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVHP
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Name
+10k
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Unique ID
+D1_RVHP
+
+*
+]
+[
+DESIGNATOR
+RVLFP
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 10kΩ ±1% 0.25W
+DESCRIPTION
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+TH 10kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RVLFP
+LCSC Part Name
+轴向金属膜电阻 10kΩ ±1% 0.25W
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film resistor
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Name
+10k
+Description
+TH 10kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Unique ID
+D1_RVLFP
+
+*
+]
+[
+DESIGNATOR
+U_INV
+FOOTPRINT
+PDIP-14_L19.3-W6.4-P2.54-LS7.9-BL-1
+PARTTYPE
+SN74HCT04N
+DESCRIPTION
+输入类型:-;工作电压:4.5V~5.5V;静态电流(Iq):2uA;通道数:6;传播延迟(tpd):18ns@5.5V,50pF;
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+SN74HCT04N
+PCB Layer
+Default
+Symbol
+SN74HCT04N
+Designator
+U_INV
+LCSC Part Name
+六路反相器
+Supplier Part
+C50939
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74HCT04N
+Supplier Footprint
+DIP-14
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/ds/symlink/sn74hct04.pdf
+Supplier
+LCSC
+3D Model Title
+PDIP-14_L19.3-W6.4-P2.54-LS7.9-BL-1
+Input Type
+-
+Voltage - Supply
+4.5V~5.5V
+Quiescent Current(Iq)
+2uA
+Number of Circuits
+6
+Current - Output Low(IOL)
+4mA
+Current - Output High(IOH)
+4mA
+Input Logic Level - High
+2V
+Input Logic Level -Low
+800mV
+Output Logic Level - High
+3.84V
+Output Logic Level - Low
+-
+Propagation Delay
+18ns@5.5V,50pF
+Series
+74HCT
+Operating Temperature
+-40℃~+85℃
+Features
+-
+Name
+SN74HCT04N
+Description
+输入类型:-;工作电压:4.5V~5.5V;静态电流(Iq):2uA;通道数:6;传播延迟(tpd):18ns@5.5V,50pF;
+Unique ID
+D1_U_INV
+Assembly
+DNP
+DNP
+yes
+
+*
+]
+[
+DESIGNATOR
+Q_DIS
+FOOTPRINT
+SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR
+PARTTYPE
+AO3400A AOS C20917 project symbol
+DESCRIPTION
+数量:1个N沟道;漏源电压(Vdss):30V;连续漏极电流(Id):5.7A;导通电阻(RDS(on)):48mΩ@2.5V;耗散功率(Pd):1.4W;阈值电压(Vgs(th)):1.45V;
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+AO3400A AOS C20917 project symbol
+PCB Layer
+Default
+Symbol
+AO3400A_C700953
+Designator
+Q_DIS
+LCSC Part Name
+N沟道 耐压:30V
+Supplier Part
+C20917
+Manufacturer
+AOS
+Manufacturer Part
+AO3400A
+Supplier Footprint
+SOT-23
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/AO3400A/21629.html
+Supplier
+LCSC
+3D Model Title
+SOT-23-3P_L2.9-W1.3-H1.0-LS2.4-P0.95
+Number
+1个N沟道
+Drain to Source Voltage
+30V
+Current - Continuous Drain(Id)
+5.7A
+RDS(on)
+48mΩ@2.5V
+Pd - Power Dissipation
+1.4W
+Gate Threshold Voltage (Vgs(th))
+1.45V
+Gate Charge(Qg)
+7nC@10V
+Input Capacitance(Ciss)
+630pF
+Reverse Transfer Capacitance (Crss@Vds)
+50pF
+Operating Temperature
+-55℃~+150℃
+Configuration
+-
+Type
+N沟道
+Output Capacitance(Coss)
+75pF
+Vgs
+±12V
+Name
+AO3400A
+Description
+数量:1个N沟道;漏源电压(Vdss):30V;连续漏极电流(Id):5.7A;导通电阻(RDS(on)):48mΩ@2.5V;耗散功率(Pd):1.4W;阈值电压(Vgs(th)):1.45V;
+Unique ID
+D1_Q_DIS
+Assembly
+DNP
+DNP
+yes
+
+*
+]
+[
+DESIGNATOR
+RDISG
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100Ω ±1% 0.25W
+DESCRIPTION
+TH 100Ω ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+TH 100Ω ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RDISG
+LCSC Part Name
+轴向金属膜电阻 100Ω ±1% 0.25W
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film resistor
+Value
+100Ω
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Name
+100 DNP
+Description
+TH 100Ω ±1% 0.25W; axial through-hole P10.5mm.
+Unique ID
+D1_RDISG
+
+*
+]
+[
+DESIGNATOR
+RDISPD
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+TH 100kΩ ±1% 0.25W
+DESCRIPTION
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+TH 100kΩ ±1% 0.25W
+PCB Layer
+Default
+Symbol
+Axial_Resistor
+Designator
+RDISPD
+LCSC Part Name
+轴向金属膜电阻 100kΩ ±1% 0.25W
+Supplier Part
+
+Manufacturer
+
+Manufacturer Part
+
+Supplier Footprint
+Axial P10.5mm
+JLCPCB Part Class
+
+Datasheet
+
+Supplier
+
+3D Model Title
+
+Type
+Axial metal film resistor
+Value
+100kΩ
+Tolerance
+±1%
+Power(Watts)
+0.25W
+Name
+100k DNP
+Description
+TH 100kΩ ±1% 0.25W; axial through-hole P10.5mm.
+Unique ID
+D1_RDISPD
+
+*
+]
+[
+DESIGNATOR
+R_DIS
+FOOTPRINT
+RES-TH_BD5.2-L16.7-P21.70-D0.8
+PARTTYPE
+RSF3WSJT-73-100R
+DESCRIPTION
+YAGEO RSF3WSJT-73-100R 100Ω ±5% 3W. Nominal body D5 x L15.5mm; lead diameter 0.8±0.05mm. DNP.
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+RSF3WSJT-73-100R
+PCB Layer
+Default
+Symbol
+Power_Axial_Resistor
+Designator
+R_DIS
+LCSC Part Name
+100Ω ±5% 3W metal oxide film axial resistor
+Supplier Part
+C723545
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+RSF3WSJT-73-100R
+Supplier Footprint
+Axial D5 x L15.5mm
+JLCPCB Part Class
+
+Datasheet
+https://yageogroup.com/content/datasheet/asset/file/YAGEO-RSF_DATASHEET
+Supplier
+LCSC
+3D Model Title
+
+Type
+Metal oxide film resistor
+Value
+100Ω
+Tolerance
+±5%
+Power(Watts)
+3W
+Name
+100Ω
+Description
+YAGEO RSF3WSJT-73-100R 100Ω ±5% 3W. Nominal body D5 x L15.5mm; lead diameter 0.8±0.05mm. DNP.
+Unique ID
+D1_R_DIS
+Assembly
+DNP
+DNP
+yes
+
+*
+]
+[
+DESIGNATOR
+CINV
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+CINV
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Unique ID
+D1_CINV
+Assembly
+DNP
+DNP
+yes
+
+*
+]
+[
+DESIGNATOR
+DTV12
+FOOTPRINT
+DO-15_BD3.1-L6.7-P10.70-D0.9-RD
+PARTTYPE
+P6KE15A
+DESCRIPTION
+极性:单向;反向截止电压(Vrwm):13V;钳位电压:27.2V;峰值脉冲电流(Ipp):147A@8/20us;峰值脉冲功率(Ppp):600W@10/1000us;击穿电压(VBR):15.8V;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+P6KE15A
+PCB Layer
+Default
+Symbol
+P6KE15A_133732
+Designator
+DTV12
+LCSC Part Name
+单向TVS 13V截止 峰值脉冲电流：147A@8/20us
+Supplier Part
+C133732
+Manufacturer
+ST(意法半导体)
+Manufacturer Part
+P6KE15A
+Supplier Footprint
+DO-15
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/P6KE15A/145039.html
+Supplier
+LCSC
+3D Model Title
+DO-15_D3.1-L6.7-P11.6
+Polarity
+单向
+Reverse Stand-Off Voltage (Vrwm)
+13V
+Clamping Voltage
+27.2V
+Peak Pulse Current (Ipp)
+147A@8/20us
+Peak Pulse Power Dissipation (Ppp)
+600W@10/1000us
+Voltage - Breakdown
+15.8V
+Reverse Leakage Current (Ir)
+500nA
+Number of Channels
+单路
+level of protection
+IEC 61000-4-2
+Type
+TVS
+Junction Capacitance
+2.3nF
+Name
+P6KE15A
+Description
+极性:单向;反向截止电压(Vrwm):13V;钳位电压:27.2V;峰值脉冲电流(Ipp):147A@8/20us;峰值脉冲功率(Ppp):600W@10/1000us;击穿电压(VBR):15.8V;
+Unique ID
+D1_DTV12
+
+*
+]
+[
+DESIGNATOR
+DTV5
+FOOTPRINT
+DO-15_BD3.1-L6.7-P10.70-D0.9-RD
+PARTTYPE
+P6KE6.8A_C409413
+DESCRIPTION
+极性:单向;反向工作电压(Vrwm):5.8V;钳位电压:10.5V;峰值脉冲电流(Ipp):58.1A;峰值脉冲功率(Ppp):600W;击穿电压(VBR):6.45V;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+P6KE6.8A_C409413
+PCB Layer
+Default
+Symbol
+P6KE6.8A_C409413
+Designator
+DTV5
+LCSC Part Name
+单向TVS 5.8V截止 峰值脉冲电流：58.1A
+Supplier Part
+C409413
+Manufacturer
+Littelfuse(美国力特)
+Manufacturer Part
+P6KE6.8A
+Supplier Footprint
+DO-15
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/P6KE6.8A/399441.html
+Supplier
+LCSC
+3D Model Title
+DO-15_D3.1-L6.7-P11.6
+Polarity
+单向
+Reverse Stand-Off Voltage (Vrwm)
+5.8V
+Clamping Voltage
+10.5V
+Peak Pulse Current (Ipp)
+58.1A
+Peak Pulse Power Dissipation (Ppp)
+600W
+Voltage - Breakdown
+6.45V
+Reverse Leakage Current (Ir)
+1mA
+Number of Channels
+单路
+Operating Temperature
+-55℃~+175℃
+level of protection
+IEC 61000-4-4；IEC 61000-4-2
+Type
+TVS
+Name
+P6KE6.8A
+Description
+极性:单向;反向工作电压(Vrwm):5.8V;钳位电压:10.5V;峰值脉冲电流(Ipp):58.1A;峰值脉冲功率(Ppp):600W;击穿电压(VBR):6.45V;
+Unique ID
+D1_DTV5
+
+*
+]
+[
+DESIGNATOR
+DNEG12
+FOOTPRINT
+DO-201AD_BD5.3-L8.4-P12.50-D1.4-RD
+PARTTYPE
+1N5822RLG
+DESCRIPTION
+正向压降(Vf):525mV@3A;直流反向耐压(Vr):40V;整流电流:3A;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+1N5822RLG
+PCB Layer
+Default
+Symbol
+1N5822RLG
+Designator
+DNEG12
+LCSC Part Name
+电压:40V 电流:3A
+Supplier Part
+C232464
+Manufacturer
+onsemi(安森美)
+Manufacturer Part
+1N5822RLG
+Supplier Footprint
+DO-201AD
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20221020/278CB0A15AF2705A206F2F139E5C3CB6.pdf
+Supplier
+LCSC
+3D Model Title
+DO-201AD_D5.3-L8.4-P13.6
+Forward Voltage (Vf@If)
+525mV@3A
+Reverse Voltage (Vr)
+40V
+Rectified Current
+3A
+Reverse Leakage Current (Ir)
+2mA@40V
+Name
+1N5822RLG
+Description
+正向压降(Vf):525mV@3A;直流反向耐压(Vr):40V;整流电流:3A;
+Unique ID
+D1_DNEG12
+
+*
+]
+[
+DESIGNATOR
+DNEG5
+FOOTPRINT
+DO-201AD_BD5.3-L8.4-P12.50-D1.4-RD
+PARTTYPE
+1N5822RLG
+DESCRIPTION
+正向压降(Vf):525mV@3A;直流反向耐压(Vr):40V;整流电流:3A;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+1N5822RLG
+PCB Layer
+Default
+Symbol
+1N5822RLG
+Designator
+DNEG5
+LCSC Part Name
+电压:40V 电流:3A
+Supplier Part
+C232464
+Manufacturer
+onsemi(安森美)
+Manufacturer Part
+1N5822RLG
+Supplier Footprint
+DO-201AD
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20221020/278CB0A15AF2705A206F2F139E5C3CB6.pdf
+Supplier
+LCSC
+3D Model Title
+DO-201AD_D5.3-L8.4-P13.6
+Forward Voltage (Vf@If)
+525mV@3A
+Reverse Voltage (Vr)
+40V
+Rectified Current
+3A
+Reverse Leakage Current (Ir)
+2mA@40V
+Name
+1N5822RLG
+Description
+正向压降(Vf):525mV@3A;直流反向耐压(Vr):40V;整流电流:3A;
+Unique ID
+D1_DNEG5
+
+*
+]
+[
+DESIGNATOR
+CBULK12
+FOOTPRINT
+CAP-TH_BD5.0-P2.00-D0.8-FD
+PARTTYPE
+EEUFR1E470
+DESCRIPTION
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+EEUFR1E470
+PCB Layer
+Default
+Symbol
+EEUFR1E470
+Designator
+CBULK12
+LCSC Part Name
+47uF ±20% 25V
+Supplier Part
+C407893
+Manufacturer
+PANASONIC(松下)
+Manufacturer Part
+EEUFR1E470
+Supplier Footprint
+插件,D5xL11mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/EEUFR1E470/396922.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_D5.0×H7.0×P2.0
+Value
+47uF
+Tolerance
+±20%
+Voltage Rating
+25V
+Ripple Current
+280mA@100kHz
+Equivalent Series Resistance(ESR)
+300mΩ@100kHz
+Pin Spacing
+2mm
+Diameter
+5mm
+Height - Seated (Max)
+11mm
+Lifetime
+5000hrs@105℃
+Operating Temperature
+-40℃~+105℃
+Name
+47uF
+Description
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Unique ID
+D1_CBULK12
+Assembly
+DNP
+DNP
+yes
+
+*
+]
+[
+DESIGNATOR
+CBULK5
+FOOTPRINT
+CAP-TH_BD5.0-P2.00-D0.8-FD
+PARTTYPE
+EEUFR1E470
+DESCRIPTION
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Component Kind
+Standard
+Add into BOM
+no
+Convert to PCB
+yes
+Device
+EEUFR1E470
+PCB Layer
+Default
+Symbol
+EEUFR1E470
+Designator
+CBULK5
+LCSC Part Name
+47uF ±20% 25V
+Supplier Part
+C407893
+Manufacturer
+PANASONIC(松下)
+Manufacturer Part
+EEUFR1E470
+Supplier Footprint
+插件,D5xL11mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/EEUFR1E470/396922.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_D5.0×H7.0×P2.0
+Value
+47uF
+Tolerance
+±20%
+Voltage Rating
+25V
+Ripple Current
+280mA@100kHz
+Equivalent Series Resistance(ESR)
+300mΩ@100kHz
+Pin Spacing
+2mm
+Diameter
+5mm
+Height - Seated (Max)
+11mm
+Lifetime
+5000hrs@105℃
+Operating Temperature
+-40℃~+105℃
+Name
+47uF
+Description
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Unique ID
+D1_CBULK5
+Assembly
+DNP
+DNP
+yes
+
+*
+]
+[
+DESIGNATOR
+TP01
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP01
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP01
+
+*
+]
+[
+DESIGNATOR
+TP02
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP02
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP02
+
+*
+]
+[
+DESIGNATOR
+TP03
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP03
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP03
+
+*
+]
+[
+DESIGNATOR
+TP04
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP04
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP04
+
+*
+]
+[
+DESIGNATOR
+TP05
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP05
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP05
+
+*
+]
+[
+DESIGNATOR
+TP06
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP06
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP06
+
+*
+]
+[
+DESIGNATOR
+TP07
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP07
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP07
+
+*
+]
+[
+DESIGNATOR
+TP08
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP08
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP08
+
+*
+]
+[
+DESIGNATOR
+TP09
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP09
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP09
+
+*
+]
+[
+DESIGNATOR
+TP10
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP10
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP10
+
+*
+]
+[
+DESIGNATOR
+TP11
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP11
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP11
+
+*
+]
+[
+DESIGNATOR
+TP12
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP12
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP12
+
+*
+]
+[
+DESIGNATOR
+TP13
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP13
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP13
+
+*
+]
+[
+DESIGNATOR
+TP14
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP14
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP14
+
+*
+]
+[
+DESIGNATOR
+TP15
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP15
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP15
+
+*
+]
+[
+DESIGNATOR
+TP16
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP16
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP16
+
+*
+]
+[
+DESIGNATOR
+TP17
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP17
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP17
+
+*
+]
+[
+DESIGNATOR
+TP18
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP18
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP18
+
+*
+]
+[
+DESIGNATOR
+TP19
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP19
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP19
+
+*
+]
+[
+DESIGNATOR
+TP20
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP20
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP20
+
+*
+]
+[
+DESIGNATOR
+TP21
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP21
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP21
+
+*
+]
+[
+DESIGNATOR
+TP22
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP22
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP22
+
+*
+]
+[
+DESIGNATOR
+TP23
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP23
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP23
+
+*
+]
+[
+DESIGNATOR
+TP24
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP24
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP24
+
+*
+]
+[
+DESIGNATOR
+TP25
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP25
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP25
+
+*
+]
+[
+DESIGNATOR
+TP26
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP26
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP26
+
+*
+]
+[
+DESIGNATOR
+TP27
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP27
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP27
+
+*
+]
+[
+DESIGNATOR
+TP28
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP28
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP28
+
+*
+]
+[
+DESIGNATOR
+TP29
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP29
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP29
+
+*
+]
+[
+DESIGNATOR
+TP30
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP30
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP30
+
+*
+]
+[
+DESIGNATOR
+TP31
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP31
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP31
+
+*
+]
+[
+DESIGNATOR
+TP32
+FOOTPRINT
+Test-Point-0.5mm
+PARTTYPE
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+DESCRIPTION
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+Probe post / wire loop: 2.4mm plated pad, 1mm hole
+PCB Layer
+Default
+Designator
+TP32
+Symbol
+Test-Point
+Name
+
+3D Model Title
+
+Description
+Bare plated testpoint. Insert 0.6-0.8mm wire loop or short probe post; not an LCSC SKU.
+Manufacturer
+
+Supplier
+
+Supplier Part
+
+Manufacturer Part
+
+JLCPCB Part Class
+
+Value
+TP
+Unique ID
+D1_TP32
+
+*
+]
+(
+EL_LD3_3V3 
+P1-12 PH2.54,2*6P-12 Passive 
+RA8-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_LD2_3V3 
+P1-11 PH2.54,2*6P-11 Passive 
+RA7-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_LD1_3V3 
+P1-10 PH2.54,2*6P-10 Passive 
+RA6-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_LD0_3V3 
+P1-9 PH2.54,2*6P-9 Passive 
+RA5-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_UD3_3V3 
+P1-8 PH2.54,2*6P-8 Passive 
+RA4-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_UD2_3V3 
+P1-7 PH2.54,2*6P-7 Passive 
+RA3-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_UD1_3V3 
+P1-6 PH2.54,2*6P-6 Passive 
+RA2-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+EL_UD0_3V3 
+P1-5 PH2.54,2*6P-5 Passive 
+RA1-1 TH 1kΩ ±1% 0.25W-1 Input   
+)
+(
+GND 
+P1-4 PH2.54,2*6P-4 Passive 
+P1-3 PH2.54,2*6P-3 Passive 
+P2-4 PH2.54,2*6P-4 Passive 
+P2-3 PH2.54,2*6P-3 Passive 
+P3-4 PH2.54,2*6P-4 Passive 
+P3-3 PH2.54,2*6P-3 Passive 
+J_EL-16 DF11-20DP-2DS(24)-16 Passive 
+J_EL-14 DF11-20DP-2DS(24)-14 Passive 
+J_EL-12 DF11-20DP-2DS(24)-12 Passive 
+J_EL-10 DF11-20DP-2DS(24)-10 Passive 
+J_EL-15 DF11-20DP-2DS(24)-15 Passive 
+U2-5 SN74AHCT245N-A4 Passive 
+U2-6 SN74AHCT245N-A5 Passive 
+U2-7 SN74AHCT245N-A6 Passive 
+U2-8 SN74AHCT245N-A7 Passive 
+U2-9 SN74AHCT245N-A8 Passive 
+U2-10 SN74AHCT245N-GND Passive 
+C1-2 TH 100nF ±10% 50V radial P5mm-2 Passive 
+C2-2 TH 100nF ±10% 50V radial P5mm-2 Passive 
+U1-10 SN74AHCT245N-GND Passive 
+C3-2 Stock 10uF 50V radial; footprint verify-2 Passive 
+RPA1-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB1-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA2-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB2-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA3-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB3-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA4-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB4-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA5-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB5-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA6-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB6-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA7-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB7-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA8-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB8-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA9-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB9-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA10-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB10-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPA11-2 TH 100kΩ ±1% 0.25W-2 Input   
+RPB11-2 TH 100kΩ ±1% 0.25W-2 Input   
+U_VL-8 TPS259470LRPWR-GND Passive 
+U_VD-8 TPS259470LRPWR-GND Passive 
+U_NOR-3 SN74LVC1G02DBVR-GND Passive 
+Q_VL-2 AO3400A AOS C20917 project symbol-S Passive 
+U_SUP-2 TPS3808G01DBVR-GND Passive 
+RUV2-2 TH 10kΩ ±1% 0.25W-2 Input   
+ROV52-2 TH 10kΩ ±1% 0.25W-2 Input   
+ROV122-2 TH 10kΩ ±1% 0.25W-2 Input   
+RIL5-2 TH 4.3kΩ ±1% 0.25W-2 Input   
+RIL12-2 TH 1.3kΩ ±1% 0.25W-2 Input   
+REND-2 TH 100kΩ ±1% 0.25W-2 Input   
+RVGD-2 TH 10kΩ ±1% 0.25W-2 Input   
+RVS3-2 TH 10kΩ ±1% 0.25W-2 Input   
+CDV5A-2 CL10C102JB8NNNC-2 Passive 
+CDV5B-2 CL10C102JB8NNNC-2 Passive 
+CDV12-2 C2012C0G1H272JT0H0N-2 Passive 
+C5IN-2 CL21A106KAYNNNE_C15850-2 Passive 
+C5OUT-2 CL21A106KAYNNNE_C15850-2 Passive 
+C12IN-2 CL21A106KAYNNNE_C15850-2 Passive 
+C12OUT-2 CL21A106KAYNNNE_C15850-2 Passive 
+CB5IN-2 CC0603KRX7R9BB104-2 Passive 
+CB5OUT-2 CC0603KRX7R9BB104-2 Passive 
+CB12IN-2 CC0603KRX7R9BB104-2 Passive 
+CB12OUT-2 CC0603KRX7R9BB104-2 Passive 
+CSUP-2 CC0603KRX7R9BB104-2 Passive 
+CNOR-2 CC0603KRX7R9BB104-2 Passive 
+J_PWR-2 XY128V-A-5.08-4P-2 Passive 
+J_PWR-4 XY128V-A-5.08-4P-4 Passive 
+J_PF-2 XH-2A-2 Passive 
+J_UART-3 XH-3A-3 Passive 
+RVHD-2 TH 33kΩ ±1% 0.25W-2 Input   
+Q_VH-2 AO3400A AOS C20917 project symbol-S Passive 
+U_INV-3 SN74HCT04N-2A Passive 
+U_INV-5 SN74HCT04N-3A Passive 
+U_INV-7 SN74HCT04N-GND Passive 
+U_INV-9 SN74HCT04N-4A Passive 
+U_INV-11 SN74HCT04N-5A Passive 
+U_INV-13 SN74HCT04N-6A Passive 
+Q_DIS-2 AO3400A AOS C20917 project symbol-S Passive 
+RDISPD-2 TH 100kΩ ±1% 0.25W-2 Input   
+CINV-2 K104K15X7RF53H5-2 Passive 
+DTV12-2 P6KE15A-A Passive 
+DTV5-2 P6KE6.8A_C409413-A Passive 
+DNEG12-2 1N5822RLG-A Passive 
+DNEG5-2 1N5822RLG-A Passive 
+CBULK12-2 EEUFR1E470-2 Passive 
+CBULK5-2 EEUFR1E470-2 Passive 
+TP29-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+TP30-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+TP31-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+TP32-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+3V3_FPGA 
+P1-2 PH2.54,2*6P-2 Passive 
+P1-1 PH2.54,2*6P-1 Passive 
+P2-2 PH2.54,2*6P-2 Passive 
+P2-1 PH2.54,2*6P-1 Passive 
+P3-2 PH2.54,2*6P-2 Passive 
+P3-1 PH2.54,2*6P-1 Passive 
+ROE-1 TH 10kΩ ±1% 0.25W-1 Input   
+U_NOR-5 SN74LVC1G02DBVR-VCC Passive 
+U_SUP-3 TPS3808G01DBVR-MR Passive 
+U_SUP-6 TPS3808G01DBVR-VDD Passive 
+RVDP-1 TH 10kΩ ±1% 0.25W-1 Input   
+RVAP-1 TH 10kΩ ±1% 0.25W-1 Input   
+RVOK-1 TH 10kΩ ±1% 0.25W-1 Input   
+RFLT-1 TH 10kΩ ±1% 0.25W-1 Input   
+RPF-1 TH 10kΩ ±1% 0.25W-1 Input   
+CSUP-1 CC0603KRX7R9BB104-1 Passive 
+CNOR-1 CC0603KRX7R9BB104-1 Passive 
+RVHP-1 TH 10kΩ ±1% 0.25W-1 Input   
+RVLFP-1 TH 10kΩ ±1% 0.25W-1 Input   
+TP11-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+VD_HI_N 
+P2-10 PH2.54,2*6P-10 Passive 
+TP_VDH-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+Q_VH-3 AO3400A AOS C20917 project symbol-D Passive 
+RVHP-2 TH 10kΩ ±1% 0.25W-2 Input   
+)
+(
+VD_ON_N 
+P2-9 PH2.54,2*6P-9 Passive 
+U_NOR-1 SN74LVC1G02DBVR-A Passive 
+RVDP-2 TH 10kΩ ±1% 0.25W-2 Input   
+TP12-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+OE_N 
+P2-8 PH2.54,2*6P-8 Passive 
+U2-19 SN74AHCT245N-OE# Passive 
+U1-19 SN74AHCT245N-OE# Passive 
+ROE-2 TH 10kΩ ±1% 0.25W-2 Input   
+TP09-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_S_3V3 
+P2-7 PH2.54,2*6P-7 Passive 
+RA11-1 TH 1kΩ ±1% 0.25W-1 Input   
+TP28-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_CP1_3V3 
+P2-6 PH2.54,2*6P-6 Passive 
+RA10-1 TH 1kΩ ±1% 0.25W-1 Input   
+TP27-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_CP2_3V3 
+P2-5 PH2.54,2*6P-5 Passive 
+RA9-1 TH 1kΩ ±1% 0.25W-1 Input   
+TP26-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+SPARE_J14_12 
+P3-12 PH2.54,2*6P-12 Passive 
+TP_SP3-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+UART_RX 
+P3-11 PH2.54,2*6P-11 Passive 
+RRX-1 TH 100Ω ±1% 0.25W-1 Input   
+)
+(
+UART_TX 
+P3-10 PH2.54,2*6P-10 Passive 
+RTX-1 TH 100Ω ±1% 0.25W-1 Input   
+)
+(
+VD_FLT_N_3V3 
+P3-9 PH2.54,2*6P-9 Passive 
+U_VD-4 TPS259470LRPWR-FLT#/PGTH Passive 
+RFLT-2 TH 10kΩ ±1% 0.25W-2 Input   
+TP08-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+VL_OK_3V3 
+P3-8 PH2.54,2*6P-8 Passive 
+U_SUP-1 TPS3808G01DBVR-RESET Passive 
+RVOK-2 TH 10kΩ ±1% 0.25W-2 Input   
+D2-1 BAT54WS-7-F-1 Passive 
+TP07-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+PFAIL_N_3V3 
+P3-7 PH2.54,2*6P-7 Passive 
+RPF-2 TH 10kΩ ±1% 0.25W-2 Input   
+D3-1 BAT54WS-7-F-1 Passive 
+J_PF-1 XH-2A-1 Passive 
+TP10-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+VL_FLT_N_3V3 
+P3-5 PH2.54,2*6P-5 Passive 
+U_VL-4 TPS259470LRPWR-FLT#/PGTH Passive 
+TP_VLFLT-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+RVLFP-2 TH 10kΩ ±1% 0.25W-2 Input   
+)
+(
+EL_UD1_5V 
+J_EL-1 DF11-20DP-2DS(24)-1 Passive 
+RB2-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB2-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP16-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
++12V_EL 
+J_EL-20 DF11-20DP-2DS(24)-20 Passive 
+J_EL-19 DF11-20DP-2DS(24)-19 Passive 
+U_VD-6 TPS259470LRPWR-OUT Passive 
+C12OUT-1 CL21A106KAYNNNE_C15850-1 Passive 
+CB12OUT-1 CC0603KRX7R9BB104-1 Passive 
+RVHU-1 TH 100kΩ ±1% 0.25W-1 Input   
+R_DIS-1 RSF3WSJT-73-100R-1 Passive 
+DNEG12-1 1N5822RLG-C Passive 
+TP04-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_UD3_5V 
+J_EL-3 DF11-20DP-2DS(24)-3 Passive 
+RB4-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB4-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP18-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
++5V_EL 
+J_EL-18 DF11-20DP-2DS(24)-18 Passive 
+J_EL-17 DF11-20DP-2DS(24)-17 Passive 
+U2-1 SN74AHCT245N-DIR Passive 
+U2-20 SN74AHCT245N-VCC Passive 
+C1-1 TH 100nF ±10% 50V radial P5mm-1 Passive 
+C2-1 TH 100nF ±10% 50V radial P5mm-1 Passive 
+U1-1 SN74AHCT245N-DIR Passive 
+U1-20 SN74AHCT245N-VCC Passive 
+C3-1 Stock 10uF 50V radial; footprint verify-1 Passive 
+U_VL-6 TPS259470LRPWR-OUT Passive 
+RVGU-1 TH 10kΩ ±1% 0.25W-1 Input   
+RVS1-1 TH 100kΩ ±1% 0.25W-1 Input   
+C5OUT-1 CL21A106KAYNNNE_C15850-1 Passive 
+CB5OUT-1 CC0603KRX7R9BB104-1 Passive 
+U_INV-14 SN74HCT04N-VCC Passive 
+CINV-1 K104K15X7RF53H5-1 Passive 
+DNEG5-1 1N5822RLG-C Passive 
+TP02-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_LD1_5V 
+J_EL-5 DF11-20DP-2DS(24)-5 Passive 
+RB6-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB6-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP20-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_LD3_5V 
+J_EL-7 DF11-20DP-2DS(24)-7 Passive 
+RB8-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB8-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP22-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_CP2_5V 
+J_EL-9 DF11-20DP-2DS(24)-9 Passive 
+RB9-2 TH 47Ω ±1% 0.25W-2 Input   
+RPB9-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP23-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_CP1_5V 
+J_EL-11 DF11-20DP-2DS(24)-11 Passive 
+RB10-2 TH 47Ω ±1% 0.25W-2 Input   
+RPB10-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP24-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_S_5V 
+J_EL-13 DF11-20DP-2DS(24)-13 Passive 
+RB11-2 TH 47Ω ±1% 0.25W-2 Input   
+RPB11-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP25-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_LD2_5V 
+J_EL-8 DF11-20DP-2DS(24)-8 Passive 
+RB7-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB7-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP21-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_LD0_5V 
+J_EL-6 DF11-20DP-2DS(24)-6 Passive 
+RB5-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB5-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP19-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_UD2_5V 
+J_EL-4 DF11-20DP-2DS(24)-4 Passive 
+RB3-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB3-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP17-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EL_UD0_5V 
+J_EL-2 DF11-20DP-2DS(24)-2 Passive 
+RB1-2 TH 33Ω ±1% 0.25W-2 Input   
+RPB1-1 TH 100kΩ ±1% 0.25W-1 Input   
+TP15-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+BUF_CP2_A 
+U2-2 SN74AHCT245N-A1 Passive 
+RA9-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA9-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_CP1_A 
+U2-3 SN74AHCT245N-A2 Passive 
+RA10-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA10-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_S_A 
+U2-4 SN74AHCT245N-A3 Passive 
+RA11-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA11-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_S_B 
+U2-16 SN74AHCT245N-B3 Passive 
+RB11-1 TH 47Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_CP1_B 
+U2-17 SN74AHCT245N-B2 Passive 
+RB10-1 TH 47Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_CP2_B 
+U2-18 SN74AHCT245N-B1 Passive 
+RB9-1 TH 47Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_UD0_A 
+U1-2 SN74AHCT245N-A1 Passive 
+RA1-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA1-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_UD1_A 
+U1-3 SN74AHCT245N-A2 Passive 
+RA2-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA2-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_UD2_A 
+U1-4 SN74AHCT245N-A3 Passive 
+RA3-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA3-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_UD3_A 
+U1-5 SN74AHCT245N-A4 Passive 
+RA4-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA4-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_LD0_A 
+U1-6 SN74AHCT245N-A5 Passive 
+RA5-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA5-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_LD1_A 
+U1-7 SN74AHCT245N-A6 Passive 
+RA6-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA6-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_LD2_A 
+U1-8 SN74AHCT245N-A7 Passive 
+RA7-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA7-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_LD3_A 
+U1-9 SN74AHCT245N-A8 Passive 
+RA8-2 TH 1kΩ ±1% 0.25W-2 Input   
+RPA8-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+BUF_LD3_B 
+U1-11 SN74AHCT245N-B8 Passive 
+RB8-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_LD2_B 
+U1-12 SN74AHCT245N-B7 Passive 
+RB7-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_LD1_B 
+U1-13 SN74AHCT245N-B6 Passive 
+RB6-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_LD0_B 
+U1-14 SN74AHCT245N-B5 Passive 
+RB5-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_UD3_B 
+U1-15 SN74AHCT245N-B4 Passive 
+RB4-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_UD2_B 
+U1-16 SN74AHCT245N-B3 Passive 
+RB3-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_UD1_B 
+U1-17 SN74AHCT245N-B2 Passive 
+RB2-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+BUF_UD0_B 
+U1-18 SN74AHCT245N-B1 Passive 
+RB1-1 TH 33Ω ±1% 0.25W-1 Input   
+)
+(
+EN_VL 
+U_VL-1 TPS259470LRPWR-EN/UVLO Passive 
+RUV1-2 TH 27kΩ ±1% 0.25W-2 Input   
+RUV2-1 TH 10kΩ ±1% 0.25W-1 Input   
+TP05-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+OVLO_VL 
+U_VL-2 TPS259470LRPWR-OVLO/OVCSEL Passive 
+ROV51-2 TH 36kΩ ±1% 0.25W-2 Input   
+ROV52-1 TH 10kΩ ±1% 0.25W-1 Input   
+)
+(
++5V_IN 
+U_VL-5 TPS259470LRPWR-IN Passive 
+RUV1-1 TH 27kΩ ±1% 0.25W-1 Input   
+ROV51-1 TH 36kΩ ±1% 0.25W-1 Input   
+C5IN-1 CL21A106KAYNNNE_C15850-1 Passive 
+CB5IN-1 CC0603KRX7R9BB104-1 Passive 
+J_PWR-3 XY128V-A-5.08-4P-3 Passive 
+DTV5-1 P6KE6.8A_C409413-C Passive 
+CBULK5-1 EEUFR1E470-1 Passive 
+TP01-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+DVDT_VL 
+U_VL-7 TPS259470LRPWR-DVDT Passive 
+CDV5A-1 CL10C102JB8NNNC-1 Passive 
+CDV5B-1 CL10C102JB8NNNC-1 Passive 
+)
+(
+ILM_VL 
+U_VL-9 TPS259470LRPWR-ILM Passive 
+RIL5-1 TH 4.3kΩ ±1% 0.25W-1 Input   
+TP13-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+EN_VD 
+U_VD-1 TPS259470LRPWR-EN/UVLO Passive 
+REN-2 TH 10kΩ ±1% 0.25W-2 Input   
+REND-1 TH 100kΩ ±1% 0.25W-1 Input   
+D2-2 BAT54WS-7-F-2 Passive 
+D3-2 BAT54WS-7-F-2 Passive 
+U_INV-1 SN74HCT04N-1A Passive 
+TP06-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+OVLO_VD 
+U_VD-2 TPS259470LRPWR-OVLO/OVCSEL Passive 
+ROV121-2 TH 100kΩ ±1% 0.25W-2 Input   
+ROV122-1 TH 10kΩ ±1% 0.25W-1 Input   
+)
+(
++12V_IN 
+U_VD-5 TPS259470LRPWR-IN Passive 
+ROV121-1 TH 100kΩ ±1% 0.25W-1 Input   
+C12IN-1 CL21A106KAYNNNE_C15850-1 Passive 
+CB12IN-1 CC0603KRX7R9BB104-1 Passive 
+J_PWR-1 XY128V-A-5.08-4P-1 Passive 
+DTV12-1 P6KE15A-K Passive 
+CBULK12-1 EEUFR1E470-1 Passive 
+TP03-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+DVDT_VD 
+U_VD-7 TPS259470LRPWR-DVDT Passive 
+CDV12-1 C2012C0G1H272JT0H0N-1 Passive 
+)
+(
+ILM_VD 
+U_VD-9 TPS259470LRPWR-ILM Passive 
+RIL12-1 TH 1.3kΩ ±1% 0.25W-1 Input   
+TP14-1 Probe post / wire loop: 2.4mm plated pad, 1mm hole-1 Input   
+)
+(
+VL_ABSENT 
+U_NOR-2 SN74LVC1G02DBVR-B Passive 
+Q_VL-3 AO3400A AOS C20917 project symbol-D Passive 
+RVAP-2 TH 10kΩ ±1% 0.25W-2 Input   
+)
+(
+NOR_VD 
+U_NOR-4 SN74LVC1G02DBVR-Y Passive 
+REN-1 TH 10kΩ ±1% 0.25W-1 Input   
+)
+(
+VL_GATE 
+Q_VL-1 AO3400A AOS C20917 project symbol-G Passive 
+RVGU-2 TH 10kΩ ±1% 0.25W-2 Input   
+RVGD-1 TH 10kΩ ±1% 0.25W-1 Input   
+)
+(
+VL_SENSE 
+U_SUP-5 TPS3808G01DBVR-SENSE Passive 
+RVS2-2 TH 1.2kΩ ±1% 0.25W-2 Passive 
+RVS3-1 TH 10kΩ ±1% 0.25W-1 Input   
+)
+(
+VL_SENSE_MID 
+RVS1-2 TH 100kΩ ±1% 0.25W-2 Input   
+RVS2-1 TH 1.2kΩ ±1% 0.25W-1 Passive 
+)
+(
+UART_TX_EXT 
+J_UART-1 XH-3A-1 Passive 
+RTX-2 TH 100Ω ±1% 0.25W-2 Input   
+)
+(
+UART_RX_EXT 
+J_UART-2 XH-3A-2 Passive 
+RRX-2 TH 100Ω ±1% 0.25W-2 Input   
+)
+(
+VD_GATE 
+RVHU-2 TH 100kΩ ±1% 0.25W-2 Input   
+RVHD-1 TH 33kΩ ±1% 0.25W-1 Input   
+Q_VH-1 AO3400A AOS C20917 project symbol-G Passive 
+)
+(
+DIS_DRV 
+U_INV-2 SN74HCT04N-1Y Passive 
+RDISG-1 TH 100Ω ±1% 0.25W-1 Input   
+)
+(
+DIS_G 
+Q_DIS-1 AO3400A AOS C20917 project symbol-G Passive 
+RDISG-2 TH 100Ω ±1% 0.25W-2 Input   
+RDISPD-1 TH 100kΩ ±1% 0.25W-1 Input   
+)
+(
+VD_DIS_D 
+Q_DIS-3 AO3400A AOS C20917 project symbol-D Passive 
+R_DIS-2 RSF3WSJT-73-100R-2 Passive 
+)

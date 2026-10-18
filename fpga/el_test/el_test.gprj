@@ -1,0 +1,20 @@
+<?xml version="1" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW2A-18C" pn="GW2A-LV18PG256C8/I7">gw2a18c-011</Device>
+    <FileList>
+        <File path="../common/rtl/el_pll.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/reset_gen.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/input_sync.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/key_press.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/el_scan_timing.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/el_pattern.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/el_power_seq.v" type="file.verilog" enable="1"/>
+        <File path="../common/rtl/led_status.v" type="file.verilog" enable="1"/>
+        <File path="src/el_test_top.v" type="file.verilog" enable="1"/>
+        <File path="src/el_test.cst" type="file.cst" enable="1"/>
+        <File path="src/el_test.sdc" type="file.sdc" enable="1"/>
+    </FileList>
+</Project>

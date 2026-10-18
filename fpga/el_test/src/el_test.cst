@@ -1,0 +1,72 @@
+// el_test.cst —— Tang Primer 20K + Dock（GW2A-LV18PG256C8/I7）
+// 引脚依据：Sipeed 官方例程 RGB_lcd/rgb_lcd_4.3inch_colorbar/src/lcd.cst（J5/J6 网络 = RGB LCD 复用脚）、
+//           litex-boards sipeed_tang_primer_20k（时钟/按键/LED）、设计笔记 §11.2.1、D1.1 网表 P1/P2/P3。
+// 使用这些脚时不要插 40P RGB 屏 FPC（J7）和麦克风阵列 FPC（J15），它们共用同一组 FPGA 引脚。
+
+// ---------------- 时钟 ----------------
+IO_LOC  "clk27" H11;
+IO_PORT "clk27" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// ---------------- 按键（低有效） ----------------
+IO_LOC  "btn_run_n" T10;
+IO_PORT "btn_run_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC  "btn_pat_n" T3;
+IO_PORT "btn_pat_n" IO_TYPE=LVCMOS15 PULL_MODE=UP BANK_VCCIO=1.5;
+
+// ---------------- LED（低电平点亮）。L16/L14/N14/N16 在 bank 1（2.5V），按 tang-monitor 实测核对的引脚表用 LVCMOS25 ----------------
+// 不用 C13/A13：在高云 EDA 里它们是 READY/DONE 复用脚
+IO_LOC  "led_n[0]" L16;
+IO_PORT "led_n[0]" IO_TYPE=LVCMOS25 PULL_MODE=UP DRIVE=8 BANK_VCCIO=2.5;
+IO_LOC  "led_n[1]" L14;
+IO_PORT "led_n[1]" IO_TYPE=LVCMOS25 PULL_MODE=UP DRIVE=8 BANK_VCCIO=2.5;
+IO_LOC  "led_n[2]" N14;
+IO_PORT "led_n[2]" IO_TYPE=LVCMOS25 PULL_MODE=UP DRIVE=8 BANK_VCCIO=2.5;
+IO_LOC  "led_n[3]" N16;
+IO_PORT "led_n[3]" IO_TYPE=LVCMOS25 PULL_MODE=UP DRIVE=8 BANK_VCCIO=2.5;
+
+// ---------------- Dock J5 → EL-IF P1（8 路数据） ----------------
+// J5-5..12 = UD0 UD1 UD2 UD3 LD0 LD1 LD2 LD3
+IO_LOC  "el_ud[0]" L9;
+IO_LOC  "el_ud[1]" N8;
+IO_LOC  "el_ud[2]" N9;
+IO_LOC  "el_ud[3]" N7;
+IO_LOC  "el_ld[0]" N6;
+IO_LOC  "el_ld[1]" D11;
+IO_LOC  "el_ld[2]" A11;
+IO_LOC  "el_ld[3]" B11;
+IO_PORT "el_ud[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ud[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ud[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ud[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ld[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ld[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ld[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_ld[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// ---------------- Dock J6 → EL-IF P2 ----------------
+// J6-5 CP2，J6-6 CP1，J6-7 S，J6-8 OE_N，J6-9 VD_ON_N，J6-10 VD_HI_N（输入）
+IO_LOC  "el_cp2"  B12;
+IO_LOC  "el_cp1"  C12;
+IO_LOC  "el_s"    B13;
+IO_LOC  "oe_n"    A14;
+IO_LOC  "vd_on_n" B14;
+IO_PORT "el_cp2"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_cp1"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "el_s"    IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "oe_n"    IO_TYPE=LVCMOS33 PULL_MODE=UP   DRIVE=8;
+IO_PORT "vd_on_n" IO_TYPE=LVCMOS33 PULL_MODE=UP   DRIVE=8;
+
+IO_LOC  "vd_hi_n" A15;
+IO_PORT "vd_hi_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// ---------------- Dock J14 → EL-IF P3（状态输入） ----------------
+// J14-5 VL_FLT_N，J14-7 PFAIL_N，J14-8 VL_OK，J14-9 VD_FLT_N；J14-6 不用（与板载 WS2812 共用）
+// 面包板阶段这些脚悬空：内部上拉读作 1 = 正常。上 PCB 后由板上上拉电阻决定。
+IO_LOC  "vl_flt_n" P9;
+IO_LOC  "pfail_n"  T8;
+IO_LOC  "vl_ok"    P8;
+IO_LOC  "vd_flt_n" R8;
+IO_PORT "vl_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_PORT "pfail_n"  IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_PORT "vl_ok"    IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_PORT "vd_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;

@@ -1,0 +1,41 @@
+# MIS-01 仓库只管代码和文字：默认全部忽略，再逐项放行。
+# 大二进制文件（STEP、PDF、渲染图、嘉立创 .epro2 工程、Excel）不进仓库，按版本另存在本地。
+# 仿真测试（sim/）和编译产物（build/、impl/）按约定不进仓库。
+
+/*
+!/.gitignore
+!/README.md
+!/*.md
+!/*.py
+!/parts_list.csv
+
+# ---------------- FPGA ----------------
+!/fpga/
+/fpga/third_party/
+/fpga/**/sim/
+/fpga/**/build/
+/fpga/**/impl/*
+!/fpga/**/impl/project_process_config.json
+
+# ---------------- EL 驱动板（只收文字文档、网表、画图脚本） ----------------
+!/el_driver/
+/el_driver/*
+!/el_driver/*.md
+!/el_driver/*.txt
+!/el_driver/D1/
+/el_driver/D1/*
+!/el_driver/D1/*.net
+!/el_driver/D1.1/
+/el_driver/D1.1/*
+!/el_driver/D1.1/*.net
+!/el_driver/D1.1/变更记录_D1.1.txt
+!/el_driver/面包板图_D1.1/
+/el_driver/面包板图_D1.1/*.bak_r0
+/el_driver/面包板图_D1.1/src/*.png
+/el_driver/面包板图_D1.1/src/*.zip
+/el_driver/面包板图_D1.1/src/*.bak_r0
+/el_driver/面包板图_D1.1/src/netlists.json
+
+# 通用
+__pycache__/
+*.pyc
