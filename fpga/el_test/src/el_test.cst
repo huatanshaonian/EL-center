@@ -5,7 +5,8 @@
 
 // ---------------- 时钟 ----------------
 IO_LOC  "clk27" H11;
-IO_PORT "clk27" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// H11 与 HDMI 的 DDC 脚（F14/F16）同在 2.5V bank：输入按 LVCMOS25 声明（新版 apicula 会检查同 bank 电平一致）
+IO_PORT "clk27" IO_TYPE=LVCMOS25 PULL_MODE=NONE BANK_VCCIO=2.5;
 
 // ---------------- 按键（低有效） ----------------
 IO_LOC  "btn_run_n" T10;

@@ -1,6 +1,6 @@
 MIS-01 EL 屏测试时序程序（Tang Primer 20K + Dock）  使用说明
 ====================================================================
-版本：v0.1（2026-10-19）
+版本：v0.2（2026-10-19）：模块移到 ../common/rtl；可用开源工具链编译；LED 约束改 LVCMOS25；扫描时序改为预取取数
 用途：面包板实验 3（动态波形）、实验 4（首次点屏）。输出 LJ64K052 完整扫描时序和 8 种测试图案，
       并按规定顺序控制 OE_N、VD_ON_N。
 状态：已通过电脑仿真（见第 6 节）；还没有在实物上编译、烧录或测量过。
@@ -19,42 +19,35 @@ MIS-01 EL 屏测试时序程序（Tang Primer 20K + Dock）  使用说明
 --------------------------------------------------------------------
 2. 文件
 --------------------------------------------------------------------
-  el_test.gprj                    高云工程文件，用 Gowin EDA 打开它
-  impl/project_process_config.json 工程设置（与 Sipeed 官方 RGB 屏例程相同：SSPI 脚当普通 IO 用）
+  el_test.gprj                    高云工程文件（可选：用 Gowin EDA 打开）
+  impl/project_process_config.json 高云工程设置（与 Sipeed 官方 RGB 屏例程相同：SSPI 脚当普通 IO 用）
   src/el_test_top.v               顶层，只负责连线
-  src/el_pll.v                    27 → 54 MHz
-  src/reset_gen.v                 上电复位
-  src/input_sync.v                输入同步/去抖
-  src/key_press.v                 按键
-  src/el_scan_timing.v            CP2/CP1/S/数据时序
-  src/el_pattern.v                8 种测试图案
-  src/el_power_seq.v              上/下电顺序与保护
-  src/led_status.v                状态灯
-  src/el_test.cst                 引脚约束
-  src/el_test.sdc                 时钟约束
-  sim/                            仿真测试（只用于验证，不进工程）
+  src/el_test.cst                 引脚约束（开源工具链与高云 EDA 通用）
+  src/el_test.sdc                 时钟约束（高云 EDA 用）
+  ../common/rtl/                  与 HDMI 程序共用的模块：el_pll（27→54 MHz）、reset_gen、input_sync、key_press、
+                                  el_scan_timing（时序）、el_pattern（图案）、el_power_seq（上下电）、led_status
+  sim/                            仿真测试（只用于验证，不进 git）
 
 --------------------------------------------------------------------
 3. 编译与烧录
 --------------------------------------------------------------------
   准备
-    - Gowin EDA 教育版（V1.9.9 或更新），Gowin Programmer（已下载在 D:\gowin）。
+    - Gowin Programmer（已下载在 D:\gowin）。高云 EDA 可以不装：我用开源工具链编好 .fs 给你。
     - Dock 板上的 1 号拨码开关拨下，否则核心板不工作，且 LED0、LED1 常亮（Sipeed Wiki）。
     - USB-C 线接 Dock 的“USB-JTAG&UART”口（板载 BL702 下载器，不用另买）。
     - 不要插 40P RGB 屏排线（J7）和麦克风阵列排线（J15），它们和 J5/J6/J14 共用 FPGA 引脚。
 
-  编译
-    1. Gowin EDA → File → Open Project → 选 el_test.gprj。
-    2. 确认器件为 GW2A-LV18PG256C8/I7（Device 栏 GW2A-18C）。
-    3. 点 “Run All”（或依次 Synthesize → Place & Route）。
-    4. 生成的烧录文件：impl/pnr/el_test.fs
-    5. 如果报某个引脚是“复用脚/已被占用”（dual-purpose pin），把报错原文发给我。
-       通常是在 Project → Configuration → Place & Route → Dual-Purpose Pin 里勾选对应项，
-       但不要勾 JTAG：勾了以后下载器会认不出 FPGA。
+  编译（任选其一）
+    A. 开源工具链（默认，已验证可编译）：在 WSL 里运行
+         bash /mnt/e/modeling/MIS-01/fpga/build.sh el_test
+       产物：build/el_test_top.fs
+    B. 高云 EDA：File → Open Project → el_test.gprj → Run All，产物 impl/pnr/el_test.fs。
+       如果报某个引脚是“复用脚/已被占用”（dual-purpose pin），在 Project → Configuration → Place & Route →
+       Dual-Purpose Pin 里勾选对应项，但不要勾 JTAG：勾了以后下载器会认不出 FPGA。
 
   烧录（测试阶段用 SRAM，断电即丢，最安全）
     1. 打开 Gowin Programmer → Scan Device（或 USB Cable Setting 里选 USB Debugger A）。
-    2. 认出 GW2A-18C 后，Operation 选 “SRAM Program”，File 选 impl/pnr/el_test.fs。
+    2. 认出 GW2A-18C 后，Operation 选 “SRAM Program”，File 选上面生成的 .fs。
     3. Program/Configure。完成后程序立即运行，4 个状态灯应全灭。
     4. 断电后 FPGA 回到空白状态：所有脚弱上拉，OE_N 为高，屏信号输出保持关闭。
     确认程序没问题后，才考虑烧进 Flash（Operation 选 exFlash 相关项）。
@@ -66,7 +59,7 @@ MIS-01 EL 屏测试时序程序（Tang Primer 20K + Dock）  使用说明
     RUN（T10）：OFF 时按 = 开机；运行中按 = 关机；故障停机后按 = 清除故障
     PAT（T3） ：切换下一个测试图案，0→7 循环；上电默认 0（全黑）
 
-  状态灯（LED0..LED3 = 引脚 L16、L14、N14、N16；LED4/LED5 不用）
+  状态灯（LED0..LED3 = 引脚 L16、L14、N14、N16，在 2.5V bank，按 LVCMOS25 约束；LED4/LED5 不用）
     LED0 亮 = OE 已使能（OE_N=0）
     LED1 亮 = 正在扫描
     LED2 亮 = VD_ON_N=0。面包板阶段 VD 由人工开关，这盏灯亮表示“现在可以开 VD”
