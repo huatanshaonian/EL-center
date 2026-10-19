@@ -1,0 +1,49 @@
+MIS-01 PCB-3 电源板（PWR-DIST）原理图 D1 设计记录
+日期：2026-10-20
+工程：嘉立创EDA 专业版 MIS-01-EL-Driver-D1.1 工程内的 PWR-DIST_D1 板（与 EL-IF 同一工程，共用工程库）。
+依据：PCB-3 电路方案 v1.0（claude.ai artifact ADPdRTHEehDAyfYCVwYqC9）、整机接线 v1.0（artifact BBVdXtcah9W9j4p5E1V7ue）。
+本目录：PWR-DIST_D1_原理图.pdf（7 页，不进 git）、PWR-DIST_D1.net（Protel2 网表）、本文件。
+
+一、页面
+  PF1–PF3  PFAIL 掉电预警（D1.1 已有，LM393P + TL431，24 V 跌到约 21 V 翻转、约 22 V 恢复；库存 2N3904 开集电极输出）。
+           本次改网络名：+24V_SENSE→+24V，+5V_IN→+5V，PFAIL_DOCK_N→PFAIL_EL_N（J_PF-1），PFAIL_OPI_N→PFAIL_ESP_N（J_CTL-8）。
+  PWR1     24 V 输入、两个 NID100、3.3 V 稳压。
+  PWR2     主机域：EN_HOST 逻辑 + 四颗 TPS259470L + 绿灯。
+  PWR3     高压域（三路 P-MOS）、面板接口 J_PANEL、J_PF、J_CTL。
+  PWR4     常电分路（J_INST、J_KEYL、备用 24/12/5 V 各 2 路）。
+
+二、关键器件与参数（全部按原厂规格书核对）
+  总保险      Keystone 3557-2 二合一片式保险座（C352820），插用户自有 Mini（ATM）片式 10 A（红）。
+  模块保险    同款保险座 ×2，Mini 片式 7.5 A（棕）；明纬规格书建议 8 A，满载输入约 3.9 A / 2.5 A。
+  NID100-12 / NID100-5   SIP13：1–4 +Vo、5–8 Com、9–10 +Vin、11 NC、12 Trim、13 R.C.（开路 = 开）。R.C. 引到 J_RC 3 针排针。
+              外接容性负载上限 12 V 款 68 µF、5 V 款 100 µF：板上 12 V 22 µF×2、5 V 22 µF×3；后级电容在电子保险之后。
+  TVS         SMBJ30A（24 V，LRS 可调到 28.8 V）、SMBJ15A（12 V）、SMBJ6.0A（5 V，不用 5.0A：5.1 V 时漏电大）。
+  TPS259470L  ×4，EN 共用 EN_HOST（主机钮子经 74LVC2G14 反相 与 HOLD 经 BAT54C 二极管或，100 k 下拉）：
+              U_EA → Pi（R_ILM 680 Ω ≈ 4.9 A；750 Ω 时最小 3.96 A 对 4 A 太紧），U_EB → Hub+功放（1.2 k ≈ 2.78 A），
+              U_EC → EL 12 V + Dock（910 Ω ≈ 3.7 A，须大于 EL-IF 自身 2.78 A），U_ED → EL 5 V（3.32 k ≈ 1.0 A）。
+              dVdt：5 V 2.2 nF（≈5 ms）、12 V 1 nF。OVLO 接 GND（不用过压）。
+              AUXOFF（3 脚，开漏输出）、FLT（4 脚）、ITIMER（10 脚）悬空——TI SLVSFC9C 表 5-1：ITIMER "Leave this pin open
+              for fastest response"，AUXOFF/FLT 为开漏输出；ERC 的"引脚悬空"警告即此，属有意。
+  高压域      NCE40P05Y ×3（−40 V），栅源 10 k + BZT52C12，栅极 4.7 k 到 HV_GATE_N；HV_GATE_N 经 BSS138（栅 HV_EN，100 k 下拉）
+              再经 J_PANEL-2 到"高压"钮子到地。钮子与 HV_EN 都通才有输出，断线即关。HV-A 12 V（P4：辉光驱动板自制升压，
+              另留 NCH6100HV 备用位）、HV-B 12 V（6E2 模块 + 红灯）、HV-C 5 V（盖革板）。
+  绿灯        AO3400 低边，栅极 1 k 接 +5V_PI、100 k 下拉。
+  屏幕钮子    SCR_EN 原样转 J_PF-2；本板 1 M 上拉到 3.3 V + 10 k 回读给 ESP（ST_SCR）。
+  自恢复保险  1812L110/33MR（1.1 A）、1812L050/33GR（0.5 A）、1812L150/33GR（1.5 A）。
+
+三、检查
+  网表：127 个元件、67 个网络，无单点网络。设计表 285 个引脚逐一与导出网表比对，0 处不符、无多接。
+  ERC：只剩 2 条警告——PFAIL 页 U_REF/RPFB2 的属性匹配提示（D1.1 原有，已知）；有意悬空的引脚（见上）。
+
+四、过程中遇到的问题
+  1. 用 API 从系统库放器件时，若工程库已有同一器件的旧版本，嘉立创会弹"工程库存在其他版本"对话框并卡住脚本；
+     一律选"使用工程库"，保持与 EL-IF 一致，且不覆盖工程库里改过的封装（如 P1–P3 排针去挖槽）。
+  2. 用 sch_PrimitivePin.modify 给引脚设 noConnected 会把引脚挪到图纸外，弄坏符号；已放弃该做法，四页重画。
+  3. 网络端口不能用 modify 改名，改为原位新建再删除旧的。
+  4. 原理图改名 API（modifySchematicName）返回失败，标题栏仍显示 PWR-DIST_D1_PFAIL，可在 EDA 里手工改名。
+
+五、待办
+  1. PCB 布局布线（约 150 × 100，2 层 2 oz；平放在 LRS-200 上方，板底留空气层）。
+  2. 3557-2 保险座的 4 个焊盘哪两个属于同一夹片，按封装核对（现原理图假定 1/2 一侧、3/4 一侧）；电解电容、TVS 极性按封装丝印核对。
+  3. 导出 BOM（贴片件嘉立创贴；插件按直插件合单格式另出），通知维护采购清单的会话。
+  4. 测试点（PFAIL 页 TP 符号无封装，PCB 上用焊盘代替，与 EL-IF 做法相同）。

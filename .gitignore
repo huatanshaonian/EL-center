@@ -34,6 +34,10 @@
 /el_driver/D1.2/*
 !/el_driver/D1.2/*.net
 !/el_driver/D1.2/变更记录_D1.2.txt
+!/el_driver/PWR-DIST_D1/
+/el_driver/PWR-DIST_D1/*
+!/el_driver/PWR-DIST_D1/*.net
+!/el_driver/PWR-DIST_D1/*.txt
 !/el_driver/面包板图_D1.1/
 /el_driver/面包板图_D1.1/*.bak_r0
 /el_driver/面包板图_D1.1/src/*.png
