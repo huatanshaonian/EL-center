@@ -42,6 +42,7 @@ module el_hdmi_top #(
     input  wire       pfail_n,
     input  wire       vl_ok,
     input  wire       vd_flt_n,
+    input  wire       scr_en,       // J14-12：斜面"屏幕"开关，1 = 允许开屏（EL-IF D1.2 起）
 
     // UART
     output wire       opi_tx,       // J14-10 → Orange Pi RX
@@ -229,6 +230,10 @@ module el_hdmi_top #(
         .video_ok(video_ok), .timed_out(timed_out), .frame_seen(frame_seen)
     );
 
+    // ---- 屏幕开关：关 = 撤掉 VD_ON_N（EL-IF 上 D4 同时硬件关 VD），开 = 等约 100 ms 再放开 ----
+    wire scr_inhibit, scr_on;
+    screen_switch u_scr (.clk(clk), .rst(rst), .scr_en(scr_en), .scr_inhibit(scr_inhibit), .scr_on(scr_on));
+
     // ---- 上/下电顺序 ----
     wire scan_en, scan_abort, scan_running, frame_tick, swap_ok;
     el_power_seq #(
@@ -236,7 +241,7 @@ module el_hdmi_top #(
     ) u_seq (
         .clk(clk), .rst(rst),
         .btn_run(run_press), .cmd_start(cmd_start_u | auto_pulse), .cmd_stop(cmd_stop),
-        .vd_inhibit((src_sel == 4'd0) && timed_out),
+        .vd_inhibit(((src_sel == 4'd0) && timed_out) || scr_inhibit),
         .vl_ok(s_vl_ok), .pfail_n(s_pfail_n), .vd_flt_n(s_vd_flt_n), .vl_flt_n(s_vl_flt_n), .vd_hi_n(s_vd_hi_n),
         .frame_tick(frame_tick), .scan_running(scan_running),
         .scan_en(scan_en), .scan_abort(scan_abort), .oe_n(oe_n), .vd_on_n(vd_on_n),

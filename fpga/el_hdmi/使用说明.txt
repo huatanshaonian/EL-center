@@ -1,6 +1,6 @@
 MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
 ====================================================================
-版本：v0.1（2026-10-19）
+版本：v0.2（2026-10-19，加斜面"屏幕"开关输入 J14-12）
 用途：Orange Pi 4 的 HDMI 画面（640×480）实时显示到 Sharp LJ64K052 EL 屏。
       同时包含测试程序的全部功能（8 种测试图案、上下电顺序、保护），可替代测试程序使用。
 状态：电脑仿真全部通过、开源工具链编译通过；还没有在实物上运行过。
@@ -49,6 +49,12 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
     1..8  测试图案 0..7（同测试程序：全黑、稀疏点、边框、棋盘、竖线、横线、竖条反相、全亮）
     9     帧缓存自检：FPGA 自己往缓存里写一幅会动的画面（边框 + 移动的竖线和横线 + 左上角 8 个方块显示帧号），
           不接 HDMI 也能检查帧缓存的地址、上下半屏和换帧；线条应平滑移动、不撕裂，横线跨过屏中缝时连续。
+
+  屏幕开关（Dock J14-12，P6，EL-IF D1.2 起经 J_PF-2 接斜面钮子开关）：
+    高 = 允许开屏（EL-IF 上 10k 上拉；J_PF 不插、或面包板阶段悬空时都是高）
+    低 = 关屏：EL-IF 上 D4 直接把 EN_VD 拉低（硬件关 VD）；FPGA 同时撤掉 VD_ON_N，扫描照常继续。
+    开关重新打开：去抖 20 ms 后再等 100 ms 才放开 VD_ON_N，避免 D4 一松 VD 在 FPGA 没准备时上电。
+    上电时同样先等这 120 ms。只控制 VD，不影响 OE、扫描和信号源。
 
 --------------------------------------------------------------------
 4. 状态灯（6 个，低电平点亮）
@@ -100,7 +106,7 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
                                hdmi_clk_rx 删掉了原工程给 LCD 用的第二个 PLL）
   rtl/video/                  pixel_mono 转黑白、fb_writer 打包、fb_ram 帧缓存、fb_ctrl 换帧管理、
                               local_frame_gen 自检画面、el_source_mux 信号源选择
-  rtl/ctrl/                   ctrl_cmd 串口命令、signal_watch 无信号检测
+  rtl/ctrl/                   ctrl_cmd 串口命令、signal_watch 无信号检测、screen_switch 屏幕开关
   ../common/rtl/              与测试程序共用：扫描时序、图案、上下电顺序、按键、LED、UART、FIFO、复位
   constraints/el_hdmi.cst     引脚约束（开源工具链格式）
   edid/                       两份 EDID；scripts/edid_gen.py 生成
@@ -115,8 +121,9 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
     tb_local     自检画面经帧缓存显示正确，生成快于显示时整帧丢弃
     tb_ctrl_cmd  16 条命令（含 8 条错误命令）经真实串口收发，回应与设置正确；状态行格式正确
     tb_pixel_mono 20 万组随机颜色/阈值/抖动位置，与参考模型一致
+    tb_screen_switch 开关抖动不响应；关立即禁止 VD；开后延时放开；延时中再关立即禁止并重新计时
     另：测试程序的三组仿真（扫描时序按 6 拍 RAM 延迟取数、上下电顺序 6 项场景、顶层）
   编译（yosys + nextpnr-himbaechel + apicula，2026-10-18 版 oss-cad-suite）：
-    BSRAM 38/46、LUT4 17%、rPLL 2/4；54 MHz 域最高 86 MHz、像素时钟域最高 113 MHz（需 25.2 MHz）
+    BSRAM 38/46、LUT4 17%、rPLL 2/4；54 MHz 域最高 96 MHz、像素时钟域最高 109 MHz（需 25.2 MHz）（v0.2 重新编译）
   没有验证的：HDMI 接收在 Orange Pi 上能否锁定（tang-monitor 只用 Mac 测过）、SDPB 满深度（2K×8）在实物上读写、
              实物按键位置。第一次上板时请按第 6 节顺序，把串口 “?” 的输出发给我。

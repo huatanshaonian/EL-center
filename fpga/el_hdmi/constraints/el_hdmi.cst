@@ -76,6 +76,9 @@ IO_PORT "vl_ok"    IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
 IO_PORT "vd_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
 IO_PORT "opi_tx"   IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
 IO_PORT "opi_rx"   IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+// J14-12 SCR_EN_3V3：斜面"屏幕"开关（EL-IF D1.2 起，板上 10k 上拉；悬空时内部上拉读作 1 = 允许开屏）
+IO_LOC  "scr_en"   P6;
+IO_PORT "scr_en"   IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
 
 // ---------------- Dock USB 调试串口（BL702，115200 8N1） ----------------
 IO_LOC  "dbg_tx" M11;
