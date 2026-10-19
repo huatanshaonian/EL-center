@@ -41,6 +41,11 @@
 /el_driver/面包板图_D1.1/src/*.bak_r0
 /el_driver/面包板图_D1.1/src/netlists.json
 
+# ---------------- 单片机程序（ESP32-S3 等；只收源码和文字） ----------------
+!/firmware/
+/firmware/**/build/
+/firmware/**/.pio/
+
 # 通用
 __pycache__/
 *.pyc
