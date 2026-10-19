@@ -708,7 +708,7 @@ Tang Primer 20K + Dock；两片指定厂商 AHCT245；匹配 DF11 壳体/端子�
 | PFAIL_N_3V3 | 3.3 V | PCB-1 → Dock J14-7 | PFAIL_N 在 PCB-1 上拉到 3V3_FPGA 后的同一网络 |
 | VD_FLT_N_3V3 | 3.3 V 开漏 | U_VD FLT → Dock J14-9 | 低 = VD eFuse 故障 |
 | SCR_EN_3V3 | 3.3 V | 斜面"屏幕"开关 → PCB-1 J_PF-2 → Dock J14-12 | 高 = 允许开屏（PCB-1 上 10 kΩ 上拉）；低 = 关屏，经 D4 拉低 EN_VD |
-| UART_TX / UART_RX | 3.3 V | Dock J14-10/11 ↔ Orange Pi UART | PCB-1 只转接 |
+| UART_TX / UART_RX | 3.3 V（FPGA 侧）/ 3.0 V（Orange Pi 侧） | Dock J14-10/11 ↔ Orange Pi UART4（40 针 19/21 脚，/dev/ttyS4） | PCB-1 只转接 |
 
 ### 15.3 PCB-1：EL 接口与电源时序板（EL-IF）
 
@@ -725,7 +725,7 @@ Tang Primer 20K + Dock；两片指定厂商 AHCT245；匹配 DF11 壳体/端子�
 | J_PWR | 4P 端子，VH3.96 或 5.08 mm 螺钉端子，每针 ≥5 A | 1 = +12V_IN；2 = GND；3 = +5V_IN；4 = GND |
 | J_PF | XH2.54 3P（与 XH 兼容的 A2501 3P） | 1 = PFAIL_N（来自 PCB-3）；2 = SCR_EN_3V3（斜面"屏幕"钮子开关，开关另一端接 3 脚）；3 = GND |
 | J_LAMP | XH2.54 2P | 1 = +12V_EL；2 = GND。面板"屏幕供电"12 V 黄色指示灯，跟随屏的 VD |
-| J_UART | XH2.54 3P | 1 = UART_TX；2 = UART_RX；3 = GND（直接引到 Orange Pi 4 的 3.3 V UART，不加电平转换） |
+| J_UART | XH2.54 3P | 1 = UART_TX；2 = UART_RX；3 = GND（引到 Orange Pi 4 的 UART4：40 针 19 脚 TX、21 脚 RX，Armbian 开 `rk3399-uart4` overlay 后为 /dev/ttyS4。**v0.3 更正：Orange Pi 4 排针 IO 是 3.0 V，不是 3.3 V**（2026-10-20 按官方原理图与 Armbian 设备树核实）。Orange Pi → FPGA 方向 3.0 V 高电平足够；FPGA → Orange Pi 方向 3.3 V 比对方电源高 0.3 V，靠 RTX 串阻限流，见 15.3 电路块 E） |
 
 P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+12V_* 之间不得有任何直接或经电阻的连接**（只允许经开漏器件/肖特基隔离，见下）。
 
@@ -828,7 +828,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
 - **PFAIL 比较器：** LM393（SOIC-8），由 NID100-5 输出的 5 V 供电（24 V 跌落时 5 V 最后掉）。
   - 同相/反相输入：24 V 经分压与 2.5 V 基准（TL431 或 LM4040-2.5）比较；**阈值：24 V 下降到 21.0 V 时输出翻转，回差约 1 V**（上升 22 V 恢复）。分压比与回差电阻由画板方计算并在原理图上写出算式。
   - 通道 A 输出（开漏，LM393 本身为开漏）→ J_PF（XH 2P：PFAIL_N、GND）→ PCB-1 J_PF 的 1、3 脚（PCB-1 的 J_PF 为 3P，2 脚接面板"屏幕"开关，见 15.3 电路块 E）。PCB-3 上不加上拉（上拉在 PCB-1）。
-  - 通道 B 输出（开漏）→ J_PF_OPI（XH 2P）→ Orange Pi GPIO（上拉在 Orange Pi 侧到 3.3 V），供系统提前关机。
+  - 通道 B 输出（开漏）→ J_PF_OPI（XH 2P）→ Orange Pi GPIO（上拉在 Orange Pi 侧，Orange Pi 4 排针 IO 为 3.0 V），供系统提前关机。
 - 指示：+24V、+12V、+5V 各一 LED。
 - 布线：24 V/12 V/5 V 大电流路径线宽按 1 oz 铜、温升 ≤10°C 计算（预计 ≥3 mm 或铺铜），分路保险靠近输出端子。
 

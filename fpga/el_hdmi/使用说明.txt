@@ -69,7 +69,10 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
 5. 串口命令（115200 8N1）
 --------------------------------------------------------------------
   两个口共用同一套命令：
-    Orange Pi：J14-10 = FPGA 发 → 接 Orange Pi RX；J14-11 = FPGA 收 → 接 Orange Pi TX（3.3V）
+    Orange Pi：J14-10 = FPGA 发 → 接 Orange Pi RX；J14-11 = FPGA 收 → 接 Orange Pi TX
+               用 Orange Pi 4 的 UART4：40 针 19 脚 = TX、21 脚 = RX、GND 任一地脚；
+               Armbian 里先开 overlay：/boot/armbianEnv.txt 加 overlays=rk3399-uart4（会关掉 SPI1），重启后是 /dev/ttyS4。
+               注意 Orange Pi 4 排针电平是 3.0 V（不是 3.3 V）：FPGA 发出的 3.3 V 要经 EL-IF 上的 RTX 串阻再进 Orange Pi。
     电脑：Dock 的 USB 调试串口（插 USB-C 后出现两个串口，一般是第二个）
   一行一条，回车结束，不分大小写：
     R1 / R0      开机 / 关机（R1 也用于清除故障）
@@ -85,7 +88,7 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
                  ST 上下电状态（0 关机 1 OE 已开 2 扫描中 3 运行 4 关 VD 中 5 停扫描 6 关 OE 7 故障）
                  SHOWN/DROP 已换上/丢弃的帧数（十六进制），H/V 最近一帧的有效像素/行数（应为 280/1E0 = 640/480）
                  最后一个字符：- 正常，F 故障，P 发生过 PFAIL，X FIFO 溢出
-  回应 OK / ERR。Orange Pi 上可以：stty -F /dev/ttyS? 115200 raw; echo "T100" > /dev/ttyS?
+  回应 OK / ERR。Orange Pi 上可以：stty -F /dev/ttyS4 115200 raw; echo "T100" > /dev/ttyS4
 
 --------------------------------------------------------------------
 6. 建议的第一次上板顺序（先不接屏）
