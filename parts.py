@@ -25,27 +25,29 @@ def cyl(r, h, x=0, y=0, z=0, axis="Z"):
 
 # ---------------------------------------------------------------- 1. 核心器件
 def lj64k052():
-    """Sharp LJ64K052 10.4" EL 模块（包络模型）"""
-    SPEC = dict(L=267, H=220, T=22,          # C 用户提供原厂外形
+    """Sharp LJ64K052 10.4" EL 模块（包络模型）。前表面 Y=0，X 宽、Z 高，原点=左下前角"""
+    SPEC = dict(L=267, H=220, T=23.5,        # C 规格书 p.12：267±0.5 × 220 × 最大 23.5
                 aa_w=211.2, aa_h=158.4,        # T 按 640x480 @0.33 mm 点距推算
-                glass_t=3.0, hole_d=3.5, hole_inset=5)  # T
+                glass_t=3.0,                   # T
+                holes=((3.5, 257, 208), (4.4, 238, 187)),   # C 规格书 p.12：两组安装孔（孔径, 横向孔距, 纵向孔距），对中心对称
+                comp_half=63)                  # C 背部元件区以中心为界上下各 63
     L, H, T = SPEC["L"], SPEC["H"], SPEC["T"]
     glass = box(L, SPEC["glass_t"], H)                         # 前玻璃
     frame = box(L - 4, 3, H - 4, 2, SPEC["glass_t"], 2)       # 金属框
     pcb = box(L - 10, 1.6, H - 10, 5, SPEC["glass_t"] + 3, 5)  # 驱动板
-    comps = box(L - 40, T - 7.6 - 1.6 - 3, H - 60, 20, SPEC["glass_t"] + 4.6, 30)
+    ch = SPEC["comp_half"]
+    comps = box(L - 40, T - 7.6 - 1.6, 2 * ch, 20, SPEC["glass_t"] + 4.6, H / 2 - ch)   # 背部元件区（高压在此，须防误触）
     body = glass.union(frame).union(pcb).union(comps)
     # 有效显示区（0.2 mm 浅凹，仅作标识）
     aa = box(SPEC["aa_w"], 0.2, SPEC["aa_h"], (L - SPEC["aa_w"]) / 2, 0, (H - SPEC["aa_h"]) / 2)
     body = body.cut(aa)
-    # 背面接口（暂定：2 个排针座，位于右上）
-    for i, z in enumerate((H - 40, H - 70)):
-        body = body.union(box(30, 8, 8, L - 60, T - 8, z))
-    # 四角安装孔（暂定）
-    i = SPEC["hole_inset"]
-    for x in (i, L - i):
-        for z in (i, H - i):
-            body = body.cut(cyl(SPEC["hole_d"] / 2, T, x, 0, z, "Y"))
+    # CN5：背面竖直中心线上、中心以下约 59（C 位置；连接器外形 T）
+    body = body.union(box(30, 4, 8, L / 2 - 15, T - 4, H / 2 - 59 - 4))
+    # 两组安装孔（8 个通孔，原厂说明用其中 4 个）
+    for d, px, pz in SPEC["holes"]:
+        for sx in (-1, 1):
+            for sz in (-1, 1):
+                body = body.cut(cyl(d / 2, T + 2, L / 2 + sx * px / 2, -1, H / 2 + sz * pz / 2, "Y"))
     return body
 
 def orangepi4():
@@ -132,15 +134,18 @@ def standoff_m3(h):
     return s.cut(cyl(1.25, h + 2, 0, 0, -1))
 
 # ---------------------------------------------------------------- 4. 自设计件（初版，按布局尺寸）
-def el_bracket():
-    """EL 屏 Z 形托架，2 mm 铝板：一腿贴型材内侧面，一腿压在屏背面（孔位暂定）"""
+def el_bracket(back_y=26.5, h=224.0, holes_z=(8.0, 216.0), hole_x=11.5):
+    """EL 屏 Z 形托架，2 mm 铝板：一腿贴立柱内侧面（M4 → 锤头螺母），一腿贴屏背面。
+    屏用规格书 Ø3.5 那组孔（257×208）：M3 螺丝从屏正面穿过屏和托架，背后螺母锁紧；螺丝头落在屏与前面板之间 3 mm 的空隙里。
+    原点 = 贴立柱那条腿的左前下角；back_y = 屏背面离框架前沿的距离；holes_z / hole_x 为屏孔在托架上的位置（左托架，右托架镜像）"""
     t = 2.0
-    leg_a = box(t, 25, 210, 0, 0, 0)         # 贴型材内侧（X 法向）
-    leg_b = box(28, t, 210, 0, 25, 0)        # 压屏背面
+    leg_a = box(t, back_y, h, 0, 0, 0)          # 贴立柱内侧（X 法向）
+    leg_b = box(28, t, h, 0, back_y, 0)         # 贴屏背面
     b = leg_a.union(leg_b)
-    for z in (20, 105, 190):
-        b = b.cut(cyl(2.2, t + 2, -1, 10, z, "X"))      # M4 → T 螺母
-        b = b.cut(cyl(1.7, t + 2, 18, 24, z, "Y"))      # M3 → 屏
+    for z in (20, h / 2, h - 20):
+        b = b.cut(cyl(2.2, t + 2, -1, 10, z, "X"))          # M4 → 立柱槽里的锤头螺母
+    for z in holes_z:
+        b = b.cut(cyl(1.7, t + 2, hole_x, back_y - 1, z, "Y"))   # M3 → 屏 Ø3.5 孔
     return b
 
 def in14_socket_pcb():

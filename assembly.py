@@ -1,5 +1,5 @@
 """
-MIS-01 整机布局装配（布局 E11）
+MIS-01 整机布局装配（布局 E11；Orange Pi 4、FPGA Dock 暂作未安装模块，不在总装内）
 全局坐标：X 向右(宽)、Y 由前向后(深)、Z 向上；竖直前面板外表面 Y=-2，框架前沿 Y=0。
 框架外形 320(W) x 220(D) x 420(H)，2020 型材；底部斜面与键盘座向前探出约 45（见 assembly_panel.py）。
 公共尺寸/配色/零件表在 assembly_base.py。
@@ -40,9 +40,11 @@ def frame():
 def screen():
     sx0 = (W - 267) / 2
     add("Sharp_LJ64K052", P.lj64k052().translate((sx0, 3, Z_SCREEN)), "glass_el", "core")
-    brk = P.el_bracket()
-    add("EL_bracket_L", brk.translate((20, 0, Z_SCREEN + 5)), "alu", "mech")
-    add("EL_bracket_R", brk.mirror("YZ").translate((W - 20, 0, Z_SCREEN + 5)), "alu", "mech")
+    # 托架：贴屏背面，用屏的 Ø3.5 孔（257×208）锁 M3；托架上沿顶到前上横梁下面（Z=400）
+    z0 = Z_SCREEN - 2
+    brk = P.el_bracket(back_y=3 + 23.5, h=224.0, holes_z=(Z_SCREEN + 6 - z0, Z_SCREEN + 214 - z0), hole_x=sx0 + 5 - 20)
+    add("EL_bracket_L", brk.translate((20, 0, z0)), "alu", "mech")
+    add("EL_bracket_R", brk.mirror("YZ").translate((W - 20, 0, z0)), "alu", "mech")
 
 # ------------------------------------------------------------------ 管龛（甲板上）：IN-14 一排，IV-18 横在其正下方
 TUBE_X = [35, 57, 84, 106, 133, 155]          # 6 支 IN-14 管心，HH:MM:SS 分组（管龛窗 x 22..170）
@@ -51,8 +53,10 @@ Y_IV18 = 11                                    # IV-18 管轴（玻壳前沿离�
 Z_IN14_PCB = 116                               # IN-14 管座板底面（IV-18 顶在 114 以下）
 IV18_X0 = 27                                   # IV-18 引线端玻壳中心 X（玻壳到 X=142）
 Z_IV18_PCB = Z_DECK + 3                        # IV-18 板底面，管心 Z=104.6
-EYE_Y = 27                                     # 6E2 管轴 Y（让开前面的 SBM-20）
-SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 184           # SBM-20 管轴
+EYE_Y = 27                                     # 6E2 管轴 Y（让开前面的盖革管）
+SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 184           # 盖革管 J305 管轴（变量名沿用 SBM_）
+GM_L = 111.0                                   # J305 长度（T）
+
 
 def tubes():
     sock = P.in14_socket_pcb()
@@ -64,63 +68,44 @@ def tubes():
     # IV-18：板直接用尼龙垫片坐在甲板上，支架托住管子
     add("IV18_PCB", P.iv18_pcb().translate((IV18_X0 - 5, Y_IV18 - 9, Z_IV18_PCB)), "pcb_b", "tubes")
     add("IV-18", P.iv18().translate((IV18_X0, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
-    # 驱动板 + 6xK155ID1 + NCH6100HV + 防护罩
-    zb = Z_DECK + 2 + 8
-    add("tube_driver_board", P.tube_driver_board().translate((20, 60, zb)), "pcb_g", "tubes")
-    for k in range(6):
-        add(f"K155ID1_{k+1}", P.dip16().translate((28 + k * 22, 70, zb + 1.6)), "chip", "tubes")
-    add("NCH6100HV", P.nch6100hv().translate((145, 85, zb + 1.6 + 8.5)), "module", "tubes")
-    add("HV_cover_acrylic_tubes", P.hv_cover(168, 78, 40).translate((16, 56, Z_DECK + 2)), "acrylic", "covers")
-    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((215, 90, Z_DECK + 2 + 6)), "module", "tubes")
+    # 辉光管驱动板（K155ID1×6 + NCH6100HV）还没画；机内可用空间见 free_space.py
+    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((215, 166, Z_DECK + 2 + 6)), "module", "tubes")
     # 6E2 ×2：管座在甲板上，管子竖立在前面板竖窗后
     for k, x in enumerate(AP.EYE_X):
         add(f"Noval_socket_{k+1}", M.noval_socket().translate((x, EYE_Y, Z_DECK + 2 + 10)), "dark", "tubes")
         add(f"6E2_{k+1}", M.tube_6e2().translate((x, EYE_Y, Z_DECK + 2 + 10)), "eye", "tubes")
 
-# ------------------------------------------------------------------ 盖革：SBM-20 横在前面板开窗后，盖革板在甲板上
+# ------------------------------------------------------------------ 盖革：J305 横在前面板开窗后；用成品盖革板（RadiationD v1.1 类），位置待定
 def geiger():
-    add("SBM-20", M.sbm20().translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
-    for x in (SBM_X0 + 1, SBM_X0 + 108 - 5):                  # 端帽夹（T）
-        add("SBM20_clip", P.box(4, 10, SBM_Z - 5.5 - Z_DECK - 2, x, SBM_Y - 5, Z_DECK + 2), "alu", "geiger")
-    for x, y in ((189.5, 41.5), (242.5, 41.5), (189.5, 74.5), (242.5, 74.5)):
-        add("standoff_M3x5", P.standoff_m3(5).translate((x, y, Z_DECK + 2)), "brass", "geiger")
-    add("Geiger_board", M.geiger_board().translate((186, 38, Z_DECK + 2 + 5)), "pcb_b", "geiger")
+    add("J305", M.j305(GM_L).translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
+    for x in (SBM_X0 + 1, SBM_X0 + GM_L - 5):                 # 端帽夹（T）
+        add("GM_tube_clip", P.box(4, 10, SBM_Z - 5.5 - Z_DECK - 2, x, SBM_Y - 5, Z_DECK + 2), "alu", "geiger")
+    # 盖革板还没画；机内可用空间见 free_space.py
 
 # ------------------------------------------------------------------ 下舱：电源、配电、喇叭
 def lower():
-    add("MeanWell_LRS-150-24", P.lrs150_24().translate((25, 100, 0)), "psu", "power")
-    # 市电端子防护罩（亚克力 3 mm 罩帽，跨在 PSU 端子端，用 PSU 侧面 M3 孔经角片固定）
-    t = 3
-    hood = (P.box(46, 104, t, 160, 96, 40 - t)            # 顶
-            .union(P.box(t, 104, 40, 203, 96, 0))            # 外侧壁
-            .union(P.box(19, t, 40, 184, 96, 0)).union(P.box(19, t, 40, 184, 197, 0))
-            .union(P.box(24, t, 10 - t, 160, 96, 30)).union(P.box(24, t, 10 - t, 160, 197, 30)))
+    # LRS-200-24 靠后放，端子在右端（靠近 IEC 插座）；配电板（含两个 NID100）还没画；机内可用空间见 free_space.py
+    px, py, pl, pw = 22, 83, 215, 115
+    add("MeanWell_LRS-200-24", M.lrs200_24().translate((px, py, 0)), "psu", "power")
+    # 市电端子防护罩（亚克力 3 mm 罩帽，罩住电源右端端子，用电源侧面 M3 孔经角片固定）
+    t, hx, hy, hl, hw, hh = 3, px + pl - 24, py - 2, 46, pw + 4, 40
+    hood = (P.box(hl, hw, t, hx, hy, hh - t)                                   # 顶
+            .union(P.box(t, hw, hh, hx + hl - t, hy, 0))                        # 外侧壁
+            .union(P.box(hl - 24, t, hh, hx + 24, hy, 0)).union(P.box(hl - 24, t, hh, hx + 24, hy + hw - t, 0))
+            .union(P.box(24, t, 10 - t, hx, hy, 30)).union(P.box(24, t, 10 - t, hx, hy + hw - t, 30)))
     add("Mains_hood_acrylic", hood, "acrylic", "covers")
-    pb = to_min(P.power_board().rotate((0, 0, 0), (0, 0, 1), 90), 212, 66, 10)
-    add("24V_power_board", pb, "pcb_g", "power")
-    for x, y in ((288, 70), (288, 192), (216, 70), (216, 192)):
-        add("standoff_M3x10", P.standoff_m3(10).translate((x, y, 0)), "brass", "power")
-    add("NID100-05", to_min(P.nid100_05().rotate((0, 0, 0), (0, 0, 1), 90), 220, 120, 11.6 - 4.5), "module", "power")
-    add("NID65-12", to_min(P.nid65_12().rotate((0, 0, 0), (0, 0, 1), 90), 238, 120, 11.6 - 4.5), "module", "power")
     # 喇叭暗装：贴在左侧下层型材之间，朝开放的左侧面发声
     add("Speaker_40mm", F.speaker_40().rotate((0, 0, 0), (0, 0, 1), -90).translate((22, 50, 45)), "dark", "power")
 
 # ------------------------------------------------------------------ 电脑层
+# Orange Pi 4 和 Tang Primer 20K Dock 暂不定位置，作为未安装模块处理（单件 STEP 见 P04 / P03）。
+# 等第一版自制 PCB 出来后，与各板一起重新布置；后面板接口窗也随之再开。
 def computers():
-    zs = Z_SHELF + 2
-    opi = to_min(P.orangepi4().rotate((0, 0, 0), (0, 0, 1), 90), 32, 106, zs + 10)
-    for x, y in ((84.5, 109.5), (84.5, 167.5), (35.5, 109.5), (35.5, 167.5)):
-        add("standoff_M3x10", P.standoff_m3(10).translate((x, y, zs)), "brass", "compute")
-    add("OrangePi_4", opi, "opi", "compute")
-    dock = P.tang20k_dock().translate((150, 112, zs + 10))        # 官方 Dock 模型已含插好的核心板
-    add("Tang_Primer_20K_Dock+Core", dock, "pcb_b", "compute")
-    for x, y in ((154, 116), (241, 116), (154, 181), (241, 181)):   # 板 95x73，孔距 87x65（孔为 M2.5，铜柱待换 M2.5）
-        add("standoff_M3x10", P.standoff_m3(10).translate((x, y, zs)), "brass", "compute")
+    pass
 
 # ------------------------------------------------------------------ 后面板 + 风扇
 def rear():
-    cut = [(30, Z_SHELF + 12, 80, 22), (146, Z_SHELF + 10, 102, 24),   # 电脑接口窗（Dock 接口占 X 147..245）
-           (265, 30, 28, 48)]                                         # IEC C14 带开关插座（预留）
+    cut = [(265, 30, 28, 48)]                                         # IEC C14 带开关插座（预留）；电脑接口窗待板子定位后再开
     holes = [(cx + sx * 25, 340 + sz * 25, 4.4) for cx in (100, 220) for sx in (-1, 1) for sz in (-1, 1)]
     holes += [(cx, 340, 56) for cx in (100, 220)]
     holes += [(10, z, 4.5) for z in (10, 210, 410)] + [(W - 10, z, 4.5) for z in (10, 210, 410)]

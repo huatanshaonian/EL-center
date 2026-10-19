@@ -8,7 +8,7 @@ import parts as P
 import parts_modules as M
 import parts_panel as F
 import parts_dock as PD
-from assembly_base import W, H, Z_DECK, Z_SCREEN, add, place
+from assembly_base import W, H, Z_DECK, Z_SCREEN, add, place, to_min
 
 # ---------------------------------------------------------------- 斜面几何
 SLANT_L, SLANT_ANG = 83.0, 33.0                  # 斜面展开长、与竖直面夹角
@@ -19,7 +19,9 @@ Z_BASE = Z_CHIN - SLANT_L * CA                   # 斜面下沿高度，约 18.4
 
 # 斜面器件位置 (x, u)。四组等距 14、右边距放宽到 22：右列长方形键的键体（深约 30）要让开右前立柱（x≥300）
 SEL = (37.0, 40)
-USB = ((28.0, 10), (46.0, 10))
+USB = ((30.0, 10), (67.0, 10))                  # 左 USB3（直连 Pi）、右 USB2（来自 Hub）；带耳延长线母头，中心距 ≥37（耳宽 35，T）
+PCB_D, PCB_T = 6.5, 1.6                           # 斜面电路板元件面到斜面内表面 6.5（推子贴死面板）
+PCB_X, PCB_U = (24.0, 164.0), (3.0, 73.0)         # 占位外形 140x70；可用范围 x 21–168 × u 0–81
 ENC = ((110.5, 63), (136.5, 63))
 FADER_X, FADER_U = 123.5, (40, 18)
 TOG_X, TOG_U, LAMP_U = (180.5, 201.5, 222.5), 26, 63
@@ -45,7 +47,7 @@ def front_panel():
     cut = [(sx0 + (267 - aa_w) / 2 - 2, Z_SCREEN + (220 - aa_h) / 2 - 2, aa_w + 4, aa_h + 4),   # EL 视窗
            NICHE, SBM_WIN]
     cut += [(x - 6, EYE_WIN[0], 12, EYE_WIN[1]) for x in EYE_X]                                # 6E2 竖窗
-    holes = [(METER[0], METER[1], 51)] + [(METER[0] + sx * 24, METER[1] + sz * 21, 3.2) for sx in (-1, 1) for sz in (-1, 1)]
+    holes = [(METER[0], METER[1], 50)] + [(METER[0] + sx * 26, METER[1] - 13, 3.2) for sx in (-1, 1)]   # 85C1：Ø50 + 2×M3（孔距 52）
     holes += [(SENSOR[0], SENSOR[1], 6)]
     holes += [(x, z, 4.5) for x in (10, W - 10) for z in (140, 280, 410)] + [(x, H - 10, 4.5) for x in (110, 210)]
     cut = [(x, z - z0, w, h) for x, z, w, h in cut]
@@ -54,11 +56,14 @@ def front_panel():
     add("Panel_meter_85C1", F.panel_meter().translate((METER[0], -2, METER[1])), "meter", "ui")
 
 def slant():
-    cut = [(x - 6.7, u - 3, 13.4, 6) for x, u in USB]
+    cw, ch = F.USB_EXT["cut"]
+    cut = [(x - cw / 2, u - ch / 2, cw, ch) for x, u in USB]
     cut += [(FADER_X - 31, u - 1, 62, 2) for u in FADER_U]
-    cut += [(x - 11, u - 8, 22, 16) for x in KEY_X for u in KEY_U]
-    holes = [(SEL[0], SEL[1], 10)] + [(x, u, 7.2) for x, u in ENC]
-    holes += [(x, TOG_U, 6.2) for x in TOG_X] + [(x, LAMP_U, 8.2) for x in TOG_X]
+    holes = [(SEL[0], SEL[1], 10.1)] + [(SEL[0] + sx * 11, SEL[1], 4.2) for sx in (-1, 1)]       # MFR01：Ø10 + 2 个 Ø4.1 防转孔（距 22）
+    holes += [(x + sx * F.USB_EXT["hole_dx"] / 2, u, 3.2) for x, u in USB for sx in (-1, 1)]     # 延长线耳孔
+    holes += [(x, u, 16.2) for x in KEY_X for u in KEY_U]                                     # LA16 按钮 Ø16
+    holes += [(x, u, 7.2) for x, u in ENC]
+    holes += [(x, TOG_U, 6.2) for x in TOG_X] + [(x, LAMP_U, 16.2) for x in TOG_X]
     sp = P.panel(W - 4, SLANT_L, 2, [(x - 2, u, w, h) for x, u, w, h in cut], [(x - 2, u, d) for x, u, d in holes])
     add("slant_panel_2mm", place(sp, 2, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "chin", "front")      # 夹在两侧封板之间
     # 两侧三角封板、底座条、斜面下底板
@@ -71,9 +76,9 @@ def slant():
     # 操作件
     add("Rotary_selector_5pos", on_slant(F.rotary_selector(), *SEL), "knob", "ui")
     for k, (x, u) in enumerate(USB):
-        add(f"USB-A_panel_{k+1}", on_slant(F.usb_a_panel(), x, u), "alu", "ui")
+        add(("USB3_panel_ext", "USB2_panel_ext")[k], on_slant(F.usb_panel_ext(), x, u), "dark", "ui")
     for k, (x, u) in enumerate(ENC):
-        add(f"EC11_encoder_{k+1}", on_slant(P.ec11(), x, u, back=True), "knob", "ui")
+        add(f"EC11_encoder_{k+1}", on_slant(P.ec11().translate((0, PCB_D - 4.5, 0)), x, u, back=True), "knob", "ui")   # 本体高 4.5 坐在电路板上
     for k, (u, pos) in enumerate(zip(FADER_U, (0.7, 0.35))):
         add(f"Fader_60mm_{k+1}", on_slant(F.fader_60(pos), FADER_X, u), "alu", "ui")
     for k, x in enumerate(TOG_X):
@@ -84,6 +89,17 @@ def slant():
         for j, x in enumerate(KEY_X):
             add(f"Rect_lamp_button_{i * 2 + j + 1}", on_slant(key, x, u), "lamp", "ui")
 
+def slant_pcb():
+    """斜面电路板占位（Pico、ULN2803，EC11、推子焊在板上）：板到斜面内表面 PCB_D；模式开关处开 Ø34 孔，两个 USB 母头处开让位缺口"""
+    x0, x1 = PCB_X; u0, u1 = PCB_U
+    cut = [(x - 11 - x0, 0, 22, u + 7 - u0) for x, u in USB]                                    # 从下边缘开缺口
+    holes = [(SEL[0] - x0, SEL[1] - u0, 34)]
+    b = P.panel(x1 - x0, u1 - u0, PCB_T, cut, holes)
+    add("Slant_PCB(placeholder)", place(b.translate((x0, 2 + PCB_D, u0)), 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_b", "ui")
+    pico = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90)     # 贴板背面、竖放，位置 T
+    pico = to_min(pico, 62, 2 + PCB_D + PCB_T, 20)                                              # 让开模式开关孔、USB 缺口、编码器和推子焊脚
+    add("RPi_Pico(on_slant_PCB)", place(pico, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
+
 def keyboard():
     """底座条前装键盘座，X1 键盘平放在桌面上，连接带贴住舌条"""
     dock = PD.keyboard_dock()                                                  # 暂时竖直放；是否随斜面后仰、背后怎么接机架待定
@@ -93,4 +109,4 @@ def keyboard():
     add("X1_Tablet_keyboard", kb.translate(((W - 300) / 2, y_dock - 226, 0)), "kbd", "keyboard")
 
 def build():
-    front_panel(); slant(); keyboard()
+    front_panel(); slant(); slant_pcb(); keyboard()

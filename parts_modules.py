@@ -8,29 +8,52 @@ import cadquery as cq
 from parts import box, cyl
 import vendor_parts as V
 
-def sbm20():
-    """SBM-20 盖革管：Ø11 x 108（C，常见资料），两端金属帽（T）。原点=一端中心，管轴沿 +X"""
-    SPEC = dict(D=11.0, L=108.0, cap_L=8.0, cap_D=10.0)
+def j305(L=111.0):
+    """J305β 盖革管：Ø11 x 111（T，卖家/ESPHome 资料，到手实测），两端金属帽（T）。原点=一端中心，管轴沿 +X"""
+    SPEC = dict(D=11.0, L=L, cap_L=8.0, cap_D=10.0)
     s = SPEC
     b = cyl(s["D"] / 2, s["L"] - 2 * s["cap_L"], s["cap_L"], 0, 0, "X")
     for x in (0, s["L"] - s["cap_L"]):
         b = b.union(cyl(s["cap_D"] / 2, s["cap_L"], x, 0, 0, "X"))
     return b
 
-def esp32_devkitc():
-    """ESP32-DevKitC（38 脚）：板 54.4x27.9（T，按 V4 资料），模组用 KiCad 的 ESP32-WROOM-32E 实体，排针朝下"""
-    SPEC = dict(L=54.4, W=27.9, t=1.6, row=25.4, n=19, pitch=2.54, pin_below=8.5, ant_overhang=6.0)
+def esp32s3_dev_kit():
+    """微雪 Waveshare ESP32-S3-DEV-KIT（-U 外接天线版，模组 ESP32-S3-WROOM-1U-N16R8），预焊排针朝下。
+    C（微雪官方外形尺寸图 2026-01-10）：板 63.30x25.40x1.6；2x22 针 2.54，两排 Y=1.27/24.13（排距 22.86），
+    首针 X=5.05（USB 端），1 脚在天线端；4 个 Ø2.0 孔 (1.8,1.8)…(61.49,23.6)；USB-C ×1 宽 8.94、Y 8.24–17.18。
+    T：WROOM-1U 本体 18x19.2x3.2 在 X 37.78–56.98、Y 3.7–21.7；IPEX 座约 (54.5,18.7)；板下排针约 8.5。
+    原点=板底面 USB 端左角，X 沿板长朝天线端"""
+    SPEC = dict(L=63.30, W=25.40, t=1.6, rows=(1.27, 24.13), n=22, x_pin0=5.05, pitch=2.54, pin_below=8.5,
+                holes=((1.8, 1.8), (1.8, 23.6), (61.49, 1.8), (61.49, 23.6)), hole_d=2.0,
+                usb=(7.4, 8.94, 3.2, 8.24), mod=(37.78, 3.7, 19.2, 18.0, 3.2), ipex=(54.5, 18.7))
     s = SPEC
     b = box(s["L"], s["W"], s["t"])
-    x0 = (s["L"] - (s["n"] - 1) * s["pitch"]) / 2
-    for y in ((s["W"] - s["row"]) / 2, (s["W"] + s["row"]) / 2):
-        b = b.union(box((s["n"]) * s["pitch"], 2.5, 2.5, x0 - s["pitch"] / 2, y - 1.25, -2.5))
+    for hx, hy in s["holes"]:
+        b = b.cut(cyl(s["hole_d"] / 2, s["t"] + 0.02, hx, hy, -0.01, "Z"))
+    for y in s["rows"]:
+        b = b.union(box(s["n"] * s["pitch"], 2.5, 2.5, s["x_pin0"] - s["pitch"] / 2, y - 1.25, -2.5))   # 塑料座
         for k in range(s["n"]):
-            b = b.union(box(0.64, 0.64, s["pin_below"], x0 + k * s["pitch"] - 0.32, y - 0.32, -s["pin_below"]))
-    b = b.union(box(7.5, 5.5, 2.6, -1.0, s["W"] / 2 - 2.75, s["t"]))                       # micro-USB
-    mod = V.rot(V.load("kicad_extra/ESP32-WROOM-32E.step"), "Z", -90)                      # 天线端朝 +X
-    mod = mod.translate((s["L"] - 12.75 + s["ant_overhang"], s["W"] / 2, s["t"]))
-    return V.compound(b, mod)
+            b = b.union(box(0.64, 0.64, s["pin_below"], s["x_pin0"] + k * s["pitch"] - 0.32, y - 0.32, -s["pin_below"]))
+    ul, uw, uh, uy = s["usb"]
+    b = b.union(box(ul, uw, uh, -0.3, uy, s["t"]))                                            # USB-C
+    mx, my, ml, mw, mh = s["mod"]
+    b = b.union(box(ml, mw, mh, mx, my, s["t"]))                                              # WROOM-1U
+    ix, iy = s["ipex"]
+    return b.union(cyl(1.3, 1.25, ix, iy, s["t"] + mh, "Z"))                                  # IPEX 座
+
+def ds3231_module():
+    """DS3231 RTC 模块（ZS-042 类）：板 38x22，带弯针总长 45，总高 14（用户实测）；
+    纽扣电池座在板底、芯片在板顶、一端 6P 弯针（布局 T）。原点=板底面左前角，X 沿板长朝弯针端"""
+    SPEC = dict(L=38.0, W=22.0, t=1.6, L_pins=45.0, H=14.0, bat_d=20.0)
+    s = SPEC
+    zb = s["H"] - 8.0                                                                        # 板底离包络底 6（电池座）
+    m = box(s["L"], s["W"], s["t"], 0, 0, zb)
+    m = m.union(cyl(s["bat_d"] / 2, zb, s["L"] / 2 - 4, s["W"] / 2, 0, "Z"))                 # 电池座
+    m = m.union(box(10.5, 7.6, 2.5, 8, 4, zb + s["t"])).union(box(5, 4, 1.5, 22, 14, zb + s["t"]))   # DS3231、AT24C32
+    m = m.union(box(2.5, 15.24, 2.5, s["L"] - 2.5, (s["W"] - 15.24) / 2, zb + s["t"]))       # 弯针塑料座
+    for k in range(6):
+        m = m.union(box(s["L_pins"] - s["L"] + 2.5, 0.64, 0.64, s["L"] - 2.5, (s["W"] - 12.7) / 2 + k * 2.54 - 0.32, zb + s["t"] + 0.9))
+    return m.union(box(4, 15, s["H"] - zb - s["t"], 1, (s["W"] - 15) / 2, zb + s["t"]))     # 另一端 6P 直针（到总高 14）
 
 def rpi_pico():
     """Raspberry Pi Pico（RP2040）。SRC: datasheets.raspberrypi.com Pico-R3-step.zip，板 51x21x1"""
@@ -105,3 +128,16 @@ def noval_socket():
         a = math.radians(36 * i)
         k = k.union(box(0.8, 0.8, s["pin_L"], s["pcd"] / 2 * math.cos(a) - 0.4, s["pcd"] / 2 * math.sin(a) - 0.4, -s["H"] - s["pin_L"]))
     return k
+
+def lrs200_24():
+    """明纬 LRS-200-24 开关电源（参数化包络）：外形 215x115x30（C，规格书），端子台在 +X 端顶面凹槽里（位置/尺寸 T）
+    原点 = 底面左前角，X 长、Y 宽、Z 向上"""
+    SPEC = dict(L=215.0, W=115.0, H=30.0, term=(16.0, 100.0, 12.0))
+    s = SPEC
+    L, W, H = s["L"], s["W"], s["H"]
+    tx, ty, tz = s["term"]
+    b = box(L, W, H).cut(box(tx, ty, tz + 1, L - tx - 2, (W - ty) / 2, H - tz))        # 端子凹槽
+    b = b.union(box(tx - 4, ty - 6, tz - 2, L - tx, (W - ty) / 2 + 3, H - tz))           # 端子台
+    for k in range(10):                                                                  # 散热孔示意（顶面）
+        b = b.cut(box(2.0, W - 30, 1.0, 30 + k * 14, 15, H - 0.5))
+    return b
