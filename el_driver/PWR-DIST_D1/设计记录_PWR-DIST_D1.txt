@@ -25,8 +25,9 @@ MIS-01 PCB-3 电源板（PWR-DIST）原理图 D1 设计记录
               AUXOFF（3 脚，开漏输出）、FLT（4 脚）、ITIMER（10 脚）悬空——TI SLVSFC9C 表 5-1：ITIMER "Leave this pin open
               for fastest response"，AUXOFF/FLT 为开漏输出；ERC 的"引脚悬空"警告即此，属有意。
   高压域      NCE40P05Y ×3（−40 V），栅源 10 k + BZT52C12，栅极 4.7 k 到 HV_GATE_N；HV_GATE_N 经 BSS138（栅 HV_EN，100 k 下拉）
-              再经 J_PANEL-2 到"高压"钮子到地。钮子与 HV_EN 都通才有输出，断线即关。HV-A 12 V（P4：辉光驱动板自制升压，
-              另留 NCH6100HV 备用位）、HV-B 12 V（6E2 模块 + 红灯）、HV-C 5 V（盖革板）。
+              再经 J_PANEL-2 到"高压"钮子到地。钮子与 HV_EN 都通才有输出，断线即关。HV-A 12 V、HV-B 12 V（+ 红灯）各接一块自制"通用高压小板"
+              （UC3843AN，12 V 输入，150–280 V 可调；辉光管调 170 V、6E2 调 250 V，2026-10-20 用户定，不买 NCH6100HV 与 250 V 模块）、
+              HV-C 5 V（盖革板）。
   绿灯        AO3400 低边，栅极 1 k 接 +5V_PI、100 k 下拉。
   屏幕钮子    SCR_EN 原样转 J_PF-2；本板 1 M 上拉到 3.3 V + 10 k 回读给 ESP（ST_SCR）。
   自恢复保险  1812L110/33MR（1.1 A）、1812L050/33GR（0.5 A）、1812L150/33GR（1.5 A）。
