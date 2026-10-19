@@ -1,11 +1,20 @@
 # Sharp LJ64K052：HDMI → EL 显示驱动工程设计笔记
 
-版本：v0.2，设计输入 + PCB 任务书  
-整理日期：2026-10-17 初稿；2026-10-18 按调研结果修订（Asia/Shanghai）  
+版本：v0.3，设计输入 + PCB 任务书  
+整理日期：2026-10-17 初稿；2026-10-18 按调研结果修订；2026-10-19 按 EL-IF D1.2 第一版 PCB 同步（Asia/Shanghai）  
 目标平台：Orange Pi 4（HDMI 信号源）+ Tang Primer 20K 核心板 + Dock 底板 + 自制低压转接/电源板  
 用途：作为原理图、PCB、FPGA 模块划分和分阶段调试的设计依据。**第 15 节是交给画板方（人或 AI）的完整 PCB 任务书，第 16 节是打板前的面包板验证方案。**
 
 > **设计状态：架构已可展开；Dock 引脚分配已按官方原理图 3713 版给出（VCCIO 仍需实测）；电源方案已按实际库存（LRS-200-24 + NID100-12 + NID100-5）改写。上电波形验证完成前，不作为已验证的通电定稿。**
+
+### v0.3 修订摘要（2026-10-19）
+
+与 EL-IF D1.2 原理图和第一版 PCB 同步（详见 `el_driver/D1.2/变更记录_D1.2.txt`）：
+
+1. PCB-1 尺寸由"≤ 80 × 60 mm"改为实际的 **100 × 100 mm**，安装孔中心距板边 5 mm（15.3）。
+2. U_VD 限流电阻 RIL12 由 1.3 kΩ（无现货）改为 **1.2 kΩ**，限流 ≈ 2.78 A（原 ≈ 2.56 A）（10.1、15.3）。
+3. J_PF 由 2 针改为 **3 针**：增加斜面"屏幕"开关输入 SCR_EN_3V3，开关拨到关时经 D4 硬件关 VD，并经 P3-12（J14-12）告诉 FPGA（11.2.1、15.2、15.3、15.5、15.7）。
+4. 新增 J_LAMP：面板"屏幕供电"12 V 指示灯，跟随 +12V_EL（15.3）。
 
 ### v0.2 修订摘要（2026-10-18）
 
@@ -354,7 +363,7 @@ g = 0..159；y = 0..239
 **[方案] 电源树：**
 
 ```text
-AC → LRS-200-24 → 24V ──┬─ F(8A) → NID100-12 → 12V ─┬─ PCB-1 U_VD(eFuse, 软启动, 限流≈2.5A) → +12V_EL → CN5 19/20
+AC → LRS-200-24 → 24V ──┬─ F(8A) → NID100-12 → 12V ─┬─ PCB-1 U_VD(eFuse, 软启动, 限流≈2.8A) → +12V_EL → CN5 19/20
                         │                            ├─ Dock 12V DC 插座（DC-036A，Dock 板载降压到 5V）
                         │                            └─ 其他 12V 负载（按整机计划）
                         ├─ F(8A) → NID100-5 → 5V ───┬─ PCB-1 U_VL(eFuse, 软启动, 限流≈0.8A) → +5V_EL → CN5 17/18 + 缓冲器
@@ -483,7 +492,7 @@ Dock 供电要核对官方原理图和 USB 接线，尤其是外部 5 V 与电�
 | J14-9 | MIC_DAT2 | 3/IOR29B/**R8** | VD_FLT_N_3V3 | 板→FPGA |
 | J14-10 | MIC_DAT3 | 3/IOR29A/**T7** | UART_TX（FPGA→Orange Pi） | FPGA→板 |
 | J14-11 | MIC_BCK | 3/IOR53B/**T6** | UART_RX（Orange Pi→FPGA） | 板→FPGA |
-| J14-12 | MIC_WS | 3/IOR53A/**P6** | SPARE_J14_12（仅引到测试点） | — |
+| J14-12 | MIC_WS | 3/IOR53A/**P6** | SCR_EN_3V3（斜面"屏幕"开关，高 = 允许开屏；v0.3 起，原 SPARE_J14_12） | 板→FPGA |
 | J5/J6/J14 的 1、2 脚 | +3V3 | — | 3V3_FPGA（仅作上拉参考，**不得与任何 5V/12V 网络相连，不从此取大电流**） | — |
 | J5/J6/J14 的 3、4 脚 | GND | — | GND | — |
 
@@ -683,11 +692,12 @@ Tang Primer 20K + Dock；两片指定厂商 AHCT245；匹配 DF11 壳体/端子�
 | PFAIL_N | 开漏 | PCB-3 → PCB-1 | 低 = 24 V 正在掉电 |
 | PFAIL_N_3V3 | 3.3 V | PCB-1 → Dock J14-7 | PFAIL_N 在 PCB-1 上拉到 3V3_FPGA 后的同一网络 |
 | VD_FLT_N_3V3 | 3.3 V 开漏 | U_VD FLT → Dock J14-9 | 低 = VD eFuse 故障 |
+| SCR_EN_3V3 | 3.3 V | 斜面"屏幕"开关 → PCB-1 J_PF-2 → Dock J14-12 | 高 = 允许开屏（PCB-1 上 10 kΩ 上拉）；低 = 关屏，经 D4 拉低 EN_VD |
 | UART_TX / UART_RX | 3.3 V | Dock J14-10/11 ↔ Orange Pi UART | PCB-1 只转接 |
 
 ### 15.3 PCB-1：EL 接口与电源时序板（EL-IF）
 
-**尺寸与安装：** ≤ 80 × 60 mm，四角 M3 安装孔（孔径 3.2 mm，距板边 ≥4 mm）。
+**尺寸与安装：** 100 × 100 mm（D1.2 第一版 PCB 实际尺寸；原定 ≤ 80 × 60 mm 放不下两颗 eFuse 的电源走线和测试点），双层 1.6 mm；四角 M3 安装孔（孔径 3.2 mm，孔中心距板边 5 mm）。元件、高度和出线方向见 `el_driver/D1.2/变更记录_D1.2.txt` 第三节。
 
 **连接器：**
 
@@ -695,10 +705,11 @@ Tang Primer 20K + Dock；两片指定厂商 AHCT245；匹配 DF11 壳体/端子�
 |---|---|---|
 | P1 | 2×6 直针 2.54 mm | 与 Dock J5 同针序：1、2 = 3V3_FPGA；3、4 = GND；5–12 = EL_UD0_3V3、EL_UD1_3V3、EL_UD2_3V3、EL_UD3_3V3、EL_LD0_3V3、EL_LD1_3V3、EL_LD2_3V3、EL_LD3_3V3 |
 | P2 | 2×6 直针 2.54 mm | 与 Dock J6 同针序：1、2 = 3V3_FPGA；3、4 = GND；5 = EL_CP2_3V3；6 = EL_CP1_3V3；7 = EL_S_3V3；8 = OE_N；9 = VD_ON_N；10 = SPARE_J6_10（只接测试点）；11、12 = 不连接（悬空焊盘） |
-| P3 | 2×6 直针 2.54 mm | 与 Dock J14 同针序：1、2 = 3V3_FPGA；3、4 = GND；5 = SPARE_J14_5（测试点）；6 = 不连接；7 = PFAIL_N_3V3；8 = VL_OK_3V3；9 = VD_FLT_N_3V3；10 = UART_TX；11 = UART_RX；12 = SPARE_J14_12（测试点） |
+| P3 | 2×6 直针 2.54 mm | 与 Dock J14 同针序：1、2 = 3V3_FPGA；3、4 = GND；5 = SPARE_J14_5（测试点）；6 = 不连接；7 = PFAIL_N_3V3；8 = VL_OK_3V3；9 = VD_FLT_N_3V3；10 = UART_TX；11 = UART_RX；12 = SCR_EN_3V3（测试点 TP_SCR） |
 | J_EL | Hirose DF11-20DP-2DS（直插针座，与屏 CN5 同型号）**[画板方核实封装尺寸、1 脚位置]** | 与第 4 节 CN5 表**完全一致**：1 UD1、2 UD0、3 UD3、4 UD2、5 LD1、6 LD0、7 LD3、8 LD2、9 CP2、11 CP1、13 S（均为 *_5V 网络）；10、12、14、15、16 = GND；17、18 = +5V_EL；19、20 = +12V_EL |
 | J_PWR | 4P 端子，VH3.96 或 5.08 mm 螺钉端子，每针 ≥5 A | 1 = +12V_IN；2 = GND；3 = +5V_IN；4 = GND |
-| J_PF | XH2.54 2P | 1 = PFAIL_N；2 = GND |
+| J_PF | XH2.54 3P（与 XH 兼容的 A2501 3P） | 1 = PFAIL_N（来自 PCB-3）；2 = SCR_EN_3V3（斜面"屏幕"钮子开关，开关另一端接 3 脚）；3 = GND |
+| J_LAMP | XH2.54 2P | 1 = +12V_EL；2 = GND。面板"屏幕供电"12 V 黄色指示灯，跟随屏的 VD |
 | J_UART | XH2.54 3P | 1 = UART_TX；2 = UART_RX；3 = GND（直接引到 Orange Pi 4 的 3.3 V UART，不加电平转换） |
 
 P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+12V_* 之间不得有任何直接或经电阻的连接**（只允许经开漏器件/肖特基隔离，见下）。
@@ -737,7 +748,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
   - 输入 B = VL_ABSENT。
   - 输出经 **1 kΩ** 到 EN_VD。输出 = NOT(VD_ON_N OR VL_ABSENT)。
 - VL_ABSENT 网络：10 kΩ 上拉到 3V3_FPGA；Q_VL（N-MOSFET，**Vgs(th) 最大 ≤1.5 V**，如 AO3400A 类，SOT-23）漏极接 VL_ABSENT、源极接 GND，栅极由 +5V_EL 经 10 kΩ/10 kΩ 分压驱动（VL 正常时栅压约 2.5 V，导通 → VL_ABSENT 为低）。+5V_EL 没电时 Q_VL 截止 → VL_ABSENT 为高 → EN_VD 为低。
-- EN_VD：100 kΩ 下拉到 GND；另有 D2（来自 VL_OK_3V3）和 **D3（BAT54 类，阴极接 PFAIL_N_3V3，阳极接 EN_VD）** 两路肖特基可以把它拉低。
+- EN_VD：100 kΩ 下拉到 GND；另有 D2（来自 VL_OK_3V3）、**D3（BAT54 类，阴极接 PFAIL_N_3V3，阳极接 EN_VD）** 和 **D4（BAT54WS，阴极接 SCR_EN_3V3，阳极接 EN_VD）** 三路肖特基可以把它拉低。
 - 真值（必须满足）：
 
 | 状态 | EN_VD | VD |
@@ -748,12 +759,13 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
 | +5V_EL 完全没电 | 低（Q_VL 截止 → VL_ABSENT 高） | 关 |
 | +5V_EL 欠压（低于约 4.6 V） | ≈0.3 V（U_SUP 经 D2） | 关 |
 | PFAIL_N 为低（24 V 掉电中） | ≈0.3 V（经 D3） | 关 |
-| FPGA 输出 VD_ON_N = 0，且 VL 正常，且 PFAIL_N 为高 | ≈3 V | **开** |
+| 斜面"屏幕"开关拨到关（SCR_EN_3V3 为低） | ≈0.3 V（经 D4） | 关 |
+| FPGA 输出 VD_ON_N = 0，且 VL 正常，且 PFAIL_N 为高，且屏幕开关为开 | ≈3 V | **开** |
 
   **[画板方核实]** 所选 eFuse 的 EN 上升阈值最大值 < 2.5 V、下降阈值最小值 > 0.5 V，EN 脚耐压 ≥3.6 V；否则调整 1 kΩ/100 kΩ 或告知用户。
 
 - U_VD：eFuse，与 U_VL 同系列。IN = +12V_IN，OUT = +12V_EL，EN = EN_VD。
-- 设定：限流约 **2.5 A**（VD 最大 1.8 A；模组 F2/F3 各 1.6 A）；软启动输出上升时间约 **10–20 ms**；FLT 开漏 → VD_FLT_N_3V3（10 kΩ 上拉到 3V3_FPGA）→ P3-9。
+- 设定：限流约 **2.8 A**（D1.2 用 TPS259470，R_ILM = RIL12 = 1.2 kΩ，I_LIM = 3334 / 1200 ≈ 2.78 A；原定 1.3 kΩ ≈ 2.56 A 无现货。VD 最大 1.8 A；模组 F2/F3 各 1.6 A）；软启动输出上升时间约 **10–20 ms**；FLT 开漏 → VD_FLT_N_3V3（10 kΩ 上拉到 3V3_FPGA）→ P3-9。
 - ILIM 脚（兼作电流监测）引出测试点 TP_IMON。
 - 输入 22 µF/25 V + 100 nF；输出 10 µF/25 V + 100 nF；输出侧 SMBJ15A TVS **[画板方核实]**；预留放电电阻 2.2 kΩ/0.5 W 焊位（默认不贴）。
 - LED_VD：黄色 LED + 4.7 kΩ 接 +12V_EL。
@@ -761,9 +773,11 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
 **电路块 E：PFAIL 与 UART**
 
 - J_PF-1（PFAIL_N，来自 PCB-3 的开漏输出）在 PCB-1 上 10 kΩ 上拉到 3V3_FPGA，形成 PFAIL_N_3V3 → P3-7，并经 D3 接 EN_VD。J_PF 未接时 PFAIL_N_3V3 为高（不阻止 VD），这是已知且接受的行为。
+- J_PF-2（SCR_EN_3V3）：斜面"屏幕"钮子开关，另一端接 J_PF-3（GND）。PCB-1 上 **RSCR 10 kΩ 上拉到 3V3_FPGA**，接 P3-12 给 FPGA 读，同时经 D4 接 EN_VD。开关拨到关时 D4 直接把 EN_VD 拉低，不依赖 FPGA；J_PF 未插时为高（允许开屏）。
+- J_PF 的线束在 PCB-1 侧合并：1 脚来自 PCB-3 的 PFAIL_N，2、3 脚来自面板开关（3 脚 GND 两边共用）。
 - J_UART 只是把 P3-10/11 转到 XH 插座，每根串 100 Ω。
 
-**测试点（全部 1 mm 以上焊盘，丝印标名）：** +12V_IN、+12V_EL、+5V_IN、+5V_EL、3V3_FPGA、EN_VD、OE_N、VD_ON_N、VL_OK_3V3、PFAIL_N_3V3、VD_FLT_N_3V3、TP_IMON、全部 11 路 *_5V（在 J_EL 侧）、CP2/CP1/S 的 *_3V3、三个 SPARE；至少 4 个 GND 测试钩（靠近 J_EL、缓冲器、两个 eFuse）。
+**测试点（全部 1 mm 以上焊盘，丝印标名）：** +12V_IN、+12V_EL、+5V_IN、+5V_EL、3V3_FPGA、EN_VD、OE_N、VD_ON_N、VL_OK_3V3、PFAIL_N_3V3、VD_FLT_N_3V3、TP_IMON、全部 11 路 *_5V（在 J_EL 侧）、CP2/CP1/S 的 *_3V3、两个 SPARE（J6-10、J14-5）、SCR_EN_3V3（TP_SCR）；至少 4 个 GND 测试钩（靠近 J_EL、缓冲器、两个 eFuse）。
 
 **布局与布线：**
 
@@ -798,7 +812,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
   - 其他 5 V/12 V/24 V 支路按 MIS-01 整机计划（辉光管、IV-18、盖革管、风扇等）另列，本任务书不定义。
 - **PFAIL 比较器：** LM393（SOIC-8），由 NID100-5 输出的 5 V 供电（24 V 跌落时 5 V 最后掉）。
   - 同相/反相输入：24 V 经分压与 2.5 V 基准（TL431 或 LM4040-2.5）比较；**阈值：24 V 下降到 21.0 V 时输出翻转，回差约 1 V**（上升 22 V 恢复）。分压比与回差电阻由画板方计算并在原理图上写出算式。
-  - 通道 A 输出（开漏，LM393 本身为开漏）→ J_PF（XH 2P：PFAIL_N、GND）→ PCB-1 J_PF。PCB-3 上不加上拉（上拉在 PCB-1）。
+  - 通道 A 输出（开漏，LM393 本身为开漏）→ J_PF（XH 2P：PFAIL_N、GND）→ PCB-1 J_PF 的 1、3 脚（PCB-1 的 J_PF 为 3P，2 脚接面板"屏幕"开关，见 15.3 电路块 E）。PCB-3 上不加上拉（上拉在 PCB-1）。
   - 通道 B 输出（开漏）→ J_PF_OPI（XH 2P）→ Orange Pi GPIO（上拉在 Orange Pi 侧到 3.3 V），供系统提前关机。
 - 指示：+24V、+12V、+5V 各一 LED。
 - 布线：24 V/12 V/5 V 大电流路径线宽按 1 oz 铜、温升 ≤10°C 计算（预计 ≥3 mm 或铺铜），分路保险靠近输出端子。
@@ -827,6 +841,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
 - 约束：11.2.1 表中所有用到的球位设为 LVCMOS33（以 U03 实测为准），输出驱动 8 mA，不开内部上拉（板上已有上/下拉）。
 - 上电流程：配置完成 → 保持 `OE_N=1`、`VD_ON_N=1` → 开始输出完整黑场 EL 时序 → 读到 `VL_OK_3V3=1` 且 `PFAIL_N_3V3=1` → 置 `OE_N=0` → 至少 1 帧后置 `VD_ON_N=0`。
 - 关机/故障：`PFAIL_N_3V3=0`、`VL_OK_3V3=0` 或 `VD_FLT_N_3V3=0` 时立即 `VD_ON_N=1`；之后至少 1 帧再 `OE_N=1`。
+- 屏幕开关（`SCR_EN_3V3`，J14-12 / P6，开内部上拉）：为低时立即 `VD_ON_N=1`，扫描和 OE 不变；回到高后去抖 20 ms、再等 100 ms 才允许 `VD_ON_N=0`（上电时同样先等）。已在 `fpga/el_hdmi` v0.2 的 `screen_switch.v` 中实现。
 - 无 HDMI 信号超过 N 秒（默认 60 s，可由 UART 设置）：显示黑场并关 VD，防烧屏、省电；信号恢复后按上电流程重新开 VD。
 - UART（115200 8N1）：Orange Pi 可设置二值化阈值、反色、抖动开关、60/120 Hz、超时时间，并读取状态位。
 
