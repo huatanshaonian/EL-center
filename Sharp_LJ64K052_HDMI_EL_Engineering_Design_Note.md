@@ -790,7 +790,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
 - J_PF-1（PFAIL_N，来自 PCB-3 的开漏输出）在 PCB-1 上 10 kΩ 上拉到 3V3_FPGA，形成 PFAIL_N_3V3 → P3-7，并经 D3 接 EN_VD。J_PF 未接时 PFAIL_N_3V3 为高（不阻止 VD），这是已知且接受的行为。
 - J_PF-2（SCR_EN_3V3）：斜面"屏幕"钮子开关，另一端接 J_PF-3（GND）。PCB-1 上 **RSCR 10 kΩ 上拉到 3V3_FPGA**，接 P3-12 给 FPGA 读，同时经 D4 接 EN_VD。开关拨到关时 D4 直接把 EN_VD 拉低，不依赖 FPGA；J_PF 未插时为高（允许开屏）。
 - J_PF 的线束在 PCB-1 侧合并：1 脚来自 PCB-3 的 PFAIL_N，2、3 脚来自面板开关（3 脚 GND 两边共用）。
-- J_UART 只是把 P3-10/11 转到 XH 插座，每根串 100 Ω。
+- J_UART 只是把 P3-10/11 转到 XH 插座：FPGA 发送方向（UART_TX → Orange Pi RX）串 **RTX 1 kΩ**，接收方向串 RRX 100 Ω。v0.3（2026-10-20）RTX 由 100 Ω 改 1 kΩ：Orange Pi 4 排针 IO 为 3.0 V，FPGA 的 3.3 V 高电平高出 0.3 V，正好在其输入极限上，1 kΩ 把经输入保护二极管倒灌的电流限到 100 Ω 时的 1/10；115200 波特率不受影响。
 
 **测试点（全部 1 mm 以上焊盘，丝印标名）：** +12V_IN、+12V_EL、+5V_IN、+5V_EL、3V3_FPGA、EN_VD、OE_N、VD_ON_N、VL_OK_3V3、PFAIL_N_3V3、VD_FLT_N_3V3、TP_IMON、全部 11 路 *_5V（在 J_EL 侧）、CP2/CP1/S 的 *_3V3、两个 SPARE（J6-10、J14-5）、SCR_EN_3V3（TP_SCR）；至少 4 个 GND 测试钩（靠近 J_EL、缓冲器、两个 eFuse）。
 
