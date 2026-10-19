@@ -789,7 +789,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
 
 - J_PF-1（PFAIL_N，来自 PCB-3 的开漏输出）在 PCB-1 上 10 kΩ 上拉到 3V3_FPGA，形成 PFAIL_N_3V3 → P3-7，并经 D3 接 EN_VD。J_PF 未接时 PFAIL_N_3V3 为高（不阻止 VD），这是已知且接受的行为。
 - J_PF-2（SCR_EN_3V3）：斜面"屏幕"钮子开关，另一端接 J_PF-3（GND）。PCB-1 上 **RSCR 10 kΩ 上拉到 3V3_FPGA**，接 P3-12 给 FPGA 读，同时经 D4 接 EN_VD。开关拨到关时 D4 直接把 EN_VD 拉低，不依赖 FPGA；J_PF 未插时为高（允许开屏）。
-- J_PF 的线束在 PCB-1 侧合并：1 脚来自 PCB-3 的 PFAIL_N，2、3 脚来自面板开关（3 脚 GND 两边共用）。
+- J_PF 用一根 3 芯线与 PCB-3 的 J_PF 一一对应（1↔1）：1 = PFAIL_N，2 = SCR_EN，3 = GND。"屏幕"钮子先接到 PCB-3（整机接线 W16），由 PCB-3 转到 J_PF-2，PCB-3 只高阻读取开关状态送 ESP32-S3（2026-10-20 整机接线方案 D12 定；原写"线束在 PCB-1 侧合并"作废）。
 - J_UART 只是把 P3-10/11 转到 XH 插座：FPGA 发送方向（UART_TX → Orange Pi RX）串 **RTX 1 kΩ**，接收方向串 RRX 100 Ω。v0.3（2026-10-20）RTX 由 100 Ω 改 1 kΩ：Orange Pi 4 排针 IO 为 3.0 V，FPGA 的 3.3 V 高电平高出 0.3 V，正好在其输入极限上，1 kΩ 把经输入保护二极管倒灌的电流限到 100 Ω 时的 1/10；115200 波特率不受影响。
 
 **测试点（全部 1 mm 以上焊盘，丝印标名）：** +12V_IN、+12V_EL、+5V_IN、+5V_EL、3V3_FPGA、EN_VD、OE_N、VD_ON_N、VL_OK_3V3、PFAIL_N_3V3、VD_FLT_N_3V3、TP_IMON、全部 11 路 *_5V（在 J_EL 侧）、CP2/CP1/S 的 *_3V3、两个 SPARE（J6-10、J14-5）、SCR_EN_3V3（TP_SCR）；至少 4 个 GND 测试钩（靠近 J_EL、缓冲器、两个 eFuse）。
@@ -827,7 +827,7 @@ P1/P2/P3 的 3V3_FPGA 三处在板上并联；**3V3_FPGA 与 +5V_EL、+5V_IN、+
   - 其他 5 V/12 V/24 V 支路按 MIS-01 整机计划（辉光管、IV-18、盖革管、风扇等）另列，本任务书不定义。
 - **PFAIL 比较器：** LM393（SOIC-8），由 NID100-5 输出的 5 V 供电（24 V 跌落时 5 V 最后掉）。
   - 同相/反相输入：24 V 经分压与 2.5 V 基准（TL431 或 LM4040-2.5）比较；**阈值：24 V 下降到 21.0 V 时输出翻转，回差约 1 V**（上升 22 V 恢复）。分压比与回差电阻由画板方计算并在原理图上写出算式。
-  - 通道 A 输出（开漏，LM393 本身为开漏）→ J_PF（XH 2P：PFAIL_N、GND）→ PCB-1 J_PF 的 1、3 脚（PCB-1 的 J_PF 为 3P，2 脚接面板"屏幕"开关，见 15.3 电路块 E）。PCB-3 上不加上拉（上拉在 PCB-1）。
+  - 通道 A 输出（开漏，LM393 本身为开漏）→ J_PF（XH 3P：PFAIL_N、SCR_EN、GND，与 PCB-1 J_PF 一一对应；2 脚为 PCB-3 转来的面板"屏幕"开关，见 15.3 电路块 E）。PCB-3 上不加上拉（上拉在 PCB-1）。
   - 通道 B 输出（开漏）→ J_PF_OPI（XH 2P）→ Orange Pi GPIO（上拉在 Orange Pi 侧，Orange Pi 4 排针 IO 为 3.0 V），供系统提前关机。
 - 指示：+24V、+12V、+5V 各一 LED。
 - 布线：24 V/12 V/5 V 大电流路径线宽按 1 oz 铜、温升 ≤10°C 计算（预计 ≥3 mm 或铺铜），分路保险靠近输出端子。
