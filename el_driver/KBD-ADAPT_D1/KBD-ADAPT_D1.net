@@ -1,0 +1,941 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+H_TEST
+FOOTPRINT
+HDR-TH_13P-P2.54-V-M-1
+PARTTYPE
+PZ254V-11-13P
+DESCRIPTION
+插针结构:1x13P;间距:2.54mm;圆针/方针:方针;安装方式:直插;排数:单排;总PIN位数:13P;额定电流:3A;配合针长度:6.1mm;塑高:2.5mm;端接针长度:3mm;触头材质:黄铜;工作温度:-40℃~+105℃;颜色:黑色;
+Component Kind
+Standard
+Footprint
+HDR-TH_13P-P2.54-V-M-1
+Designator
+H_TEST
+LCSC Part Name
+1x13P 间距:2.54mm 方针 直插
+Supplier Part
+C22465873
+Manufacturer
+XFCN(兴飞)
+Manufacturer Part
+PZ254V-11-13P
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PZ254V-11-13P/24163065.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+HDR-TH_13P-P2.54-V-M-1
+Pin Structure
+1x13P
+Pitch
+2.54mm
+Circluar Pins/Square Pins
+方针
+Mounting Type
+直插
+Number of Rows
+单排
+Number of Pins
+13P
+Current Rating
+3A
+Length of Mating Pin
+6.1mm
+Insulation Height
+2.5mm
+Length of End Connection Pin
+3mm
+Contact Material
+黄铜
+Operating Temperature
+-40℃~+105℃
+Color
+黑色
+Name
+PZ254V-11-13P
+Description
+插针结构:1x13P;间距:2.54mm;圆针/方针:方针;安装方式:直插;排数:单排;总PIN位数:13P;额定电流:3A;配合针长度:6.1mm;塑高:2.5mm;端接针长度:3mm;触头材质:黄铜;工作温度:-40℃~+105℃;颜色:黑色;
+Unique ID
+gge2
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I3
+Device
+PZ254V-11-13P
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+J_FPC
+FOOTPRINT
+FPC-SMD_71P-P0.40_FH43BW-71S-0.2SHW
+PARTTYPE
+FH43BW-71S-0.2SHW(10)
+DESCRIPTION
+触点数量:71P;间距:0.2mm;安装方式:卧贴;
+Component Kind
+Standard
+Footprint
+FPC-SMD_71P-P0.40_FH43BW-71S-0.2SHW
+Designator
+J_FPC
+LCSC Part Name
+P数:71P 间距:0.2mm
+Supplier Part
+C2840145
+Manufacturer
+HRS(广濑)
+Manufacturer Part
+FH43BW-71S-0.2SHW(10)
+Supplier Footprint
+SMD,P=0.2mm,卧贴
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/FH43BW-71S-0.2SHW(10)/3018082.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+FPC-SMD_71P-P0.40_FH43BW-71S-0.2SHW
+Number of Contacts
+71P
+Pitch
+0.2mm
+Mounting Type
+卧贴
+Contact Material
+磷青铜
+Contact Plating
+金
+Name
+FH43BW-71S-0.2SHW(10)
+Description
+触点数量:71P;间距:0.2mm;安装方式:卧贴;
+Unique ID
+gge1
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I2
+Device
+FH43BW-71S-0.2SHW(10)
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+J_USB
+FOOTPRINT
+CONN-TH_4P-P2.50-XH2.54-4P
+PARTTYPE
+XH-4A
+DESCRIPTION
+插针结构:1x4P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:4P;排数:1;每排PIN数:4;行距:-;额定电流:3A;触头材质:-;触头镀层:-;工作温度:-25℃~+85℃;
+Component Kind
+Standard
+Footprint
+CONN-TH_4P-P2.50-XH2.54-4P
+Designator
+J_USB
+LCSC Part Name
+1x4P 间距:2.5mm 直插 系列:XH
+Supplier Part
+C2904944
+Manufacturer
+DEALON(德艺隆)
+Manufacturer Part
+XH-4A
+Supplier Footprint
+插件,P=2.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/XH-4A/3172229.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+CONN-TH_4P-P2.50-XH2.54-4P
+Pins Structure
+1x4P
+Pitch
+2.5mm
+Mounting Type
+直插
+Reference Series
+XH
+Number of Pins
+4P
+Number of Rows
+1
+Number of PINs Per Row
+4
+Row Spacing
+-
+Current Rating
+3A
+Contact Material
+-
+Contact Plating
+-
+Operating Temperature
+-25℃~+85℃
+Voltage Rating
+250V
+Plastic Material
+-
+Flame Retardant Rating
+-
+Supplementary Features
+-
+Color
+米色
+Z-Height of the Board
+7mm
+X-Length of Bottom Edge on Board (Spacing Line)
+12.5mm
+Y-Width of Bottom Edge on Board
+5.8mm
+Name
+XH-4A
+Description
+插针结构:1x4P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:4P;排数:1;每排PIN数:4;行距:-;额定电流:3A;触头材质:-;触头镀层:-;工作温度:-25℃~+85℃;
+Unique ID
+gge3
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I4
+Device
+XH-4A
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_5V
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_5V
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge4
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I5
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_C6
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_C6
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge10
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I11
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_DET
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF1002T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:10kΩ;精度:±1%;功率:100mW;工作电压:75V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_DET
+LCSC Part Name
+厚膜电阻 10kΩ ±1% 100mW
+Supplier Part
+C25804
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF1002T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF1002T5E/26547.html
+Supplier
+LCSC
+Add into BOM
+no
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:厚膜电阻;阻值:10kΩ;精度:±1%;功率:100mW;工作电压:75V;温度系数:±100ppm/℃;
+Unique ID
+gge11
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I12
+Device
+0603WAF1002T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_DM
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_DM
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge6
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I7
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_DP
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_DP
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge7
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I8
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_GND
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_GND
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+yes
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge5
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I6
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_XM
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_XM
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+no
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge8
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I9
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+[
+DESIGNATOR
+R_XP
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Component Kind
+Standard
+Footprint
+R0603
+Designator
+R_XP
+LCSC Part Name
+厚膜电阻 0Ω ±1%
+Supplier Part
+C21189
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF0000T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF0000T5E/21903.html
+Supplier
+LCSC
+Add into BOM
+no
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+-
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:100mW;工作电压:75V;温度系数:-;
+Unique ID
+gge9
+Reuse Block
+
+Group ID
+
+Channel ID
+$2I10
+Device
+0603WAF0000T5E
+PCB Layer
+TopLayer
+Convert to PCB
+yes
+
+*
+]
+(
+K01 
+H_TEST-1 PZ254V-11-13P-1 Passive 
+J_FPC-71 FH43BW-71S-0.2SHW(10)-71 Passive 
+)
+(
+K02 
+H_TEST-2 PZ254V-11-13P-2 Passive 
+J_FPC-70 FH43BW-71S-0.2SHW(10)-70 Passive 
+)
+(
+K03 
+H_TEST-3 PZ254V-11-13P-3 Passive 
+J_FPC-69 FH43BW-71S-0.2SHW(10)-69 Passive 
+)
+(
+K04_GND6 
+H_TEST-4 PZ254V-11-13P-4 Passive 
+J_FPC-68 FH43BW-71S-0.2SHW(10)-68 Passive 
+R_C6-1 0603WAF0000T5E-1 Passive 
+)
+(
+K05_DET 
+H_TEST-5 PZ254V-11-13P-5 Passive 
+J_FPC-67 FH43BW-71S-0.2SHW(10)-67 Passive 
+R_DET-1 0603WAF1002T5E-1 Passive 
+)
+(
+K06 
+H_TEST-6 PZ254V-11-13P-6 Passive 
+J_FPC-66 FH43BW-71S-0.2SHW(10)-66 Passive 
+)
+(
+K07 
+H_TEST-7 PZ254V-11-13P-7 Passive 
+J_FPC-65 FH43BW-71S-0.2SHW(10)-65 Passive 
+)
+(
+K08_DP 
+H_TEST-8 PZ254V-11-13P-8 Passive 
+J_FPC-64 FH43BW-71S-0.2SHW(10)-64 Passive 
+R_DP-1 0603WAF0000T5E-1 Passive 
+R_XP-1 0603WAF0000T5E-1 Passive 
+)
+(
+K09 
+H_TEST-9 PZ254V-11-13P-9 Passive 
+J_FPC-63 FH43BW-71S-0.2SHW(10)-63 Passive 
+)
+(
+K10_DM 
+H_TEST-10 PZ254V-11-13P-10 Passive 
+J_FPC-62 FH43BW-71S-0.2SHW(10)-62 Passive 
+R_DM-1 0603WAF0000T5E-1 Passive 
+R_XM-1 0603WAF0000T5E-1 Passive 
+)
+(
+GND 
+H_TEST-11 PZ254V-11-13P-11 Passive 
+J_FPC-0 FH43BW-71S-0.2SHW(10)-0 Passive 
+J_FPC-32 FH43BW-71S-0.2SHW(10)-32 Passive 
+J_FPC-33 FH43BW-71S-0.2SHW(10)-33 Passive 
+J_FPC-34 FH43BW-71S-0.2SHW(10)-34 Passive 
+J_FPC-35 FH43BW-71S-0.2SHW(10)-35 Passive 
+J_FPC-36 FH43BW-71S-0.2SHW(10)-36 Passive 
+J_FPC-37 FH43BW-71S-0.2SHW(10)-37 Passive 
+J_FPC-38 FH43BW-71S-0.2SHW(10)-38 Passive 
+J_FPC-39 FH43BW-71S-0.2SHW(10)-39 Passive 
+J_FPC-40 FH43BW-71S-0.2SHW(10)-40 Passive 
+J_FPC-41 FH43BW-71S-0.2SHW(10)-41 Passive 
+J_FPC-42 FH43BW-71S-0.2SHW(10)-42 Passive 
+J_FPC-43 FH43BW-71S-0.2SHW(10)-43 Passive 
+J_FPC-44 FH43BW-71S-0.2SHW(10)-44 Passive 
+J_FPC-45 FH43BW-71S-0.2SHW(10)-45 Passive 
+J_FPC-46 FH43BW-71S-0.2SHW(10)-46 Passive 
+J_FPC-47 FH43BW-71S-0.2SHW(10)-47 Passive 
+J_FPC-48 FH43BW-71S-0.2SHW(10)-48 Passive 
+J_FPC-49 FH43BW-71S-0.2SHW(10)-49 Passive 
+J_FPC-50 FH43BW-71S-0.2SHW(10)-50 Passive 
+J_FPC-51 FH43BW-71S-0.2SHW(10)-51 Passive 
+J_FPC-52 FH43BW-71S-0.2SHW(10)-52 Passive 
+J_FPC-53 FH43BW-71S-0.2SHW(10)-53 Passive 
+J_FPC-54 FH43BW-71S-0.2SHW(10)-54 Passive 
+J_FPC-55 FH43BW-71S-0.2SHW(10)-55 Passive 
+J_FPC-56 FH43BW-71S-0.2SHW(10)-56 Passive 
+J_FPC-57 FH43BW-71S-0.2SHW(10)-57 Passive 
+J_FPC-58 FH43BW-71S-0.2SHW(10)-58 Passive 
+J_FPC-59 FH43BW-71S-0.2SHW(10)-59 Passive 
+J_FPC-60 FH43BW-71S-0.2SHW(10)-60 Passive 
+J_FPC-61 FH43BW-71S-0.2SHW(10)-61 Passive 
+R_C6-2 0603WAF0000T5E-2 Passive 
+R_DET-2 0603WAF1002T5E-2 Passive 
+R_GND-1 0603WAF0000T5E-1 Passive 
+)
+(
+K41 
+H_TEST-12 PZ254V-11-13P-12 Passive 
+J_FPC-31 FH43BW-71S-0.2SHW(10)-31 Passive 
+)
+(
++5V_KB 
+H_TEST-13 PZ254V-11-13P-13 Passive 
+J_FPC-21 FH43BW-71S-0.2SHW(10)-21 Passive 
+J_FPC-22 FH43BW-71S-0.2SHW(10)-22 Passive 
+J_FPC-23 FH43BW-71S-0.2SHW(10)-23 Passive 
+J_FPC-24 FH43BW-71S-0.2SHW(10)-24 Passive 
+J_FPC-25 FH43BW-71S-0.2SHW(10)-25 Passive 
+J_FPC-26 FH43BW-71S-0.2SHW(10)-26 Passive 
+J_FPC-27 FH43BW-71S-0.2SHW(10)-27 Passive 
+J_FPC-28 FH43BW-71S-0.2SHW(10)-28 Passive 
+J_FPC-29 FH43BW-71S-0.2SHW(10)-29 Passive 
+J_FPC-30 FH43BW-71S-0.2SHW(10)-30 Passive 
+R_5V-1 0603WAF0000T5E-1 Passive 
+)
+(
+USB_5V 
+J_USB-1 XH-4A-1 Passive 
+R_5V-2 0603WAF0000T5E-2 Passive 
+)
+(
+USB_DM 
+J_USB-2 XH-4A-2 Passive 
+R_DM-2 0603WAF0000T5E-2 Passive 
+R_XP-2 0603WAF0000T5E-2 Passive 
+)
+(
+USB_DP 
+J_USB-3 XH-4A-3 Passive 
+R_DP-2 0603WAF0000T5E-2 Passive 
+R_XM-2 0603WAF0000T5E-2 Passive 
+)
+(
+USB_GND 
+J_USB-4 XH-4A-4 Passive 
+R_GND-2 0603WAF0000T5E-2 Passive 
+)
