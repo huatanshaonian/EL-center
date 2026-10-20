@@ -68,6 +68,7 @@ SBM_Z = Z_DECK + PLATE_T + GM_SHIM + 1.6 + 6.7  # 管轴 z 103.8 = 甲板面 + �
 GM_L = 103.5                                   # J305 总长（用户实测）
 GEIGER_BOARD = (180, 110, 60, 70)              # 盖革主板 x0, y0, 长, 宽：6E2 板后面，四孔 (185/235, 115/175)：前两孔在甲板孔阵，后两孔 y175 超出孔阵（y 35–165）要自己钻；M3×6 铜柱（2026-10-20 由 y 50 后移给 6E2 板让位，60×40 → 60×60 → 60×70：放不下全部元件）。左后角压住甲板后走线孔右端约 4×4 mm
 EYE_BOARD = (210, 15, 90, 90)                  # 6E2 板 x0, y0, 长, 宽：前沿 y 15 让开 J305 和右夹子小板，后沿 y 105 让开右后走线孔（y ≥ 120），右沿 x 300；M3×6 铜柱，四角孔都要自己钻
+GEIGER_STEP = "el_driver/GEIGER_D1/制板文件_主板/GEIGER-MAIN_D1.step"   # 约 34 MB，不进 git
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
@@ -121,9 +122,9 @@ def geiger():
     gx0 = 165
     clips = (SBM_X0 + 1.25 - gx0, SBM_X0 + GM_L - 1.25 - gx0)
     add("Geiger_clip_strip", M.geiger_clip_strip(clips=clips).translate((gx0, SBM_Y - 6, Z_DECK + PLATE_T + GM_SHIM)), "pcb_g", "geiger")
-    # 盖革主板（升压、蜂鸣器、J1 XH-2P 接 HV-C、J2 XH-4P 接 ESP32 底板）：占位，等 mis-01-56 画板
+    # 盖革主板 GEIGER-MAIN D1（mis-01-56 导出的整板 STEP，原点 = 板左前角 = 全局 (180, 110)，板底 z100）
     gx, gy, gl, gw = GEIGER_BOARD
-    add("Geiger_main_board(placeholder)", P.box(gl, gw, 1.6, gx, gy, Z_DECK + PLATE_T + 6), "pcb_g", "geiger")
+    add("GEIGER-MAIN_board", V.load_abs(GEIGER_STEP).translate((gx, gy, Z_DECK + PLATE_T + 6)), "pcb_g", "geiger")
     for dx, dy in ((5, 5), (gl - 5, 5), (5, gw - 5), (gl - 5, gw - 5)):
         add("standoff_M3x6", P.standoff_m3(6).translate((gx + dx, gy + dy, Z_DECK + PLATE_T)), "brass", "geiger")
 
