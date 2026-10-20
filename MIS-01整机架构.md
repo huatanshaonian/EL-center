@@ -239,13 +239,20 @@ PCB-3 是下一步最先画的板子，插座编号和针序见接线方案第 4
 
 ## 8. 采购
 
-**立创商城**：`procurement/MIS-01_直插件合单+面板输入_立创商城BOM.xlsx`
+**立创商城**
+
+- 第一单（已下单）：`procurement/MIS-01_直插件合单+面板输入_立创商城BOM.xlsx`
+- 第二批补单（PCB-3 直插件 + 通用高压小板 ×3 + 6E2 板，合并下单）：`procurement/MIS-01_第二批补单_立创商城BOM.xlsx`，由 `procurement/build_lcsc_bom_order2.py` 生成；PCB-3 的贴片件由嘉立创随 PCB 配料贴装，不在单里。
+
+第一单说明：
 
 - 以 EL 驱动的《直插件合单》为底稿，格式不变，删掉 13 kΩ（C119350）和 1.3 kΩ（C28144345）两行。
 - 第 27–37 行是面板输入器件：EC11 编码器 ×3、60 mm 推子 ×2、钮子开关 ×4、5 档波段开关 ×2、USB-A 弯插 ×4 和直插 ×4、LD2410B、Pico、ULN2803（DIP-18）×2、DC 插头（Dock 用 / Orange Pi 用）各 2。型号、封装、品牌、编号都照立创商品页核对过（2026-10-19）。
 - USB-A 插座在 D2 之后不再需要，已买的留作备件。
 
-**自己买**：`procurement/MIS-01_自购清单.xlsx`（由 `procurement/make_buy_list.py` 生成）。型号、尺寸都按规格书或厂家资料核过，出处写在表里。
+**自己买**：第一批 `procurement/MIS-01_自购清单.xlsx`（`make_buy_list.py`，2026-10-20 已买完，冻结）；之后新增的都进第二批 `procurement/MIS-01_自购清单_第二批.xlsx`（`make_buy_list_2.py`）。型号、尺寸都按规格书或厂家资料核过，出处写在表里。
+
+第一批内容：
 
 - 面板：带灯按钮 ×6、钮子翻盖 ×3、编码器旋钮 ×3、指针旋钮、推子帽 ×2、Ø16 指示灯 ×3、BH1750、LD2410B 转接线、POGO 小板。
 - USB：一分四 USB2.0 Hub 模块、USB3.0 和 USB2.0 面板安装延长线各 1、Pico 用 Micro-USB 短线、键盘转接小板到 Hub 的 USB-A 公头转 XH 4P 成品线。
