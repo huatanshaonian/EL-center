@@ -63,7 +63,8 @@ EYE_Y = 31                                     # 6E2 管轴 Y：管座前耳孔�
 EYE_ROT = 18                                   # 6E2 管座绕 Z 转角：荧光屏正对 7 脚、正对 -Y（前面板）时，缺口在 +X 往后偏 18°（北京 6E2，用户确认缺口在右）
 SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 186           # 盖革管 J305 管轴 y、z 与左端 x（变量名沿用 SBM_）；管轴 z 由夹子小板 2 mm 垫 + 夹口高 5.9 决定
 GM_L = 103.5                                   # J305 总长（用户实测）
-GEIGER_BOARD = (180, 50, 60, 40)               # 盖革主板 x0, y0, 长, 宽：表头后面、辉光驱动板与 6E2 板之间，四孔落在甲板孔阵（185/235, 55/85），M3×6 铜柱
+GEIGER_BOARD = (180, 110, 60, 40)              # 盖革主板 x0, y0, 长, 宽：6E2 板后面，四孔落在甲板孔阵（185/235, 115/145），M3×6 铜柱（2026-10-20 由 y 50 后移给 6E2 板让位）
+EYE_BOARD = (210, 15, 90, 90)                  # 6E2 板 x0, y0, 长, 宽：前沿 y 15 让开 J305 和右夹子小板，后沿 y 105 让开右后走线孔（y ≥ 120），右沿 x 300；M3×6 铜柱，四角孔都要自己钻
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
@@ -100,8 +101,14 @@ def tubes():
         rz = lambda s: s.rotate((0, 0, 0), (0, 0, 1), EYE_ROT).translate((x, EYE_Y, z))
         add(f"Noval_socket_{k+1}", rz(M.noval_socket()), "dark", "tubes")
         add(f"6E2_{k+1}", rz(M.tube_6e2()), "eye", "tubes")
-    # 250 V 高压小板插在 6E2 板上、两支管子后面，转 -90°（HV 输出端朝管子），板占 x 252–292、y 50–130
-    hv_uni("HV-UNI_250V", 252, 130, -90, Z_DECK + PLATE_T + EYE_STANDOFF + 1.6)
+    # 6E2 板占位（mis-01-56 画）
+    ex, ey, el, ew = EYE_BOARD
+    ze = Z_DECK + PLATE_T + EYE_STANDOFF
+    add("EYE-6E2_board(placeholder)", P.box(el, ew, 1.6, ex, ey, ze), "pcb_g", "tubes")
+    for dx, dy in ((5, 5), (el - 5, 5), (5, ew - 5), (el - 5, ew - 5)):
+        add("standoff_M3x6_EYE", P.standoff_m3(EYE_STANDOFF).translate((ex + dx, ey + dy, Z_DECK + PLATE_T)), "brass", "tubes")
+    # 250 V 高压小板横放在 6E2 板上、两支管子后面（不转向，HV 输出在右端靠近管子），板占 x 215–295、y 50–90
+    hv_uni("HV-UNI_250V", 215, 50, 0, ze + 1.6)
 
 # ------------------------------------------------------------------ 盖革：J305 横在前面板盖革窗后；自制盖革板（参考 MightyOhm），位置待定
 def geiger():
