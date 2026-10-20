@@ -375,66 +375,6 @@ D1_RPFH
 ]
 [
 DESIGNATOR
-RPFB1
-FOOTPRINT
-RES-TH_BD2.3-L6.5-P10.50-D0.5
-PARTTYPE
-TH 13kΩ ±1% 0.25W
-DESCRIPTION
-TH 13kΩ ±1% 0.25W; axial through-hole P10.5mm.
-Component Kind
-Standard
-Add into BOM
-yes
-Convert to PCB
-yes
-Device
-TH 13kΩ ±1% 0.25W
-PCB Layer
-Default
-Symbol
-Axial_Resistor
-Designator
-RPFB1
-LCSC Part Name
-13kΩ ±1% 250mW 金属膜电阻 圆柱状直插
-Supplier Part
-C119350
-Manufacturer
-CCO(千志电子)
-Manufacturer Part
-MF1/4W-13KΩ±1% T
-Supplier Footprint
-插件,D2.3xL6.5mm
-JLCPCB Part Class
-Extended Part
-Datasheet
-https://item.szlcsc.com/datasheet/MF1%252F4W-13K%25CE%25A9%25C2%25B11%2525%2520T/120619.html
-Supplier
-LCSC
-3D Model Title
-
-Type
-Axial metal film resistor
-Value
-13kΩ
-Tolerance
-±1%
-Power(Watts)
-0.25W
-Name
-13kΩ
-Description
-TH 13kΩ ±1% 0.25W; axial through-hole P10.5mm.
-Unique ID
-D1_RPFB1
-Remarks
-备选：RPFB1=12k，RPFB2=1.2k（合计 13.2k）
-
-*
-]
-[
-DESIGNATOR
 RPFB2
 FOOTPRINT
 RES-TH_BD2.3-L6.5-P10.50-D0.5
@@ -674,6 +614,146 @@ Description
 Stock part. Pin map uses onsemi E1 B2 C3; verify actual manufacturer/pinout before assembly.
 Unique ID
 D1_Q_PFI
+
+*
+]
+[
+DESIGNATOR
+RPFB1A
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-12KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:12kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge107
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-12KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-12KΩ±1% T52
+Designator
+RPFB1A
+LCSC Part Name
+12kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119349
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-12KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-12K%25CE%25A9%25C2%25B11%2525%2520T/120618.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+12kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+12kΩ
+Description
+电阻类型:金属膜电阻;阻值:12kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RPFB1B
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-1KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:1kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge108
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-1KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-1KΩ±1% T52
+Designator
+RPFB1B
+LCSC Part Name
+1kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119324
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-1KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-1K%25CE%25A9%25C2%25B11%2525%2520T/120593.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+1kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+1kΩ
+Description
+电阻类型:金属膜电阻;阻值:1kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
 
 *
 ]
@@ -6229,77 +6309,7 @@ Channel ID
 ]
 [
 DESIGNATOR
-R_GC
-FOOTPRINT
-R0603
-PARTTYPE
-0603WAF4701T5E
-DESCRIPTION
-电阻类型:厚膜电阻;阻值:4.7kΩ;精度:±1%;功率:100mW;工作电压:75V;温度系数:±100ppm/℃;
-Component Kind
-Standard
-Unique ID
-gge71
-Add into BOM
-yes
-Convert to PCB
-yes
-Device
-0603WAF4701T5E
-PCB Layer
-Default
-Symbol
-0603WAF4701T5E
-Designator
-R_GC
-LCSC Part Name
-厚膜电阻 4.7kΩ ±1%
-Supplier Part
-C23162
-Manufacturer
-UNI-ROYAL(厚声)
-Manufacturer Part
-0603WAF4701T5E
-Supplier Footprint
-0603
-JLCPCB Part Class
-Basic Part
-Datasheet
-https://item.szlcsc.com/datasheet/0603WAF4701T5E/23889.html
-Supplier
-LCSC
-3D Model Title
-R0603
-Type
-厚膜电阻
-Value
-4.7kΩ
-Tolerance
-±1%
-Power(Watts)
-100mW
-Voltage-Supply(Max)
-75V
-Temperature Coefficient
-±100ppm/℃
-Operating Temperature
--55℃~+155℃
-Name
-4.7kΩ
-Description
-电阻类型:厚膜电阻;阻值:4.7kΩ;精度:±1%;功率:100mW;工作电压:75V;温度系数:±100ppm/℃;
-Reuse Block
-
-Group ID
-
-Channel ID
-
-
-*
-]
-[
-DESIGNATOR
-Q_HVEN
+Q_HVEN_A
 FOOTPRINT
 SOT-23-3_L3.0-W1.7-P0.95-LS2.9-BR
 PARTTYPE
@@ -6321,7 +6331,7 @@ Default
 Symbol
 BSS138_C193019
 Designator
-Q_HVEN
+Q_HVEN_A
 LCSC Part Name
 1个N沟道 耐压:50V 电流:0.22A
 Supplier Part
@@ -7668,6 +7678,244 @@ Name
 1812L110/33MR
 Description
 耐压(Vmax):33V;最大电流(Imax):20A;保持电流(Ihold):1.1A;跳闸电流(Itrip):1.95A;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R_GC
+FOOTPRINT
+R0603
+PARTTYPE
+0603WAF1001T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:1kΩ;精度:±1%;功率:100mW;工作电压:75V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge109
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0603WAF1001T5E
+PCB Layer
+Default
+Symbol
+0603WAF1001T5E
+Designator
+R_GC
+LCSC Part Name
+1kΩ ±1% 100mW 厚膜电阻
+Supplier Part
+C21190
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0603WAF1001T5E
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0603WAF1001T5E/21904.html
+Supplier
+LCSC
+3D Model Title
+R0603
+Type
+厚膜电阻
+Value
+1kΩ
+Tolerance
+±1%
+Power(Watts)
+100mW
+Voltage-Supply(Max)
+75V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+1kΩ
+Description
+电阻类型:厚膜电阻;阻值:1kΩ;精度:±1%;功率:100mW;工作电压:75V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q_HVEN_B
+FOOTPRINT
+SOT-23-3_L3.0-W1.7-P0.95-LS2.9-BR
+PARTTYPE
+BSS138
+DESCRIPTION
+数量:1个N沟道;漏源电压(Vdss):50V;连续漏极电流(Id):220mA;导通电阻(RDS(on)):4Ω@4.5V;耗散功率(Pd):350mW;阈值电压(Vgs(th)):1.6V;
+Component Kind
+Standard
+Unique ID
+gge110
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+BSS138
+PCB Layer
+Default
+Symbol
+BSS138_C193019
+Designator
+Q_HVEN_B
+LCSC Part Name
+1个N沟道 耐压:50V 电流:0.22A
+Supplier Part
+C193019
+Manufacturer
+AnBon(安邦)
+Manufacturer Part
+BSS138
+Supplier Footprint
+SOT-23
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/BSS138/226058.html
+Supplier
+LCSC
+3D Model Title
+SOT-23-3L_L2.9-W1.6-H1.1-LS2.8-P0.95
+Number
+1个N沟道
+Drain to Source Voltage
+50V
+Current - Continuous Drain(Id)
+220mA
+RDS(on)
+4Ω@4.5V
+Pd - Power Dissipation
+350mW
+Gate Threshold Voltage (Vgs(th))
+1.6V
+Gate Charge(Qg)
+-
+Input Capacitance(Ciss)
+27pF
+Reverse Transfer Capacitance (Crss@Vds)
+6pF
+Operating Temperature
+-
+Configuration
+-
+Type
+N沟道
+Output Capacitance(Coss)
+13pF
+Vgs
+±20V
+Name
+BSS138
+Description
+数量:1个N沟道;漏源电压(Vdss):50V;连续漏极电流(Id):220mA;导通电阻(RDS(on)):4Ω@4.5V;耗散功率(Pd):350mW;阈值电压(Vgs(th)):1.6V;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q_HVEN_C
+FOOTPRINT
+SOT-23-3_L3.0-W1.7-P0.95-LS2.9-BR
+PARTTYPE
+BSS138
+DESCRIPTION
+数量:1个N沟道;漏源电压(Vdss):50V;连续漏极电流(Id):220mA;导通电阻(RDS(on)):4Ω@4.5V;耗散功率(Pd):350mW;阈值电压(Vgs(th)):1.6V;
+Component Kind
+Standard
+Unique ID
+gge111
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+BSS138
+PCB Layer
+Default
+Symbol
+BSS138_C193019
+Designator
+Q_HVEN_C
+LCSC Part Name
+1个N沟道 耐压:50V 电流:0.22A
+Supplier Part
+C193019
+Manufacturer
+AnBon(安邦)
+Manufacturer Part
+BSS138
+Supplier Footprint
+SOT-23
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/BSS138/226058.html
+Supplier
+LCSC
+3D Model Title
+SOT-23-3L_L2.9-W1.6-H1.1-LS2.8-P0.95
+Number
+1个N沟道
+Drain to Source Voltage
+50V
+Current - Continuous Drain(Id)
+220mA
+RDS(on)
+4Ω@4.5V
+Pd - Power Dissipation
+350mW
+Gate Threshold Voltage (Vgs(th))
+1.6V
+Gate Charge(Qg)
+-
+Input Capacitance(Ciss)
+27pF
+Reverse Transfer Capacitance (Crss@Vds)
+6pF
+Operating Temperature
+-
+Configuration
+-
+Type
+N沟道
+Output Capacitance(Coss)
+13pF
+Vgs
+±20V
+Name
+BSS138
+Description
+数量:1个N沟道;漏源电压(Vdss):50V;连续漏极电流(Id):220mA;导通电阻(RDS(on)):4Ω@4.5V;耗散功率(Pd):350mW;阈值电压(Vgs(th)):1.6V;
 Reuse Block
 
 Group ID
@@ -9239,7 +9487,7 @@ PF_SENSE
 U_PF-3 LM393P full 8 pins-IN_A+ Passive 
 RPFT-2 TH 100kΩ ±1% 0.25W-2 Input   
 RPFH-2 TH 510kΩ ±1% 0.25W-2 Input   
-RPFB1-1 TH 13kΩ ±1% 0.25W-1 Input   
+RPFB1A-1 MF1/4W-12KΩ±1% T-1 Passive 
 )
 (
 GND 
@@ -9382,8 +9630,8 @@ F_S24B-1 1812L110/33MR-1 Passive
 )
 (
 PF_DIV 
-RPFB1-2 TH 13kΩ ±1% 0.25W-2 Input   
 RPFB2-1 TH 150Ω ±1% 0.25W-1 Input   
+RPFB1B-2 MF1/4W-1KΩ±1% T-2 Passive 
 )
 (
 PF_INV_B 
@@ -9396,6 +9644,11 @@ RPFIP-2 TH 10kΩ ±1% 0.25W-2 Input
 Q_PFI-3 Stock 2N3904; verify EBC-C Passive 
 RPFD_B-1 TH 10kΩ ±1% 0.25W-1 Input   
 RPFO_B-1 TH 10kΩ ±1% 0.25W-1 Input   
+)
+(
+PF_DIV_M 
+RPFB1A-2 MF1/4W-12KΩ±1% T-2 Passive 
+RPFB1B-1 MF1/4W-1KΩ±1% T-1 Passive 
 )
 (
 PF_D_B 
@@ -9615,11 +9868,9 @@ Q_HVA-3 NCE40P05Y-D Passive
 F_HVA-1 1812L110/33MR-1 Passive 
 )
 (
-HV_GATE_N 
+HV_GATE_A_N 
 R_GA-2 0603WAF4701T5E-2 Input   
-R_GB-2 0603WAF4701T5E-2 Input   
-R_GC-2 0603WAF4701T5E-2 Input   
-Q_HVEN-3 BSS138-D Passive 
+Q_HVEN_A-3 BSS138-D Passive 
 )
 (
 GATE_B 
@@ -9634,11 +9885,16 @@ Q_HVB-3 NCE40P05Y-D Passive
 F_HVB-1 1812L110/33MR-1 Passive 
 )
 (
+HV_GATE_B_N 
+R_GB-2 0603WAF4701T5E-2 Input   
+Q_HVEN_B-3 BSS138-D Passive 
+)
+(
 GATE_C 
 Q_HVC-1 NCE40P05Y-G Passive 
 R_GSC-1 0603WAF1002T5E-1 Input   
 Z_C-2 BZT52C12_C173429-A Passive 
-R_GC-1 0603WAF4701T5E-1 Input   
+R_GC-1 0603WAF1001T5E-1 Input   
 )
 (
 HV_C 
@@ -9647,16 +9903,20 @@ F_HVC-1 1812L050/33GR-1 Passive
 )
 (
 HV_EN 
-Q_HVEN-1 BSS138-G Passive 
+Q_HVEN_A-1 BSS138-G Passive 
 R_HVEN-1 0603WAF1003T5E-1 Input   
 J_CTL-4 XH-8A-4 Passive 
+Q_HVEN_B-1 BSS138-G Passive 
+Q_HVEN_C-1 BSS138-G Passive 
 )
 (
 SW_HV_N 
-Q_HVEN-2 BSS138-S Passive 
+Q_HVEN_A-2 BSS138-S Passive 
 R_SWV_PU-1 0603WAF1003T5E-1 Input   
 R_STV-1 0603WAF1001T5E-1 Input   
 J_PANEL-2 XH-8A-2 Passive 
+Q_HVEN_B-2 BSS138-S Passive 
+Q_HVEN_C-2 BSS138-S Passive 
 )
 (
 ST_HV 
@@ -9700,6 +9960,11 @@ J_CTL-7 XH-8A-7 Passive
 +5V_CTL 
 J_CTL-1 XH-8A-1 Passive 
 F_CTL-2 1812L110/33MR-2 Passive 
+)
+(
+HV_GATE_C_N 
+R_GC-2 0603WAF1001T5E-2 Input   
+Q_HVEN_C-3 BSS138-D Passive 
 )
 (
 +24V_I 
