@@ -6,6 +6,20 @@
 用途：作为原理图、PCB、FPGA 模块划分和分阶段调试的设计依据。**第 15 节是交给画板方（人或 AI）的完整 PCB 任务书，第 16 节是打板前的面包板验证方案。**
 
 > **设计状态：架构已可展开；Dock 引脚分配已按官方原理图 3713 版给出（EL 用到的 Bank 3/7 VCCIO 已按原理图核实为 3.3 V，见 11.2.1）；电源方案已按实际库存（LRS-200-24 + NID100-12 + NID100-5）改写。上电波形验证完成前，不作为已验证的通电定稿。**
+>
+> **2026-10-20 实测：手上的 Dock 是 v3714，其 HDMI 口没有接收端接，不能直接收 Orange Pi 的 HDMI（见下方 v0.3.1）。**
+
+### v0.3.1 实测更正（2026-10-20，FPGA 首次上板）
+
+1. **Dock 实物为 v3714**（版本丝印在核心板插槽中间，要拔下核心板才看得到）。Sipeed 3714 原理图（2026-05-20，修改说明 "DVI optimize, SW0 and KEY4 pins were swapped"）与 3713 逐页对比：[S9]
+   - **P004 HDMI：R15–R22 由 3713 的 49.9 Ω 上拉到 HDMI_3V3（接收端接）改为 499 Ω 下拉到 GND**（只适合做 HDMI 输出）。没有端接时 TMDS 线上没有摆幅：实测 Orange Pi 的 dw-hdmi PHY_STAT0 = 0x03（HPD=1、PHY 锁定、RX_SENSE 全 0），FPGA 的 TMDS 时钟脚完全没有信号（tang-monitor m5 调试程序报 PLL 未锁、重捕获次数 0）。v0.3 写的"3714 小改，此处相同"有误。
+   - 第 5 颗键（丝印 S4）改接 **B10 = RECONFIG_N**，按下 FPGA 会重新从 Flash 加载；1 号拨码改接 C7（普通 IO）。"1 号拨码必须拨下"只对 3713 及更早成立。
+   - S0–S2（T10/T3/T2）、6 个 LED、PMOD J5/J6/J14、HDMI 引脚分配、Bank 电压与 3713 相同，11.2.1 的分配不受影响。
+   - tang-monitor 依据的是 3709 版原理图，它说的"零硬件改动"只在有 49.9 Ω 上拉的老板子上成立。
+   - 对策：在 Orange Pi → Dock 的 HDMI 链路上补 8 × 约 50 Ω 上拉到 3.3 V，同时断开 18 脚（见 5.1）。
+2. **U12 关闭**：Orange Pi 4（Armbian 26.11 trunk，内核 6.18.56）读得到 FPGA 的 EDID，但拒绝 25.175 MHz 的 640×480（模式列表为空、不输出）；换 27 MHz 自定义时序（总 858×525）后被接受，VPLL 与 dclk_vop0 均为 27 MHz。el_hdmi 给 Orange Pi 用时用 27 MHz 版 EDID。
+3. **HDMI 18 脚反向供电**：Dock 的 HDMI_5V 由 +5V 经 D5 送到 18 脚。D5 只挡外部电流倒灌进 Dock，挡不住 Dock 往外送；Orange Pi 没上电时会被 Dock 经 18 脚供电（Pi 电源灯亮）。Pi 开机后它自己的 5V 更高，D5 截止。整机里这条 HDMI 链路应断开 18 脚。
+4. apicula 生成的 .fs 缺少高云 `//` 注释头，高云 Programmer 加载不完成（报 "Error found!"）；`fpga/build.sh` 已自动补上（`fpga/scripts/fs_header.py`）。按键、LED（丝印编号与程序编号反序）、串口命令、帧缓存自检均已在实物上通过，详见 `fpga/el_hdmi/使用说明.txt` 第 8 节。
 
 ### v0.3 修订摘要（2026-10-19）
 
@@ -177,16 +191,18 @@ LRS-200-24（24 V）→ PCB-3 配电板
 - **[参考]** tang-monitor 作者在 Tang Primer 20K + Dock 上报告了 HDMI 接收、EDID 和 TMDS 解码成功；原输出目标是 480 × 272 RGB LCD，不是 EL。[S2]
 - **[方案]** 移植其 HDMI 前端和调试方法，在 RGB/DE 解码后接本工程缓存；移除其 480 × 272 缩放/LCD 输出路径。首版输入保持 640 × 480，不必缩放。
 - **[待核实]** Dock 和核心板硬件版本、HDMI 接口耦合/终端/偏置、各 Bank 实际电压、所选工具链能否复现接收。接收成功经验不是 HDMI 电气合规认证。
+- **[实测，2026-10-20]** 手上的 Dock 是 **v3714，HDMI 口无接收端接**（R15–R22 为 499 Ω 下拉，见 v0.3.1）。HDMI 信号源（RK3399 等）是电流型开漏输出，必须由接收端经 50 Ω 上拉到 3.3 V 才有摆幅。**[方案，待讨论]** 在 Orange Pi → Dock 链路的 Dock 端补 8 × 49.9 Ω 上拉到 3.3 V（3.3 V 由 Dock 18 脚 5V 经 LDO 得到，约 0.1 A），18 脚不往 Pi 方向传。Dock 上的 499 Ω 下拉保留时，线上静态约 3.0 V、单端摆幅约 450 mV，仍在 HDMI 接收范围内。临时验证可用 HDMI 公/母转接板手工连接。
 - **[方案]** 初版限定未加密、兼容 DVI 视频的视频流；音频、CEC、HDCP、HDR 和高分辨率输入不列入验收目标。
 - **[方案]** 无 HDMI 或失锁时继续输出本地黑场/测试图，不让外部视频失锁直接破坏 EL 行/帧时序。
 
 **v0.2 补充：**
 
 - **[参考/原理图]** Dock 3713 原理图 P004 页标题为 "HDMI_TX/RX"：接口侧 HD0–2/HCK 各有 49.9 Ω 上拉到 HDMI_3V3（+3V3 经 1N5819WS 得到），100 nF 交流耦合，FPGA 侧差分对之间 100 Ω；HPD 由 FPGA 经 22 Ω/5.1 kΩ 驱动；DDC/CEC 经 2N7002 电平转换，DDC 上拉到 HDMI_5V；HDMI_5V 由 +5V 经 1N5819WS（D5）提供，**信号源的 5V 不会反灌进 Dock**。[S9]
+  **[2026-10-20 更正]** 以上 49.9 Ω 上拉只适用于 3713 及更早；**3714 改成了 499 Ω 下拉到 GND，没有接收端接**。另外 D5 不阻止 Dock 往 18 脚送 5V，未上电的信号源会被反向供电（v0.3.1）。
 - **[参考]** tang-monitor README：直接把电脑插 Dock HDMI 口，零硬件改动；EDID 宣告 640×480 DVI-only；用 TLVDS_IBUF + rPLL ×5 + CLKDIV + IDES10；开源工具链 yosys/nextpnr-himbaechel/apicula；作者测试信号源为 Apple Silicon Mac；MIT 许可。其 pinmap 记录 HDMI 在 Bank 0/1（2.5 V），TMDS 时钟对不在 GCLK 脚上。[S2][S3]
 - **[原厂，v0.3 更正]** 按核心板原理图，Bank 0/1 共用 VCCO0&1 = **3.3 V**，板上没有 2.5 V。约束里的 `BANK_VCCIO=2.5` 沿用自 Sipeed Cam2HDMI 例程，是写给工具看的标签，不是实际电压。Sipeed 的 `HDMI/dk_video.cst` 对同样的球位就用 LVCMOS33。Gowin DS102 表 2-2 允许 3.3 V bank 使用 LVDS25 差分输入；2.5 V 只是 LVDS 输出的要求。el_hdmi 暂时保持与 tang-monitor 相同的声明，因为电气上无害，而且已有实测成功的先例。等第一次上板 HDMI 锁定以后，再试改成 `BANK_VCCIO=3.3`。
-- **[待核实，U12]** 旧版 Linux `dw_hdmi-rockchip.c` 的 `mode_valid` 要求像素时钟与 MPLL 表项**完全相等**，表项从 27 MHz 起，640×480 的 25.175 MHz 可能被拒；2022 年上游补丁删除该检查，但未确认进入哪个版本。[S12] **第一步零成本验证：Orange Pi 4 接普通显示器，确认 Armbian 能输出 640×480@60。**
-- **[方案] 退路：** EDID 只宣告一个自定义详细时序——有效 640×480、总 858×525、像素时钟 27.000 MHz（59.94 Hz）。FPGA 只按 DE 取有效像素，不受总时序影响。
+- **[实测，U12 已关闭（2026-10-20）]** 旧版 Linux `dw_hdmi-rockchip.c` 的 `mode_valid` 要求像素时钟与 MPLL 表项**完全相等**，表项从 27 MHz 起，640×480 的 25.175 MHz 可能被拒。[S12] 实测 Orange Pi 4 的 Armbian 内核 6.18.56 仍然拒绝 25.175 MHz（读到 EDID 但模式列表为空），接受下面的 27 MHz 时序。
+- **[方案，已采用] 27 MHz 时序：** EDID 只宣告一个自定义详细时序——有效 640×480、总 858×525、像素时钟 27.000 MHz（59.94 Hz）。FPGA 只按 DE 取有效像素，不受总时序影响。
 - **[参考]** HDMI2EL 经验：Windows ClearType 灰边二值化后字体断笔（Linux 侧用点阵控制台字体/关闭抗锯齿）；BRAM 读延迟导致每行首组像素丢失（作者未修复）；输入 PTC 发热造成闪烁（作者短接了 PTC，本工程不照搬，改用 eFuse）；一片电平转换芯片损坏出现竖线。[S4]
 
 ## 6. 两个开源项目的复用范围
@@ -498,7 +514,7 @@ Dock 供电要核对官方原理图和 USB 接线，尤其是外部 5 V 与电�
 | J5/J6/J14 的 1、2 脚 | +3V3 | — | 3V3_FPGA（仅作上拉参考，**不得与任何 5V/12V 网络相连，不从此取大电流**） | — |
 | J5/J6/J14 的 3、4 脚 | GND | — | GND | — |
 
-**[原厂，U03 已关闭（2026-10-20）]** Bank 电压按 Sipeed 官方原理图核实（核心板 `Tang_Primer_20K_SOM-3961_Schematic.pdf`、Dock `Tang_Primer_20K_Dock-3713_Schematics.pdf`，dl.sipeed.com/fileList/TANG/Primer_20K/02_Schematic；3710–3713 同一原理图，3714 小改，此处相同）：
+**[原厂，U03 已关闭（2026-10-20）]** Bank 电压按 Sipeed 官方原理图核实（核心板 `Tang_Primer_20K_SOM-3961_Schematic.pdf`、Dock `Tang_Primer_20K_Dock-3713_Schematics.pdf`，dl.sipeed.com/fileList/TANG/Primer_20K/02_Schematic；3710–3713 同一原理图。3714 已逐页对比：本表与上表引脚分配相同，但 HDMI 端接和 S4/1 号拨码有改动，见 v0.3.1）：
 
 | Bank | VCCIO 来源 | 电压 |
 |---|---|---|
@@ -618,13 +634,13 @@ Tang Primer 20K + Dock；两片指定厂商 AHCT245；匹配 DF11 壳体/端子�
 | U09 | 首版最终EL帧率与HDMI实际模式 | 60/120 Hz亮度、功耗、刷新比较 | 最终参数和EDID |
 | U10 | ESP32-S3型号拼写、接口与供电职责 | 核对已购板资料及控制需求 | 扩展接口，不阻塞初次本地点亮 |
 | U11 | 外壳支撑、高压防触碰及散热 | 机械样件和整机运行 | 装配与长期运行 |
-| U12 | Orange Pi 4（Armbian 内核）能否输出 640×480@60 | 用户计划自行修改内核 HDMI 驱动（`dw_hdmi-rockchip.c` 的 `mode_valid` 与 MPLL 表），不作为阻塞项；仍保留 27 MHz 自定义 EDID 时序作退路 | HDMI 链路 |
+| U12 | ~~Orange Pi 4（Armbian 内核）能否输出 640×480@60~~ | **已关闭（2026-10-20）：内核 6.18.56 拒绝 25.175 MHz，接受 27 MHz 自定义 EDID 时序；el_hdmi 用 27 MHz 版** | HDMI 链路 |
 | U13 | AHCT245 未上电时 A 侧被 3.3 V 驱动是否安全（Ioff） | TI 数据手册；当前用 1 kΩ 串阻兜底 | 电气裕量 |
-| U14 | Dock 板版本（3713 修正了 PMOD 间距） | 用户未在板上找到版本丝印（2026-10-18）；改为实测 J5/J6/J14 的相对位置 | 仅影响"直插 Dock"备选方案；默认排线连接不受影响 |
+| U14 | Dock 板版本（3713 修正了 PMOD 间距） | **2026-10-20 确认为 v3714**（丝印在核心板插槽中间）；3714 的 PMOD 引脚与 3713 相同，"直插 Dock"仍需实测 J5/J6/J14 的相对位置 | 仅影响"直插 Dock"备选方案；默认排线连接不受影响 |
 | U15 | ~~屏型号 LJ64K052 还是 LJ64H052~~ | **已关闭（2026-10-18）：用户确认为 LJ64K052** | 项目文件已统一改名 |
 | U16 | NID100 RC 脚开路电压与短路电流 | 万用表实测 | 面包板阶段用 RC 控制 VD 时的下拉电阻取值 |
 | U17 | eFuse 完整型号、EN 阈值、FLT/放电特性、国内货源 | TI 数据手册 + 立创查货 | PCB-1 BOM |
-| U18 | Dock 上 R15–R22（49.9 Ω）是否贴装 | 放大镜看板 | HDMI 接收端接 |
+| U18 | ~~Dock 上 R15–R22（49.9 Ω）是否贴装~~ | **已关闭（2026-10-20）：v3714 上 R15–R22 是 499 Ω 下拉到 GND，无接收端接；需在 HDMI 链路上外加端接（5.1）** | HDMI 接收端接 |
 
 **可以立即开展：** CN5符号、功能框图、两片缓冲器逻辑页、电源时序框架、缓存/扫描RTL模块和测试图案。
 
@@ -654,7 +670,7 @@ Tang Primer 20K + Dock；两片指定厂商 AHCT245；匹配 DF11 壳体/端子�
 - **[S6] Sipeed 官方资料（补充）**：[Tang Primer 20K Wiki](https://wiki.sipeed.com/hardware/en/tang/tang-primer-20k/primer-20k.html)、[官方例程](https://github.com/sipeed/TangPrimer-20K-example)、[原理图下载目录](https://dl.sipeed.com/shareURL/TANG/Primer_20K/02_Schematic)。本次查阅Wiki/例程页面，未完成特定实物版本原理图逐网审查。
 - **[S7] Hirose 原厂连接器资料（补充）**：[DF11-20DS-2C 产品页及图纸入口](https://www.hirose.com/en/product/p/CL0543-0509-7-00)。用于连接器系列、间距和配套图纸核对，不替代线束端子的完整选型。
 - **[S8] TI 原厂器件规格（补充）**：[SN74AHCT245 数据手册](https://www.ti.com/lit/ds/symlink/sn74ahct245.pdf)，重点看推荐工作条件、电气特性、功能表和封装，不凭商品页标题选型。
-- **[S9] Tang Primer 20K Dock 原理图 3713（2023-09-12，Rev 1.1，v0.2 逐页查阅）**：[下载目录](https://dl.sipeed.com/fileList/TANG/Primer_20K/02_Schematic/)，文件 `Tang_Primer_20K_Dock-3713_Schematics.pdf`。第 1 页总图（PMOD/LCD/MIC 网络到 FPGA 球位）、第 3 页 HDMI_TX/RX、第 4 页 RGB LCD 与 J5/J6、第 8 页 DVP 与 J12、第 9 页 DC-IN/按键/J14。
+- **[S9] Tang Primer 20K Dock 原理图 3713（2023-09-12，Rev 1.1，v0.2 逐页查阅）**：[下载目录](https://dl.sipeed.com/fileList/TANG/Primer_20K/02_Schematic/)，文件 `Tang_Primer_20K_Dock-3713_Schematics.pdf`。第 1 页总图（PMOD/LCD/MIC 网络到 FPGA 球位）、第 3 页 HDMI_TX/RX、第 4 页 RGB LCD 与 J5/J6、第 8 页 DVP 与 J12、第 9 页 DC-IN/按键/J14。**3714 版**（2026-05-20，Rev 1.3）：同目录 `Tang_Primer_20K_Dock_3714_Schematics.pdf`，2026-10-20 与 3713 逐页对比，差别见 v0.3.1。
 - **[S10] 明纬 NID100 规格书（2024-10-30）**：[NID100-SPEC.PDF](https://www.meanwell.com/Upload/PDF/NID100/NID100-SPEC.PDF)。输出、输入范围、Remote 逻辑、建议保险、外接电容。
 - **[S11] TI TPS25947 eFuse**：[产品页](https://www.ti.com.cn/product/zh-tw/TPS25947)。2.7–23 V、5.5 A、28 mΩ，电容设定斜率，限流可调，ILIM 兼作电流监测，FLT 输出。PG/EN 细节以数据手册为准。
 - **[S12] Rockchip dw_hdmi mode_valid**：[Linux v4.19 源码](https://elixir.free-electrons.com/linux/v4.19.31/source/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c)、[删除精确匹配检查的补丁](https://patches.ctt.linaro.org/patch/554899)。
