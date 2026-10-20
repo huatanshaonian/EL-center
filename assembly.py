@@ -54,6 +54,8 @@ Y_IV18 = 12                                    # IV-18 管轴（玻壳前沿 y 2
 Z_DRV = Z_DECK + PLATE_T + 10                  # 辉光驱动板底面：M3×10 铜柱立在甲板上
 Z_IN14_PCB = Z_DRV + 1.6 + 11                  # IN-14 小板底面 116.6：2×7 排母 8.5 + 排针塑料座 2.5 插在驱动板上（IV-18 顶 114；管顶 174.7，EL 托架下沿 176）
 DRV = (20, 40, 150, 80)                        # 辉光驱动板占位 x0, y0, 长, 宽（未画）
+HVUNI_STEP = "el_driver/HV-UNI_D1/制板文件/HV-UNI_D1.step"   # 通用高压小板 80×40（mis-01-56），不进 git
+HVUNI_STACK = 11                               # 排针插宿主板排母，叠高 11，四角 M3×11 铜柱
 EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶面 z 111.6，管顶 173.6（托架下沿 176）
 IV18_X0 = 27                                   # IV-18 引线端玻壳中心 X（玻壳到 X=142）
 Z_IV18_PCB = Z_DECK + PLATE_T + 1                        # IV-18 板底面，管心 Z=104.6
@@ -67,6 +69,15 @@ PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后�
 PCB3_STANDOFF = 10
 
 
+def hv_uni(name, x, y, rot, z_host):
+    """通用高压小板：板坐标原点（左下角）转 rot 度后放到 (x, y)，板底面 = 宿主板顶面 + 叠高；四角 M3 铜柱"""
+    def place(shp):
+        return shp.rotate((0, 0, 0), (0, 0, 1), rot).translate((x, y, z_host))
+    add(name, place(V.load_abs(HVUNI_STEP).translate((0, 0, HVUNI_STACK))), "pcb_g", "tubes")
+    for hx, hy in ((5, 5), (75, 5), (5, 35), (75, 35)):
+        add(f"standoff_M3x{HVUNI_STACK}_HV", place(P.standoff_m3(HVUNI_STACK).translate((hx, hy, 0))), "brass", "tubes")
+
+
 def tubes():
     sock = P.in14_socket_pcb()
     for k, x in enumerate(TUBE_X):
@@ -77,6 +88,8 @@ def tubes():
     add("Nixie_driver_PCB(placeholder)", P.box(l, w, 1.6, x0, y0, Z_DRV), "pcb_b", "tubes")
     for xx, yy in ((x0 + 5, y0 + w - 5), (x0 + l - 5, y0 + w - 5), (70.5, y0 + 5), (119.5, y0 + 5)):   # 后两角 + 前沿两个分组空隙
         add("standoff_M3x10", P.standoff_m3(10).translate((xx, yy, Z_DECK + PLATE_T)), "brass", "tubes")
+    # 170 V 高压小板插在驱动板后右（避开前沿 IN-14 小板），板占 x 85–165、y 77–117
+    hv_uni("HV-UNI_170V", 85, 77, 0, Z_DRV + 1.6)
     # IV-18：板直接用尼龙垫片坐在甲板上，支架托住管子
     add("IV18_PCB", P.iv18_pcb().translate((IV18_X0 - 5, Y_IV18 - 9, Z_IV18_PCB)), "pcb_b", "tubes")
     add("IV-18", P.iv18().translate((IV18_X0, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
@@ -87,6 +100,8 @@ def tubes():
         rz = lambda s: s.rotate((0, 0, 0), (0, 0, 1), EYE_ROT).translate((x, EYE_Y, z))
         add(f"Noval_socket_{k+1}", rz(M.noval_socket()), "dark", "tubes")
         add(f"6E2_{k+1}", rz(M.tube_6e2()), "eye", "tubes")
+    # 250 V 高压小板插在 6E2 板上、两支管子后面，转 -90°（HV 输出端朝管子），板占 x 252–292、y 50–130
+    hv_uni("HV-UNI_250V", 252, 130, -90, Z_DECK + PLATE_T + EYE_STANDOFF + 1.6)
 
 # ------------------------------------------------------------------ 盖革：J305 横在前面板盖革窗后；自制盖革板（参考 MightyOhm），位置待定
 def geiger():
