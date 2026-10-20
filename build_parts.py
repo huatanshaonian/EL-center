@@ -51,6 +51,7 @@ PARTS = {
  "P51_Noval_Socket_9pin": M.noval_socket,
  "P52_USB_Panel_Extension": F.usb_panel_ext,
  "P54_DS3231_Module": M.ds3231_module,
+ "P55_Geiger_Clip_Board": M.geiger_clip_board,
  "P53_Keyboard_Dock": D.keyboard_dock,
 }
 if __name__ == "__main__":

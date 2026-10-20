@@ -80,7 +80,7 @@ def signal_diagram(fname="png/11_architecture.png"):
     subs = [
         ("辉光钟：IN-14 ×6（HH:MM:SS）\n3×74HCT595 → 6×K155ID1 → 阴极；阳极 170 V（自制通用高压小板）", 66, "hv"),
         ("IV-18 荧光管\nMAX6921 驱动（DIN / CLK 与 595 共用）\n栅/阳极约 35 V（XL6009），灯丝交流方波 + 偏置", 58, "dev"),
-        ("6E2 猫眼（侧视条形）×2\nPWM 调栅压控制光条；阳极约 250 V（自制通用高压小板）\n灯丝 2×6.3 V 串接 12 V", 50, "hv"),
+        ("6E2 猫眼（侧视条形）×2\nPWM 调栅压控制光条；阳极约 250 V（自制通用高压小板）\n阴极 12 V、栅极 0–12 V；灯丝 2×6.3 V 串联取 HV-B 12 V", 50, "hv"),
         ("指针表头 85C1 0–1 mA\nPWM 串电阻直推", 43.5, "dev"),
         ("盖革计数：J305 + 自制盖革板（5 V 输入，板上升压约 400 V）\n脉冲 → ESP32 计数；蜂鸣器咔哒声", 35.5, "hv"),
         ("环境光 BH1750、RTC DS3231（I2C）\n人体感应 LD2410B（OUT / UART）", 27.5, "dev"),
@@ -120,8 +120,8 @@ def power_diagram(fname="png/12_power_tree.png"):
     for b in (n12, n5, b24):
         arrow(ax, edge(pcb3, "r"), edge(b, "l"))
 
-    loads12 = ["主机同步 → EL 屏 VD（经 EL-IF）、FPGA Dock", "6E2 灯丝 2×6.3 V 串联、键灯、绿灯",
-               "高压受控电源 HV-A → 通用高压小板 → 170 V *", "高压受控电源 HV-B → 通用高压小板 → 约 250 V"]
+    loads12 = ["主机同步 → EL 屏 VD（经 EL-IF）、FPGA Dock", "键灯、绿灯",
+               "高压受控电源 HV-A → 通用高压小板 → 170 V *", "高压受控电源 HV-B → 通用高压小板 → 约 250 V；6E2 灯丝"]
     loads5 = ["电子保险 A（开关 或 ESP32 保持）→ Orange Pi 4", "电子保险 B（同一使能）→ USB Hub 模块、PAM8403", "主机同步 → EL 屏 VL（经 EL-IF）",
               "常电：ESP32-S3、LD2410B、IV-18 灯丝", "高压受控电源 → 自制盖革板（板上升压约 400 V）"]
     loads24 = ["开关 → XL6009 → 35 V → IV-18 栅/阳极", "备用输出（24 / 12 / 5 V 各 2 路，带保险）"]

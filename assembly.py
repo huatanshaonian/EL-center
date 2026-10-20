@@ -57,10 +57,11 @@ DRV = (20, 40, 150, 80)                        # 辉光驱动板占位 x0, y0, �
 EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶面 z 111.6，管顶 173.6（托架下沿 176）
 IV18_X0 = 27                                   # IV-18 引线端玻壳中心 X（玻壳到 X=142）
 Z_IV18_PCB = Z_DECK + PLATE_T + 1                        # IV-18 板底面，管心 Z=104.6
-EYE_Y = 27                                     # 6E2 管轴 Y（让开前面的盖革管）
+EYE_Y = 31                                     # 6E2 管轴 Y：管座前耳孔在 y≈18，6E2 板前沿 ≥ y 13，才能从 J305（y ≤ 11.6 @ 板高）上方让开（2026-10-20 由 27 后移）
 EYE_ROT = 18                                   # 6E2 管座绕 Z 转角：荧光屏正对 7 脚、正对 -Y（前面板）时，缺口在 +X 往后偏 18°（北京 6E2，用户确认缺口在右）
-SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 184           # 盖革管 J305 管轴（变量名沿用 SBM_）
-GM_L = 111.0                                   # J305 长度（T）
+SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 186           # 盖革管 J305 管轴 y、z 与左端 x（变量名沿用 SBM_）；管轴 z 由夹子小板 2 mm 垫 + 夹口高 5.9 决定
+GM_L = 103.5                                   # J305 总长（用户实测）
+GEIGER_BOARD = (180, 50, 60, 40)               # 盖革主板 x0, y0, 长, 宽：表头后面、辉光驱动板与 6E2 板之间，四孔落在甲板孔阵（185/235, 55/85），M3×6 铜柱
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
@@ -90,9 +91,17 @@ def tubes():
 # ------------------------------------------------------------------ 盖革：J305 横在前面板盖革窗后；自制盖革板（参考 MightyOhm），位置待定
 def geiger():
     add("J305", M.j305(GM_L).translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
-    for x in (SBM_X0 + 1, SBM_X0 + GM_L - 5):                 # 端帽夹（T）
-        add("GM_tube_clip", P.box(4, 10, SBM_Z - 5.5 - Z_DECK - PLATE_T, x, SBM_Y - 5, Z_DECK + PLATE_T), "alu", "geiger")
-    # 盖革板还没画；机内可用空间见 free_space.py
+    # 两块夹子小板（20×12，2 mm 尼龙垫在甲板上，1 颗 M3 走长槽）：夹子中心对准两端电极，长槽朝外
+    e = (GM_L - 94) / 2
+    clip = M.geiger_clip_board()
+    zc = Z_DECK + PLATE_T + 2
+    add("Geiger_clip_board_L", clip.mirror("YZ").translate((SBM_X0 + e / 2 + 10, SBM_Y - 6, zc)), "pcb_g", "geiger")
+    add("Geiger_clip_board_R", clip.translate((SBM_X0 + GM_L - e / 2 - 10, SBM_Y - 6, zc)), "pcb_g", "geiger")
+    # 盖革主板（升压、蜂鸣器、J1 XH-2P 接 HV-C、J2 XH-4P 接 ESP32 底板）：占位，等 mis-01-56 画板
+    gx, gy, gl, gw = GEIGER_BOARD
+    add("Geiger_main_board(placeholder)", P.box(gl, gw, 1.6, gx, gy, Z_DECK + PLATE_T + 6), "pcb_g", "geiger")
+    for dx, dy in ((5, 5), (gl - 5, 5), (5, gw - 5), (gl - 5, gw - 5)):
+        add("standoff_M3x6", P.standoff_m3(6).translate((gx + dx, gy + dy, Z_DECK + PLATE_T)), "brass", "geiger")
 
 # ------------------------------------------------------------------ 下舱：电源、配电、喇叭
 def lower():
