@@ -56,7 +56,7 @@ Z_IN14_PCB = Z_DRV + 1.6 + 11                  # IN-14 小板底面 116.6：2×7
 DRV = (20, 40, 150, 80)                        # 辉光驱动板 x0, y0, 长, 宽（NIXIE-DRV D1，板原点 = 全局 (20, 40)）
 DRV_STEP = "el_driver/NIXIE-DRV_D1/制板文件_驱动板/NIXIE-DRV_D1.step"        # 约 26 MB，不进 git
 IN14_STEP = "el_driver/NIXIE-DRV_D1/制板文件_IN14小板/IN14-SOCK_D1.step"    # 板原点 = 全局 (管心 x − 10.5, 15)；STEP 里代替管子的 1×13 排针不装
-ESP_BASE = (40, 120, 90, 60)                   # ESP32-S3 底板占位 x0, y0, 长, 宽（2026-10-21 提议，未画）：驱动板后面，M3×6 铜柱；前两孔在孔阵，后两孔 y175 自钻
+ESP_BASE = (40, 120, 90, 50)                   # ESP32-S3 底板占位 x0, y0, 长, 宽（2026-10-21 mis-01-56 定 90×50，未画）：驱动板后面，M3×6 铜柱，四孔 (45/125, 125/165) 都在孔阵上
 HVUNI_STEP = "el_driver/HV-UNI_D1/制板文件/HV-UNI_D1.step"   # 通用高压小板 80×40（mis-01-56），不进 git
 EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.step"     # 不进 git
 HVUNI_STACK = 11                               # 排针插宿主板排母，叠高 11，四角 M3×11 铜柱
@@ -137,17 +137,17 @@ def geiger():
 
 # ------------------------------------------------------------------ ESP32-S3 底板（占位，mis-01-56 画）
 def esp_base():
-    """底板平放在驱动板后面；开发板 USB-C 朝左（弯头线从电脑层左走线孔上去接 Pi），天线端 U.FL 朝右；DS3231 在前右（布局 T）"""
+    """底板平放在驱动板后面；开发板 USB-C 朝左（弯头线从电脑层左走线孔上去接 Pi），天线端 U.FL 朝右；DS3231 竖放在开发板右边（布局 T）"""
     x0, y0, l, w = ESP_BASE
     zb = Z_DECK + PLATE_T + 6
     add("ESP-BASE(placeholder)", P.box(l, w, 1.6, x0, y0, zb), "pcb_b", "esp")
     for dx, dy in ((5, 5), (l - 5, 5), (5, w - 5), (l - 5, w - 5)):
         add("standoff_M3x6_ESP", P.standoff_m3(6).translate((x0 + dx, y0 + dy, Z_DECK + PLATE_T)), "brass", "esp")
-    kx, ky, top = x0 + 2, y0 + 30, zb + 1.6
+    kx, ky, top = x0 + 2, y0 + 22, zb + 1.6
     for ry in (1.27, 24.13):                                                       # 2×22 排母 8.5（排距 22.86）
         add("ESP_socket_1x22", P.box(22 * 2.54, 2.5, 8.5, kx + 5.05 - 1.27, ky + ry - 1.25, top), "dark", "esp")
     add("ESP32-S3_DEV-KIT", M.esp32s3_dev_kit().translate((kx, ky, top + 8.5 + 2.6)), "pcb_g", "esp")
-    add("DS3231_module", M.ds3231_module().translate((x0 + 42, y0 + 6, top)), "pcb_b", "esp")
+    add("DS3231_module", to_min(M.ds3231_module().rotate((0, 0, 0), (0, 0, 1), 90), x0 + 66, y0 + 3, top), "pcb_b", "esp")   # 竖放在开发板右边
 
 # ------------------------------------------------------------------ 下舱：电源、配电、喇叭
 def lower():
