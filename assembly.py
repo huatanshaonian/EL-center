@@ -69,6 +69,7 @@ GM_L = 103.5                                   # J305 总长（用户实测）
 GEIGER_BOARD = (180, 110, 60, 70)              # 盖革主板 x0, y0, 长, 宽：6E2 板后面，四孔 (185/235, 115/175)：前两孔在甲板孔阵，后两孔 y175 超出孔阵（y 35–165）要自己钻；M3×6 铜柱（2026-10-20 由 y 50 后移给 6E2 板让位，60×40 → 60×60 → 60×70：放不下全部元件）。左后角压住甲板后走线孔右端约 4×4 mm
 EYE_BOARD = (210, 15, 90, 90)                  # 6E2 板 x0, y0, 长, 宽：前沿 y 15 让开 J305 和右夹子小板，后沿 y 105 让开右后走线孔（y ≥ 120），右沿 x 300；M3×6 铜柱，四角孔都要自己钻
 GEIGER_STEP = "el_driver/GEIGER_D1/制板文件_主板/GEIGER-MAIN_D1.step"   # 约 34 MB，不进 git
+GEIGER_CLIP_STEP = "el_driver/GEIGER_D1/制板文件_夹子板/GEIGER-CLIP_D1.step"   # 约 9 MB，不进 git；原点 = 全局 (153, 2)
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
@@ -117,13 +118,12 @@ def tubes():
 # ------------------------------------------------------------------ 盖革：J305 横在前面板盖革窗后；自制盖革板（参考 MightyOhm），位置待定
 def geiger():
     add("J305", M.j305(GM_L).translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
-    # 夹子长条板 GEIGER-CLIP D1，L 形（长条 x 153–299、y 2–14，左端加宽到 x 153–186、y 2–38；贴甲板垫 GM_SHIM 1.5 尼龙垫）：
+    # 夹子长条板 GEIGER-CLIP D1，L 形（长条 x 153–299、y 2–14，左端加宽到 x 153–186、y 2–40；贴甲板垫 GM_SHIM 1.5 尼龙垫；左孔 (165,35)/(175,35) 在孔阵上，y 38–40 边上元件高 ≤ 6，上面是辉光驱动板）：
     # J305 夹子中心 = 管端往里 1.25（夹子内边对齐电极圆柱段内端），即 x 187.25 / 288.25；HAC2311S 那组已删。
     # 检测电路（全直插）在左端加宽处，x 153–164、y 18–36 元件顶 ≤ z108（上面是 IN-14 第 6 只的引脚）；4.7 MΩ 贴片阳极电阻在管下 x 268–282；
-    # 右端 x 290–299 只有高压焊线盘和 M3 尼龙螺丝孔（约 296.6, 5.5，自钻）
-    gx0 = 153
-    clips = (SBM_X0 + 1.25 - gx0, SBM_X0 + GM_L - 1.25 - gx0)
-    add("Geiger_clip_strip", M.geiger_clip_strip(clips=clips).translate((gx0, SBM_Y - 6, Z_DECK + PLATE_T + GM_SHIM)), "pcb_g", "geiger")
+    # 右端 x 290–299 只有高压焊线盘和 M3 尼龙螺丝孔（296.5, 10.8，自钻）；XH-3 插座 J4 约在 (170, 28)
+    # 已换成 mis-01-56 导出的整板 STEP（占位版本见 parts_modules.geiger_clip_strip）
+    add("GEIGER-CLIP_board", V.load_abs(GEIGER_CLIP_STEP).translate((153, 2, Z_DECK + PLATE_T + GM_SHIM)), "pcb_g", "geiger")
     # 盖革主板 GEIGER-MAIN D1（mis-01-56 导出的整板 STEP，原点 = 板左前角 = 全局 (180, 110)，板底 z100）
     gx, gy, gl, gw = GEIGER_BOARD
     add("GEIGER-MAIN_board", V.load_abs(GEIGER_STEP).translate((gx, gy, Z_DECK + PLATE_T + 6)), "pcb_g", "geiger")

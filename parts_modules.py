@@ -20,8 +20,10 @@ def j305(L=103.5):
         b = b.union(cyl(s["cap_D"] / 2, e, x, 0, 0, "X"))
     return b
 
-# 夹子长条板 L 形外形（板坐标，原点 = 全局 (153, 2)）：长条 x 0–146 × y 0–12，左端往后加宽到 y 36（全局 x 153–186、y 2–38）
-CLIP_STRIP_OUTLINE = ((0, 0), (146, 0), (146, 12), (33, 12), (33, 36), (0, 36))
+# 夹子长条板 L 形外形（板坐标，原点 = 全局 (153, 2)）：长条 x 0–146 × y 0–12，左端往后加宽到 y 38（全局 x 153–186、y 2–40）
+# 固定孔（全局）：左 (165,35)、(175,35) 在甲板孔阵上；右 (296.5,10.8) 自钻；都用 M3 尼龙螺丝
+CLIP_STRIP_OUTLINE = ((0, 0), (146, 0), (146, 12), (33, 12), (33, 38), (0, 38))
+CLIP_STRIP_HOLES = ((12, 33), (22, 33), (143.5, 8.8))
 
 
 def geiger_clip_strip(outline=CLIP_STRIP_OUTLINE, clips=(34.25, 135.25), clip_y=6.0):
@@ -30,6 +32,8 @@ def geiger_clip_strip(outline=CLIP_STRIP_OUTLINE, clips=(34.25, 135.25), clip_y=
     夹子 Littelfuse 10207101009（C142864）：沿管轴宽 7、两脚沿管轴相距 7.6、总高 10.9（C）；夹口中心离板面约 6.7（T，估算）。
     clips = 两只夹子中心的板坐标 x，clip_y = 夹子中心板坐标 y。原点 = 板底面左前角，X 沿管轴"""
     b = cq.Workplane("XY").polyline(list(outline)).close().extrude(1.6)
+    for hx, hy in CLIP_STRIP_HOLES:
+        b = b.cut(cyl(1.6, 2, hx, hy, -0.2, "Z"))
     for cx in clips:
         c = box(7, 7, 10.9, cx - 3.5, clip_y - 3.5, 1.6).cut(cyl(3.15, 9, cx - 4.5, clip_y, 1.6 + 6.7, "X"))
         b = b.union(c.cut(box(9, 7.5, 6, cx - 4.5, clip_y - 3.75, 1.6 + 6.7)))     # 夹口朝上开口
