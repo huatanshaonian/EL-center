@@ -1,0 +1,62 @@
+* HV-UNI D1
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/uc3843a_beh.lib
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/sihf840.lib
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/uf4007.txt
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/misc.lib
+VSRC src 0 PWL(0 0 0.0005 12)
+VIIN src src1 0
+RSRC src1 vin 0.3
+C1 vin c1e 47u
+RC1 c1e 0 0.3
+C2 vin 0 100n
+R23 vin leda 4.7k
+D2 leda 0 DLED
+R1 vin vcc 10
+C3 vcc 0 10u
+C4 vcc 0 100n
+C5 vref 0 100n
+R2 vref rtct 33k
+C6 rtct 0 1n
+XU1 comp vfb isns rtct 0 drv vcc vref UC3843A
+R3 drv gate 22
+R4 gate 0 10k
+VIL vin l1a 0
+L1 l1a l1b 100u
+RL1 l1b sw 0.22
+CL1 l1a sw 8p
+VQD sw qd 0
+XQ1 qd gate sns irf840
+RS1 sns 0 0.5
+VD1 sw d1a 0
+XD1 d1a hv D1WRAP
+C8 hv c8e 4.7u
+RC8 c8e 0 3
+C9 hv c9e 100n
+RC9 c9e 0 0.03
+.subckt D1WRAP a k
+D1 a k UF4007
+.ends
+R7 sns isns 1k
+C7 isns 0 1n
+R20 ovc isns 1k
+R8 hv fb1 470000
+R9 fb1 fb2 470k
+R10 fb2 vfb 470k
+R11 vfb fb3 12k
+RV1 fb3 0 10.2215
+R12 comp cmp1 47000
+C10 cmp1 vfb 1e-07
+R13 hv ov1 470k
+R14 ov1 ov2 470k
+R15 ov2 ovs 470k
+R16 ovs ov3 10k
+R17 ov3 0 1k
+XU2 ovs ovk 0 TL431B
+R19 ovb ovk 2.2k
+R18 vref ovb 10k
+Q2 ovc ovb vref Q2N3906
+R21 hv bl1 220k
+R22 bl1 0 220k
+RLOAD hv 0 29600
+.options method=gear reltol=1e-3 abstol=1e-9 vntol=1e-5 itl4=100 chgtol=1e-14
+.end

@@ -1,0 +1,82 @@
+* HV-UNI D1
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/uc3843a_beh.lib
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/sihf840.lib
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/uf4007.txt
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/misc.lib
+VSRC src 0 12
+VIIN src src1 0
+RSRC src1 vin 0.3
+C1 vin c1e 47u
+RC1 c1e 0 0.3
+C2 vin 0 100n
+R23 vin leda 4.7k
+D2 leda 0 DLED
+R1 vin vcc 10
+C3 vcc 0 10u
+C4 vcc 0 100n
+C5 vref 0 100n
+R2 vref rtct 33k
+C6 rtct 0 1n
+XU1 comp vfb isns rtct 0 drv vcc vref UC3843A
+R3 drv gate 22
+R4 gate 0 10k
+VIL vin l1a 0
+L1 l1a l1b 100u
+RL1 l1b sw 0.22
+CL1 l1a sw 8p
+LSW sw swd 9e-09
+LD swd qdp 4.5e-09
+VQD qdp qd 0
+XQ1 qd gate qs irf840
+LS qs qsp 7.5e-09
+LSRC qsp sns 9e-09
+RS1 sns rsm 0.5
+LRS rsm 0 1n
+VD1 sw d1a 0
+XD1 d1a d1k D1WRAP
+LHV d1k hv 1.3e-08
+C8 hv c8e 4.7u
+RC8 c8e c8l 3
+LC8 c8l gc 15n
+C9 hv c9e 100n
+RC9 c9e c9l 0.03
+LC9 c9l gc 8n
+LGND gc 0 2.2e-08
+.subckt D1WRAP a k
+D1 a k UF4007
+.ends
+RSN sw snm 100
+CSN snm 0 4.7e-11
+R7 sns isns 1k
+C7 isns 0 1n
+R20 ovc isns 1k
+R8 hv fb1 470000
+R9 fb1 fb2 470k
+R10 fb2 vfb 470k
+R11 vfb fb3 12k
+RV1 fb3 0 10.2215
+R12 comp cmp1 47000
+C10 cmp1 vfb 1e-07
+R13 hv ov1 470k
+R14 ov1 ov2 470k
+R15 ov2 ovs 470k
+R16 ovs ov3 10k
+R17 ov3 0 1k
+XU2 ovs ovk 0 TL431B
+R19 ovb ovk 2.2k
+R18 vref ovb 10k
+Q2 ovc ovb vref Q2N3906
+R21 hv bl1 220k
+R22 bl1 0 220k
+RLOAD hv 0 29600
+.ic v(src1)=12 v(vin)=11.93877 v(c1e)=0.03716186 v(leda)=1.87925 v(vcc)=11.73962 v(vref)=4.999891 v(rtct)=1.362085 v(xu1.uvx)=1
+.ic v(xu1.uv)=1 v(xu1.vri)=5 v(xu1.vrj)=5 v(xu1.dx)=0 v(xu1.dd)=5.967156e-14 v(xu1.ea)=3.0438 v(vfb)=2.499889 v(comp)=3.043797
+.ic v(xu1.vth)=0.5479322 v(xu1.csx)=0 v(isns)=0.0172927 v(xu1.cs)=2.400799e-22 v(xu1.qx)=1 v(xu1.q)=1 v(xu1.on)=1 v(xu1.onf)=1
+.ic v(xu1.oi)=10.23962 v(xu1.oj)=10.23962 v(drv)=10.16244 v(gate)=9.596518 v(l1a)=11.93877 v(l1b)=0.106025 v(sw)=0.09286776 v(swd)=0.09180345
+.ic v(qdp)=0.09127129 v(qd)=0.09127129 v(xq1.9)=0.04285527 v(xq1.7)=9.511001 v(xq1.8)=0.04080122 v(qs)=0.03929189 v(xq1.4)=0 v(xq1.5)=-0.6518764
+.ic v(xq1.10)=-9.468145 v(xq1.11)=-0.6518942 v(xq1.6)=-0.6518942 v(qsp)=0.0405693 v(sns)=0.0421022 v(rsm)=-0.0001702152 v(d1a)=0.09286776 v(d1k)=295.5816
+.ic v(hv)=295.5816 v(c8e)=-0.0327399 v(c8l)=3.643691e-06 v(gc)=1.010046e-07 v(c9e)=-6.612634e-06 v(c9l)=-1.751699e-06 v(snm)=0.09259717 v(ovc)=0.0172111
+.ic v(fb1)=197.8877 v(fb2)=100.1938 v(fb3)=0.002127572 v(cmp1)=3.029114 v(ov1)=197.8105 v(ov2)=100.0394 v(ovs)=2.268259 v(ov3)=0.2062054
+.ic v(xu2.x)=-0.2267405 v(xu2.y)=-0.226737 v(ovk)=5.000083 v(ovb)=5.000226 v(bl1)=147.7908
+.options method=gear reltol=1e-3 abstol=1e-9 vntol=1e-5 itl4=100 chgtol=1e-14
+.end

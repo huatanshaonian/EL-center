@@ -1,0 +1,70 @@
+* HV-UNI D1
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/uc3843a_beh.lib
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/sihf840.lib
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/uf4007.txt
+.include E:/modeling/MIS-01/el_driver/HV-UNI_D1/sim/models/misc.lib
+VSRC src 0 12
+VIIN src src1 0
+RSRC src1 vin 0.3
+C1 vin c1e 47u
+RC1 c1e 0 0.3
+C2 vin 0 100n
+R23 vin leda 4.7k
+D2 leda 0 DLED
+R1 vin vcc 10
+C3 vcc 0 10u
+C4 vcc 0 100n
+C5 vref 0 100n
+R2 vref rtct 33k
+C6 rtct 0 1n
+XU1 comp vfb isns rtct 0 drv vcc vref UC3843A
+R3 drv gate 22
+R4 gate 0 10k
+VIL vin l1a 0
+L1 l1a l1b 100u
+RL1 l1b sw 0.22
+CL1 l1a sw 8p
+VQD sw qd 0
+XQ1 qd gate sns irf840
+RS1 sns 0 0.5
+VD1 sw d1a 0
+XD1 d1a hv D1WRAP
+C8 hv c8e 4.7u
+RC8 c8e 0 3
+C9 hv c9e 100n
+RC9 c9e 0 0.03
+.subckt D1WRAP a k
+D1 a k UF4007
+.ends
+R7 sns isns 1k
+C7 isns 0 1n
+R20 ovc isns 1k
+R8 hv fb1 470000
+R9 fb1 fb2 470k
+R10 fb2 vfb 470k
+R11 vfb fb3 12k
+RV1 fb3 0 9044.78
+R12 comp cmp1 47000
+C10 cmp1 vfb 1e-07
+R13 hv ov1 470k
+R14 ov1 ov2 470k
+R15 ov2 ovs 470k
+R16 ovs ov3 10k
+R17 ov3 0 1k
+XU2 ovs ovk 0 TL431B
+R19 ovb ovk 2.2k
+R18 vref ovb 10k
+Q2 ovc ovb vref Q2N3906
+R21 hv bl1 220k
+R22 bl1 0 220k
+RLOAD hv 0 8500
+.ic v(src1)=12 v(vin)=11.94776 v(c1e)=0.05130071 v(leda)=1.87931 v(vcc)=11.73356 v(vref)=4.999932 v(rtct)=2.782536 v(xu1.uvx)=1
+.ic v(xu1.uv)=1 v(xu1.vri)=5 v(xu1.vrj)=5 v(xu1.dx)=0 v(xu1.dd)=7.836075e-289 v(xu1.ea)=2.946824 v(vfb)=2.499879 v(comp)=2.946824
+.ic v(xu1.vth)=0.515608 v(xu1.csx)=0 v(isns)=-0.002072007 v(xu1.cs)=1.119251e-23 v(xu1.qx)=0 v(xu1.q)=1.198495e-138 v(xu1.on)=1.267511e-138 v(xu1.onf)=4.872337e-108
+.ic v(xu1.oi)=4.986136e-107 v(xu1.oj)=4.986136e-107 v(drv)=-0.03644979 v(gate)=-0.3037482 v(l1a)=11.94776 v(l1b)=1.017436 v(sw)=1.021642 v(qd)=1.021642
+.ic v(xq1.9)=1.030331 v(xq1.7)=-0.34581 v(xq1.8)=-0.003375896 v(sns)=-0.003402058 v(xq1.4)=0 v(xq1.5)=1.386858 v(xq1.10)=1.376141 v(xq1.11)=1.376141
+.ic v(xq1.6)=1.376141 v(d1a)=1.021642 v(hv)=169.9634 v(c8e)=-0.06112167 v(c9e)=-8.997385e-06 v(ovc)=-0.002065287 v(fb1)=114.1422 v(fb2)=58.32105
+.ic v(fb3)=1.074417 v(cmp1)=2.944704 v(ov1)=113.7437 v(ov2)=57.52399 v(ovs)=1.30428 v(ov3)=0.1185709 v(xu2.x)=-1.19072 v(xu2.y)=-1.190714
+.ic v(ovk)=4.998579 v(ovb)=4.998799 v(bl1)=84.9817
+.options method=gear reltol=1e-3 abstol=1e-9 vntol=1e-5 itl4=100 chgtol=1e-14
+.end
