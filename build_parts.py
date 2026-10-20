@@ -34,7 +34,7 @@ PARTS = {
  "P33_RaspberryPi_Pico": M.rpi_pico,
  "P34_XL6009_Module": M.xl6009_module,
  "P35_MAX6921_SOIC28": M.max6921_soic28,
- "P36_Buzzer_12mm": M.buzzer_12mm,
+ "P36_Electret_Mic_CZN-15E": M.electret_mic_czn15e,
  "P37_USB-A_Socket": M.usb_a_socket,
  "P38_Geiger_Board": M.geiger_board,
  "P39_Square_Lamp_Button_16": F.square_lamp_button,

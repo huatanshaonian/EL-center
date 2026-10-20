@@ -78,8 +78,18 @@ def max6921_soic28():
     return V.load("kicad_extra/SOIC-28W_7.5x17.9mm_P1.27mm.step")
 
 def buzzer_12mm():
-    """Ø12 直插蜂鸣器。SRC: KiCad packages3D Buzzer_12x9.5RM7.6"""
+    """Ø12 直插蜂鸣器。SRC: KiCad packages3D Buzzer_12x9.5RM7.6（盖革板自带蜂鸣器型号定了再换）"""
     return V.load("kicad_extra/Buzzer_12x9.5RM7.6.step")
+
+def electret_mic_czn15e():
+    """CZN-15E 驻极体麦克风（用户已有）：外壳 Ø9.7 × 6.7（T，按常见 Ø10×7 规格，到手实测），正面拾音孔 Ø2，背面两根引线 Ø0.6 × 8、间距 2.5（T）
+    原点 = 背面中心，拾音面朝 +Z"""
+    SPEC = dict(D=9.7, H=6.7, hole_d=2.0, lead_d=0.6, lead_L=8.0, lead_dx=2.5)
+    s = SPEC
+    m = cyl(s["D"] / 2, s["H"]).cut(cyl(s["hole_d"] / 2, 1.0, 0, 0, s["H"] - 0.5))
+    for sx in (-1, 1):
+        m = m.union(cyl(s["lead_d"] / 2, s["lead_L"], sx * s["lead_dx"] / 2, 0, -s["lead_L"]))
+    return m
 
 def usb_a_socket():
     """USB-A 母座（板装卧式）。SRC: KiCad packages3D USB_A_Molex_67643_Horizontal"""
