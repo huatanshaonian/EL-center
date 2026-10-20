@@ -1,0 +1,4394 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+J_LOG
+FOOTPRINT
+CONN-TH_5P-P2.50_XH-5A
+PARTTYPE
+XH-5A_C26521
+DESCRIPTION
+
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+XH-5A_C26521
+PCB Layer
+Default
+Symbol
+XH-5A_C26521
+Designator
+J_LOG
+LCSC Part Name
+XH-5A,5P,脚距2.5mm,直插
+Supplier Part
+C26521
+Manufacturer
+
+Manufacturer Part
+XH-5A
+Supplier Footprint
+插件
+JLCPCB Part Class
+Extended Part
+Datasheet
+
+Supplier
+LCSC
+3D Model Title
+CONN-TH_5P-P2.50_XH-5A
+Name
+XH-5A
+Description
+
+Unique ID
+gge1
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J_12V
+FOOTPRINT
+CONN-TH_2P-P2.50_HCTL_XH-2A-X
+PARTTYPE
+XH-2A
+DESCRIPTION
+插针结构:1x2P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:2P;排数:1;每排PIN数:2;行距:-;额定电流:3A;触头材质:黄铜;触头镀层:锡;工作温度:-25℃~+85℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+XH-2A
+PCB Layer
+Default
+Symbol
+XH-2A_C2908600
+Designator
+J_12V
+Unique ID
+gge2
+LCSC Part Name
+1x2P 间距:2.5mm 直插 系列:XH
+Supplier Part
+C2908600
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+XH-2A
+Supplier Footprint
+插件,P=2.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/XH-2A/3184371.html
+Supplier
+LCSC
+3D Model Title
+CONN-TH_2P-P2.50_HCTL_XH-2A-X
+Pins Structure
+1x2P
+Pitch
+2.5mm
+Mounting Type
+直插
+Reference Series
+XH
+Number of Pins
+2P
+Number of Rows
+1
+Number of PINs Per Row
+2
+Row Spacing
+-
+Current Rating
+3A
+Contact Material
+黄铜
+Contact Plating
+锡
+Operating Temperature
+-25℃~+85℃
+Voltage Rating
+250V
+Plastic Material
+PA66
+Flame Retardant Rating
+UL94V-0
+Z-Height of the Board
+7mm
+Y-Width of Bottom Edge on Board
+5.9mm
+Name
+XH-2A
+Description
+插针结构:1x2P;间距:2.5mm;安装方式:直插;参考系列:XH;总PIN数:2P;排数:1;每排PIN数:2;行距:-;额定电流:3A;触头材质:黄铜;触头镀层:锡;工作温度:-25℃~+85℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J_HP
+FOOTPRINT
+HDR-TH_4P-P2.54-V-F
+PARTTYPE
+PM254-1-04-Z-8.5_C2897367
+DESCRIPTION
+插孔结构:1x4P;间距:2.54mm;行距:-;圆孔/方孔:方孔;安装方式:直插;排数:单排;总孔位数:4P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-1-04-Z-8.5_C2897367
+PCB Layer
+Default
+Symbol
+PM254-1-04-Z-8.5
+Designator
+J_HP
+LCSC Part Name
+1x4P 间距:2.54mm 直插
+Supplier Part
+C2897367
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-1-04-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-1-04-Z-8.5/3142372.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_4P-P2.54-V-F
+Holes Structure
+1x4P
+Pitch
+2.54mm
+Row Spacing
+-
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+单排
+Number of Positions
+4P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-1-04-Z-8.5
+Description
+插孔结构:1x4P;间距:2.54mm;行距:-;圆孔/方孔:方孔;安装方式:直插;排数:单排;总孔位数:4P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge3
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J_HH
+FOOTPRINT
+HDR-TH_1P-P2.54-V-F
+PARTTYPE
+310-93-101-61-001000
+DESCRIPTION
+安装方式:直插;排数:单排;总孔位数:1P;额定电流:3A;额定电压:-;塑高:2.79mm;触头镀层:铅锡;工作温度:-55℃~+125℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+310-93-101-61-001000
+PCB Layer
+Default
+Symbol
+310-93-101-61-001000
+Designator
+J_HH
+LCSC Part Name
+直插
+Supplier Part
+C6804164
+Manufacturer
+Mill-Max Mfg. Corp.
+Manufacturer Part
+310-93-101-61-001000
+Supplier Footprint
+插件
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/310-93-101-61-001000/7764809.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_1P-P2.54-V-F
+Mounting Type
+直插
+Number of Rows
+单排
+Number of Positions
+1P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Insulation Height
+2.79mm
+Contact Plating
+铅锡
+Operating Temperature
+-55℃~+125℃
+Name
+310-93-101-61-001000
+Description
+安装方式:直插;排数:单排;总孔位数:1P;额定电流:3A;额定电压:-;塑高:2.79mm;触头镀层:铅锡;工作温度:-55℃~+125℃;
+Unique ID
+gge4
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C11
+FOOTPRINT
+CAP-TH_BD5.0-P2.00-D0.8-FD
+PARTTYPE
+EEUFR1E470
+DESCRIPTION
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+EEUFR1E470
+PCB Layer
+Default
+Symbol
+EEUFR1E470
+Designator
+C11
+Unique ID
+gge5
+LCSC Part Name
+47uF ±20% 25V
+Supplier Part
+C407893
+Manufacturer
+PANASONIC(松下)
+Manufacturer Part
+EEUFR1E470
+Supplier Footprint
+插件,D5xL11mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/EEUFR1E470/396922.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_D5.0×H7.0×P2.0
+Value
+47uF
+Tolerance
+±20%
+Voltage Rating
+25V
+Ripple Current
+280mA@100kHz
+Equivalent Series Resistance(ESR)
+300mΩ@100kHz
+Pin Spacing
+2mm
+Diameter
+5mm
+Height - Seated (Max)
+11mm
+Lifetime
+5000hrs@105℃
+Operating Temperature
+-40℃~+105℃
+Name
+47uF
+Description
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C12
+FOOTPRINT
+CAP-TH_BD5.0-P2.00-D0.8-FD
+PARTTYPE
+EEUFR1E470
+DESCRIPTION
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+EEUFR1E470
+PCB Layer
+Default
+Symbol
+EEUFR1E470
+Designator
+C12
+Unique ID
+gge6
+LCSC Part Name
+47uF ±20% 25V
+Supplier Part
+C407893
+Manufacturer
+PANASONIC(松下)
+Manufacturer Part
+EEUFR1E470
+Supplier Footprint
+插件,D5xL11mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/EEUFR1E470/396922.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_D5.0×H7.0×P2.0
+Value
+47uF
+Tolerance
+±20%
+Voltage Rating
+25V
+Ripple Current
+280mA@100kHz
+Equivalent Series Resistance(ESR)
+300mΩ@100kHz
+Pin Spacing
+2mm
+Diameter
+5mm
+Height - Seated (Max)
+11mm
+Lifetime
+5000hrs@105℃
+Operating Temperature
+-40℃~+105℃
+Name
+47uF
+Description
+容值:47uF;精度:±20%;额定电压:25V;纹波电流:280mA@100kHz;等效串联电阻(ESR):300mΩ@100kHz;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C13
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C13
+Unique ID
+gge7
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U1
+FOOTPRINT
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+PARTTYPE
+SN74AHCT595N
+DESCRIPTION
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74AHCT595N
+PCB Layer
+Default
+Symbol
+SN74AHCT595N
+Designator
+U1
+LCSC Part Name
+8位串行输入、并行输出移位寄存器，带3态输出寄存器，输入与TTL电压兼容，移位寄存器有直接清零功能，闩锁性能和ESD保护良好
+Supplier Part
+C2879063
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74AHCT595N
+Supplier Footprint
+PDIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/gpn/sn74ahct595
+Supplier
+LCSC
+3D Model Title
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+Function
+串行至串行或并行
+Voltage - Supply
+4.5V~5.5V
+Clock Frequency
+115MHz
+Number of Elements
+1
+Number of Bits per Element
+8
+Output Type
+三态
+Series
+74AHCT
+Operating Temperature
+-40℃~+85℃
+Pd - Power Dissipation
+-
+Propagation Delay
+11.4ns@5V,50pF
+Output Current
+25mA
+Features
+-
+Name
+SN74AHCT595N
+Description
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Unique ID
+gge8
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C1
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C1
+Unique ID
+gge9
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U2
+FOOTPRINT
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+PARTTYPE
+SN74AHCT595N
+DESCRIPTION
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74AHCT595N
+PCB Layer
+Default
+Symbol
+SN74AHCT595N
+Designator
+U2
+LCSC Part Name
+8位串行输入、并行输出移位寄存器，带3态输出寄存器，输入与TTL电压兼容，移位寄存器有直接清零功能，闩锁性能和ESD保护良好
+Supplier Part
+C2879063
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74AHCT595N
+Supplier Footprint
+PDIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/gpn/sn74ahct595
+Supplier
+LCSC
+3D Model Title
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+Function
+串行至串行或并行
+Voltage - Supply
+4.5V~5.5V
+Clock Frequency
+115MHz
+Number of Elements
+1
+Number of Bits per Element
+8
+Output Type
+三态
+Series
+74AHCT
+Operating Temperature
+-40℃~+85℃
+Pd - Power Dissipation
+-
+Propagation Delay
+11.4ns@5V,50pF
+Output Current
+25mA
+Features
+-
+Name
+SN74AHCT595N
+Description
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Unique ID
+gge10
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C2
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C2
+Unique ID
+gge11
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U3
+FOOTPRINT
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+PARTTYPE
+SN74AHCT595N
+DESCRIPTION
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74AHCT595N
+PCB Layer
+Default
+Symbol
+SN74AHCT595N
+Designator
+U3
+LCSC Part Name
+8位串行输入、并行输出移位寄存器，带3态输出寄存器，输入与TTL电压兼容，移位寄存器有直接清零功能，闩锁性能和ESD保护良好
+Supplier Part
+C2879063
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74AHCT595N
+Supplier Footprint
+PDIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/gpn/sn74ahct595
+Supplier
+LCSC
+3D Model Title
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+Function
+串行至串行或并行
+Voltage - Supply
+4.5V~5.5V
+Clock Frequency
+115MHz
+Number of Elements
+1
+Number of Bits per Element
+8
+Output Type
+三态
+Series
+74AHCT
+Operating Temperature
+-40℃~+85℃
+Pd - Power Dissipation
+-
+Propagation Delay
+11.4ns@5V,50pF
+Output Current
+25mA
+Features
+-
+Name
+SN74AHCT595N
+Description
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Unique ID
+gge12
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C3
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C3
+Unique ID
+gge13
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U4
+FOOTPRINT
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+PARTTYPE
+SN74AHCT595N
+DESCRIPTION
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+SN74AHCT595N
+PCB Layer
+Default
+Symbol
+SN74AHCT595N
+Designator
+U4
+LCSC Part Name
+8位串行输入、并行输出移位寄存器，带3态输出寄存器，输入与TTL电压兼容，移位寄存器有直接清零功能，闩锁性能和ESD保护良好
+Supplier Part
+C2879063
+Manufacturer
+TI(德州仪器)
+Manufacturer Part
+SN74AHCT595N
+Supplier Footprint
+PDIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://www.ti.com/cn/lit/gpn/sn74ahct595
+Supplier
+LCSC
+3D Model Title
+PDIP-16_L19.3-W6.4-P2.54-LS7.9-BL
+Function
+串行至串行或并行
+Voltage - Supply
+4.5V~5.5V
+Clock Frequency
+115MHz
+Number of Elements
+1
+Number of Bits per Element
+8
+Output Type
+三态
+Series
+74AHCT
+Operating Temperature
+-40℃~+85℃
+Pd - Power Dissipation
+-
+Propagation Delay
+11.4ns@5V,50pF
+Output Current
+25mA
+Features
+-
+Name
+SN74AHCT595N
+Description
+功能:串行至串行或并行;工作电压:4.5V~5.5V;时钟频率(fc):115MHz;元件数:1;每个元件位数:8;
+Unique ID
+gge14
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C4
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C4
+Unique ID
+gge15
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U5
+FOOTPRINT
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+PARTTYPE
+DS1009-16AT1NX-0A2
+DESCRIPTION
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DS1009-16AT1NX-0A2
+PCB Layer
+Default
+Symbol
+DS1009-16AT1NX-0A2
+Designator
+U5
+LCSC Part Name
+间距2.54mm 方孔 P数:16P
+Supplier Part
+C72115
+Manufacturer
+CONNFLY
+Manufacturer Part
+DS1009-16AT1NX-0A2
+Supplier Footprint
+DIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DS1009-16AT1NX-0A2/73224.html
+Supplier
+LCSC
+3D Model Title
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+Adaptation Package Type
+DIP
+Pitch
+2.54mm
+Row Spacing
+7.62mm
+Circular Holes/Square Holes
+方孔
+Number of Positions
+16P
+Contact Plating
+锡
+Operating Temperature
+-20℃~+105℃
+Name
+DS1009-16AT1NX-0A2
+Description
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Unique ID
+gge16
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C5
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C5
+Unique ID
+gge17
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U6
+FOOTPRINT
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+PARTTYPE
+DS1009-16AT1NX-0A2
+DESCRIPTION
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DS1009-16AT1NX-0A2
+PCB Layer
+Default
+Symbol
+DS1009-16AT1NX-0A2
+Designator
+U6
+LCSC Part Name
+间距2.54mm 方孔 P数:16P
+Supplier Part
+C72115
+Manufacturer
+CONNFLY
+Manufacturer Part
+DS1009-16AT1NX-0A2
+Supplier Footprint
+DIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DS1009-16AT1NX-0A2/73224.html
+Supplier
+LCSC
+3D Model Title
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+Adaptation Package Type
+DIP
+Pitch
+2.54mm
+Row Spacing
+7.62mm
+Circular Holes/Square Holes
+方孔
+Number of Positions
+16P
+Contact Plating
+锡
+Operating Temperature
+-20℃~+105℃
+Name
+DS1009-16AT1NX-0A2
+Description
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Unique ID
+gge18
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C6
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C6
+Unique ID
+gge19
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U7
+FOOTPRINT
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+PARTTYPE
+DS1009-16AT1NX-0A2
+DESCRIPTION
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DS1009-16AT1NX-0A2
+PCB Layer
+Default
+Symbol
+DS1009-16AT1NX-0A2
+Designator
+U7
+LCSC Part Name
+间距2.54mm 方孔 P数:16P
+Supplier Part
+C72115
+Manufacturer
+CONNFLY
+Manufacturer Part
+DS1009-16AT1NX-0A2
+Supplier Footprint
+DIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DS1009-16AT1NX-0A2/73224.html
+Supplier
+LCSC
+3D Model Title
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+Adaptation Package Type
+DIP
+Pitch
+2.54mm
+Row Spacing
+7.62mm
+Circular Holes/Square Holes
+方孔
+Number of Positions
+16P
+Contact Plating
+锡
+Operating Temperature
+-20℃~+105℃
+Name
+DS1009-16AT1NX-0A2
+Description
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Unique ID
+gge20
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C7
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C7
+Unique ID
+gge21
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U8
+FOOTPRINT
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+PARTTYPE
+DS1009-16AT1NX-0A2
+DESCRIPTION
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DS1009-16AT1NX-0A2
+PCB Layer
+Default
+Symbol
+DS1009-16AT1NX-0A2
+Designator
+U8
+LCSC Part Name
+间距2.54mm 方孔 P数:16P
+Supplier Part
+C72115
+Manufacturer
+CONNFLY
+Manufacturer Part
+DS1009-16AT1NX-0A2
+Supplier Footprint
+DIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DS1009-16AT1NX-0A2/73224.html
+Supplier
+LCSC
+3D Model Title
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+Adaptation Package Type
+DIP
+Pitch
+2.54mm
+Row Spacing
+7.62mm
+Circular Holes/Square Holes
+方孔
+Number of Positions
+16P
+Contact Plating
+锡
+Operating Temperature
+-20℃~+105℃
+Name
+DS1009-16AT1NX-0A2
+Description
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Unique ID
+gge22
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C8
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C8
+Unique ID
+gge23
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U9
+FOOTPRINT
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+PARTTYPE
+DS1009-16AT1NX-0A2
+DESCRIPTION
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DS1009-16AT1NX-0A2
+PCB Layer
+Default
+Symbol
+DS1009-16AT1NX-0A2
+Designator
+U9
+LCSC Part Name
+间距2.54mm 方孔 P数:16P
+Supplier Part
+C72115
+Manufacturer
+CONNFLY
+Manufacturer Part
+DS1009-16AT1NX-0A2
+Supplier Footprint
+DIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DS1009-16AT1NX-0A2/73224.html
+Supplier
+LCSC
+3D Model Title
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+Adaptation Package Type
+DIP
+Pitch
+2.54mm
+Row Spacing
+7.62mm
+Circular Holes/Square Holes
+方孔
+Number of Positions
+16P
+Contact Plating
+锡
+Operating Temperature
+-20℃~+105℃
+Name
+DS1009-16AT1NX-0A2
+Description
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Unique ID
+gge24
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C9
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C9
+Unique ID
+gge25
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U10
+FOOTPRINT
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+PARTTYPE
+DS1009-16AT1NX-0A2
+DESCRIPTION
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+DS1009-16AT1NX-0A2
+PCB Layer
+Default
+Symbol
+DS1009-16AT1NX-0A2
+Designator
+U10
+LCSC Part Name
+间距2.54mm 方孔 P数:16P
+Supplier Part
+C72115
+Manufacturer
+CONNFLY
+Manufacturer Part
+DS1009-16AT1NX-0A2
+Supplier Footprint
+DIP-16
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/DS1009-16AT1NX-0A2/73224.html
+Supplier
+LCSC
+3D Model Title
+DIP-16_L20.3-W10.2-P2.54-LS7.6-BL-2
+Adaptation Package Type
+DIP
+Pitch
+2.54mm
+Row Spacing
+7.62mm
+Circular Holes/Square Holes
+方孔
+Number of Positions
+16P
+Contact Plating
+锡
+Operating Temperature
+-20℃~+105℃
+Name
+DS1009-16AT1NX-0A2
+Description
+适配封装类型:DIP;间距:2.54mm;行距:7.62mm;圆孔/方孔:方孔;总PIN数:16P;触头镀层:锡;工作温度:-20℃~+105℃;
+Unique ID
+gge26
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C10
+FOOTPRINT
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+PARTTYPE
+K104K15X7RF53H5
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+K104K15X7RF53H5
+PCB Layer
+Default
+Symbol
+K104K15X7RF53H5
+Designator
+C10
+Unique ID
+gge27
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C1620174
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+K104K15X7RF53H5
+Supplier Footprint
+插件,P=5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/K104K15X7RF53H5/1711019.html
+Supplier
+LCSC
+3D Model Title
+CAP-TH_L4.0-W2.6-P5.00-D0.5
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Pin Spacing
+5mm
+Name
+100nF
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RB1
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-10KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-10KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-10KΩ±1% T52
+Designator
+RB1
+Unique ID
+gge28
+LCSC Part Name
+10kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119347
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-10KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q1
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P2.54-L
+PARTTYPE
+MPSA42-AT/P
+DESCRIPTION
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MPSA42-AT/P
+PCB Layer
+Default
+Symbol
+MPSA42-AT/P
+Designator
+Q1
+LCSC Part Name
+NPN 电流:500mA 电压:300V
+Supplier Part
+C125316
+Manufacturer
+KEC
+Manufacturer Part
+MPSA42-AT/P
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MPSA42-AT%252FP/136592.html
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.8-W3.7-H4.8-P2.54
+type
+NPN
+Current - Collector(Ic)
+500mA
+Collector - Emitter Voltage VCEO
+300V
+Pd - Power Dissipation
+625mW
+DC Current Gain
+300
+Transition frequency(fT)
+50MHz
+Current - Collector Cutoff
+100nA
+Vce Saturation(VCE(sat))
+500mV
+Operating Temperature
+-
+Emitter-Base Voltage(Vebo)
+6V
+Number
+1个NPN
+Configuration
+独立式
+Name
+MPSA42-AT/P
+Description
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Unique ID
+gge29
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RDP1
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-47KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-47KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-47KΩ±1% T52
+Designator
+RDP1
+LCSC Part Name
+47kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119362
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-47KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-47K%25CE%25A9%25C2%25B11%2525%2520T/120631.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+47kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+47kΩ
+Description
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge30
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J1
+FOOTPRINT
+HDR-TH_14P-P2.54-V-F-R2-C7-S2.54
+PARTTYPE
+PM254-2-07-Z-8.5
+DESCRIPTION
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-2-07-Z-8.5
+PCB Layer
+Default
+Symbol
+PM254-2-07-Z-8.5
+Designator
+J1
+LCSC Part Name
+2x7P 间距:2.54mm 直插
+Supplier Part
+C2897408
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-2-07-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-2-07-Z-8.5/3142413.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-F-LI-2X7P
+Holes Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Positions
+14P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-2-07-Z-8.5
+Description
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge31
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RB2
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-10KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-10KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-10KΩ±1% T52
+Designator
+RB2
+Unique ID
+gge32
+LCSC Part Name
+10kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119347
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-10KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q2
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P2.54-L
+PARTTYPE
+MPSA42-AT/P
+DESCRIPTION
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MPSA42-AT/P
+PCB Layer
+Default
+Symbol
+MPSA42-AT/P
+Designator
+Q2
+LCSC Part Name
+NPN 电流:500mA 电压:300V
+Supplier Part
+C125316
+Manufacturer
+KEC
+Manufacturer Part
+MPSA42-AT/P
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MPSA42-AT%252FP/136592.html
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.8-W3.7-H4.8-P2.54
+type
+NPN
+Current - Collector(Ic)
+500mA
+Collector - Emitter Voltage VCEO
+300V
+Pd - Power Dissipation
+625mW
+DC Current Gain
+300
+Transition frequency(fT)
+50MHz
+Current - Collector Cutoff
+100nA
+Vce Saturation(VCE(sat))
+500mV
+Operating Temperature
+-
+Emitter-Base Voltage(Vebo)
+6V
+Number
+1个NPN
+Configuration
+独立式
+Name
+MPSA42-AT/P
+Description
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Unique ID
+gge33
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RDP2
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-47KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-47KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-47KΩ±1% T52
+Designator
+RDP2
+LCSC Part Name
+47kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119362
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-47KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-47K%25CE%25A9%25C2%25B11%2525%2520T/120631.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+47kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+47kΩ
+Description
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge34
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J2
+FOOTPRINT
+HDR-TH_14P-P2.54-V-F-R2-C7-S2.54
+PARTTYPE
+PM254-2-07-Z-8.5
+DESCRIPTION
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-2-07-Z-8.5
+PCB Layer
+Default
+Symbol
+PM254-2-07-Z-8.5
+Designator
+J2
+LCSC Part Name
+2x7P 间距:2.54mm 直插
+Supplier Part
+C2897408
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-2-07-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-2-07-Z-8.5/3142413.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-F-LI-2X7P
+Holes Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Positions
+14P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-2-07-Z-8.5
+Description
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge35
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RB3
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-10KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-10KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-10KΩ±1% T52
+Designator
+RB3
+Unique ID
+gge36
+LCSC Part Name
+10kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119347
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-10KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q3
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P2.54-L
+PARTTYPE
+MPSA42-AT/P
+DESCRIPTION
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MPSA42-AT/P
+PCB Layer
+Default
+Symbol
+MPSA42-AT/P
+Designator
+Q3
+LCSC Part Name
+NPN 电流:500mA 电压:300V
+Supplier Part
+C125316
+Manufacturer
+KEC
+Manufacturer Part
+MPSA42-AT/P
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MPSA42-AT%252FP/136592.html
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.8-W3.7-H4.8-P2.54
+type
+NPN
+Current - Collector(Ic)
+500mA
+Collector - Emitter Voltage VCEO
+300V
+Pd - Power Dissipation
+625mW
+DC Current Gain
+300
+Transition frequency(fT)
+50MHz
+Current - Collector Cutoff
+100nA
+Vce Saturation(VCE(sat))
+500mV
+Operating Temperature
+-
+Emitter-Base Voltage(Vebo)
+6V
+Number
+1个NPN
+Configuration
+独立式
+Name
+MPSA42-AT/P
+Description
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Unique ID
+gge37
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RDP3
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-47KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-47KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-47KΩ±1% T52
+Designator
+RDP3
+LCSC Part Name
+47kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119362
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-47KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-47K%25CE%25A9%25C2%25B11%2525%2520T/120631.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+47kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+47kΩ
+Description
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge38
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J3
+FOOTPRINT
+HDR-TH_14P-P2.54-V-F-R2-C7-S2.54
+PARTTYPE
+PM254-2-07-Z-8.5
+DESCRIPTION
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-2-07-Z-8.5
+PCB Layer
+Default
+Symbol
+PM254-2-07-Z-8.5
+Designator
+J3
+LCSC Part Name
+2x7P 间距:2.54mm 直插
+Supplier Part
+C2897408
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-2-07-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-2-07-Z-8.5/3142413.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-F-LI-2X7P
+Holes Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Positions
+14P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-2-07-Z-8.5
+Description
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge39
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RB4
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-10KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-10KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-10KΩ±1% T52
+Designator
+RB4
+Unique ID
+gge40
+LCSC Part Name
+10kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119347
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-10KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q4
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P2.54-L
+PARTTYPE
+MPSA42-AT/P
+DESCRIPTION
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MPSA42-AT/P
+PCB Layer
+Default
+Symbol
+MPSA42-AT/P
+Designator
+Q4
+LCSC Part Name
+NPN 电流:500mA 电压:300V
+Supplier Part
+C125316
+Manufacturer
+KEC
+Manufacturer Part
+MPSA42-AT/P
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MPSA42-AT%252FP/136592.html
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.8-W3.7-H4.8-P2.54
+type
+NPN
+Current - Collector(Ic)
+500mA
+Collector - Emitter Voltage VCEO
+300V
+Pd - Power Dissipation
+625mW
+DC Current Gain
+300
+Transition frequency(fT)
+50MHz
+Current - Collector Cutoff
+100nA
+Vce Saturation(VCE(sat))
+500mV
+Operating Temperature
+-
+Emitter-Base Voltage(Vebo)
+6V
+Number
+1个NPN
+Configuration
+独立式
+Name
+MPSA42-AT/P
+Description
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Unique ID
+gge41
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RDP4
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-47KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-47KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-47KΩ±1% T52
+Designator
+RDP4
+LCSC Part Name
+47kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119362
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-47KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-47K%25CE%25A9%25C2%25B11%2525%2520T/120631.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+47kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+47kΩ
+Description
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge42
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J4
+FOOTPRINT
+HDR-TH_14P-P2.54-V-F-R2-C7-S2.54
+PARTTYPE
+PM254-2-07-Z-8.5
+DESCRIPTION
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-2-07-Z-8.5
+PCB Layer
+Default
+Symbol
+PM254-2-07-Z-8.5
+Designator
+J4
+LCSC Part Name
+2x7P 间距:2.54mm 直插
+Supplier Part
+C2897408
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-2-07-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-2-07-Z-8.5/3142413.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-F-LI-2X7P
+Holes Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Positions
+14P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-2-07-Z-8.5
+Description
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge43
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RB5
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-10KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-10KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-10KΩ±1% T52
+Designator
+RB5
+Unique ID
+gge44
+LCSC Part Name
+10kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119347
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-10KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q5
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P2.54-L
+PARTTYPE
+MPSA42-AT/P
+DESCRIPTION
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MPSA42-AT/P
+PCB Layer
+Default
+Symbol
+MPSA42-AT/P
+Designator
+Q5
+LCSC Part Name
+NPN 电流:500mA 电压:300V
+Supplier Part
+C125316
+Manufacturer
+KEC
+Manufacturer Part
+MPSA42-AT/P
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MPSA42-AT%252FP/136592.html
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.8-W3.7-H4.8-P2.54
+type
+NPN
+Current - Collector(Ic)
+500mA
+Collector - Emitter Voltage VCEO
+300V
+Pd - Power Dissipation
+625mW
+DC Current Gain
+300
+Transition frequency(fT)
+50MHz
+Current - Collector Cutoff
+100nA
+Vce Saturation(VCE(sat))
+500mV
+Operating Temperature
+-
+Emitter-Base Voltage(Vebo)
+6V
+Number
+1个NPN
+Configuration
+独立式
+Name
+MPSA42-AT/P
+Description
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Unique ID
+gge45
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RDP5
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-47KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-47KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-47KΩ±1% T52
+Designator
+RDP5
+LCSC Part Name
+47kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119362
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-47KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-47K%25CE%25A9%25C2%25B11%2525%2520T/120631.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+47kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+47kΩ
+Description
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge46
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J5
+FOOTPRINT
+HDR-TH_14P-P2.54-V-F-R2-C7-S2.54
+PARTTYPE
+PM254-2-07-Z-8.5
+DESCRIPTION
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-2-07-Z-8.5
+PCB Layer
+Default
+Symbol
+PM254-2-07-Z-8.5
+Designator
+J5
+LCSC Part Name
+2x7P 间距:2.54mm 直插
+Supplier Part
+C2897408
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-2-07-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-2-07-Z-8.5/3142413.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-F-LI-2X7P
+Holes Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Positions
+14P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-2-07-Z-8.5
+Description
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge47
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RB6
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-10KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-10KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-10KΩ±1% T52
+Designator
+RB6
+Unique ID
+gge48
+LCSC Part Name
+10kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119347
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-10KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://atta.szlcsc.com/upload/public/pdf/source/20190910/C427326_62A6D058BC0FF74963A2F22379CA06CE.pdf
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+10kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+10kΩ
+Description
+电阻类型:金属膜电阻;阻值:10kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+Q6
+FOOTPRINT
+TO-92-3_L4.8-W3.7-P2.54-L
+PARTTYPE
+MPSA42-AT/P
+DESCRIPTION
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MPSA42-AT/P
+PCB Layer
+Default
+Symbol
+MPSA42-AT/P
+Designator
+Q6
+LCSC Part Name
+NPN 电流:500mA 电压:300V
+Supplier Part
+C125316
+Manufacturer
+KEC
+Manufacturer Part
+MPSA42-AT/P
+Supplier Footprint
+TO-92-3
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MPSA42-AT%252FP/136592.html
+Supplier
+LCSC
+3D Model Title
+TO-92-3_L4.8-W3.7-H4.8-P2.54
+type
+NPN
+Current - Collector(Ic)
+500mA
+Collector - Emitter Voltage VCEO
+300V
+Pd - Power Dissipation
+625mW
+DC Current Gain
+300
+Transition frequency(fT)
+50MHz
+Current - Collector Cutoff
+100nA
+Vce Saturation(VCE(sat))
+500mV
+Operating Temperature
+-
+Emitter-Base Voltage(Vebo)
+6V
+Number
+1个NPN
+Configuration
+独立式
+Name
+MPSA42-AT/P
+Description
+晶体管类型:NPN;集电极电流(Ic):500mA;集射极击穿电压(Vceo):300V;耗散功率(Pd):625mW;直流电流增益(hFE):300;
+Unique ID
+gge49
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+RDP6
+FOOTPRINT
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+PARTTYPE
+MF1/4W-47KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-47KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-47KΩ±1% T52
+Designator
+RDP6
+LCSC Part Name
+47kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119362
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-47KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-47K%25CE%25A9%25C2%25B11%2525%2520T/120631.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_BD2.2-L6.5-P10.50-D0.6
+Type
+金属膜电阻
+Value
+47kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+47kΩ
+Description
+电阻类型:金属膜电阻;阻值:47kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge50
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J6
+FOOTPRINT
+HDR-TH_14P-P2.54-V-F-R2-C7-S2.54
+PARTTYPE
+PM254-2-07-Z-8.5
+DESCRIPTION
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PM254-2-07-Z-8.5
+PCB Layer
+Default
+Symbol
+PM254-2-07-Z-8.5
+Designator
+J6
+LCSC Part Name
+2x7P 间距:2.54mm 直插
+Supplier Part
+C2897408
+Manufacturer
+HCTL(华灿天禄)
+Manufacturer Part
+PM254-2-07-Z-8.5
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PM254-2-07-Z-8.5/3142413.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-F-LI-2X7P
+Holes Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circular Hole / Square Hole
+方孔
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Positions
+14P
+Current Rating
+3A
+Voltage Rating (Max)
+-
+Holes Direction
+顶部
+Insulation Height
+8.5mm
+Contact Material
+铜合金
+Operating Temperature
+-40℃~+105℃
+Name
+PM254-2-07-Z-8.5
+Description
+插孔结构:2x7P;间距:2.54mm;行距:2.54mm;圆孔/方孔:方孔;安装方式:直插;排数:双排;总孔位数:14P;额定电流:3A;额定电压:-;插孔方向:顶部;塑高:8.5mm;触头材质:铜合金;工作温度:-40℃~+105℃;
+Unique ID
+gge51
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+(
++5V 
+J_LOG-1 XH-5A_C26521-1 Passive 
+C11-1 EEUFR1E470-1 Passive 
+U1-16 SN74AHCT595N-VCC Passive 
+U1-10 SN74AHCT595N-SRCLR# Passive 
+C1-1 K104K15X7RF53H5-1 Passive 
+U2-16 SN74AHCT595N-VCC Passive 
+U2-10 SN74AHCT595N-SRCLR# Passive 
+C2-1 K104K15X7RF53H5-1 Passive 
+U3-16 SN74AHCT595N-VCC Passive 
+U3-10 SN74AHCT595N-SRCLR# Passive 
+C3-1 K104K15X7RF53H5-1 Passive 
+U4-16 SN74AHCT595N-VCC Passive 
+U4-10 SN74AHCT595N-SRCLR# Passive 
+C4-1 K104K15X7RF53H5-1 Passive 
+U5-5 DS1009-16AT1NX-0A2-5 Input   
+C5-1 K104K15X7RF53H5-1 Passive 
+U6-5 DS1009-16AT1NX-0A2-5 Input   
+C6-1 K104K15X7RF53H5-1 Passive 
+U7-5 DS1009-16AT1NX-0A2-5 Input   
+C7-1 K104K15X7RF53H5-1 Passive 
+U8-5 DS1009-16AT1NX-0A2-5 Input   
+C8-1 K104K15X7RF53H5-1 Passive 
+U9-5 DS1009-16AT1NX-0A2-5 Input   
+C9-1 K104K15X7RF53H5-1 Passive 
+U10-5 DS1009-16AT1NX-0A2-5 Input   
+C10-1 K104K15X7RF53H5-1 Passive 
+)
+(
+GND 
+J_LOG-2 XH-5A_C26521-2 Passive 
+J_12V-2 XH-2A-2 Passive 
+J_HP-3 PM254-1-04-Z-8.5_C2897367-3 Passive 
+J_HP-4 PM254-1-04-Z-8.5_C2897367-4 Passive 
+C11-2 EEUFR1E470-2 Passive 
+C12-2 EEUFR1E470-2 Passive 
+C13-2 K104K15X7RF53H5-2 Passive 
+U1-13 SN74AHCT595N-OE# Passive 
+U1-8 SN74AHCT595N-GND Passive 
+C1-2 K104K15X7RF53H5-2 Passive 
+U2-13 SN74AHCT595N-OE# Passive 
+U2-8 SN74AHCT595N-GND Passive 
+C2-2 K104K15X7RF53H5-2 Passive 
+U3-13 SN74AHCT595N-OE# Passive 
+U3-8 SN74AHCT595N-GND Passive 
+C3-2 K104K15X7RF53H5-2 Passive 
+U4-13 SN74AHCT595N-OE# Passive 
+U4-8 SN74AHCT595N-GND Passive 
+C4-2 K104K15X7RF53H5-2 Passive 
+U5-12 DS1009-16AT1NX-0A2-12 Input   
+C5-2 K104K15X7RF53H5-2 Passive 
+U6-12 DS1009-16AT1NX-0A2-12 Input   
+C6-2 K104K15X7RF53H5-2 Passive 
+U7-12 DS1009-16AT1NX-0A2-12 Input   
+C7-2 K104K15X7RF53H5-2 Passive 
+U8-12 DS1009-16AT1NX-0A2-12 Input   
+C8-2 K104K15X7RF53H5-2 Passive 
+U9-12 DS1009-16AT1NX-0A2-12 Input   
+C9-2 K104K15X7RF53H5-2 Passive 
+U10-12 DS1009-16AT1NX-0A2-12 Input   
+C10-2 K104K15X7RF53H5-2 Passive 
+Q1-1 MPSA42-AT/P-E Passive 
+Q2-1 MPSA42-AT/P-E Passive 
+Q3-1 MPSA42-AT/P-E Passive 
+Q4-1 MPSA42-AT/P-E Passive 
+Q5-1 MPSA42-AT/P-E Passive 
+Q6-1 MPSA42-AT/P-E Passive 
+)
+(
+DIN 
+J_LOG-3 XH-5A_C26521-3 Passive 
+U1-14 SN74AHCT595N-SER Passive 
+)
+(
+SCK 
+J_LOG-4 XH-5A_C26521-4 Passive 
+U1-11 SN74AHCT595N-SRCLK Passive 
+U2-11 SN74AHCT595N-SRCLK Passive 
+U3-11 SN74AHCT595N-SRCLK Passive 
+U4-11 SN74AHCT595N-SRCLK Passive 
+)
+(
+LATCH 
+J_LOG-5 XH-5A_C26521-5 Passive 
+U1-12 SN74AHCT595N-RCLK Passive 
+U2-12 SN74AHCT595N-RCLK Passive 
+U3-12 SN74AHCT595N-RCLK Passive 
+U4-12 SN74AHCT595N-RCLK Passive 
+)
+(
++12V 
+J_12V-1 XH-2A-1 Passive 
+J_HP-1 PM254-1-04-Z-8.5_C2897367-1 Passive 
+J_HP-2 PM254-1-04-Z-8.5_C2897367-2 Passive 
+C12-1 EEUFR1E470-1 Passive 
+C13-1 K104K15X7RF53H5-1 Passive 
+)
+(
+HV 
+J_HH-1 310-93-101-61-001000-1 Passive 
+J1-1 PM254-2-07-Z-8.5-1 Passive 
+J2-1 PM254-2-07-Z-8.5-1 Passive 
+J3-1 PM254-2-07-Z-8.5-1 Passive 
+J4-1 PM254-2-07-Z-8.5-1 Passive 
+J5-1 PM254-2-07-Z-8.5-1 Passive 
+J6-1 PM254-2-07-Z-8.5-1 Passive 
+)
+(
+T6A 
+U1-15 SN74AHCT595N-QA Passive 
+U10-3 DS1009-16AT1NX-0A2-3 Input   
+)
+(
+S1 
+U1-9 SN74AHCT595N-QH&apos; Passive 
+U2-14 SN74AHCT595N-SER Passive 
+)
+(
+T5D 
+U1-7 SN74AHCT595N-QH Passive 
+U9-4 DS1009-16AT1NX-0A2-4 Input   
+)
+(
+T5C 
+U1-6 SN74AHCT595N-QG Passive 
+U9-7 DS1009-16AT1NX-0A2-7 Input   
+)
+(
+T5B 
+U1-5 SN74AHCT595N-QF Passive 
+U9-6 DS1009-16AT1NX-0A2-6 Input   
+)
+(
+T5A 
+U1-4 SN74AHCT595N-QE Passive 
+U9-3 DS1009-16AT1NX-0A2-3 Input   
+)
+(
+T6D 
+U1-3 SN74AHCT595N-QD Passive 
+U10-4 DS1009-16AT1NX-0A2-4 Input   
+)
+(
+T6C 
+U1-2 SN74AHCT595N-QC Passive 
+U10-7 DS1009-16AT1NX-0A2-7 Input   
+)
+(
+T6B 
+U1-1 SN74AHCT595N-QB Passive 
+U10-6 DS1009-16AT1NX-0A2-6 Input   
+)
+(
+T4A 
+U2-15 SN74AHCT595N-QA Passive 
+U8-3 DS1009-16AT1NX-0A2-3 Input   
+)
+(
+S2 
+U2-9 SN74AHCT595N-QH&apos; Passive 
+U3-14 SN74AHCT595N-SER Passive 
+)
+(
+T3D 
+U2-7 SN74AHCT595N-QH Passive 
+U7-4 DS1009-16AT1NX-0A2-4 Input   
+)
+(
+T3C 
+U2-6 SN74AHCT595N-QG Passive 
+U7-7 DS1009-16AT1NX-0A2-7 Input   
+)
+(
+T3B 
+U2-5 SN74AHCT595N-QF Passive 
+U7-6 DS1009-16AT1NX-0A2-6 Input   
+)
+(
+T3A 
+U2-4 SN74AHCT595N-QE Passive 
+U7-3 DS1009-16AT1NX-0A2-3 Input   
+)
+(
+T4D 
+U2-3 SN74AHCT595N-QD Passive 
+U8-4 DS1009-16AT1NX-0A2-4 Input   
+)
+(
+T4C 
+U2-2 SN74AHCT595N-QC Passive 
+U8-7 DS1009-16AT1NX-0A2-7 Input   
+)
+(
+T4B 
+U2-1 SN74AHCT595N-QB Passive 
+U8-6 DS1009-16AT1NX-0A2-6 Input   
+)
+(
+T2A 
+U3-15 SN74AHCT595N-QA Passive 
+U6-3 DS1009-16AT1NX-0A2-3 Input   
+)
+(
+S3 
+U3-9 SN74AHCT595N-QH&apos; Passive 
+U4-14 SN74AHCT595N-SER Passive 
+)
+(
+T1D 
+U3-7 SN74AHCT595N-QH Passive 
+U5-4 DS1009-16AT1NX-0A2-4 Input   
+)
+(
+T1C 
+U3-6 SN74AHCT595N-QG Passive 
+U5-7 DS1009-16AT1NX-0A2-7 Input   
+)
+(
+T1B 
+U3-5 SN74AHCT595N-QF Passive 
+U5-6 DS1009-16AT1NX-0A2-6 Input   
+)
+(
+T1A 
+U3-4 SN74AHCT595N-QE Passive 
+U5-3 DS1009-16AT1NX-0A2-3 Input   
+)
+(
+T2D 
+U3-3 SN74AHCT595N-QD Passive 
+U6-4 DS1009-16AT1NX-0A2-4 Input   
+)
+(
+T2C 
+U3-2 SN74AHCT595N-QC Passive 
+U6-7 DS1009-16AT1NX-0A2-7 Input   
+)
+(
+T2B 
+U3-1 SN74AHCT595N-QB Passive 
+U6-6 DS1009-16AT1NX-0A2-6 Input   
+)
+(
+DPB6 
+U4-15 SN74AHCT595N-QA Passive 
+RB6-1 MF1/4W-10KΩ±1% T-1 Passive 
+)
+(
+DPB1 
+U4-5 SN74AHCT595N-QF Passive 
+RB1-1 MF1/4W-10KΩ±1% T-1 Passive 
+)
+(
+DPB2 
+U4-4 SN74AHCT595N-QE Passive 
+RB2-1 MF1/4W-10KΩ±1% T-1 Passive 
+)
+(
+DPB3 
+U4-3 SN74AHCT595N-QD Passive 
+RB3-1 MF1/4W-10KΩ±1% T-1 Passive 
+)
+(
+DPB4 
+U4-2 SN74AHCT595N-QC Passive 
+RB4-1 MF1/4W-10KΩ±1% T-1 Passive 
+)
+(
+DPB5 
+U4-1 SN74AHCT595N-QB Passive 
+RB5-1 MF1/4W-10KΩ±1% T-1 Passive 
+)
+(
+K1_8 
+U5-1 DS1009-16AT1NX-0A2-1 Input   
+J1-13 PM254-2-07-Z-8.5-13 Passive 
+)
+(
+K1_9 
+U5-2 DS1009-16AT1NX-0A2-2 Input   
+J1-14 PM254-2-07-Z-8.5-14 Passive 
+)
+(
+K1_2 
+U5-8 DS1009-16AT1NX-0A2-8 Input   
+J1-7 PM254-2-07-Z-8.5-7 Passive 
+)
+(
+K1_3 
+U5-9 DS1009-16AT1NX-0A2-9 Input   
+J1-8 PM254-2-07-Z-8.5-8 Passive 
+)
+(
+K1_7 
+U5-10 DS1009-16AT1NX-0A2-10 Input   
+J1-12 PM254-2-07-Z-8.5-12 Passive 
+)
+(
+K1_6 
+U5-11 DS1009-16AT1NX-0A2-11 Input   
+J1-11 PM254-2-07-Z-8.5-11 Passive 
+)
+(
+K1_4 
+U5-13 DS1009-16AT1NX-0A2-13 Input   
+J1-9 PM254-2-07-Z-8.5-9 Passive 
+)
+(
+K1_5 
+U5-14 DS1009-16AT1NX-0A2-14 Input   
+J1-10 PM254-2-07-Z-8.5-10 Passive 
+)
+(
+K1_1 
+U5-15 DS1009-16AT1NX-0A2-15 Input   
+J1-6 PM254-2-07-Z-8.5-6 Passive 
+)
+(
+K1_0 
+U5-16 DS1009-16AT1NX-0A2-16 Input   
+J1-5 PM254-2-07-Z-8.5-5 Passive 
+)
+(
+K2_8 
+U6-1 DS1009-16AT1NX-0A2-1 Input   
+J2-13 PM254-2-07-Z-8.5-13 Passive 
+)
+(
+K2_9 
+U6-2 DS1009-16AT1NX-0A2-2 Input   
+J2-14 PM254-2-07-Z-8.5-14 Passive 
+)
+(
+K2_2 
+U6-8 DS1009-16AT1NX-0A2-8 Input   
+J2-7 PM254-2-07-Z-8.5-7 Passive 
+)
+(
+K2_3 
+U6-9 DS1009-16AT1NX-0A2-9 Input   
+J2-8 PM254-2-07-Z-8.5-8 Passive 
+)
+(
+K2_7 
+U6-10 DS1009-16AT1NX-0A2-10 Input   
+J2-12 PM254-2-07-Z-8.5-12 Passive 
+)
+(
+K2_6 
+U6-11 DS1009-16AT1NX-0A2-11 Input   
+J2-11 PM254-2-07-Z-8.5-11 Passive 
+)
+(
+K2_4 
+U6-13 DS1009-16AT1NX-0A2-13 Input   
+J2-9 PM254-2-07-Z-8.5-9 Passive 
+)
+(
+K2_5 
+U6-14 DS1009-16AT1NX-0A2-14 Input   
+J2-10 PM254-2-07-Z-8.5-10 Passive 
+)
+(
+K2_1 
+U6-15 DS1009-16AT1NX-0A2-15 Input   
+J2-6 PM254-2-07-Z-8.5-6 Passive 
+)
+(
+K2_0 
+U6-16 DS1009-16AT1NX-0A2-16 Input   
+J2-5 PM254-2-07-Z-8.5-5 Passive 
+)
+(
+K3_8 
+U7-1 DS1009-16AT1NX-0A2-1 Input   
+J3-13 PM254-2-07-Z-8.5-13 Passive 
+)
+(
+K3_9 
+U7-2 DS1009-16AT1NX-0A2-2 Input   
+J3-14 PM254-2-07-Z-8.5-14 Passive 
+)
+(
+K3_2 
+U7-8 DS1009-16AT1NX-0A2-8 Input   
+J3-7 PM254-2-07-Z-8.5-7 Passive 
+)
+(
+K3_3 
+U7-9 DS1009-16AT1NX-0A2-9 Input   
+J3-8 PM254-2-07-Z-8.5-8 Passive 
+)
+(
+K3_7 
+U7-10 DS1009-16AT1NX-0A2-10 Input   
+J3-12 PM254-2-07-Z-8.5-12 Passive 
+)
+(
+K3_6 
+U7-11 DS1009-16AT1NX-0A2-11 Input   
+J3-11 PM254-2-07-Z-8.5-11 Passive 
+)
+(
+K3_4 
+U7-13 DS1009-16AT1NX-0A2-13 Input   
+J3-9 PM254-2-07-Z-8.5-9 Passive 
+)
+(
+K3_5 
+U7-14 DS1009-16AT1NX-0A2-14 Input   
+J3-10 PM254-2-07-Z-8.5-10 Passive 
+)
+(
+K3_1 
+U7-15 DS1009-16AT1NX-0A2-15 Input   
+J3-6 PM254-2-07-Z-8.5-6 Passive 
+)
+(
+K3_0 
+U7-16 DS1009-16AT1NX-0A2-16 Input   
+J3-5 PM254-2-07-Z-8.5-5 Passive 
+)
+(
+K4_8 
+U8-1 DS1009-16AT1NX-0A2-1 Input   
+J4-13 PM254-2-07-Z-8.5-13 Passive 
+)
+(
+K4_9 
+U8-2 DS1009-16AT1NX-0A2-2 Input   
+J4-14 PM254-2-07-Z-8.5-14 Passive 
+)
+(
+K4_2 
+U8-8 DS1009-16AT1NX-0A2-8 Input   
+J4-7 PM254-2-07-Z-8.5-7 Passive 
+)
+(
+K4_3 
+U8-9 DS1009-16AT1NX-0A2-9 Input   
+J4-8 PM254-2-07-Z-8.5-8 Passive 
+)
+(
+K4_7 
+U8-10 DS1009-16AT1NX-0A2-10 Input   
+J4-12 PM254-2-07-Z-8.5-12 Passive 
+)
+(
+K4_6 
+U8-11 DS1009-16AT1NX-0A2-11 Input   
+J4-11 PM254-2-07-Z-8.5-11 Passive 
+)
+(
+K4_4 
+U8-13 DS1009-16AT1NX-0A2-13 Input   
+J4-9 PM254-2-07-Z-8.5-9 Passive 
+)
+(
+K4_5 
+U8-14 DS1009-16AT1NX-0A2-14 Input   
+J4-10 PM254-2-07-Z-8.5-10 Passive 
+)
+(
+K4_1 
+U8-15 DS1009-16AT1NX-0A2-15 Input   
+J4-6 PM254-2-07-Z-8.5-6 Passive 
+)
+(
+K4_0 
+U8-16 DS1009-16AT1NX-0A2-16 Input   
+J4-5 PM254-2-07-Z-8.5-5 Passive 
+)
+(
+K5_8 
+U9-1 DS1009-16AT1NX-0A2-1 Input   
+J5-13 PM254-2-07-Z-8.5-13 Passive 
+)
+(
+K5_9 
+U9-2 DS1009-16AT1NX-0A2-2 Input   
+J5-14 PM254-2-07-Z-8.5-14 Passive 
+)
+(
+K5_2 
+U9-8 DS1009-16AT1NX-0A2-8 Input   
+J5-7 PM254-2-07-Z-8.5-7 Passive 
+)
+(
+K5_3 
+U9-9 DS1009-16AT1NX-0A2-9 Input   
+J5-8 PM254-2-07-Z-8.5-8 Passive 
+)
+(
+K5_7 
+U9-10 DS1009-16AT1NX-0A2-10 Input   
+J5-12 PM254-2-07-Z-8.5-12 Passive 
+)
+(
+K5_6 
+U9-11 DS1009-16AT1NX-0A2-11 Input   
+J5-11 PM254-2-07-Z-8.5-11 Passive 
+)
+(
+K5_4 
+U9-13 DS1009-16AT1NX-0A2-13 Input   
+J5-9 PM254-2-07-Z-8.5-9 Passive 
+)
+(
+K5_5 
+U9-14 DS1009-16AT1NX-0A2-14 Input   
+J5-10 PM254-2-07-Z-8.5-10 Passive 
+)
+(
+K5_1 
+U9-15 DS1009-16AT1NX-0A2-15 Input   
+J5-6 PM254-2-07-Z-8.5-6 Passive 
+)
+(
+K5_0 
+U9-16 DS1009-16AT1NX-0A2-16 Input   
+J5-5 PM254-2-07-Z-8.5-5 Passive 
+)
+(
+K6_8 
+U10-1 DS1009-16AT1NX-0A2-1 Input   
+J6-13 PM254-2-07-Z-8.5-13 Passive 
+)
+(
+K6_9 
+U10-2 DS1009-16AT1NX-0A2-2 Input   
+J6-14 PM254-2-07-Z-8.5-14 Passive 
+)
+(
+K6_2 
+U10-8 DS1009-16AT1NX-0A2-8 Input   
+J6-7 PM254-2-07-Z-8.5-7 Passive 
+)
+(
+K6_3 
+U10-9 DS1009-16AT1NX-0A2-9 Input   
+J6-8 PM254-2-07-Z-8.5-8 Passive 
+)
+(
+K6_7 
+U10-10 DS1009-16AT1NX-0A2-10 Input   
+J6-12 PM254-2-07-Z-8.5-12 Passive 
+)
+(
+K6_6 
+U10-11 DS1009-16AT1NX-0A2-11 Input   
+J6-11 PM254-2-07-Z-8.5-11 Passive 
+)
+(
+K6_4 
+U10-13 DS1009-16AT1NX-0A2-13 Input   
+J6-9 PM254-2-07-Z-8.5-9 Passive 
+)
+(
+K6_5 
+U10-14 DS1009-16AT1NX-0A2-14 Input   
+J6-10 PM254-2-07-Z-8.5-10 Passive 
+)
+(
+K6_1 
+U10-15 DS1009-16AT1NX-0A2-15 Input   
+J6-6 PM254-2-07-Z-8.5-6 Passive 
+)
+(
+K6_0 
+U10-16 DS1009-16AT1NX-0A2-16 Input   
+J6-5 PM254-2-07-Z-8.5-5 Passive 
+)
+(
+QB1 
+RB1-2 MF1/4W-10KΩ±1% T-2 Passive 
+Q1-2 MPSA42-AT/P-B Passive 
+)
+(
+DPC1 
+Q1-3 MPSA42-AT/P-C Passive 
+RDP1-1 MF1/4W-47KΩ±1% T-1 Passive 
+)
+(
+DP1 
+RDP1-2 MF1/4W-47KΩ±1% T-2 Passive 
+J1-4 PM254-2-07-Z-8.5-4 Passive 
+)
+(
+QB2 
+RB2-2 MF1/4W-10KΩ±1% T-2 Passive 
+Q2-2 MPSA42-AT/P-B Passive 
+)
+(
+DPC2 
+Q2-3 MPSA42-AT/P-C Passive 
+RDP2-1 MF1/4W-47KΩ±1% T-1 Passive 
+)
+(
+DP2 
+RDP2-2 MF1/4W-47KΩ±1% T-2 Passive 
+J2-4 PM254-2-07-Z-8.5-4 Passive 
+)
+(
+QB3 
+RB3-2 MF1/4W-10KΩ±1% T-2 Passive 
+Q3-2 MPSA42-AT/P-B Passive 
+)
+(
+DPC3 
+Q3-3 MPSA42-AT/P-C Passive 
+RDP3-1 MF1/4W-47KΩ±1% T-1 Passive 
+)
+(
+DP3 
+RDP3-2 MF1/4W-47KΩ±1% T-2 Passive 
+J3-4 PM254-2-07-Z-8.5-4 Passive 
+)
+(
+QB4 
+RB4-2 MF1/4W-10KΩ±1% T-2 Passive 
+Q4-2 MPSA42-AT/P-B Passive 
+)
+(
+DPC4 
+Q4-3 MPSA42-AT/P-C Passive 
+RDP4-1 MF1/4W-47KΩ±1% T-1 Passive 
+)
+(
+DP4 
+RDP4-2 MF1/4W-47KΩ±1% T-2 Passive 
+J4-4 PM254-2-07-Z-8.5-4 Passive 
+)
+(
+QB5 
+RB5-2 MF1/4W-10KΩ±1% T-2 Passive 
+Q5-2 MPSA42-AT/P-B Passive 
+)
+(
+DPC5 
+Q5-3 MPSA42-AT/P-C Passive 
+RDP5-1 MF1/4W-47KΩ±1% T-1 Passive 
+)
+(
+DP5 
+RDP5-2 MF1/4W-47KΩ±1% T-2 Passive 
+J5-4 PM254-2-07-Z-8.5-4 Passive 
+)
+(
+QB6 
+RB6-2 MF1/4W-10KΩ±1% T-2 Passive 
+Q6-2 MPSA42-AT/P-B Passive 
+)
+(
+DPC6 
+Q6-3 MPSA42-AT/P-C Passive 
+RDP6-1 MF1/4W-47KΩ±1% T-1 Passive 
+)
+(
+DP6 
+RDP6-2 MF1/4W-47KΩ±1% T-2 Passive 
+J6-4 PM254-2-07-Z-8.5-4 Passive 
+)

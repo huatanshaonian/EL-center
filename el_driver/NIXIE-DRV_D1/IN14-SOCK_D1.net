@@ -1,0 +1,457 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+V1
+FOOTPRINT
+HDR-TH_13P-P2.54-V-M-1
+PARTTYPE
+PZ254V-11-13P
+DESCRIPTION
+插针结构:1x13P;间距:2.54mm;圆针/方针:方针;安装方式:直插;排数:单排;总PIN位数:13P;额定电流:3A;配合针长度:6.1mm;塑高:2.5mm;端接针长度:3mm;触头材质:黄铜;工作温度:-40℃~+105℃;颜色:黑色;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PZ254V-11-13P
+PCB Layer
+Default
+Symbol
+PZ254V-11-13P
+Designator
+V1
+Unique ID
+gge1
+LCSC Part Name
+1x13P 间距:2.54mm 方针 直插
+Supplier Part
+C22465873
+Manufacturer
+XFCN(兴飞)
+Manufacturer Part
+PZ254V-11-13P
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PZ254V-11-13P/24163065.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_13P-P2.54-V-M-1
+Pin Structure
+1x13P
+Pitch
+2.54mm
+Circluar Pins/Square Pins
+方针
+Mounting Type
+直插
+Number of Rows
+单排
+Number of Pins
+13P
+Current Rating
+3A
+Length of Mating Pin
+6.1mm
+Insulation Height
+2.5mm
+Length of End Connection Pin
+3mm
+Contact Material
+黄铜
+Operating Temperature
+-40℃~+105℃
+Color
+黑色
+Name
+PZ254V-11-13P
+Description
+插针结构:1x13P;间距:2.54mm;圆针/方针:方针;安装方式:直插;排数:单排;总PIN位数:13P;额定电流:3A;配合针长度:6.1mm;塑高:2.5mm;端接针长度:3mm;触头材质:黄铜;工作温度:-40℃~+105℃;颜色:黑色;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J1
+FOOTPRINT
+HDR-TH_14P-P2.54-V-M-R2-C7-S2.54
+PARTTYPE
+PZ254V-12-14P
+DESCRIPTION
+插针结构:2x7P;间距:2.54mm;行距:2.54mm;圆针/方针:方针;安装方式:直插;排数:双排;总PIN位数:14P;额定电流:-;额定电压:-;配合针长度:6mm;塑高:2.5mm;端接针长度:3mm;触头材质:黄铜;触头镀层:-;工作温度:-40℃~+105℃;颜色:黑色;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+PZ254V-12-14P
+PCB Layer
+Default
+Symbol
+PZ254V-12-14P
+Designator
+J1
+LCSC Part Name
+2x7P 间距:2.54mm 方针 直插
+Supplier Part
+C492424
+Manufacturer
+XFCN(兴飞)
+Manufacturer Part
+PZ254V-12-14P
+Supplier Footprint
+插件,P=2.54mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/PZ254V-12-14P/502980.html
+Supplier
+LCSC
+3D Model Title
+HDR-TH_14P-P2.54-M-LI-2X7P
+Pin Structure
+2x7P
+Pitch
+2.54mm
+Row Spacing
+2.54mm
+Circluar Pins/Square Pins
+方针
+Mounting Type
+直插
+Number of Rows
+双排
+Number of Pins
+14P
+Current Rating
+-
+Voltage Rating (Max)
+-
+Length of Mating Pin
+6mm
+Insulation Height
+2.5mm
+Length of End Connection Pin
+3mm
+Contact Material
+黄铜
+Contact Plating
+-
+Operating Temperature
+-40℃~+105℃
+Color
+黑色
+Name
+PZ254V-12-14P
+Description
+插针结构:2x7P;间距:2.54mm;行距:2.54mm;圆针/方针:方针;安装方式:直插;排数:双排;总PIN位数:14P;额定电流:-;额定电压:-;配合针长度:6mm;塑高:2.5mm;端接针长度:3mm;触头材质:黄铜;触头镀层:-;工作温度:-40℃~+105℃;颜色:黑色;
+Unique ID
+gge2
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R_A
+FOOTPRINT
+RES-TH_BD2.3-L6.5-P10.50-D0.5
+PARTTYPE
+MF1/4W-22KΩ±1% T
+DESCRIPTION
+电阻类型:金属膜电阻;阻值:22kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+MF1/4W-22KΩ±1% T
+PCB Layer
+Default
+Symbol
+MF1/4W-22KΩ±1% T52
+Designator
+R_A
+LCSC Part Name
+22kΩ ±1% 250mW 金属膜电阻 圆柱状直插
+Supplier Part
+C119354
+Manufacturer
+CCO(千志电子)
+Manufacturer Part
+MF1/4W-22KΩ±1% T
+Supplier Footprint
+插件,D2.3xL6.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/MF1%252F4W-22K%25CE%25A9%25C2%25B11%2525%2520T/120623.html
+Supplier
+LCSC
+3D Model Title
+RES-TH_D2.3-L6.5-P10.50
+Type
+金属膜电阻
+Value
+22kΩ
+Tolerance
+±1%
+Voltage-Supply(Max)
+250V
+Power(Watts)
+250mW
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+22kΩ
+Description
+电阻类型:金属膜电阻;阻值:22kΩ;精度:±1%;功率:250mW;温度系数:±100ppm/℃;
+Unique ID
+gge3
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R_PR
+FOOTPRINT
+R0805
+PARTTYPE
+0805W8F0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:125mW;工作电压:150V;温度系数:±800ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0805W8F0000T5E
+PCB Layer
+Default
+Symbol
+0805W8F0000T5E
+Designator
+R_PR
+LCSC Part Name
+0Ω ±1% 125mW 厚膜电阻
+Supplier Part
+C17477
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0805W8F0000T5E
+Supplier Footprint
+0805
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0805W8F0000T5E/18165.html
+Supplier
+LCSC
+3D Model Title
+R0805_L2.0-W1.3-H0.6
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+125mW
+Voltage-Supply(Max)
+150V
+Temperature Coefficient
+±800ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:125mW;工作电压:150V;温度系数:±800ppm/℃;
+Unique ID
+gge4
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R_PL
+FOOTPRINT
+R0805
+PARTTYPE
+0805W8F0000T5E
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:125mW;工作电压:150V;温度系数:±800ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0805W8F0000T5E
+PCB Layer
+Default
+Symbol
+0805W8F0000T5E
+Designator
+R_PL
+LCSC Part Name
+0Ω ±1% 125mW 厚膜电阻
+Supplier Part
+C17477
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0805W8F0000T5E
+Supplier Footprint
+0805
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0805W8F0000T5E/18165.html
+Supplier
+LCSC
+3D Model Title
+R0805_L2.0-W1.3-H0.6
+Type
+厚膜电阻
+Value
+0Ω
+Tolerance
+±1%
+Power(Watts)
+125mW
+Voltage-Supply(Max)
+150V
+Temperature Coefficient
+±800ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+0Ω
+Description
+电阻类型:厚膜电阻;阻值:0Ω;精度:±1%;功率:125mW;工作电压:150V;温度系数:±800ppm/℃;
+Unique ID
+gge5
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+(
+AN 
+V1-1 PZ254V-11-13P-1 Passive 
+R_A-2 MF1/4W-22KΩ±1% T-2 Passive 
+)
+(
+PL 
+V1-2 PZ254V-11-13P-2 Passive 
+R_PL-2 0805W8F0000T5E-2 Input   
+)
+(
+K1 
+V1-3 PZ254V-11-13P-3 Passive 
+J1-5 PZ254V-12-14P-5 Passive 
+)
+(
+K2 
+V1-4 PZ254V-11-13P-4 Passive 
+J1-8 PZ254V-12-14P-8 Passive 
+)
+(
+K3 
+V1-5 PZ254V-11-13P-5 Passive 
+J1-7 PZ254V-12-14P-7 Passive 
+)
+(
+K4 
+V1-6 PZ254V-11-13P-6 Passive 
+J1-10 PZ254V-12-14P-10 Passive 
+)
+(
+K5 
+V1-7 PZ254V-11-13P-7 Passive 
+J1-9 PZ254V-12-14P-9 Passive 
+)
+(
+K6 
+V1-8 PZ254V-11-13P-8 Passive 
+J1-12 PZ254V-12-14P-12 Passive 
+)
+(
+K7 
+V1-9 PZ254V-11-13P-9 Passive 
+J1-11 PZ254V-12-14P-11 Passive 
+)
+(
+K8 
+V1-10 PZ254V-11-13P-10 Passive 
+J1-14 PZ254V-12-14P-14 Passive 
+)
+(
+K9 
+V1-11 PZ254V-11-13P-11 Passive 
+J1-13 PZ254V-12-14P-13 Passive 
+)
+(
+K0 
+V1-12 PZ254V-11-13P-12 Passive 
+J1-6 PZ254V-12-14P-6 Passive 
+)
+(
+PR 
+V1-13 PZ254V-11-13P-13 Passive 
+R_PR-2 0805W8F0000T5E-2 Input   
+)
+(
+DP 
+J1-3 PZ254V-12-14P-3 Passive 
+R_PR-1 0805W8F0000T5E-1 Input   
+R_PL-1 0805W8F0000T5E-1 Input   
+)
+(
+HV 
+J1-2 PZ254V-12-14P-2 Passive 
+R_A-1 MF1/4W-22KΩ±1% T-1 Passive 
+)
