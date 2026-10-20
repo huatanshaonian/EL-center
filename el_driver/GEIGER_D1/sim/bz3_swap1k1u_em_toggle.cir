@@ -1,0 +1,35 @@
+bz3_swap1k1u_em_toggle
+.include E:/modeling/MIS-01/el_driver/GEIGER_D1/sim/models.lib
+V5 v5s 0 5.0
+RV5 v5s v5 0.2
+C12 v5 0 47u
+C13 v5 0 100n
+XU4 0 gm o4 en cv4 mt mt v5 TLC555B params: VRST=1.1
+C73 cv4 0 100n
+R70 v5 mt 10k
+C70 mt 0 100n
+R75 o4 qb6 2.2k
+R76 qb6 0 10k
+Q6 bzn qb6 0 S8050
+RLS2 v5 ls2x 42
+LLS2 ls2x bzn 3m
+D4 bzn v5 D1N4148
+R71 bz bzp 1k
+R72 bzp 0 100k
+R73 bzp en 100k
+C71 en 0 1u
+R74 bz acx 1k
+C72 acx qb6 1u
+D3 0 qb6 D1N4148
+RACD ac 0 1G
+VBZ bzd 0 PWL(0 0 0.3 0 0.3000001 3.3 0.7 3.3 0.7000001 0 2 0)
+RBZ bzd bz 30
+CBZ bz 0 20p
+R3 v5 gm 10k
+CGMIN gm 0 5p
+VGMC gmctl 0 PWL(0 0 0.35 0 0.3500001 1 0.35002 1 0.3500201 0 0.5 0 0.5000001 1 0.50002 1 0.5000201 0)
+SGM gm 0 gmctl 0 SWX
+.save v(bz) v(bzp) v(en) v(gm) v(o4) v(qb6) v(bzn) v(ac) i(vbz) i(vls2x)
+.ic v(en)=0 v(mt)=0 v(cv4)=0
+.options method=gear reltol=1e-4 abstol=1e-11 vntol=1e-5 itl4=50
+.end

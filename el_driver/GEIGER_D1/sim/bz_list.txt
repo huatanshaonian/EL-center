@@ -1,0 +1,9 @@
+bz_high
+bz_low
+bz_hiz_pu
+bz_hiz_pd
+bz_hiz_pu_leak3u
+bz_alarm_muted
+bz_alarm_on
+bz_toggle
+bz_alarm_em

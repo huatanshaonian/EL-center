@@ -1,0 +1,8 @@
+bz4_swap470r1u_pz_alarm
+bz4_swap470r1u_pz_toggle
+bz4_swap470r1u_em_alarm
+bz4_swap470r1u_em_toggle
+bz4_swap680r470n_pz_alarm
+bz4_swap680r470n_pz_toggle
+bz4_swap680r470n_em_alarm
+bz4_swap680r470n_em_toggle

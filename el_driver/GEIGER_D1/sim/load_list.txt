@@ -1,0 +1,16 @@
+ld_base
+ld_meter
+ld_tube1000
+ld_tube10000
+ld_v475
+ld_v525
+ld_vstep
+sd_off
+sd_off_meter
+cp_swfb0p2
+cp_swfb0p5
+cp_swfb1
+cp_swgm0p2
+cp_swgm0p5
+cp_swgm1
+cp_hvline5p

@@ -1,0 +1,105 @@
+cp_swgm0p5
+.include E:/modeling/MIS-01/el_driver/GEIGER_D1/sim/models.lib
+VHVC hvc 0 PWL(0 5 10 5)
+RHVC hvc hvs 0.3
+RHVS hvs v5hv 1m
+C10 v5hv c10x 100u
+RC10 c10x 0 0.3
+C11 v5hv 0 100n
+XU1 0 tr o1 rst cv1 0 qb v5hv TLC555B params: VRST=1.1
+C15 cv1 0 100n
+R1 v5hv rst 100k
+R5 o1 da 1k
+D2 da tr D1N4148
+C3 tr 0 1n
+R9 tr 0 220k
+R6 o1 qb 1k
+Q1 swg qb em KSP44
+DQ1BV em swg DKSPBV
+R8 em ev 15
+RVR1 ev 0 4
+Q3 rst em 0 Q2N3904
+L1 v5hv lx 10m
+RL1 lx swg 30
+CP1 v5hv swg 2.5e-11
+RP1 v5hv swg 1000000.0
+D1 swg hv UF4007
+C1 hv 0 10n
+RC1LK hv 0 100G
+R30_39 hv fbn 100Meg
+CR30 hv fbn 0.05p
+R40 fbn fb0 560k
+RVR2 fb0 0 67700.0
+C30 fbn 0 1n
+XU2 refp fbn rst v5hv 0 LM393B
+R41 v5hv vr4 2.2k
+XU3 vr4 0 TL431B
+R42 vr4 refp 100k
+R43 rst refp 10Meg
+CREFP refp 0 2p
+R50_58 hv tpv 90Meg
+RMETER tpv 0 1000000000000000.0
+RWHV hv hvin 0.1
+RWG 0 gcw 0.05
+LWG gcw gc 150n
+R2 hvin an 4.7Meg
+CAN an gc 3p
+CAK an ck 1.5p
+VSHAPE shp 0 PWL(0 0 1 0)
+BTUBE an ck I={ V(shp)*1e-6*( V(an,ck)>50 ? 1 : max(V(an,ck),0)/50 ) }
+C2 ck gc 220p
+R4 ck b2 22k
+R7 b2 gc 100k
+Q2 gmc b2 gc Q2N3904
+R60 ck b5 22k
+R61 b5 gc 100k
+Q5 pq b5 gc Q2N3904
+R62 pq pulc 100
+LWGM gmc gmw 150n
+RWGM gmw gm 0.1
+CWGM1 gmc 0 2.5p
+CWGM2 gm 0 2.5p
+LWPU pulc pulw 150n
+RWPU pulw pulm 0.1
+CWPU1 pulc 0 2.5p
+CWPU2 pulm 0 2.5p
+RWPE pulm pulse 0.2
+CWPE pulse 0 30p
+V33 v33 0 3.3
+RPUESP v33 pulse 10k
+CGPIO pulse 0 5p
+R3 v5 gm 10k
+CGMIN gm 0 5p
+CSWGM swg gm 5e-13
+V5 v5s 0 5.0
+RV5 v5s v5 0.2
+C12 v5 0 47u
+C13 v5 0 100n
+XU4 0 gm o4 en cv4 mt mt v5 TLC555B params: VRST=1.1
+C73 cv4 0 100n
+R70 v5 mt 10k
+C70 mt 0 100n
+R75 o4 qb6 2.2k
+R76 qb6 0 10k
+Q6 bzn qb6 0 S8050
+CLS0 v5 bzn 16n
+LLSm v5 lsm1 0.99
+CLSm lsm1 lsm2 1.6n
+RLSm lsm2 lsm2x 1244
+VLSm lsm2x bzn 0
+R77 v5 bzn 1k
+R71 bz bzp 1k
+R72 bzp 0 100k
+R73 bzp en 100k
+C71 en 0 1u
+C72 bz ac 100n
+D3 0 ac D1N4148
+R74 ac qb6 2.2k
+V33B v33b 0 3.3
+RJP v33b bz 10k
+CBZ bz 0 20p
+.save v(hv) v(swg) v(o1) v(rst) v(fbn) v(refp) i(vhvc) v(v5hv) v(gm) v(pulse) v(ck) v(an) v(tpv) v(o4) v(en)
+.ic v(hv)=394.5 v(fbn)=2.477 v(hvin)=394.5 v(an)=394.5 v(tpv)=1e-3 v(en)=2.97 v(cv4)=3.333
+
+.options method=gear reltol=1e-4 abstol=1e-11 vntol=1e-5 itl4=50
+.end

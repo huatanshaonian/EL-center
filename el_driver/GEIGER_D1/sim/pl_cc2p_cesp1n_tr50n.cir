@@ -1,0 +1,11 @@
+pl_cc2p_cesp1n_tr50n
+.include E:/modeling/MIS-01/el_driver/GEIGER_D1/sim/models.lib
+V33 v33 0 3.3
+RPU v33 pulse 10k
+CL pulse 0 1n
+VSW sw 0 PULSE(0 250 2u 50n 50n 9.6u 19.2u)
+CC sw pulse 2p
+RQ pulse 0 1e12
+
+.options method=gear reltol=1e-4 abstol=1e-11 vntol=1e-5 itl4=50
+.end

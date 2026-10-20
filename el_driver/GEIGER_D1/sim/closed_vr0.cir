@@ -1,0 +1,44 @@
+closed loop VR1=0 VR2=67.7k
+.include E:/modeling/MIS-01/el_driver/GEIGER_D1/sim/models.lib
+VHVC hvc 0 PWL(0 0 0.0001 5.0)
+RHVC hvc hvs 0.3
+RHVS hvs v5hv 1m
+C10 v5hv c10x 100u
+RC10 c10x 0 0.3
+C11 v5hv 0 100n
+XU1 0 tr o1 rst cv1 0 qb v5hv TLC555B params: VRST=1.1
+C15 cv1 0 100n
+R1 v5hv rst 100k
+R5 o1 da 1k
+D2 da tr D1N4148
+C3 tr 0 1n
+R9 tr 0 220k
+R6 o1 qb 1k
+Q1 swg qb em KSP44
+DQ1BV em swg DKSPBV
+R8 em ev 15
+RVR1 ev 0 1m
+Q3 rst em 0 Q2N3904
+L1 v5hv lx 10m
+RL1 lx swg 30
+CP1 v5hv swg 2.5e-11
+RP1 v5hv swg 1000000.0
+D1 swg hv UF4007
+C1 hv 0 10n
+RC1LK hv 0 100G
+R30_39 hv fbn 100Meg
+CR30 hv fbn 0.05p
+R40 fbn fb0 560k
+RVR2 fb0 0 67700.0
+C30 fbn 0 1n
+XU2 refp fbn rst v5hv 0 LM393B
+R41 v5hv vr4 2.2k
+XU3 vr4 0 TL431B
+R42 vr4 refp 100k
+R43 rst refp 10Meg
+CREFP refp 0 2p
+R50_58 hv tpv 90Meg
+RMETER tpv 0 1000000000000000.0
+.save v(hv) v(swg) v(em) v(o1) v(rst) v(fbn) v(refp) i(vhvc) i(dq1bv) v(v5hv)
+.options method=gear reltol=1e-4 abstol=1e-11 vntol=1e-5 itl4=50
+.end

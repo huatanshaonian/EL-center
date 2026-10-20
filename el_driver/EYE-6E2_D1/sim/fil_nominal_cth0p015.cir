@@ -1,0 +1,12 @@
+* heater string cold start, tungsten R=R0*(T/300)^1.267, radiative loss kr*(T^4-300^4)
+VS12 S12S 0 PWL(0 0 1m 0 1.05m 12)
+RLINE S12S S12 0.25
+BFA S12 FMID I = { V(S12,FMID)/(2.98*pwr(max(V(TA),300)/300,1.267)) }
+BFB FMID 0 I = { V(FMID)/(2.98*pwr(max(V(TB),300)/300,1.267)) }
+CTA TA 0 0.015
+BTA 0 TA I = { V(S12,FMID)*V(S12,FMID)/(2.98*pwr(max(V(TA),300)/300,1.267)) - 4.930220425198905e-13*(pwr(V(TA),4)-8.1e9) }
+CTB TB 0 0.015
+BTB 0 TB I = { V(FMID)*V(FMID)/(2.98*pwr(max(V(TB),300)/300,1.267)) - 4.930220425198905e-13*(pwr(V(TB),4)-8.1e9) }
+.ic V(TA)=300 V(TB)=300
+.options reltol=1e-5
+.end

@@ -1,0 +1,16 @@
+p4_r470k_q0p2
+p4_r470k_q0p3
+p4_r470k_q0p5
+p4_r470k_q1
+p4_r470k_q2
+p4_r470k_q5
+p4_r470k_q1_exp30
+p4_r470k_q1_exp100
+p4_r470k_c100p_q0p2
+p4_r470k_c100p_q0p3
+p4_r470k_c100p_q0p5
+p4_r470k_c100p_q1
+p4_r470k_c100p_q2
+p4_r470k_c100p_q5
+p4_r470k_c100p_q1_exp30
+p4_r470k_c100p_q1_exp100

@@ -1,0 +1,4 @@
+p5_base_cgm1n_q1
+p5_base_cgm1n_q2
+p5_r220k_cgm1n_q1
+p5_r220k_cgm1n_q2

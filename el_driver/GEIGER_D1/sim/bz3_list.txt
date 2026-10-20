@@ -1,0 +1,12 @@
+bz3_swap22_pz_alarm
+bz3_swap22_pz_toggle
+bz3_swap22_em_alarm
+bz3_swap22_em_toggle
+bz3_swap1k1u_pz_alarm
+bz3_swap1k1u_pz_toggle
+bz3_swap1k1u_em_alarm
+bz3_swap1k1u_em_toggle
+bz3_swap1k220n_pz_alarm
+bz3_swap1k220n_pz_toggle
+bz3_swap1k220n_em_alarm
+bz3_swap1k220n_em_toggle
