@@ -50,6 +50,10 @@ echo "== nextpnr 布局布线 =="
 echo "== gowin_pack 生成比特流 =="
 "$TOOLS"/gowin_pack -d "$FAMILY" -o build/"$TOP".fs build/"$TOP"_pnr.json
 
+# gowin_pack 不写 // 注释头，高云 Programmer 没有它就加载不完成（报 Error found!）
+echo "== 补 .fs 注释头 =="
+python3 "$HERE"/scripts/fs_header.py build/"$TOP".fs
+
 echo
 echo "完成：$DIR/build/$TOP.fs"
 grep -E "Max frequency|BSRAM|SDPB|LUT4|DFF|rPLL|IDES|Info: Device utilisation" -A0 build/"$TOP"_nextpnr.log | tail -30 || true

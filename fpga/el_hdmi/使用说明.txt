@@ -1,9 +1,10 @@
 MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
 ====================================================================
-版本：v0.2（2026-10-19，加斜面"屏幕"开关输入 J14-12）
+版本：v0.2（2026-10-19，加斜面"屏幕"开关输入 J14-12）；2026-10-20 首次上板，见第 8 节
 用途：Orange Pi 4 的 HDMI 画面（640×480）实时显示到 Sharp LJ64K052 EL 屏。
       同时包含测试程序的全部功能（8 种测试图案、上下电顺序、保护），可替代测试程序使用。
-状态：电脑仿真全部通过、开源工具链编译通过；还没有在实物上运行过。
+状态：已在实物上运行：烧录、按键、LED、串口命令、帧缓存自检正常；Pi 能读到 EDID。
+      HDMI 视频还没收到：手上的 Dock 是 v3714，HDMI 口没有接收端接（见第 6 节），需外加端接后再测。
 
 --------------------------------------------------------------------
 1. 数据通路
@@ -27,22 +28,30 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
   Orange Pi 拒绝 640×480 时，改用 27 MHz 版 EDID 重新编译：
       EDID=edid/edid_640x480_27m.hex bash /mnt/e/modeling/MIS-01/fpga/build.sh el_hdmi
 
+  Orange Pi 4 只接受 27 MHz 版 EDID（2026-10-20 实测：25.175 MHz 的 640×480 被内核拒绝，模式列表为空）。
+  给 Orange Pi 用时请按上面第二条命令编译。
+
   烧录：
-    1. Dock 的 1 号拨码开关拨下（否则核心板不工作，JTAG 能扫到但写不进）。
-    2. USB-C 线接 Dock 的“USB-JTAG&UART”口。
+    1. Dock 的 1 号拨码开关：v3713 及更早必须拨下（它接 RECONFIG_N）；v3714 上它只是普通 IO，位置无所谓。
+    2. USB-C 线接 Dock 的“USB-JTAG&UART”口。电脑上出现一个 USB 串口（本机是 COM4）就是调试串口。
     3. 高云 Programmer → 认出 GW2A-18C → Operation 选 SRAM Program → File 选 el_hdmi_top.fs → 运行。
-       （.fs 由开源工具链 apicula 生成，格式与高云的相同。若 Programmer 不认，告诉我，改用 openFPGALoader。）
+       命令行：programmer_cli.exe --device GW2A-18C --run 2 --fsFile <el_hdmi_top.fs 的完整路径>
+       成功时显示 Status Code 0x00006020、Finished。
+       注意：apicula 生成的 .fs 原本没有开头的 // 注释头，Programmer 会进度走完后报 "Error found!"、
+       芯片加载不完成（状态 0x00000020）。build.sh 已自动调用 scripts/fs_header.py 补上注释头，不用手动处理。
     4. 烧完立即运行；断电后 FPGA 空白、所有脚弱上拉、OE_N 为高，屏信号输出关闭。
+       加载失败或按了 S4（v3714 上是 RECONFIG_N）时，FPGA 会改从 Flash 加载出厂程序（丝印 3、4 号灯闪）。
 
   接线：不要插 40P RGB 屏排线（J7）、麦克风阵列排线（J15）、DVP 摄像头，它们与本程序用的脚共用。
 
 --------------------------------------------------------------------
 3. 按键
 --------------------------------------------------------------------
-  RUN（T10）：开机 / 关机 / 清除故障（同测试程序）
-  SRC（T3） ：切换信号源 0→1→…→9→0
-  HPD（T2） ：拉一下 HPD，让 Orange Pi 重新读 EDID、重新输出
-  （T10 在 Sipeed 例程里是“复位键”；三颗键的板上位置请上电后逐个按一下确认）
+  RUN（T10，板上丝印 S0）：开机 / 关机 / 清除故障（同测试程序）
+  SRC（T3， 板上丝印 S1）：切换信号源 0→1→…→9→0
+  HPD（T2， 板上丝印 S2）：拉一下 HPD，让 Orange Pi 重新读 EDID、重新输出
+  S3 不用。S4 不要按：v3714 上 S4 接 FPGA 的 RECONFIG_N，按下会丢掉 SRAM 里的程序、改加载 Flash。
+  （2026-10-20 实测确认）
 
   信号源：
     0     HDMI 视频（上电默认）：没有合格画面时显示全黑
@@ -59,11 +68,14 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
 --------------------------------------------------------------------
 4. 状态灯（6 个，低电平点亮）
 --------------------------------------------------------------------
+  板上丝印编号与这里相反：LED0..LED5 = 丝印 5..0（LED0..3 已实测；LED4/5 = 丝印 1/0 按原理图）。
   LED0 OE 已使能          LED1 正在扫描          LED2 VD_ON_N=0（面包板阶段：可以手动开 VD）
   LED3 故障快闪 / PFAIL 慢闪
   LED4 HDMI 已锁定（时钟恢复 + 三条通道对齐）
   LED5 正在显示 HDMI 视频；每换一帧新画面翻转一次（有画面更新时闪烁）
   切换信号源后 1 秒内，LED0..LED3 显示信号源编号（二进制，LED0 = 最低位）。
+  信号源 0 且无 HDMI 超过 O 秒（默认 60 s，上电即算超时）时 VD 被禁止：按 RUN 后只有 LED0、LED1 亮，
+  LED2 不亮，这是正常的保护。切到信号源 1..8（测试图案）或发命令 O0 后 LED2 才会亮。
 
 --------------------------------------------------------------------
 5. 串口命令（115200 8N1）
@@ -96,7 +108,24 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
   1. 只接 USB-C，烧录。四盏灯（LED0..3）应全灭，LED4/5 灭。
   2. 电脑串口发 “?”，确认能收到状态行。
   3. Orange Pi 接 Dock 的 HDMI，开机：LED4 应亮；“?” 里 H=280、V=1E0、SHOWN 在增长。
-     LED4 不亮：先确认 Orange Pi 能输出 640×480（设计笔记 U12），再试 HPD 键；还不行用 27 MHz 版 EDID。
+     LED4 不亮时按下面的顺序查。
+
+  接 Orange Pi 的注意事项（2026-10-20 实测）：
+    - 先给 Pi 接它自己的电源开机，再插 HDMI；关 Pi 前先拔 HDMI。
+      Dock 的 HDMI 5V（18 脚）由 +5V 经 D5 往外送，Pi 没电时会被它反向供电（Pi 红灯亮）。
+      Pi 开着时它自己的 5V 更高，D5 截止，不会倒灌。
+    - 用 27 MHz 版 EDID（第 2 节）。25.175 MHz 版 Pi 读得到但模式列表为空、不输出。
+    - 本机 Pi 的 /boot/armbianEnv.txt 有 extraargs=drm.edid_firmware=HDMI-A-1:edid/1920x1280.bin
+      （为另一块 1920×1280 屏强制 EDID），会无视 FPGA 的 EDID。测试时只在运行时改，不动文件：
+          echo "HDMI-A-9:none" | sudo tee /sys/module/drm/parameters/edid_firmware
+      然后按 HPD 键（或串口发 P）。重启 Pi 自动恢复。
+      查看：cat /sys/class/drm/card0-HDMI-A-1/modes 应只有 640x480；strings 该目录下 edid 应含 "MIS-01 EL"。
+    - Dock v3714 的 HDMI 口不能直接当接收端：P004 页 R15–R22 由 3713 的 49.9Ω 上拉到 HDMI_3V3（接收端接）
+      改成了 499Ω 下拉到 GND（Sipeed 修改说明 "DVI optimize"）。没有端接，Pi 的 PHY_STAT0 RX_SENSE 全为 0，
+      TMDS 线上没有摆幅，FPGA 时钟脚完全收不到信号（tang-monitor 的 m5 调试程序报 L00：PLL 未锁、重捕获次数 0）。
+      解决：在 Pi 和 Dock 之间加直通转接，8 根 TMDS 线（1/3、4/6、7/9、10/12 脚）各 51Ω 上拉到 3.3V，
+      18 脚 5V 断开。tang-monitor 是在 3709 版 Dock 上验证的，它说的“零改动”只适用于 3713 及更早。
+      判断板子版本：丝印 vXXXX 在核心板插槽中间，需拔下核心板才能看到。
   4. 用示波器在 Dock 的 J5/J6 上看 CP2/CP1/S（按 RUN 开机后才有）。
   5. 之后按面包板文档实验 3、4 接屏。实验 3 可以用信号源 1..8（测试图案），实验 4 再切到 0（HDMI）。
 
@@ -128,5 +157,15 @@ MIS-01 EL 屏 HDMI 显示程序（Tang Primer 20K + Dock）  使用说明
     另：测试程序的三组仿真（扫描时序按 6 拍 RAM 延迟取数、上下电顺序 6 项场景、顶层）
   编译（yosys + nextpnr-himbaechel + apicula，2026-10-18 版 oss-cad-suite）：
     BSRAM 38/46、LUT4 17%、rPLL 2/4；54 MHz 域最高 96 MHz、像素时钟域最高 109 MHz（需 25.2 MHz）（v0.2 重新编译）
-  没有验证的：HDMI 接收在 Orange Pi 上能否锁定（tang-monitor 只用 Mac 测过）、SDPB 满深度（2K×8）在实物上读写、
-             实物按键位置。第一次上板时请按第 6 节顺序，把串口 “?” 的输出发给我。
+  实物（2026-10-20，Dock v3714，只接 USB-C 与 HDMI，不接屏和 EL 接口板）：
+    - 烧录：补 // 注释头后 SRAM Program 成功（状态 0x6020）；不补则报 "Error found!"（见第 2 节）。
+    - 上电：LED 全灭；串口 COM4 115200 “?” 回 ST=0 SRC=0 HDMI=0 VID=0 SHOWN=0000 DROP=0000 H=000 V=000
+      T=80 I=0 D=0 F=060 O=3C -，与预期一致。
+    - 按键：S0=RUN、S1=SRC（信号源 1..9 依次以二进制显示在丝印 5/4/3/2，约 1 秒）、S2=HPD。
+    - LED 极性：低电平点亮，与假设一致；LED0..3 = 丝印 5..2。
+    - 开关机：信号源 1 下 R1 → ST=3，丝印 3/4/5 全亮；R0 → 丝印 3 先灭，约 1 s 后 4、5 灭。
+      信号源 0 无 HDMI 时开机丝印 3（VD）不亮，是无信号保护（第 4 节）。
+    - 帧缓存自检：S9 后 SHOWN 持续增长、DROP=0，SDPB 读写正常。命令 XYZ 回 ERR。
+    - HDMI：Pi（Armbian 6.18.56）读到 “MIS-01 EL”；27 MHz 版 EDID 下 Pi 以 640×480@27 MHz 输出
+      （VPLL/dclk_vop0 = 27 MHz）；但 Dock v3714 无接收端接，FPGA 未锁定（HDMI=0）。待加端接转接后再测。
+  没有验证的：HDMI 接收锁定与解码、实物屏、示波器波形（J5/J6）、LED4/5 位置。
