@@ -53,7 +53,10 @@ Y_TUBE = 27                                    # IN-14 管轴距框架前沿（�
 Y_IV18 = 12                                    # IV-18 管轴（玻壳前沿 y 2.5，让开面板背面 2 mm 亚克力）
 Z_DRV = Z_DECK + PLATE_T + 10                  # 辉光驱动板底面：M3×10 铜柱立在甲板上
 Z_IN14_PCB = Z_DRV + 1.6 + 11                  # IN-14 小板底面 116.6：2×7 排母 8.5 + 排针塑料座 2.5 插在驱动板上（IV-18 顶 114；管顶 174.7，EL 托架下沿 176）
-DRV = (20, 40, 150, 80)                        # 辉光驱动板占位 x0, y0, 长, 宽（未画）
+DRV = (20, 40, 150, 80)                        # 辉光驱动板 x0, y0, 长, 宽（NIXIE-DRV D1，板原点 = 全局 (20, 40)）
+DRV_STEP = "el_driver/NIXIE-DRV_D1/制板文件_驱动板/NIXIE-DRV_D1.step"        # 约 26 MB，不进 git
+IN14_STEP = "el_driver/NIXIE-DRV_D1/制板文件_IN14小板/IN14-SOCK_D1.step"    # 板原点 = 全局 (管心 x − 10.5, 15)；STEP 里代替管子的 1×13 排针不装
+ESP_BASE = (40, 120, 90, 60)                   # ESP32-S3 底板占位 x0, y0, 长, 宽（2026-10-21 提议，未画）：驱动板后面，M3×6 铜柱；前两孔在孔阵，后两孔 y175 自钻
 HVUNI_STEP = "el_driver/HV-UNI_D1/制板文件/HV-UNI_D1.step"   # 通用高压小板 80×40（mis-01-56），不进 git
 EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.step"     # 不进 git
 HVUNI_STACK = 11                               # 排针插宿主板排母，叠高 11，四角 M3×11 铜柱
@@ -85,13 +88,13 @@ def hv_uni(name, x, y, rot, z_host):
 
 
 def tubes():
-    sock = P.in14_socket_pcb()
+    sock = V.load_abs_within(IN14_STEP, 0, 21)                                     # IN14-SOCK D1（mis-01-56），去掉代替管子的排针
     for k, x in enumerate(TUBE_X):
-        add(f"IN14_socket_PCB_{k+1}", sock.translate((x - 10.5, Y_TUBE - 12, Z_IN14_PCB)), "pcb_b", "tubes")
+        add(f"IN14_socket_PCB_{k+1}", sock.translate((x - 10.5, Y_TUBE - 12, Z_IN14_PCB)), "pcb_g", "tubes")
         add(f"IN-14_{k+1}", P.in14().translate((x, Y_TUBE, Z_IN14_PCB + 1.6 + 4)), "nixie", "tubes")
-    # 辉光驱动板（K155ID1×6 + 74HCT595×3 + 高压小板插座）：6 块 IN-14 小板用 2×7 排针插在它前沿，每块再用 1 颗 M3 锁住
+    # 辉光驱动板 NIXIE-DRV D1（K155ID1×6 + 74AHCT595×4 + 高压小板插座）：6 块 IN-14 小板用 2×7 排针插在它前沿，每块再用 1 颗 M3 锁住
     x0, y0, l, w = DRV
-    add("Nixie_driver_PCB(placeholder)", P.box(l, w, 1.6, x0, y0, Z_DRV), "pcb_b", "tubes")
+    add("NIXIE-DRV_board", V.load_abs(DRV_STEP).translate((x0, y0, Z_DRV)), "pcb_g", "tubes")
     for xx, yy in ((x0 + 5, y0 + w - 5), (x0 + l - 5, y0 + w - 5), (70.5, y0 + 5), (119.5, y0 + 5)):   # 后两角 + 前沿两个分组空隙
         add("standoff_M3x10", P.standoff_m3(10).translate((xx, yy, Z_DECK + PLATE_T)), "brass", "tubes")
     # 170 V 高压小板插在驱动板后右（避开前沿 IN-14 小板），板占 x 85–165、y 77–117
@@ -99,7 +102,9 @@ def tubes():
     # IV-18：板直接用尼龙垫片坐在甲板上，支架托住管子
     add("IV18_PCB", P.iv18_pcb().translate((IV18_X0 - 5, Y_IV18 - 9, Z_IV18_PCB)), "pcb_b", "tubes")
     add("IV-18", P.iv18().translate((IV18_X0, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
-    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((243, 166, Z_DECK + PLATE_T + 6)), "module", "tubes")   # XL6009 模块，x 243–283（给盖革主板让位，右边让开走线孔 x ≥ 284）
+    # XL6009 模块（IV-18 栅/阳极 35 V）：长边沿 Y，甲板 x 178–199、y 55–98，M3×5 尼龙柱、两孔自钻；上方 z118 起是表头本体（2026-10-21 由 x 243–283、y 166–196 挪来，离 IV-18 板近）
+    xl = M.xl6009_module().rotate((0, 0, 0), (0, 0, 1), 90)
+    add("IV18_PSU_XL6009", to_min(xl, 178, 55, Z_DECK + PLATE_T + 5), "module", "tubes")
     # 6E2 ×2：管座在甲板上，管子竖立在前面板竖窗后
     for k, x in enumerate(AP.EYE_X):
         z = Z_DECK + PLATE_T + EYE_STANDOFF + 1.6 + 10                                   # 6E2 板还没画，只按铜柱 + 板厚抬高管座
@@ -129,6 +134,20 @@ def geiger():
     add("GEIGER-MAIN_board", V.load_abs(GEIGER_STEP).translate((gx, gy, Z_DECK + PLATE_T + 6)), "pcb_g", "geiger")
     for dx, dy in ((5, 5), (gl - 5, 5), (5, gw - 5), (gl - 5, gw - 5)):
         add("standoff_M3x6", P.standoff_m3(6).translate((gx + dx, gy + dy, Z_DECK + PLATE_T)), "brass", "geiger")
+
+# ------------------------------------------------------------------ ESP32-S3 底板（占位，mis-01-56 画）
+def esp_base():
+    """底板平放在驱动板后面；开发板 USB-C 朝左（弯头线从电脑层左走线孔上去接 Pi），天线端 U.FL 朝右；DS3231 在前右（布局 T）"""
+    x0, y0, l, w = ESP_BASE
+    zb = Z_DECK + PLATE_T + 6
+    add("ESP-BASE(placeholder)", P.box(l, w, 1.6, x0, y0, zb), "pcb_b", "esp")
+    for dx, dy in ((5, 5), (l - 5, 5), (5, w - 5), (l - 5, w - 5)):
+        add("standoff_M3x6_ESP", P.standoff_m3(6).translate((x0 + dx, y0 + dy, Z_DECK + PLATE_T)), "brass", "esp")
+    kx, ky, top = x0 + 2, y0 + 30, zb + 1.6
+    for ry in (1.27, 24.13):                                                       # 2×22 排母 8.5（排距 22.86）
+        add("ESP_socket_1x22", P.box(22 * 2.54, 2.5, 8.5, kx + 5.05 - 1.27, ky + ry - 1.25, top), "dark", "esp")
+    add("ESP32-S3_DEV-KIT", M.esp32s3_dev_kit().translate((kx, ky, top + 8.5 + 2.6)), "pcb_g", "esp")
+    add("DS3231_module", M.ds3231_module().translate((x0 + 42, y0 + 6, top)), "pcb_b", "esp")
 
 # ------------------------------------------------------------------ 下舱：电源、配电、喇叭
 def lower():
@@ -170,7 +189,7 @@ def rear():
 
 def build():
     ITEMS.clear()
-    frame(); screen(); AP.build(); tubes(); geiger(); lower(); computers(); rear()
+    frame(); screen(); AP.build(); tubes(); geiger(); esp_base(); lower(); computers(); rear()
     return ITEMS
 
 if __name__ == "__main__":

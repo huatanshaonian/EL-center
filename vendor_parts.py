@@ -24,6 +24,11 @@ def load_abs(rel):
         _cache[rel] = cq.Workplane("XY").newObject([cq.Compound.makeCompound(s.vals())])
     return _cache[rel]
 
+def load_abs_within(rel, x0, x1):
+    """同 load_abs，但只保留 X 范围在 [x0, x1] 内的实体（去掉画板方放进 STEP 的占位件，如 IN-14 小板上代替管子的 1×13 排针）"""
+    keep = [s for s in load_abs(rel).val().Solids() if s.BoundingBox().xmin >= x0 - 0.1 and s.BoundingBox().xmax <= x1 + 0.1]
+    return cq.Workplane("XY").newObject([cq.Compound.makeCompound(keep)])
+
 def compound(*shapes):
     """把若干 Workplane 合成一个 Compound（不做布尔运算）"""
     return cq.Workplane("XY").newObject([cq.Compound.makeCompound([v for s in shapes for v in s.vals()])])
