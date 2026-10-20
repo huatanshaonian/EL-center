@@ -69,74 +69,6 @@ Channel ID
 ]
 [
 DESIGNATOR
-CLA2
-FOOTPRINT
-FUSE-TH_LS-601
-PARTTYPE
-LS-601
-DESCRIPTION
-保险丝座类型:夹型;保险丝类型:圆柱;
-Component Kind
-Standard
-Add into BOM
-yes
-Convert to PCB
-yes
-Device
-LS-601
-PCB Layer
-Default
-Symbol
-LS-601
-Designator
-CLA2
-LCSC Part Name
-15A 250V 夹型
-Supplier Part
-C182321
-Manufacturer
-LANSON(良胜)
-Manufacturer Part
-LS-601
-Supplier Footprint
-插件,P=7.5mm
-JLCPCB Part Class
-Extended Part
-Datasheet
-https://item.szlcsc.com/datasheet/LS-601/193721.html
-Supplier
-LCSC
-3D Model Title
-FUSE-TH_L6.4-W8.0
-Fuseholder Type
-夹型
-Voltage Rating
-250V
-Current Rating
-15A
-Fuse Type
-圆柱
-Fuse Diameter (φD)
-6.35mm
-Fuse Length
-32mm
-Name
-LS-601
-Description
-保险丝座类型:夹型;保险丝类型:圆柱;
-Unique ID
-gge2
-Reuse Block
-
-Group ID
-
-Channel ID
-
-
-*
-]
-[
-DESIGNATOR
 CLK1
 FOOTPRINT
 FUSE-TH_LS-601
@@ -194,144 +126,6 @@ Description
 保险丝座类型:夹型;保险丝类型:圆柱;
 Unique ID
 gge3
-Reuse Block
-
-Group ID
-
-Channel ID
-
-
-*
-]
-[
-DESIGNATOR
-CLK2
-FOOTPRINT
-FUSE-TH_LS-601
-PARTTYPE
-LS-601
-DESCRIPTION
-保险丝座类型:夹型;保险丝类型:圆柱;
-Component Kind
-Standard
-Add into BOM
-yes
-Convert to PCB
-yes
-Device
-LS-601
-PCB Layer
-Default
-Symbol
-LS-601
-Designator
-CLK2
-LCSC Part Name
-15A 250V 夹型
-Supplier Part
-C182321
-Manufacturer
-LANSON(良胜)
-Manufacturer Part
-LS-601
-Supplier Footprint
-插件,P=7.5mm
-JLCPCB Part Class
-Extended Part
-Datasheet
-https://item.szlcsc.com/datasheet/LS-601/193721.html
-Supplier
-LCSC
-3D Model Title
-FUSE-TH_L6.4-W8.0
-Fuseholder Type
-夹型
-Voltage Rating
-250V
-Current Rating
-15A
-Fuse Type
-圆柱
-Fuse Diameter (φD)
-6.35mm
-Fuse Length
-32mm
-Name
-LS-601
-Description
-保险丝座类型:夹型;保险丝类型:圆柱;
-Unique ID
-gge4
-Reuse Block
-
-Group ID
-
-Channel ID
-
-
-*
-]
-[
-DESIGNATOR
-R2
-FOOTPRINT
-RES-TH_BD2.7-L6.2-P10.20-D0.4
-PARTTYPE
-CR1/4W-4M7±5%-ST52
-DESCRIPTION
-电阻类型:碳膜电阻;阻值:4.7MΩ;精度:±5%;功率:250mW;温度系数:±1000ppm/℃;
-Component Kind
-Standard
-Add into BOM
-yes
-Convert to PCB
-yes
-Device
-CR1/4W-4M7±5%-ST52
-PCB Layer
-Default
-Symbol
-CR1/4W-4M7±5%-ST52
-Designator
-R2
-LCSC Part Name
-碳膜电阻 4.7MΩ ±5% 250mW
-Supplier Part
-C601772
-Manufacturer
-VO(翔胜)
-Manufacturer Part
-CR1/4W-4M7±5%-ST52
-Supplier Footprint
-插件,D2.7xL6.2mm
-JLCPCB Part Class
-Extended Part
-Datasheet
-https://atta.szlcsc.com/upload/public/pdf/source/20200102/C479497_CFA517270BDACE333EC5B3F694E5BF1F.pdf
-Supplier
-LCSC
-3D Model Title
-RES-TH_BD2.7-L6.2-P10.20-D0.4
-Type
-碳膜电阻
-Value
-4.7MΩ
-Tolerance
-±5%
-Overload Voltage (Max)
-250V
-Power(Watts)
-250mW
-Temperature Coefficient
-±1000ppm/℃
-Operating Temperature Range
--55℃~+155℃
-Name
-4.7MΩ
-Description
-电阻类型:碳膜电阻;阻值:4.7MΩ;精度:±5%;功率:250mW;温度系数:±1000ppm/℃;
-Unique ID
-gge5
 Reuse Block
 
 Group ID
@@ -1091,28 +885,94 @@ Channel ID
 
 *
 ]
+[
+DESIGNATOR
+R2
+FOOTPRINT
+R2512
+PARTTYPE
+CRCW25124M70FKTG
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:4.7MΩ;精度:±1%;功率:1W;工作电压:500V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CRCW25124M70FKTG
+PCB Layer
+Default
+Symbol
+CRCW25124M70FKTG
+Designator
+R2
+LCSC Part Name
+厚膜电阻 4.7MΩ ±1% 1W
+Supplier Part
+C1694257
+Manufacturer
+VISHAY(威世)
+Manufacturer Part
+CRCW25124M70FKTG
+Supplier Footprint
+2512
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/CRCW25124M70FKTG/1785029.html
+Supplier
+LCSC
+3D Model Title
+R2512_L6.3-W3.2-H0.6
+Type
+厚膜电阻
+Value
+4.7MΩ
+Tolerance
+±1%
+Power(Watts)
+1W
+Voltage-Supply(Max)
+500V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+4.7MΩ
+Description
+电阻类型:厚膜电阻;阻值:4.7MΩ;精度:±1%;功率:1W;工作电压:500V;温度系数:±100ppm/℃;
+Unique ID
+gge19
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
 (
 AN 
 CLA1-1 LS-601-1 Passive 
 CLA1-2 LS-601-2 Passive 
-CLA2-1 LS-601-1 Passive 
-CLA2-2 LS-601-2 Passive 
-R2-2 CR1/4W-4M7±5%-ST52-2 Passive 
+R2-2 CRCW25124M70FKTG-2 Passive 
 )
 (
 CK 
 CLK1-1 LS-601-1 Passive 
 CLK1-2 LS-601-2 Passive 
-CLK2-1 LS-601-1 Passive 
-CLK2-2 LS-601-2 Passive 
 R4-1 MF1/4W-22KΩ±1% T-1 Passive 
 R60-1 MF1/4W-22KΩ±1% T-1 Passive 
 C2-1 CC4-0805-CG-50V-100pF-J-1 Passive 
 )
 (
 HVIN 
-R2-1 CR1/4W-4M7±5%-ST52-1 Passive 
 J_HVI-1 PZ254V-11-01P-1 Passive 
+R2-1 CRCW25124M70FKTG-1 Passive 
 )
 (
 B2 
