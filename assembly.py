@@ -55,15 +55,18 @@ Z_DRV = Z_DECK + PLATE_T + 10                  # 辉光驱动板底面：M3×10 
 Z_IN14_PCB = Z_DRV + 1.6 + 11                  # IN-14 小板底面 116.6：2×7 排母 8.5 + 排针塑料座 2.5 插在驱动板上（IV-18 顶 114；管顶 174.7，EL 托架下沿 176）
 DRV = (20, 40, 150, 80)                        # 辉光驱动板占位 x0, y0, 长, 宽（未画）
 HVUNI_STEP = "el_driver/HV-UNI_D1/制板文件/HV-UNI_D1.step"   # 通用高压小板 80×40（mis-01-56），不进 git
+EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.step"     # 不进 git
 HVUNI_STACK = 11                               # 排针插宿主板排母，叠高 11，四角 M3×11 铜柱
 EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶面 z 111.6，管顶 173.6（托架下沿 176）
 IV18_X0 = 27                                   # IV-18 引线端玻壳中心 X（玻壳到 X=142）
 Z_IV18_PCB = Z_DECK + PLATE_T + 1                        # IV-18 板底面，管心 Z=104.6
 EYE_Y = 31                                     # 6E2 管轴 Y：管座前耳孔在 y≈18，6E2 板前沿 ≥ y 13，才能从 J305（y ≤ 11.6 @ 板高）上方让开（2026-10-20 由 27 后移）
 EYE_ROT = 18                                   # 6E2 管座绕 Z 转角：荧光屏正对 7 脚、正对 -Y（前面板）时，缺口在 +X 往后偏 18°（北京 6E2，用户确认缺口在右）
-SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 186           # 盖革管 J305 管轴 y、z 与左端 x（变量名沿用 SBM_）；管轴 z 由夹子小板 2 mm 垫 + 夹口高 5.9 决定
+GM_SHIM = 1.5                                  # 夹子长条板下的垫片厚（调管轴高度用）
+SBM_Y, SBM_X0 = 8, 186                         # 盖革管 J305 管轴 y 与左端 x（变量名沿用 SBM_）
+SBM_Z = Z_DECK + PLATE_T + GM_SHIM + 1.6 + 6.7  # 管轴 z 103.8 = 甲板面 + 垫片 + 板厚 + 夹口中心高 6.7（估）
 GM_L = 103.5                                   # J305 总长（用户实测）
-GEIGER_BOARD = (180, 110, 60, 40)              # 盖革主板 x0, y0, 长, 宽：6E2 板后面，四孔落在甲板孔阵（185/235, 115/145），M3×6 铜柱（2026-10-20 由 y 50 后移给 6E2 板让位）
+GEIGER_BOARD = (180, 110, 60, 60)              # 盖革主板 x0, y0, 长, 宽：6E2 板后面，四孔落在甲板孔阵（185/235, 115/165），M3×6 铜柱（2026-10-20 由 y 50 后移给 6E2 板让位，再由 60×40 改 60×60：74 个直插件、19 只 10 MΩ）
 EYE_BOARD = (210, 15, 90, 90)                  # 6E2 板 x0, y0, 长, 宽：前沿 y 15 让开 J305 和右夹子小板，后沿 y 105 让开右后走线孔（y ≥ 120），右沿 x 300；M3×6 铜柱，四角孔都要自己钻
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
@@ -94,17 +97,17 @@ def tubes():
     # IV-18：板直接用尼龙垫片坐在甲板上，支架托住管子
     add("IV18_PCB", P.iv18_pcb().translate((IV18_X0 - 5, Y_IV18 - 9, Z_IV18_PCB)), "pcb_b", "tubes")
     add("IV-18", P.iv18().translate((IV18_X0, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
-    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((215, 166, Z_DECK + PLATE_T + 6)), "module", "tubes")
+    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((243, 166, Z_DECK + PLATE_T + 6)), "module", "tubes")   # XL6009 模块，x 243–283（给盖革主板让位，右边让开走线孔 x ≥ 284）
     # 6E2 ×2：管座在甲板上，管子竖立在前面板竖窗后
     for k, x in enumerate(AP.EYE_X):
         z = Z_DECK + PLATE_T + EYE_STANDOFF + 1.6 + 10                                   # 6E2 板还没画，只按铜柱 + 板厚抬高管座
         rz = lambda s: s.rotate((0, 0, 0), (0, 0, 1), EYE_ROT).translate((x, EYE_Y, z))
         add(f"Noval_socket_{k+1}", rz(M.noval_socket()), "dark", "tubes")
         add(f"6E2_{k+1}", rz(M.tube_6e2()), "eye", "tubes")
-    # 6E2 板占位（mis-01-56 画）
+    # 6E2 板（EYE-6E2 D1，mis-01-56 导出的整板 STEP，原点 = 板左下角 = 全局 (210, 15)）
     ex, ey, el, ew = EYE_BOARD
     ze = Z_DECK + PLATE_T + EYE_STANDOFF
-    add("EYE-6E2_board(placeholder)", P.box(el, ew, 1.6, ex, ey, ze), "pcb_g", "tubes")
+    add("EYE-6E2_board", V.load_abs(EYE_STEP).translate((ex, ey, ze)), "pcb_g", "tubes")
     for dx, dy in ((5, 5), (el - 5, 5), (5, ew - 5), (el - 5, ew - 5)):
         add("standoff_M3x6_EYE", P.standoff_m3(EYE_STANDOFF).translate((ex + dx, ey + dy, Z_DECK + PLATE_T)), "brass", "tubes")
     # 250 V 高压小板横放在 6E2 板上、两支管子后面（不转向，HV 输出在右端靠近管子），板占 x 215–295、y 50–90
@@ -113,12 +116,11 @@ def tubes():
 # ------------------------------------------------------------------ 盖革：J305 横在前面板盖革窗后；自制盖革板（参考 MightyOhm），位置待定
 def geiger():
     add("J305", M.j305(GM_L).translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
-    # 两块夹子小板（20×12，2 mm 尼龙垫在甲板上，1 颗 M3 走长槽）：夹子中心对准两端电极，长槽朝外
-    e = (GM_L - 94) / 2
-    clip = M.geiger_clip_board()
-    zc = Z_DECK + PLATE_T + 2
-    add("Geiger_clip_board_L", clip.mirror("YZ").translate((SBM_X0 + e / 2 + 10, SBM_Y - 6, zc)), "pcb_g", "geiger")
-    add("Geiger_clip_board_R", clip.translate((SBM_X0 + GM_L - e / 2 - 10, SBM_Y - 6, zc)), "pcb_g", "geiger")
+    # 夹子长条板（x 165–299、y 2–14，贴甲板垫 GM_SHIM）：J305 夹子中心 = 管端往里 1.25（夹子内边对齐电极圆柱段内端），即 x 187.25 / 288.25；
+    # HAC2311S 那组焊位在 193.5 / 282，只焊用得上的一组；检测电路在左端 x 165–185，阳极电阻和高压焊盘在右端 x 290–299
+    gx0 = 165
+    clips = (SBM_X0 + 1.25 - gx0, SBM_X0 + GM_L - 1.25 - gx0)
+    add("Geiger_clip_strip", M.geiger_clip_strip(clips=clips).translate((gx0, SBM_Y - 6, Z_DECK + PLATE_T + GM_SHIM)), "pcb_g", "geiger")
     # 盖革主板（升压、蜂鸣器、J1 XH-2P 接 HV-C、J2 XH-4P 接 ESP32 底板）：占位，等 mis-01-56 画板
     gx, gy, gl, gw = GEIGER_BOARD
     add("Geiger_main_board(placeholder)", P.box(gl, gw, 1.6, gx, gy, Z_DECK + PLATE_T + 6), "pcb_g", "geiger")
