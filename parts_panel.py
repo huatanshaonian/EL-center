@@ -136,11 +136,17 @@ def usb_panel_ext():
     return u.cut(box(pw, pd, ph, -pw / 2, -0.01, -ph / 2))                                   # 插口
 
 def iec_c14_inlet():
-    """后面板 IEC C14 三合一电源座（插座 + 保险丝 + 船型开关），开孔 27x47；原点=开孔中心，法兰在面板外侧（-Y）"""
-    SPEC = dict(cut_w=27.0, cut_h=47.0, flange_w=31.0, flange_h=60.0, flange_t=2.5, depth=30.0)
+    """后面板 IEC C14 三合一电源座 AC-14-F12（插座 + 双保险丝 + 双极船型开关，左右耳固定）。
+    C（商品图纸）：法兰 49.4x66、厚约 2，本体 27x59，面板后含端子约 35.4；开孔 28x60，耳孔距 40（M3）。
+    上为 C14 插口（24.6x16.2）、中为保险丝抽屉、下为开关。原点=开孔中心，法兰在面板外侧（-Y）"""
+    SPEC = dict(cut_w=28.0, cut_h=60.0, flange_w=49.4, flange_h=66.0, flange_t=2.0, body_w=27.0, body_h=59.0,
+                depth=35.4, ear_dx=40.0, inlet=(24.6, 16.2), inlet_z=18.0)
     s = SPEC
     b = box(s["flange_w"], s["flange_t"], s["flange_h"], -s["flange_w"] / 2, -s["flange_t"], -s["flange_h"] / 2)
-    b = b.union(box(s["cut_w"], s["depth"], s["cut_h"], -s["cut_w"] / 2, 0, -s["cut_h"] / 2))
-    b = b.cut(box(20, 12, 16, -10, -s["flange_t"] - 0.01, -s["cut_h"] / 2 + 3))            # 插口
-    b = b.union(box(14, 3, 10, -7, -s["flange_t"] - 3, s["cut_h"] / 2 - 14))               # 船型开关
-    return b.union(box(18, 6, 30, -9, s["depth"], -15))                                    # 接线片
+    for sx in (-1, 1):
+        b = b.cut(cyl(1.75, s["flange_t"] + 0.02, sx * s["ear_dx"] / 2, -s["flange_t"] - 0.01, 0, "Y"))
+    b = b.union(box(s["body_w"], s["depth"] - 6, s["body_h"], -s["body_w"] / 2, 0, -s["body_h"] / 2))
+    iw, ih = s["inlet"]
+    b = b.cut(box(iw, 16, ih, -iw / 2, -s["flange_t"] - 0.01, s["inlet_z"] - ih / 2))     # C14 插口
+    b = b.union(box(20, 3, 13, -10, -s["flange_t"] - 3, -s["cut_h"] / 2 + 5))              # 船型开关（下）
+    return b.union(box(20, 6, 40, -10, s["depth"] - 6, -22))                               # 接线片

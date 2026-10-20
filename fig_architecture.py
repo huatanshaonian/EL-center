@@ -78,9 +78,9 @@ def signal_diagram(fname="png/11_architecture.png"):
     esp = box(ax, 77, 36, 12, 9, "ESP32-S3\n（WROOM-1U\nN16R8）", "inst", 11, True)
     arrow(ax, edge(opi, "r"), edge(esp, "l"), "USB + 关机握手（2 根 GPIO）", both=True, off=(0, 0.5))
     subs = [
-        ("辉光钟：IN-14 ×6（HH:MM:SS）\n3×74HCT595 → 6×K155ID1 → 阴极；阳极 170 V（NCH6100HV）", 66, "hv"),
+        ("辉光钟：IN-14 ×6（HH:MM:SS）\n3×74HCT595 → 6×K155ID1 → 阴极；阳极 170 V（自制通用高压小板）", 66, "hv"),
         ("IV-18 荧光管\nMAX6921 驱动（DIN / CLK 与 595 共用）\n栅/阳极约 35 V（XL6009），灯丝交流方波 + 偏置", 58, "dev"),
-        ("6E2 猫眼（侧视条形）×2\nPWM 调栅压控制光条；阳极约 250 V（买升压模块）\n灯丝 2×6.3 V 串接 12 V", 50, "hv"),
+        ("6E2 猫眼（侧视条形）×2\nPWM 调栅压控制光条；阳极约 250 V（自制通用高压小板）\n灯丝 2×6.3 V 串接 12 V", 50, "hv"),
         ("指针表头 85C1 0–1 mA\nPWM 串电阻直推", 43.5, "dev"),
         ("盖革计数：J305 + 自制盖革板（5 V 输入，板上升压约 400 V）\n脉冲 → ESP32 计数；蜂鸣器咔哒声", 35.5, "hv"),
         ("环境光 BH1750、RTC DS3231（I2C）\n人体感应 LD2410B（OUT / UART）", 27.5, "dev"),
@@ -94,7 +94,7 @@ def signal_diagram(fname="png/11_architecture.png"):
     # 音频 / 散热
     amp = box(ax, 59, 21, 9, 4.5, "PAM8403 功放", "dev", 9)
     spk = box(ax, 59, 12, 9, 5, "40 mm 喇叭\n（朝左侧面）", "dev", 9)
-    fan = box(ax, 45, 12, 11, 9, "风扇\n后面板 60×15 ×2\nOPi 40×10 ×1", "dev", 9)
+    fan = box(ax, 45, 12, 11, 9, "散热\nOrange Pi：散热片 + 40×10 风扇\n（Pi 旁小板，18 脚启停）", "dev", 9)
     arrow(ax, (63.5, 38), edge(amp, "t"), "音频", off=(2.5, -1))
     arrow(ax, edge(amp, "b"), edge(spk, "t"))
 
@@ -120,11 +120,11 @@ def power_diagram(fname="png/12_power_tree.png"):
     for b in (n12, n5, b24):
         arrow(ax, edge(pcb3, "r"), edge(b, "l"))
 
-    loads12 = ["主机同步 → EL 屏 VD（经 EL-IF）、FPGA Dock", "6E2 灯丝 2×6.3 V 串联、键灯、绿灯", "风扇口（跳线 12 V 时）",
-               "高压受控电源 → NCH6100HV → 170 V（跳线 12 / 24 V）*", "高压受控电源 → 6E2 升压模块 → 约 250 V"]
+    loads12 = ["主机同步 → EL 屏 VD（经 EL-IF）、FPGA Dock", "6E2 灯丝 2×6.3 V 串联、键灯、绿灯",
+               "高压受控电源 HV-A → 通用高压小板 → 170 V *", "高压受控电源 HV-B → 通用高压小板 → 约 250 V"]
     loads5 = ["电子保险 A（开关 或 ESP32 保持）→ Orange Pi 4", "电子保险 B（同一使能）→ USB Hub 模块、PAM8403", "主机同步 → EL 屏 VL（经 EL-IF）",
               "常电：ESP32-S3、LD2410B、IV-18 灯丝", "高压受控电源 → 自制盖革板（板上升压约 400 V）"]
-    loads24 = ["开关 → XL6009 → 35 V → IV-18 栅/阳极", "风扇口 ×3（跳线选 12 / 24 V）", "备用输出（24 / 12 / 5 V 各 2 路，带保险）"]
+    loads24 = ["开关 → XL6009 → 35 V → IV-18 栅/阳极", "备用输出（24 / 12 / 5 V 各 2 路，带保险）"]
     for loads, b in ((loads12, n12), (loads5, n5), (loads24, b24)):
         x, y, w, h = b
         y0 = y + h + 2.2 - 0.3
@@ -142,7 +142,7 @@ def power_diagram(fname="png/12_power_tree.png"):
              "屏幕：经 PCB-3 转 J_PF 送到 EL 接口板，硬件关 VD + 通知 FPGA\n\n"
              "指示灯接在各自被控电源的输出上：绿 = Pi 5 V，红 = 高压受控电源，黄 = +12V_EL\n"
              "ESP32 常电：关掉主机后辉光钟照样走", "todo", 9.5)
-    ax.text(1, 6, "* NCH6100HV 输入 12–24 V 都行（官方资料），电源板用跳线选。IN-14、6E2 的高压用买来的模块，盖革板自产约 400 V；电源板只控制它们的低压输入。\n"
+    ax.text(1, 6, "* 辉光管 170 V、6E2 250 V 都用自制通用高压小板（UC3843AN，12 V 输入），盖革板自产约 400 V；电源板只控制它们的低压输入。\n"
                   "  EL 屏两路电源的软启动与上电顺序见 EL 设计笔记第 10 节，这里只画分配关系。",
             fontproperties=F, fontsize=9.5, va="bottom")
     fig.suptitle("MIS-01 电源树（2026-10-20，按接线方案 v1.0）", fontproperties=F, fontsize=17)

@@ -149,14 +149,14 @@ def el_bracket(back_y=26.5, h=224.0, holes_z=(8.0, 216.0), hole_x=11.5):
     return b
 
 def in14_socket_pcb():
-    """单管 IN-14 管座 PCB 22x40x1.6：管心距前沿 12，13 针 PCD12 插孔，后部 2 个 M3 孔"""
-    p = box(22, 40, 1.6)
+    """单管 IN-14 管座小板 21x40x1.6（管距最小 22，留 1 mm 缝方便换板）：管心距前沿 12，13 针 PCD12 插孔；
+    底面 2×7 排针（插驱动板排母），后部 1 个 M3 孔锁到驱动板（占位，等 mis-01-56 画板）"""
+    p = box(21, 40, 1.6)
     for k in range(13):
         a = 2 * math.pi * k / 13
-        p = p.cut(cyl(0.6, 3, 11 + 6 * math.cos(a), 12 + 6 * math.sin(a), -1))
-    for x in (5, 17):
-        p = p.cut(cyl(1.6, 3, x, 34, -1))
-    p = p.union(box(10, 5, 8.5, 6, 25, 1.6))  # 连接器
+        p = p.cut(cyl(0.6, 3, 10.5 + 6 * math.cos(a), 12 + 6 * math.sin(a), -1))
+    p = p.cut(cyl(1.6, 3, 10.5, 36, -1))
+    p = p.union(box(17.8, 5.1, 2.5, 1.6, 27, -2.5))  # 底面 2×7 排针塑料座（针另算）
     return p
 
 def iv18_pcb():

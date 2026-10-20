@@ -22,16 +22,18 @@ SEL = (37.0, 40)
 USB = ((30.0, 10), (67.0, 10))                  # 左 USB3（直连 Pi）、右 USB2（来自 Hub）；带耳延长线母头，中心距 ≥37（耳宽 35，T）
 PCB_D, PCB_T = 6.5, 1.6                           # 斜面电路板元件面到斜面内表面 6.5（推子贴死面板）
 PCB_X, PCB_U = (24.0, 164.0), (3.0, 73.0)         # 占位外形 140x70；可用范围 x 21–168 × u 0–81
-ENC = ((110.5, 63), (136.5, 63))
-FADER_X, FADER_U = 123.5, (40, 18)
+ENC = ((98.5, 63), (123.5, 63), (148.5, 63))   # 3 个编码器一排，中心距 25（Ø15 旋钮间隙 10）；2026-10-20 由 2 个改 3 个
+FADER_X, FADER_U = 123.5, (40, 24)                # 两根推子间距 16（原 40/18）
 TOG_X, TOG_U, LAMP_U = (180.5, 201.5, 222.5), 26, 63
 KEY_X, KEY_U = (256.0, 286.0), (63, 40, 18)
 
 # 竖直前面板上的仪表（全局 x, z）
 METER = (214, 146)
-EYE_X, EYE_WIN = (261, 285), (122, 48)           # 6E2 竖窗中心 x、窗底 z 与窗高
-NICHE = (22, 92, 148, 84)                        # 管龛窗 x, z, w, h
-SBM_WIN = (180, 94, 116, 19)
+EYE_X = (261, 285)                               # 6E2 管心 x
+EYE_WIN = (248, 118, 50, 56)                     # 6E2 开口 x, z, w, h：上下边与表头面框齐平（z 118–174），表头底边向右延伸成横条，把 6E2 和下面的盖革窗隔开
+ACRYLIC_T = 2                                    # 三个开口背后都贴透明亚克力（管龛 170 V、6E2 250 V、盖革管 400 V，手指够不着）
+NICHE = (24, 92, 146, 84)                        # 管龛窗 x, z, w, h（左边让出 2 mm 给亚克力贴边，亚克力不能压到左 EL 托架 x 20–22）
+SBM_WIN = (180, 94, 118, 19)                     # 盖革窗，右边与 6E2 开口齐平（x 298）
 SENSOR = (304, 404)
 
 def on_slant(shape, x, u, back=False):
@@ -46,7 +48,7 @@ def front_panel():
     z0 = Z_CHIN
     cut = [(sx0 + (267 - aa_w) / 2 - 2, Z_SCREEN + (220 - aa_h) / 2 - 2, aa_w + 4, aa_h + 4),   # EL 视窗
            NICHE, SBM_WIN]
-    cut += [(x - 6, EYE_WIN[0], 12, EYE_WIN[1]) for x in EYE_X]                                # 6E2 竖窗
+    cut += [EYE_WIN]                                                                         # 6E2 大开口
     holes = [(METER[0], METER[1], 50)] + [(METER[0] + sx * 26, METER[1] - 13, 3.2) for sx in (-1, 1)]   # 85C1：Ø50 + 2×M3（孔距 52）
     holes += [(SENSOR[0], SENSOR[1], 6)]
     holes += [(x, z, 4.5) for x in (10, W - 10) for z in (140, 280, 410)] + [(x, H - 10, 4.5) for x in (110, 210)]
@@ -54,6 +56,12 @@ def front_panel():
     holes = [(x, z - z0, d) for x, z, d in holes]
     add("front_panel_2mm", P.panel(W, H - z0, 2, cut, holes).translate((0, -2, z0)), "panel", "front")
     add("Panel_meter_85C1", F.panel_meter().translate((METER[0], -2, METER[1])), "meter", "ui")
+    # 透明亚克力（贴在面板背面，VHB 双面胶或 UV 胶）
+    # 右：L 形一片盖 6E2 + 盖革两个窗，让开表头螺柱（x 241.5）和右侧 EL 托架（x ≥ 298、z ≥ 176）
+    acr = P.box(299 - 178, ACRYLIC_T, 116 - 91, 178, 0, 91).union(P.box(299 - 244, ACRYLIC_T, 175.5 - 91, 244, 0, 91))
+    add("Window_acrylic_clear_R", acr, "acrylic", "front")
+    # 左：管龛一片，让开左 EL 托架（x 20–22）
+    add("Window_acrylic_clear_L", P.box(173 - 22.5, ACRYLIC_T, 179 - 89, 22.5, 0, 89), "acrylic", "front")
 
 def slant():
     cw, ch = F.USB_EXT["cut"]

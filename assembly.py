@@ -9,7 +9,8 @@ import parts as P
 import parts_modules as M
 import parts_panel as F
 import assembly_panel as AP
-from assembly_base import W, D, H, Z_DECK, Z_SHELF, Z_SCREEN, ITEMS, add, to_min
+import vendor_parts as V
+from assembly_base import W, D, H, Z_DECK, Z_SHELF, Z_SCREEN, PLATE_T, ITEMS, add, to_min
 
 # ------------------------------------------------------------------ 框架
 def frame():
@@ -29,12 +30,12 @@ def frame():
             add("corner_bracket", to_min(br, x + 1.5, 19, z - 20), "alu", "frame")
             add("corner_bracket", to_min(br.mirror("XZ"), x + 1.5, D - 40, z - 20), "alu", "frame")
     # 底板 / 甲板（前伸到 Y=2 托住管龛，前角避让立柱）/ 电脑层板 / 顶板
-    add("base_plate_3mm", P.plate(W, D, 3).translate((0, 0, -3)), "dark", "plates")
-    deck = P.plate(W - 4, D - 24, 2, notches=((0, 0, 18, 18), (W - 4 - 18, 0, 18, 18)))
-    add("deck_plate_2mm", deck.translate((2, 2, Z_DECK)), "alu", "plates")
-    add("shelf_plate_2mm", P.plate(W - 4, D - 52, 2).translate((2, 30, Z_SHELF)), "alu", "plates")
+    add("base_plate_bakelite", P.plate(W, D, PLATE_T).translate((0, 0, -PLATE_T)), "bakelite", "plates")
+    deck = P.plate(W - 4, D - 24, PLATE_T, notches=((0, 0, 18, 18), (W - 4 - 18, 0, 18, 18)))
+    add("deck_plate_bakelite", deck.translate((2, 2, Z_DECK)), "bakelite", "plates")
+    add("shelf_plate_bakelite", P.plate(W - 4, D - 52, PLATE_T).translate((2, 30, Z_SHELF)), "bakelite", "plates")
     vents = [(40 + i * 20, 60 + j * 20, 8) for i in range(13) for j in range(6)]
-    add("top_plate_2mm_vented", P.plate(W, D, 2, holes=vents).translate((0, 0, H)), "panel", "top")
+    add("top_plate_bakelite_vented", P.plate(W, D, PLATE_T, holes=vents).translate((0, 0, H)), "bakelite", "top")
 
 # ------------------------------------------------------------------ EL 屏
 def screen():
@@ -49,44 +50,59 @@ def screen():
 # ------------------------------------------------------------------ 管龛（甲板上）：IN-14 一排，IV-18 横在其正下方
 TUBE_X = [35, 57, 84, 106, 133, 155]          # 6 支 IN-14 管心，HH:MM:SS 分组（管龛窗 x 22..170）
 Y_TUBE = 27                                    # IN-14 管轴距框架前沿（引线向下伸到 108.8，须在 IV-18 后面）
-Y_IV18 = 11                                    # IV-18 管轴（玻壳前沿离面板内表面 1.5）
-Z_IN14_PCB = 116                               # IN-14 管座板底面（IV-18 顶在 114 以下）
+Y_IV18 = 12                                    # IV-18 管轴（玻壳前沿 y 2.5，让开面板背面 2 mm 亚克力）
+Z_DRV = Z_DECK + PLATE_T + 10                  # 辉光驱动板底面：M3×10 铜柱立在甲板上
+Z_IN14_PCB = Z_DRV + 1.6 + 11                  # IN-14 小板底面 116.6：2×7 排母 8.5 + 排针塑料座 2.5 插在驱动板上（IV-18 顶 114；管顶 174.7，EL 托架下沿 176）
+DRV = (20, 40, 150, 80)                        # 辉光驱动板占位 x0, y0, 长, 宽（未画）
+EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶面 z 111.6，管顶 173.6（托架下沿 176）
 IV18_X0 = 27                                   # IV-18 引线端玻壳中心 X（玻壳到 X=142）
-Z_IV18_PCB = Z_DECK + 3                        # IV-18 板底面，管心 Z=104.6
+Z_IV18_PCB = Z_DECK + PLATE_T + 1                        # IV-18 板底面，管心 Z=104.6
 EYE_Y = 27                                     # 6E2 管轴 Y（让开前面的盖革管）
 SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 184           # 盖革管 J305 管轴（变量名沿用 SBM_）
 GM_L = 111.0                                   # J305 长度（T）
+PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
+PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
+PCB3_STANDOFF = 10
 
 
 def tubes():
     sock = P.in14_socket_pcb()
     for k, x in enumerate(TUBE_X):
-        add(f"IN14_socket_PCB_{k+1}", sock.translate((x - 11, Y_TUBE - 12, Z_IN14_PCB)), "pcb_b", "tubes")
-        for xx in (x - 6, x + 6):
-            add("standoff_M3x24", P.standoff_m3(Z_IN14_PCB - Z_DECK - 2).translate((xx, Y_TUBE + 22, Z_DECK + 2)), "brass", "tubes")
+        add(f"IN14_socket_PCB_{k+1}", sock.translate((x - 10.5, Y_TUBE - 12, Z_IN14_PCB)), "pcb_b", "tubes")
         add(f"IN-14_{k+1}", P.in14().translate((x, Y_TUBE, Z_IN14_PCB + 1.6 + 4)), "nixie", "tubes")
+    # 辉光驱动板（K155ID1×6 + 74HCT595×3 + 高压小板插座）：6 块 IN-14 小板用 2×7 排针插在它前沿，每块再用 1 颗 M3 锁住
+    x0, y0, l, w = DRV
+    add("Nixie_driver_PCB(placeholder)", P.box(l, w, 1.6, x0, y0, Z_DRV), "pcb_b", "tubes")
+    for xx, yy in ((x0 + 5, y0 + w - 5), (x0 + l - 5, y0 + w - 5), (70.5, y0 + 5), (119.5, y0 + 5)):   # 后两角 + 前沿两个分组空隙
+        add("standoff_M3x10", P.standoff_m3(10).translate((xx, yy, Z_DECK + PLATE_T)), "brass", "tubes")
     # IV-18：板直接用尼龙垫片坐在甲板上，支架托住管子
     add("IV18_PCB", P.iv18_pcb().translate((IV18_X0 - 5, Y_IV18 - 9, Z_IV18_PCB)), "pcb_b", "tubes")
     add("IV-18", P.iv18().translate((IV18_X0, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
-    # 辉光管驱动板（K155ID1×6 + NCH6100HV）还没画；机内可用空间见 free_space.py
-    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((215, 166, Z_DECK + 2 + 6)), "module", "tubes")
+    add("IV18_PSU(envelope)", P.hv_module(40, 30, 15).translate((215, 166, Z_DECK + PLATE_T + 6)), "module", "tubes")
     # 6E2 ×2：管座在甲板上，管子竖立在前面板竖窗后
     for k, x in enumerate(AP.EYE_X):
-        add(f"Noval_socket_{k+1}", M.noval_socket().translate((x, EYE_Y, Z_DECK + 2 + 10)), "dark", "tubes")
-        add(f"6E2_{k+1}", M.tube_6e2().translate((x, EYE_Y, Z_DECK + 2 + 10)), "eye", "tubes")
+        z = Z_DECK + PLATE_T + EYE_STANDOFF + 1.6 + 10                                   # 6E2 板还没画，只按铜柱 + 板厚抬高管座
+        add(f"Noval_socket_{k+1}", M.noval_socket().translate((x, EYE_Y, z)), "dark", "tubes")
+        add(f"6E2_{k+1}", M.tube_6e2().translate((x, EYE_Y, z)), "eye", "tubes")
 
 # ------------------------------------------------------------------ 盖革：J305 横在前面板开窗后；用成品盖革板（RadiationD v1.1 类），位置待定
 def geiger():
     add("J305", M.j305(GM_L).translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
     for x in (SBM_X0 + 1, SBM_X0 + GM_L - 5):                 # 端帽夹（T）
-        add("GM_tube_clip", P.box(4, 10, SBM_Z - 5.5 - Z_DECK - 2, x, SBM_Y - 5, Z_DECK + 2), "alu", "geiger")
+        add("GM_tube_clip", P.box(4, 10, SBM_Z - 5.5 - Z_DECK - PLATE_T, x, SBM_Y - 5, Z_DECK + PLATE_T), "alu", "geiger")
     # 盖革板还没画；机内可用空间见 free_space.py
 
 # ------------------------------------------------------------------ 下舱：电源、配电、喇叭
 def lower():
-    # LRS-200-24 靠后放，端子在右端（靠近 IEC 插座）；配电板（含两个 NID100）还没画；机内可用空间见 free_space.py
+    # LRS-200-24 靠后放，端子在右端（靠近 IEC 插座）；机内可用空间见 free_space.py
     px, py, pl, pw = 22, 83, 215, 115
     add("MeanWell_LRS-200-24", M.lrs200_24().translate((px, py, 0)), "psu", "power")
+    # PCB-3 电源板（PWR-DIST D1，150×100，mis-01-56 导出的 STEP）：元件朝下倒挂在甲板下，M3×10 铜柱，四孔落在甲板孔阵上；
+    # 绕 X 转 180°，+x 的 J_24V 仍朝 LRS 输出端；元件最低 z 51，离 LRS 顶 21（2026-10-20 用户确认）
+    z = Z_DECK - PCB3_STANDOFF
+    add("PCB-3_PWR-DIST", V.load_abs(PCB3_STEP).rotate((0, 0, 0), (1, 0, 0), 180).translate((PCB3_XY[0], PCB3_XY[1], z)), "pcb_g", "power")
+    for dx, dy in ((5, 5), (145, 5), (5, 95), (145, 95)):
+        add("standoff_M3x10_PCB3", P.standoff_m3(PCB3_STANDOFF).translate((PCB3_XY[0] + dx, PCB3_XY[1] - dy, z)), "brass", "power")
     # 市电端子防护罩（亚克力 3 mm 罩帽，罩住电源右端端子，用电源侧面 M3 孔经角片固定）
     t, hx, hy, hl, hw, hh = 3, px + pl - 24, py - 2, 46, pw + 4, 40
     hood = (P.box(hl, hw, t, hx, hy, hh - t)                                   # 顶
@@ -103,16 +119,16 @@ def lower():
 def computers():
     pass
 
-# ------------------------------------------------------------------ 后面板 + 风扇
+# ------------------------------------------------------------------ 后面板
 def rear():
-    cut = [(265, 30, 28, 48)]                                         # IEC C14 带开关插座（预留）；电脑接口窗待板子定位后再开
-    holes = [(cx + sx * 25, 340 + sz * 25, 4.4) for cx in (100, 220) for sx in (-1, 1) for sz in (-1, 1)]
-    holes += [(cx, 340, 56) for cx in (100, 220)]
+    IEC = (276.0, 54.0)                                               # AC-14-F12 开孔中心；耳孔 x 256 / 296，螺母让开右后立柱（x ≥ 300）
+    cut = [(IEC[0] - 14, IEC[1] - 30, 28, 60)]                        # IEC C14 三合一开孔 28x60；电脑接口窗待板子定位后再开
+    holes = [(cx, 340, 56) for cx in (100, 220)]                       # 原 60 风扇位，2026-10-20 不装风扇，留作通风孔
+    holes += [(IEC[0] + sx * 20, IEC[1], 3.5) for sx in (-1, 1)]     # 电源座耳孔 M3
     holes += [(10, z, 4.5) for z in (10, 210, 410)] + [(W - 10, z, 4.5) for z in (10, 210, 410)]
     holes += [(x, 40, 6.5) for x in (225, 247)]                        # 后 SMA ×2 预留
     add("rear_panel_2mm", P.panel(W, H, 2, cut, holes).translate((0, D, 0)), "panel", "rear")
-    for cx in (100, 220):
-        add("fan_60x15", P.fan(60, 15).translate((cx, D - 15, 340)), "dark", "rear")
+    add("IEC_C14_AC-14-F12", F.iec_c14_inlet().rotate((0, 0, 0), (0, 0, 1), 180).translate((IEC[0], D + 2, IEC[1])), "dark", "rear")
 
 def build():
     ITEMS.clear()

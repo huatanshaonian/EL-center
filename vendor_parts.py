@@ -17,6 +17,13 @@ def load(rel):
         _cache[rel] = cq.Workplane("XY").newObject([cq.Compound.makeCompound(bodies)])
     return _cache[rel]
 
+def load_abs(rel):
+    """读入项目根目录下任意 STEP（自制板导出的整板模型，含只有曲面壳的元件），返回 Workplane（保持原始坐标）"""
+    if rel not in _cache:
+        s = cq.importers.importStep(os.path.join(os.path.dirname(VENDOR), "..", rel))
+        _cache[rel] = cq.Workplane("XY").newObject([cq.Compound.makeCompound(s.vals())])
+    return _cache[rel]
+
 def compound(*shapes):
     """把若干 Workplane 合成一个 Compound（不做布尔运算）"""
     return cq.Workplane("XY").newObject([cq.Compound.makeCompound([v for s in shapes for v in s.vals()])])

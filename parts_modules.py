@@ -106,10 +106,10 @@ def x1_tablet_keyboard():
     return k.cut(box(100, 55, 0.4, (s["W"] - 100) / 2, 22, s["t"] - 0.4))                 # 触摸板
 
 def tube_6e2():
-    """6E2（EM84 类）侧视条形调谐指示管：玻壳 Ø22.2（C，EM84 资料最大值）x 66（T），顶部圆顶 + 排气尖（T）
+    """6E2（EM84 类）侧视条形调谐指示管：玻壳 Ø22.2（C，EM84 资料最大值），总高 62（含排气尖、不含插针，用户实测 2026-10-20），顶部圆顶 + 排气尖（T）
     9 脚小型管（noval）：针圆 Ø11.89（C），10 等分缺 1 位，针 Ø1 x 6（T）；荧光条在侧面中部约 z 20..50（T）
     原点=玻壳底部中心，Z 向上，针向 -Z"""
-    SPEC = dict(D=22.2, L=66.0, dome_r=7.0, tip=(3.0, 4.0), pcd=11.89, pin_d=1.0, pin_L=6.0)
+    SPEC = dict(D=22.2, L=59.0, dome_r=7.0, tip=(3.0, 4.0), pcd=11.89, pin_d=1.0, pin_L=6.0)
     s = SPEC
     g = cyl(s["D"] / 2, s["L"]).edges(">Z").fillet(s["dome_r"])
     g = g.union(cyl(s["tip"][0], s["tip"][1], 0, 0, s["L"] - 1))
@@ -119,9 +119,9 @@ def tube_6e2():
     return g
 
 def noval_socket():
-    """9 脚小型管座（noval / B9A，PCB 安装）占位：Ø22 x 10、中心孔 Ø4、焊针 4.5（全部 T）
+    """9 脚小型管座（noval / B9A，PCB 安装）占位：Ø22 x 10、中心孔 Ø4、焊片按剪短后 3.6 画（板厚 1.6 + 板下 ≤2）（全部 T）
     原点=管座顶面中心（管底贴此面），本体向 -Z"""
-    SPEC = dict(D=22.0, H=10.0, hole_d=4.0, pcd=11.89, pin_L=4.5)
+    SPEC = dict(D=22.0, H=10.0, hole_d=4.0, pcd=11.89, pin_L=3.6)   # 焊片焊完剪短：板下 ≤2
     s = SPEC
     k = cyl(s["D"] / 2, s["H"], 0, 0, -s["H"]).cut(cyl(s["hole_d"] / 2, s["H"] + 2, 0, 0, -s["H"] - 1))
     for i in range(9):
