@@ -20,14 +20,19 @@ def j305(L=103.5):
         b = b.union(cyl(s["cap_D"] / 2, e, x, 0, 0, "X"))
     return b
 
-def geiger_clip_strip(L=134.0, W=12.0, clips=(22.25, 123.25)):
-    """盖革管夹子长条板（mis-01-56 方案 2026-10-20）：约 134×12，贴甲板（薄垫片调高），板上两只 Littelfuse 10207101009（C142864）6.3 mm 保险丝夹。
-    夹子：沿管轴宽 7、两脚沿管轴相距 7.6、总高 10.9（C）；夹口中心离板面约 6.7（T，估算）。clips = 两只夹子中心的板坐标 x。
-    原点 = 板底面左前角，X 沿管轴"""
-    b = box(L, W, 1.6)
+# 夹子长条板 L 形外形（板坐标，原点 = 全局 (153, 2)）：长条 x 0–146 × y 0–12，左端往后加宽到 y 36（全局 x 153–186、y 2–38）
+CLIP_STRIP_OUTLINE = ((0, 0), (146, 0), (146, 12), (33, 12), (33, 36), (0, 36))
+
+
+def geiger_clip_strip(outline=CLIP_STRIP_OUTLINE, clips=(34.25, 135.25), clip_y=6.0):
+    """盖革管夹子长条板 GEIGER-CLIP D1（mis-01-56 2026-10-21 改 L 形）：J305 横在长条上方，左端加宽的一块放检测电路（全直插），
+    4.7 MΩ 阳极电阻改贴片放在管子底下，右端只有高压焊线盘和 1 个 M3 尼龙螺丝孔。只留 J305 一组夹子（HAC2311S 那组删了）。
+    夹子 Littelfuse 10207101009（C142864）：沿管轴宽 7、两脚沿管轴相距 7.6、总高 10.9（C）；夹口中心离板面约 6.7（T，估算）。
+    clips = 两只夹子中心的板坐标 x，clip_y = 夹子中心板坐标 y。原点 = 板底面左前角，X 沿管轴"""
+    b = cq.Workplane("XY").polyline(list(outline)).close().extrude(1.6)
     for cx in clips:
-        c = box(7, 7, 10.9, cx - 3.5, W / 2 - 3.5, 1.6).cut(cyl(3.15, 9, cx - 4.5, W / 2, 1.6 + 6.7, "X"))
-        b = b.union(c.cut(box(9, 7.5, 6, cx - 4.5, W / 2 - 3.75, 1.6 + 6.7)))     # 夹口朝上开口
+        c = box(7, 7, 10.9, cx - 3.5, clip_y - 3.5, 1.6).cut(cyl(3.15, 9, cx - 4.5, clip_y, 1.6 + 6.7, "X"))
+        b = b.union(c.cut(box(9, 7.5, 6, cx - 4.5, clip_y - 3.75, 1.6 + 6.7)))     # 夹口朝上开口
     return b
 
 def geiger_clip_board():
