@@ -58,6 +58,7 @@ EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶
 IV18_X0 = 27                                   # IV-18 引线端玻壳中心 X（玻壳到 X=142）
 Z_IV18_PCB = Z_DECK + PLATE_T + 1                        # IV-18 板底面，管心 Z=104.6
 EYE_Y = 27                                     # 6E2 管轴 Y（让开前面的盖革管）
+EYE_ROT = 18                                   # 6E2 管座绕 Z 转角：荧光屏正对 7 脚、正对 -Y（前面板）时，缺口在 +X 往后偏 18°（北京 6E2，用户确认缺口在右）
 SBM_Y, SBM_Z, SBM_X0 = 8, 103.5, 184           # 盖革管 J305 管轴（变量名沿用 SBM_）
 GM_L = 111.0                                   # J305 长度（T）
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
@@ -82,10 +83,11 @@ def tubes():
     # 6E2 ×2：管座在甲板上，管子竖立在前面板竖窗后
     for k, x in enumerate(AP.EYE_X):
         z = Z_DECK + PLATE_T + EYE_STANDOFF + 1.6 + 10                                   # 6E2 板还没画，只按铜柱 + 板厚抬高管座
-        add(f"Noval_socket_{k+1}", M.noval_socket().translate((x, EYE_Y, z)), "dark", "tubes")
-        add(f"6E2_{k+1}", M.tube_6e2().translate((x, EYE_Y, z)), "eye", "tubes")
+        rz = lambda s: s.rotate((0, 0, 0), (0, 0, 1), EYE_ROT).translate((x, EYE_Y, z))
+        add(f"Noval_socket_{k+1}", rz(M.noval_socket()), "dark", "tubes")
+        add(f"6E2_{k+1}", rz(M.tube_6e2()), "eye", "tubes")
 
-# ------------------------------------------------------------------ 盖革：J305 横在前面板开窗后；用成品盖革板（RadiationD v1.1 类），位置待定
+# ------------------------------------------------------------------ 盖革：J305 横在前面板盖革窗后；自制盖革板（参考 MightyOhm），位置待定
 def geiger():
     add("J305", M.j305(GM_L).translate((SBM_X0, SBM_Y, SBM_Z)), "geiger", "geiger")
     for x in (SBM_X0 + 1, SBM_X0 + GM_L - 5):                 # 端帽夹（T）
