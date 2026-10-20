@@ -57,6 +57,10 @@
 /el_driver/ESP-BASE_D1/*
 !/el_driver/ESP-BASE_D1/*.net
 !/el_driver/ESP-BASE_D1/*.txt
+!/el_driver/HV-UNI_D1/
+/el_driver/HV-UNI_D1/*
+!/el_driver/HV-UNI_D1/*.net
+!/el_driver/HV-UNI_D1/*.txt
 !/el_driver/面包板图_D1.1/
 /el_driver/面包板图_D1.1/*.bak_r0
 /el_driver/面包板图_D1.1/src/*.png
