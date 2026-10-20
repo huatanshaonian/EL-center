@@ -8,6 +8,7 @@ import parts as P
 import parts_modules as M
 import parts_panel as F
 import parts_dock as PD
+import vendor_parts as V
 from assembly_base import W, H, Z_DECK, Z_SCREEN, add, place, to_min
 
 # ---------------------------------------------------------------- 斜面几何
@@ -21,7 +22,8 @@ Z_BASE = Z_CHIN - SLANT_L * CA                   # 斜面下沿高度，约 18.4
 SEL = (37.0, 40)
 USB = ((30.0, 10), (67.0, 10))                  # 左 USB3（直连 Pi）、右 USB2（来自 Hub）；带耳延长线母头，中心距 ≥37（耳宽 35，T）
 PCB_D, PCB_T = 6.5, 1.6                           # 斜面电路板元件面到斜面内表面 6.5（推子贴死面板）
-PCB_X, PCB_U = (24.0, 164.0), (3.0, 73.0)         # 占位外形 140x70；可用范围 x 21–168 × u 0–81
+PCB_X, PCB_U = (17.0, 166.0), (0.0, 78.0)         # SLANT D1 外形 x 17–166、u 0–78（下沿两个 USB 缺口，左上 x 17–21 只到 u 64）
+SLANT_STEP = "el_driver/SLANT_D1/制板文件/SLANT_D1.step"   # 约 26 MB，不进 git；板原点 = 斜面 (17, 0)，板 +y = u，顶层（元件面）朝面板
 ENC = ((98.5, 63), (123.5, 63), (148.5, 63))   # 3 个编码器一排，中心距 25（Ø15 旋钮间隙 10）；2026-10-20 由 2 个改 3 个
 FADER_X, FADER_U = 123.5, (40, 24)                # 两根推子间距 16（原 40/18）
 TOG_X, TOG_U, LAMP_U = (180.5, 201.5, 222.5), 26, 63
@@ -97,14 +99,19 @@ def slant():
         for j, x in enumerate(KEY_X):
             add(f"Rect_lamp_button_{i * 2 + j + 1}", on_slant(key, x, u), "lamp", "ui")
 
+def _slant_drop(b):
+    """SLANT D1 STEP 里不装的实体：模式开关孔里多出来的 Ø34 圆片；EC11 本体和轴（用 P.ec11 自己的模型，带旋钮）"""
+    hole_disc = b.xmin > 2 and b.xmax < 38 and b.ymin > 22 and b.ymax < 58 and b.zmin > -0.1 and b.zmax < 1.7
+    ec11_top = 74 < b.xmin and b.xmax < 139 and 54 < b.ymin and b.ymax < 72 and b.zmax > 3.8                # 背面阻容最高 3.5
+    return hole_disc or ec11_top
+
 def slant_pcb():
-    """斜面电路板占位（Pico、ULN2803，EC11、推子焊在板上）：板到斜面内表面 PCB_D；模式开关处开 Ø34 孔，两个 USB 母头处开让位缺口"""
-    x0, x1 = PCB_X; u0, u1 = PCB_U
-    cut = [(x - 11 - x0, 0, 22, u + 7 - u0) for x, u in USB]                                    # 从下边缘开缺口
-    holes = [(SEL[0] - x0, SEL[1] - u0, 34)]
-    b = P.panel(x1 - x0, u1 - u0, PCB_T, cut, holes)
-    add("Slant_PCB(placeholder)", place(b.translate((x0, 2 + PCB_D, u0)), 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_b", "ui")
-    pico = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90)     # 贴板背面、竖放，位置 T
+    """斜面电路板 SLANT D1（mis-01-56 导出的整板 STEP；Pico、ULN2803、键插座在背面，EC11、推子焊在顶层）：
+    元件面到斜面内表面 PCB_D。STEP 绕 X 转 +90°：板 z（顶层朝上）→ 局部 -Y（朝面板），板 y → 局部 Z（= u）"""
+    b = V.load_abs_drop(SLANT_STEP, _slant_drop).rotate((0, 0, 0), (1, 0, 0), 90)
+    b = b.translate((PCB_X[0], 2 + PCB_D + PCB_T, PCB_U[0]))
+    add("SLANT_board", place(b, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
+    pico = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90)     # 贴板背面、长边沿 u，中心斜面 (72.5, 45.5)（SLANT D1 U1；STEP 里没有 Pico 模型）
     pico = to_min(pico, 62, 2 + PCB_D + PCB_T, 20)                                              # 让开模式开关孔、USB 缺口、编码器和推子焊脚
     add("RPi_Pico(on_slant_PCB)", place(pico, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
 

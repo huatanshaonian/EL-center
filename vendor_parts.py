@@ -24,10 +24,14 @@ def load_abs(rel):
         _cache[rel] = cq.Workplane("XY").newObject([cq.Compound.makeCompound(s.vals())])
     return _cache[rel]
 
-def load_abs_within(rel, x0, x1):
-    """同 load_abs，但只保留 X 范围在 [x0, x1] 内的实体（去掉画板方放进 STEP 的占位件，如 IN-14 小板上代替管子的 1×13 排针）"""
-    keep = [s for s in load_abs(rel).val().Solids() if s.BoundingBox().xmin >= x0 - 0.1 and s.BoundingBox().xmax <= x1 + 0.1]
+def load_abs_drop(rel, drop):
+    """同 load_abs，但去掉 drop(包围盒) 为真的实体（画板方 STEP 里的占位件、重复件）"""
+    keep = [s for s in load_abs(rel).val().Solids() if not drop(s.BoundingBox())]
     return cq.Workplane("XY").newObject([cq.Compound.makeCompound(keep)])
+
+def load_abs_within(rel, x0, x1):
+    """只保留 X 范围在 [x0, x1] 内的实体（如去掉 IN-14 小板上代替管子的 1×13 排针）"""
+    return load_abs_drop(rel, lambda b: b.xmin < x0 - 0.1 or b.xmax > x1 + 0.1)
 
 def compound(*shapes):
     """把若干 Workplane 合成一个 Compound（不做布尔运算）"""
