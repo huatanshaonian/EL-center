@@ -81,6 +81,7 @@ GEIGER_CLIP_STEP = "el_driver/GEIGER_D1/制板文件_夹子板/GEIGER-CLIP_D1.st
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
+NID_SOCKET = 8.5                               # NID100 插拔式：排母塑高（0 = 直接焊在板上）
 
 
 def hv_uni(name, x, y, rot, z_host):
@@ -165,11 +166,12 @@ def lower():
     px, py, pl, pw = 22, 83, 215, 115
     add("MeanWell_LRS-200-24", M.lrs200_24().translate((px, py, 0)), "psu", "power")
     # PCB-3 电源板（PWR-DIST D1，150×100，mis-01-56 导出的 STEP）：元件朝下倒挂在甲板下，M3×10 铜柱，四孔落在甲板孔阵上；
-    # 绕 X 转 180°，+x 的 J_24V 仍朝 LRS 输出端；元件最低 z 51，离 LRS 顶 21（2026-10-20 用户确认）
+    # 绕 X 转 180°，+x 的 J_24V 仍朝 LRS 输出端；NID100 原来直焊时最低 z 51、离 LRS 顶 21（2026-10-20 用户确认）；改插拔式后见 pcb3_nid_modules
     z = Z_DECK - PCB3_STANDOFF
     add("PCB-3_PWR-DIST", V.load_abs(PCB3_STEP).rotate((0, 0, 0), (1, 0, 0), 180).translate((PCB3_XY[0], PCB3_XY[1], z)), "pcb_g", "power")
     for dx, dy in ((5, 5), (145, 5), (5, 95), (145, 95)):
         add("standoff_M3x10_PCB3", P.standoff_m3(PCB3_STANDOFF).translate((PCB3_XY[0] + dx, PCB3_XY[1] - dy, z)), "brass", "power")
+    pcb3_nid_modules(z - 1.6)
     # 市电端子防护罩（亚克力 3 mm 罩帽，罩住电源右端端子，用电源侧面 M3 孔经角片固定）
     t, hx, hy, hl, hw, hh = 3, px + pl - 24, py - 2, 46, pw + 4, 40
     hood = (P.box(hl, hw, t, hx, hy, hh - t)                                   # 顶
@@ -179,6 +181,19 @@ def lower():
     add("Mains_hood_acrylic", hood, "acrylic", "covers")
     # 喇叭暗装：贴在左侧下层型材之间，朝开放的左侧面发声
     add("Speaker_40mm", F.speaker_40().rotate((0, 0, 0), (0, 0, 1), -90).translate((22, 50, 45)), "dark", "power")
+
+
+def pcb3_nid_modules(z_face):
+    """PCB-3 上的 NID100-12（U_N12，板本地 y 63）、NID100-5（U_N5，y 37）：板子倒挂，模块针朝上插在排母里往下伸。
+    1 脚焊盘板本地 x 41.87（坐标文件），针排在 y 上；模型 1 脚在 (1.3, 5.0)，针根 z 0。
+    2026-10-22 用户要改插拔式（mis-01-56 改板中）：板上焊 2.54 单排排母（塑高 NID_SOCKET），模块再低 NID_SOCKET。"""
+    nid = V.nid100_05().rotate((0, 0, 0), (1, 0, 0), 180)                         # 针朝上
+    z_root = z_face - NID_SOCKET
+    for name, ly in (("NID100-12_U_N12", 63), ("NID100-5_U_N5", 37)):
+        gx, gy = PCB3_XY[0] + 41.87, PCB3_XY[1] - ly                               # 倒挂后板本地 y → 全局 160 − y
+        add(name, nid.translate((gx - 1.3, gy + 5.0, z_root)), "psu", "power")
+        if NID_SOCKET:
+            add("socket_2.54_1x13_" + name.split("_", 1)[1], P.box(48.2 + 2.54, 2.5, NID_SOCKET, gx - 1.27, gy - 1.25, z_root), "dark", "power")
 
 # ------------------------------------------------------------------ 电脑层
 # Orange Pi 4、Dock、HDMI 软排线两头小板：暂定布置（2026-10-21，待用户确认），见 assembly_computers.py。
