@@ -1,4 +1,4 @@
-// 辉光钟（F4）：6×IN-14，4 片 74HCT595（字节 0 = 6 个右小数点，字节 1–3 = 时/分/秒 BCD）
+// 辉光钟（F4）：6×IN-14，4 片 74AHCT595（字节 0 = 6 个右小数点，字节 1–3 = 时/分/秒 BCD）
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>

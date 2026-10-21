@@ -10,7 +10,7 @@
 #define PIN_HV_EN         7   // 出  高压使能（PCB-3 100 k 下拉）
 #define PIN_I2C_SDA       8
 #define PIN_I2C_SCL       9
-#define PIN_LATCH_595     10  // 出  74HCT595 锁存
+#define PIN_LATCH_595     10  // 出  74AHCT595 锁存
 #define PIN_SPI_SDO       11  // 出  595 链与 MAX6921 共用
 #define PIN_SPI_SCK       12
 #define PIN_LOAD_6921     13  // 出  MAX6921 锁存

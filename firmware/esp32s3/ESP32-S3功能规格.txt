@@ -1,6 +1,6 @@
 MIS-01 仪器层控制器 ESP32-S3 功能规格
 ====================================================================
-版本：v0.9.3（2026-10-22）
+版本：v0.9.4（2026-10-22）
 硬件：微雪 Waveshare ESP32-S3-DEV-KIT（用户 2026-10-20 确认，不是乐鑫官方 DevKitC-1），模组 ESP32-S3-WROOM-1U-N16R8（Flash 16 MB，Octal PSRAM 8 MB，外接天线）；
       两排排针中心距实测约 23.0 mm（外侧 23.7 / 内侧 22.3），按 0.9 英寸 = 22.86 mm 设计底板。
       微雪板排针脚序与乐鑫 DevKitC-1 完全相同（两排各 22 针，1 脚在天线端）；只有一个 USB-C，板载 CH334F Hub
@@ -123,7 +123,8 @@ F5 IV-18（MAX6921，D13）
    扫描：9 位轮流，每位 1 ms（帧率 111 Hz；规格范围 0.5–1 ms）；换位时先 BLANK=高 ≥ 5 µs（BLANK↑ 到输出全低最长 3.3 µs），
      在 BLANK 为高期间发数据、打 LOAD，再放开 BLANK。
    亮度：在每位的时间片内缩短 BLANK 为低的时间（与扫描同一定时器，不用独立 LEDC，避免拍频闪烁）。
-   电源：IV18_PWR_EN 开 XL6009（约 35 V）和灯丝；灯丝由 IV18_FIL 方波驱动 H 桥，CFG FIL_HZ [默认 20000]，50 %（LEDC）；
+   电源：IV18_PWR_EN 开 XL6009（约 35 V）和灯丝；灯丝由 IV18_FIL 方波驱动 H 桥，CFG FIL_HZ [默认 20000，可设 10000–20000]，50 %（LEDC）；
+     低于 10 kHz 时 IV-18 板 FIL_OK 检测（C8/R7）判不出翻转、会断灯丝，要更低须先改板上 C8（见调研 3.3）。
      20 kHz 在人耳范围外、每个扫描时隙里有 20 个周期，不和扫描拍频。
    开显示顺序：先开 FIL 方波 → 等 20–30 ms（至少 10 ms，见 S6）→ IV18_PWR_EN=高 → 等 [默认 200 ms] 灯丝预热 → 开始扫描 → 放开 BLANK。
    关显示顺序：BLANK=高 → 停扫描 → IV18_PWR_EN=低 → 停 FIL 方波。见 S1、S6。
@@ -266,7 +267,7 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
     PRES?             → OK PRES=0|1 DIST=<cm 或 ->
     CFG? <键>         → OK <键>=<值>
     CFG <键> <值>     → 修改（立即生效）；CFG SAVE 写 NVS；CFG DEFAULT 恢复默认
-    键与默认值：NOBODY_S=300  NIGHT=23:00-07:00  HV_GAP_S=2  NIX_CYCLE_MIN=60  FIL_HZ=20000  BZ_HZ=4000  LUX_MS=1000
+    键与默认值：NOBODY_S=300  NIGHT=23:00-07:00  HV_GAP_S=2  NIX_CYCLE_MIN=60  FIL_HZ=20000（10000–20000）  BZ_HZ=4000  LUX_MS=1000
                GM_PERIOD_S=60  NTP=0  WIFI_SSID=  WIFI_PASS=
                BOOT_ANIM=1  NIX_SLOT=1  NIX_ACP_MIN=5（0 = 不做每日修复）  VFD_ROT_S=10  IV18_TYPE=2
                TZ=CST-8  VFD_BRT_MIN=250（50–1000）  VFD_BRT_LUX=1000（10–65535）
@@ -298,6 +299,7 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
 --------------------------------------------------------------------
 修订记录
 --------------------------------------------------------------------
+v0.9.4 2026-10-22 CFG FIL_HZ 下限由 100 改为 10000（IV-18 板 FIL_OK 检测在 10 kHz 以下不成立，F5、6.9）。
 v0.9.3 2026-10-22 按下单前独立复查（ESP 底板、辉光驱动板、PCB-3）：辉光驱动板实为 74AHCT595（GPIO10 行、F4 标题）；
      F4 消隐某位时清小数点；第 3 节 E2_A/B 复位措辞（GPIO39 有内部弱上拉，仍截止）；第 4 节 Pi 22 脚开内部上拉；
      GPIO1/2/4 开内部上拉、主机断电时 ST_SCR 恒低的说明。

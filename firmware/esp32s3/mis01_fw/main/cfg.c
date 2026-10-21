@@ -84,6 +84,7 @@ void cfg_init(void)
         g_cfg.nix_acp_min = b.nix_acp_min; g_cfg.vfd_rot_s = b.vfd_rot_s; g_cfg.iv18_type = b.iv18_type;
         memcpy(g_cfg.tz, b.tz, sizeof(b.tz)); g_cfg.tz[31] = 0;
         if (!g_cfg.tz[0]) strcpy(g_cfg.tz, "CST-8");
+        if (g_cfg.fil_hz < 10000 || g_cfg.fil_hz > 20000) g_cfg.fil_hz = 20000;   // 旧版允许更低，现不成立
         g_cfg.vfd_brt_min = b.vfd_brt_min; g_cfg.vfd_brt_lux = b.vfd_brt_lux;
     }
     const char *eyek[2] = {"eyecal_a", "eyecal_b"};
@@ -185,7 +186,7 @@ static const cfgkey_t KEYS[] = {
     {"NIGHT",         K_NIGHT, NULL,                 0, 0},
     {"HV_GAP_S",      K_INT,   &g_cfg.hv_gap_s,      1, 600},
     {"NIX_CYCLE_MIN", K_INT,   &g_cfg.nix_cycle_min, 1, 1440},
-    {"FIL_HZ",        K_INT,   &g_cfg.fil_hz,        100, 20000},
+    {"FIL_HZ",        K_INT,   &g_cfg.fil_hz,        10000, 20000},   // IV-18 板 FIL_OK 检测要 ≥ 10 kHz
     {"BZ_HZ",         K_INT,   &g_cfg.bz_hz,         200, 10000},
     {"LUX_MS",        K_INT,   &g_cfg.lux_ms,        200, 60000},
     {"GM_PERIOD_S",   K_INT,   &g_cfg.gm_period_s,   1, 3600},

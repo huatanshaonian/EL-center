@@ -77,8 +77,12 @@ void nixie_off(int t_s)
 void nixie_auto(void) { dm_set_auto(DM_NIX); }
 void nixie_cycle_now(void) { s_cycle_req = true; }
 
+// 某位消隐（K155ID1 码 > 9 全灭）时清掉该位小数点：数字全灭只亮小数点时电流约 0.35–0.5 mA，
+// 超过 IN-14 小数点规格 0.3 mA（规格 F4）。管 n（1..6）的小数点在 bit(6-n)。
 static void make_frame(const uint8_t d[6], uint8_t dp, uint8_t f[4])
 {
+    for (int i = 0; i < 6; i++)
+        if (d[i] > 9) dp &= (uint8_t)~(1u << (5 - i));
     f[0] = dp & 0x3F;
     f[1] = (uint8_t)((d[0] << 4) | d[1]);
     f[2] = (uint8_t)((d[2] << 4) | d[3]);
