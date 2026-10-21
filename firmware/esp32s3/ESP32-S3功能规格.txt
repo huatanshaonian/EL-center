@@ -1,6 +1,6 @@
 MIS-01 仪器层控制器 ESP32-S3 功能规格
 ====================================================================
-版本：v0.9.4（2026-10-22）
+版本：v0.9.6（2026-10-22）
 硬件：微雪 Waveshare ESP32-S3-DEV-KIT（用户 2026-10-20 确认，不是乐鑫官方 DevKitC-1），模组 ESP32-S3-WROOM-1U-N16R8（Flash 16 MB，Octal PSRAM 8 MB，外接天线）；
       两排排针中心距实测约 23.0 mm（外侧 23.7 / 内侧 22.3），按 0.9 英寸 = 22.86 mm 设计底板。
       微雪板排针脚序与乐鑫 DevKitC-1 完全相同（两排各 22 针，1 脚在天线端）；只有一个 USB-C，板载 CH334F Hub
@@ -132,6 +132,7 @@ F5 IV-18（MAX6921，D13）
    AUTO 本地内容（防烧屏：荧光粉常亮的段先变暗，所以内容轮换、不固定显示一样东西）：
      时间有效：日期 "26-10-21" → 盖革 "CP    23"（CPM 右对齐；无效时 "CP  ----"）→ 温度 "   23.5*C"（"." 并入前一位，正好 8 位），每样 CFG VFD_ROT_S 秒 [默认 10]；
      时间无效：CPM 与温度两样轮换。温度来自 DS3231 内部温度传感器（F12），为芯片附近温度，与室温有几度偏差。
+     有天气数据（F15 ④，2 h 内）时在温度后加一项室外温度 "o  12.5*C"（最左位 "o" 与室内温度区分，温度右对齐）。
      换内容时用擦除动画：旧内容从左到右逐位熄灭、新内容从左到右逐位出现（每位约 25 ms）。
    开机动画（CFG BOOT_ANIM=1）：开始扫描后，一个亮段绕整排外圈（各位 a 段 → 末位 b、c → 各位 d 段 → 首位 e、f）跑两圈，
      再全段点亮 0.5 s（兼作段自检），再显示版本号 1 s（七段显示不了 M，所以不显示 "MIS-01"）。
@@ -172,12 +173,26 @@ F10 环境光（BH1750）：每 1 s 读一次（CFG LUX_MS），用于 IV-18 自
     声音（麦克风阵列、语音控制）在 Pi 侧做，不接 ESP（ESP 已无空脚）；ESP 只按协议显示 Pi 送来的结果。
 F11 人体感应（LD2410B）：OUT 脚作主判据；UART 可读距离/能量（可选）。"无人"判定延时 [默认] 300 s（CFG NOBODY_S）。
 F12 时间：开机读 DS3231；RTC 掉电标志置位时 RTC=0（"时间无效"），辉光钟显示 00:00:00 闪烁直到对时。
-    Pi 经 TIME 命令下发后写回 RTC（Pi 由 NTP 对时，比 RTC 准）；Pi 不在线且 CFG NTP=1 时 ESP 用 Wi-Fi NTP 对时并写回 RTC。
+    Pi 经 TIME 命令下发后写回 RTC（Pi 由 NTP 对时，比 RTC 准）；CFG NTP=1 时 ESP 另外每 24 h 用 Wi-Fi NTP 对一次并写回 RTC（F15 ①）。
     时区：Pi 下发本地时间；ESP 内部只存本地时间。Wi-Fi NTP 拿到的 UTC 按 CFG TZ（POSIX 时区串，[默认] CST-8 = 北京时间）换算。
     温度：读 DS3231 温度寄存器（0x11/0x12，0.25 °C 分辨率，芯片每 64 s 更新），每 10 s 读一次，供 IV-18 轮换显示和 TEMP?。
 F13 与 Orange Pi 的通信：见第 6 节。
 F14 自检与日志：开机经 CH343 串口打印版本、复位原因、引脚与 I²C 设备自检结果；
     异常（看门狗复位、PFAIL、传感器丢失）写 NVS 事件环形缓冲（至少 64 条），Pi 用 LOG? 读取。
+F15 网络（Wi-Fi；模组是外接天线版，天线装后面板 SMA 穿墙座，铝壳内不放天线）
+    配了 CFG WIFI_SSID 就常连，断线自动重连（间隔 5 s 起、翻倍到最长 5 min）；主机名 mis01，局域网里用 mis01.local（mDNS）。
+    网络只做附加功能：连不上不影响显示和安全逻辑；网页不提供高压、电源等控制，安全相关输出仍只由 power/hv/vfd 模块按规则写（S9）。
+    ① 对时：CFG NTP=1 时每 24 h 用 Wi-Fi NTP 对一次（失败 10 min 后重试），不论 Pi 在不在线；服务器 ntp.aliyun.com、cn.pool.ntp.org。
+       UTC 按 CFG TZ 换成本地时间。Pi 在线时 Pi 也会下发 TIME（本地时间）——两边时区要一致，网页在 Pi 在线时提示。
+    ② 网页 http://mis01.local/：状态（2 s 刷新）、设置（Wi-Fi 含扫描附近网络、城市、时区、夜间、无人延时、亮度曲线、轮换间隔、NTP、网页密码）、
+       固件升级、重启。看状态不用密码；改设置、扫描、升级、重启要密码（HTTP Basic，用户名任意，密码 = CFG WEB_PASS）；WEB_PASS 为空时网页只读。
+       城市在网页里按名字搜（手机/电脑浏览器直接查 Open-Meteo 地理编码），存 WX_CITY、WX_LAT、WX_LON；常见时区随城市自动带出，也可手选或填 POSIX 串。
+       网页改的设置立即生效并写 NVS（等同 CFG + CFG SAVE）。
+    ③ 无线升级：Flash 分两个程序区（ota_0/ota_1 各 4 MB，第 7 节），网页上传 .bin 写入另一区后重启。
+       新固件先处于"待确认"，正常运行 60 s（控制循环在跑、没有 panic）才确认；确认前复位或崩溃，引导程序自动退回旧固件。
+       写 Flash 期间 IV-18 可能闪烁（扫描任务暂停时 BLANK 保持高，S1 不受影响）。
+    ④ 天气：配了 WX_LAT/WX_LON 且已连网、时间有效时，每 CFG WX_MIN 分钟 [默认 30] 从 Open-Meteo（api.open-meteo.com，HTTPS，免注册）
+       取当前气温、相对湿度、天气代码（WMO）；数据 2 h 未更新视为无效。IV-18 本地轮换显示室外温度（F5），网页显示全部。
 
 --------------------------------------------------------------------
 3. 状态与默认值汇总
@@ -188,12 +203,17 @@ PI_SHDN_REQ 高阻、E2_A/B 低或弱上拉（GPIO39 复位后有内部弱上拉
 --------------------------------------------------------------------
 4. 需要其他部分配合的（不是 ESP 程序，但 ESP 依赖它们）
 --------------------------------------------------------------------
-Pi（Armbian）：
-  - systemd 服务：开机把 40 针 16 脚（PI_RUN）拉高；监视 22 脚（PI_SHDN_REQ），持续低 ≥ 500 ms 才执行 poweroff（去抖）；22 脚开内部上拉（ESP 底板上没有上拉，悬空可能误关机）。
-    同一服务打开 /dev/ttyACM0，收到 !SHUTDOWN 也执行 poweroff（两路先到先执行）。
-  - 关机流程里，先经 /dev/ttyS4 给 FPGA 发 "R0"（关 VD、停扫描），再给 ESP 发 SHUTDOWN，再继续关机。
-  - 开 uart4 overlay（overlays=rk3399-uart4）。
-  - 开机后发 TIME 对时；麦克风阵列（USB，Pi 侧）的音量电平经 EYE B 送 ESP。
+Pi（Armbian，程序在仓库 pi/，服务 mis01d）：
+  - 40 针 16 脚 = GPIO1_C6（gpiochip1 第 22 线）、22 脚 = GPIO1_D0（gpiochip1 第 24 线）（wiringOP 引脚表，两处资料一致）。
+  - PI_RUN（16 脚）用设备树 gpio-hog 拉高（pi/overlay，用户 overlay）：内核一起来就高，直到 Pi 真正断电才低。
+    不交给用户态服务——服务在关机流程中途就退出，线会提前变低，ESP 5 s 后断电时文件系统可能还没卸载。
+  - mis01d 服务：监视 22 脚（PI_SHDN_REQ），开内部上拉（ESP 底板上没有上拉，悬空可能误关机），持续低 ≥ 500 ms 才执行 poweroff（去抖）；
+    打开 ESP 原生 USB 口（udev 按 VID:PID 303A:4001 建 /dev/mis01-esp，避免和 CH343 日志口抢 ttyACM0），收到 !SHUTDOWN 也执行 poweroff（两路先到先执行）。
+  - 关机（poweroff/halt，不含 reboot）时 mis01d 停止前：先经 /dev/ttyS4 给 FPGA 发 "R0"（关 VD、停扫描，等到 ST=0 或 3 s），再给 ESP 发 SHUTDOWN。
+    reboot 时两样都不发（FPGA 保持显示，ESP 不进 SHUT）。
+  - 开 uart4 overlay（overlays=rk3399-uart4）；mis01d 启动时给 FPGA 发 "R1" 开显示（FPGA 上电默认关，配置可关掉）。
+  - ESP 连上后：Pi 已 NTP 同步时发 TIME 对时，之后每 6 h 一次；按 /etc/mis01/mis01.conf 的 [esp_cfg] 节核对 CFG 键（含 Wi-Fi 账号），不一致就写入并 CFG SAVE。
+  - 其他程序经 Unix 套接字 /run/mis01/esp.sock 给 ESP 发命令（一行一条，回一行应答），例如麦克风音量电平经 EYE B 送 ESP。
 PCB-3：HOLD、HV_EN 下拉；钮子状态转 3.3 V；PFAIL 输出。
 ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上拉 + 1 nF、PFAIL_N 上拉、RTC_SQW 上拉、BZ 跳线上/下拉、I²C 上拉、
   灯丝 H 桥（L9110）、反相器（74HCT132）、24 V 开关都在 IV-18 板上，ESP 底板只把 +24V、+5V、3V3 和信号送过去；
@@ -224,6 +244,8 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
     ?                 → OK PWR=OFF|WAIT|RUN|SHUT HOSTSW=0|1 HVSW=0|1 SCRSW=0|1 HV=0|1 PF=0|1 PRES=0|1 LUX=<整数> CPM=<整数> GMV=0|1
                            TIME=<本地时间> RTC=0|1 TEMP=<°C，一位小数，无数据为 -> UP=<秒>
     VER               → OK FW=<版本> SPEC=0.9 BUILD=<日期>
+    NET?              → OK WIFI=0|1 IP=<地址或-> RSSI=<dBm或-> SSID="<名>"（F15）
+    WX?               → OK T=<°C 一位小数或-> RH=<%或-> CODE=<WMO 代码或-> AGE=<秒或->（F15 ④）
     PING              → OK PONG
     LOG?              → 若干行 "#LOG <时间> <事件> <参数>"，最后一行 OK <条数>
     LOG CLR           → OK
@@ -232,7 +254,7 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
 6.6 时间
     TIME?             → OK <本地时间> SRC=RTC|HOST|NTP
     TIME <本地时间>   → 写 RTC，SRC=HOST；OK
-    NTP ON|OFF        → Pi 不在线时是否允许 Wi-Fi NTP（存 NVS，[默认] OFF）；Wi-Fi 账号用 CFG WIFI_SSID / WIFI_PASS
+    NTP ON|OFF        → 是否每 24 h 用 Wi-Fi NTP 对时（F15 ①，存 NVS，[默认] OFF）；Wi-Fi 账号用 CFG WIFI_SSID / WIFI_PASS
 6.7 电源与高压
     HV AUTO|ON|OFF    → OK HV=<实际状态>。ON 只是请求，仍受 S3/F2 约束（钮子关时回 OK HV=0）
     SHUTDOWN          → Pi 通知即将关机：ESP 关高压、关 IV-18，进入 F1 的 SHUT 流程（不再拉 PI_SHDN_REQ）；OK
@@ -271,6 +293,8 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
                GM_PERIOD_S=60  NTP=0  WIFI_SSID=  WIFI_PASS=
                BOOT_ANIM=1  NIX_SLOT=1  NIX_ACP_MIN=5（0 = 不做每日修复）  VFD_ROT_S=10  IV18_TYPE=2
                TZ=CST-8  VFD_BRT_MIN=250（50–1000）  VFD_BRT_LUX=1000（10–65535）
+               WEB_PASS=（空 = 网页只读；CFG? 回 ***）  WX_CITY=（≤ 48 字节）  WX_LAT=  WX_LON=（小数度，空 = 不取天气）  WX_MIN=30（10–240）
+               WIFI_SSID 最长 32 字节（中文 UTF-8 每字 3 字节，约 10 个字），WIFI_PASS 最长 64 字节。
 6.10 主动上报（ESP → Pi）
     !BOOT FW=<版本> RST=POWERON|WDT|PANIC|SW|BROWNOUT   CDC 连上（DTR 有效）后发一次
     !SW HOSTSW=<> HVSW=<> SCRSW=<>                   任一钮子变化
@@ -285,7 +309,9 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
 --------------------------------------------------------------------
 7. 固件实现要求（给写固件的人）
 --------------------------------------------------------------------
-- 框架：ESP-IDF 5.x（C）。用到：TinyUSB CDC、SPI master、LEDC、PCNT、GPTimer、I²C master、UART、NVS、Task WDT、Wi-Fi（仅 NTP）。
+- 框架：ESP-IDF 5.x（C）。用到：TinyUSB CDC、SPI master、LEDC、PCNT、GPTimer、I²C master、UART、NVS、Task WDT、Wi-Fi、mDNS、HTTP 服务器/客户端（HTTPS 用 IDF 证书包）、OTA。
+- 分区表（16 MB）：nvs 64 KB @0x9000（与旧表同位置，升级后配置保留）、otadata 8 KB、phy_init、ota_0 4 MB @0x20000、ota_1 4 MB；
+  开启引导程序 APP 回滚（F15 ③）。从旧的单程序区分区表改过来要用 USB 烧一次。
 - 模块化：每个 F 一个源文件（power、hv、nixie、vfd、eye、meter、geiger、buzzer、sensors、rtc、proto、cfg、log），
   协议解析与执行分开；所有"可配置"值集中在 cfg 模块；显示件的 AUTO/HOST 状态机放在一处（6.4）。
 - SPI 总线由 595 与 MAX6921 共用：同一互斥锁下发帧；IV-18 扫描优先，595 更新插在两次扫描之间；
@@ -299,6 +325,11 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
 --------------------------------------------------------------------
 修订记录
 --------------------------------------------------------------------
+v0.9.6 2026-10-22 用户定把 ESP 联网功能用起来：新增 F15 网络（常连 Wi-Fi、mis01.local 网页、无线升级带回滚、Open-Meteo 天气）；
+     NTP=1 改为每 24 h 自己对时（不再限 Pi 不在线）；F5 轮换加室外温度；新增 NET?、WX?；新增 CFG WEB_PASS、WX_CITY、WX_LAT、WX_LON、WX_MIN；
+     第 7 节分区表改两个程序区。城市、时区都在网页上可改（用户要求）。
+v0.9.5 2026-10-22 第 4 节 Pi 侧按实际实现改写：16/22 脚对应 GPIO1_C6/GPIO1_D0；PI_RUN 改用设备树 gpio-hog（服务退出不再影响）；
+     udev 建 /dev/mis01-esp；关机才发 R0/SHUTDOWN、reboot 不发；启动发 R1；mis01.conf 下发 CFG；/run/mis01/esp.sock 供其他程序发命令。
 v0.9.4 2026-10-22 CFG FIL_HZ 下限由 100 改为 10000（IV-18 板 FIL_OK 检测在 10 kHz 以下不成立，F5、6.9）。
 v0.9.3 2026-10-22 按下单前独立复查（ESP 底板、辉光驱动板、PCB-3）：辉光驱动板实为 74AHCT595（GPIO10 行、F4 标题）；
      F4 消隐某位时清小数点；第 3 节 E2_A/B 复位措辞（GPIO39 有内部弱上拉，仍截止）；第 4 节 Pi 22 脚开内部上拉；

@@ -1,0 +1,4 @@
+# ESP32-S3 原生 USB CDC（协议口）→ /dev/mis01-esp；板载 CH343（日志口）→ /dev/mis01-esp-log。
+# 两个都是 ttyACM*，编号随插入顺序变，所以按 VID:PID 起固定名字。不让 ModemManager 去探测（它会往口里发 AT 命令）。
+SUBSYSTEM=="tty", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="4001", SYMLINK+="mis01-esp", GROUP="dialout", MODE="0660", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="mis01-esp-log", GROUP="dialout", MODE="0660", ENV{ID_MM_DEVICE_IGNORE}="1"

@@ -14,6 +14,7 @@
 #include "sensors.h"
 #include "geiger.h"
 #include "rtc.h"
+#include "weather.h"
 #include "cfg.h"
 #include "util.h"
 
@@ -56,8 +57,15 @@ bool vfd_is_on(void) { return vfd_scan_is_on(); }
 void IRAM_ATTR vfd_emergency_off_isr(void) { vfd_scan_emergency_off_isr(); }
 void vfd_on_pfail(void) { vfd_scan_power(false); }
 
-// AUTO 本地内容（F5 防烧屏）：日期 → CPM → 温度轮换（时间无效时只轮换 CPM 与温度）
-enum { ITEM_DATE = 0, ITEM_CPM, ITEM_TEMP, ITEM_N };
+// AUTO 本地内容（F5 防烧屏）：日期 → CPM → 温度 → 室外温度轮换（时间无效时没有日期；没有天气数据时没有室外温度）
+enum { ITEM_DATE = 0, ITEM_CPM, ITEM_TEMP, ITEM_WX, ITEM_N };
+
+static bool item_ok(int item)
+{
+    if (item == ITEM_DATE) return clk_time_valid();
+    if (item == ITEM_WX) return weather_get(NULL, NULL, NULL, NULL);
+    return true;
+}
 
 static void right_align(char *out, int n, const char *body, const char *suffix)
 {
@@ -79,6 +87,15 @@ static void item_text(int item, char *buf, int n)
         if (gm_valid()) snprintf(buf, n, "CP%6d", clampi(gm_cpm(), 0, 999999));
         else snprintf(buf, n, "CP  ----");
         break;
+    case ITEM_WX: {
+        int t = 0;
+        weather_get(&t, NULL, NULL, NULL);
+        int a = t < 0 ? -t : t;
+        snprintf(num, sizeof(num), "%s%d.%d", t < 0 ? "-" : "", a / 10, a % 10);
+        right_align(buf, n, num, "*C");
+        buf[0] = 'o';                   // 最左位 "o" 表示室外（F5）
+        break;
+    }
     default: {
         int t = clk_temp_x10();
         if (t == CLK_TEMP_NONE) { snprintf(buf, n, "   --.-*C"); break; }   // "." 并位，正好 8 位
@@ -96,11 +113,10 @@ static uint8_t s_shown[8];        // 上一帧实际显示的字形（擦除动�
 
 static void auto_segs(uint8_t segs[8])
 {
-    bool valid = clk_time_valid();
-    if (!valid && s_item == ITEM_DATE) s_item = ITEM_CPM;
+    if (!item_ok(s_item)) s_item = ITEM_CPM;
     if (now_ms() - s_item_ms >= (uint32_t)g_cfg.vfd_rot_s * 1000u) {
         s_item_ms = now_ms();
-        do { s_item = (s_item + 1) % ITEM_N; } while (!valid && s_item == ITEM_DATE);
+        do { s_item = (s_item + 1) % ITEM_N; } while (!item_ok(s_item));
         vfdfx_wipe_start(s_shown);
     }
     char buf[20];

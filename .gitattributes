@@ -1,1 +1,2 @@
 *.sh text eol=lf
+pi/** text eol=lf

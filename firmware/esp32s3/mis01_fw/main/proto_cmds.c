@@ -22,6 +22,8 @@
 #include "evlog.h"
 #include "util.h"
 #include "anim.h"
+#include "wifi_net.h"
+#include "weather.h"
 
 #define OK(...)        proto_send("OK" __VA_ARGS__)
 #define ERR(code, msg) proto_send("ERR " code " %s", msg)
@@ -277,6 +279,26 @@ void proto_exec(proto_cmd_t *c)
     else if (is(k, "MTR")) cmd_mtr(c);
     else if (is(k, "GM?") || (is(k, "GM") && c->argc >= 2)) cmd_gm(c);
     else if (is(k, "BZ")) cmd_bz(c);
+    else if (is(k, "NET?")) {
+        char ssid[33];
+        cfg_lock(); strlcpy(ssid, g_cfg.wifi_ssid, sizeof(ssid)); cfg_unlock();
+        if (net_up()) proto_send("OK WIFI=1 IP=%s RSSI=%d SSID=\"%s\"", net_ip(), net_rssi(), ssid);
+        else proto_send("OK WIFI=0 IP=- RSSI=- REASON=%d SSID=\"%s\"", net_last_reason(), ssid);
+    }
+    else if (is(k, "NET") && c->argc == 2 && is(c->argv[1], "SCAN")) {
+        net_ap_t *ap = calloc(24, sizeof(net_ap_t));
+        int n = ap ? net_scan(ap, 24) : -1;
+        for (int i = 0; i < n; i++) proto_send("#AP %d %s \"%s\"", ap[i].rssi, ap[i].open ? "OPEN" : "SEC", ap[i].ssid);
+        free(ap);
+        if (n < 0) ERR("HW", "scan failed"); else proto_send("OK %d", n);
+    }
+    else if (is(k, "WX?")) {
+        int t, rh, code, age;
+        bool v = weather_get(&t, &rh, &code, &age);
+        if (age < 0) proto_send("OK T=- RH=- CODE=- AGE=-");
+        else proto_send("OK T=%s%d.%d RH=%d CODE=%d AGE=%d VALID=%d", t < 0 ? "-" : "", (t < 0 ? -t : t) / 10,
+                        (t < 0 ? -t : t) % 10, rh, code, age, v);
+    }
     else if (is(k, "LUX?")) proto_send("OK LUX=%d", sens_lux());
     else if (is(k, "TEMP?")) { char tp[16]; temp_text(tp, sizeof(tp)); proto_send("OK TEMP=%s", tp); }
     else if (is(k, "ANIM") && c->argc == 2 && is(c->argv[1], "BOOT")) { anim_boot_request(); OK(); }

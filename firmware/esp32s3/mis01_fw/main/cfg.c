@@ -3,7 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <math.h>
 #include "nvs.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
 #include "esp_log.h"
 #include "cfg.h"
 #include "util.h"
@@ -29,6 +32,22 @@ typedef struct {
 } cfg_blob_t;
 #define CFG_MAGIC 0x4D490004u
 
+// 网络键（v0.2.0 新增）单独一块，旧块格式不变，升级后旧配置保留
+typedef struct {
+    uint32_t magic;
+    char web_pass[33];
+    char wx_city[49];
+    float wx_lat, wx_lon;
+    int wx_min;
+} cfg2_blob_t;
+#define CFG2_MAGIC 0x4D492001u
+
+static uint32_t s_wifi_gen;
+static SemaphoreHandle_t s_mtx;   // proto 与网页两个任务都会改配置
+
+void cfg_lock(void)   { if (s_mtx) xSemaphoreTakeRecursive(s_mtx, portMAX_DELAY); }
+void cfg_unlock(void) { if (s_mtx) xSemaphoreGiveRecursive(s_mtx); }
+
 static void set_defaults_cfg_keys(void)
 {
     g_cfg.nobody_s = 300;
@@ -51,6 +70,12 @@ static void set_defaults_cfg_keys(void)
     strcpy(g_cfg.tz, "CST-8");
     g_cfg.vfd_brt_min = 250;
     g_cfg.vfd_brt_lux = 1000;
+    g_cfg.web_pass[0] = 0;
+    g_cfg.wx_city[0] = 0;
+    g_cfg.wx_lat = NAN;
+    g_cfg.wx_lon = NAN;
+    g_cfg.wx_min = 30;
+    s_wifi_gen++;
 }
 
 static nvs_handle_t open_nvs(nvs_open_mode_t mode)
@@ -62,6 +87,7 @@ static nvs_handle_t open_nvs(nvs_open_mode_t mode)
 
 void cfg_init(void)
 {
+    s_mtx = xSemaphoreCreateRecursiveMutex();
     set_defaults_cfg_keys();
     for (int c = 0; c < 2; c++) memcpy(g_cfg.eye_cal[c], EYE_CAL_DEFAULT, sizeof(EYE_CAL_DEFAULT));
     g_cfg.mtr_fs = 3350;   // 约 1.0 mA（3.3 V、2.7 k、内阻 0）：保守初值，实测后 MTR CAL 改
@@ -87,6 +113,13 @@ void cfg_init(void)
         if (g_cfg.fil_hz < 10000 || g_cfg.fil_hz > 20000) g_cfg.fil_hz = 20000;   // 旧版允许更低，现不成立
         g_cfg.vfd_brt_min = b.vfd_brt_min; g_cfg.vfd_brt_lux = b.vfd_brt_lux;
     }
+    cfg2_blob_t b2; len = sizeof(b2);
+    if (nvs_get_blob(h, "cfg2", &b2, &len) == ESP_OK && len == sizeof(b2) && b2.magic == CFG2_MAGIC) {
+        memcpy(g_cfg.web_pass, b2.web_pass, sizeof(b2.web_pass)); g_cfg.web_pass[32] = 0;
+        memcpy(g_cfg.wx_city, b2.wx_city, sizeof(b2.wx_city)); g_cfg.wx_city[48] = 0;
+        g_cfg.wx_lat = b2.wx_lat; g_cfg.wx_lon = b2.wx_lon;
+        g_cfg.wx_min = (b2.wx_min >= 10 && b2.wx_min <= 240) ? b2.wx_min : 30;
+    }
     const char *eyek[2] = {"eyecal_a", "eyecal_b"};
     for (int c = 0; c < 2; c++) {
         uint16_t t[EYE_CAL_N]; len = sizeof(t);
@@ -109,7 +142,7 @@ static bool commit_close(nvs_handle_t h, esp_err_t e)
     return e == ESP_OK;
 }
 
-bool cfg_save(void)
+static bool cfg_save_impl(void)
 {
     cfg_blob_t b = {0};
     b.magic = CFG_MAGIC;
@@ -125,11 +158,17 @@ bool cfg_save(void)
     nvs_handle_t h = open_nvs(NVS_READWRITE);
     if (!h) return false;
     esp_err_t e = nvs_set_blob(h, "cfg", &b, sizeof(b));
+    cfg2_blob_t b2 = {0};
+    b2.magic = CFG2_MAGIC;
+    memcpy(b2.web_pass, g_cfg.web_pass, sizeof(b2.web_pass));
+    memcpy(b2.wx_city, g_cfg.wx_city, sizeof(b2.wx_city));
+    b2.wx_lat = g_cfg.wx_lat; b2.wx_lon = g_cfg.wx_lon; b2.wx_min = g_cfg.wx_min;
+    if (e == ESP_OK) e = nvs_set_blob(h, "cfg2", &b2, sizeof(b2));
     if (e == ESP_OK) e = nvs_set_u8(h, "ntp", g_cfg.ntp);
     return commit_close(h, e);
 }
 
-void cfg_default(void) { set_defaults_cfg_keys(); }
+void cfg_default(void) { cfg_lock(); set_defaults_cfg_keys(); cfg_unlock(); }
 
 bool cfg_save_eye_cal(int ch)
 {
@@ -178,29 +217,34 @@ bool cfg_is_night(int m)
 }
 
 // ---------------- 键值表 ----------------
-typedef enum { K_INT, K_NIGHT, K_BOOL, K_STR } ktype_t;
-typedef struct { const char *name; ktype_t type; void *p; int lo, hi; } cfgkey_t;
+typedef enum { K_INT, K_NIGHT, K_BOOL, K_STR, K_FLOAT } ktype_t;
+typedef struct { const char *name; ktype_t type; void *p; int lo, hi; bool secret; } cfgkey_t;
 
 static const cfgkey_t KEYS[] = {
-    {"NOBODY_S",      K_INT,   &g_cfg.nobody_s,      10, 86400},
-    {"NIGHT",         K_NIGHT, NULL,                 0, 0},
-    {"HV_GAP_S",      K_INT,   &g_cfg.hv_gap_s,      1, 600},
-    {"NIX_CYCLE_MIN", K_INT,   &g_cfg.nix_cycle_min, 1, 1440},
-    {"FIL_HZ",        K_INT,   &g_cfg.fil_hz,        10000, 20000},   // IV-18 板 FIL_OK 检测要 ≥ 10 kHz
-    {"BZ_HZ",         K_INT,   &g_cfg.bz_hz,         200, 10000},
-    {"LUX_MS",        K_INT,   &g_cfg.lux_ms,        200, 60000},
-    {"GM_PERIOD_S",   K_INT,   &g_cfg.gm_period_s,   1, 3600},
-    {"NTP",           K_BOOL,  &g_cfg.ntp,           0, 1},
-    {"WIFI_SSID",     K_STR,   g_cfg.wifi_ssid,      0, 32},
-    {"WIFI_PASS",     K_STR,   g_cfg.wifi_pass,      0, 64},
-    {"BOOT_ANIM",     K_BOOL,  &g_cfg.boot_anim,     0, 1},
-    {"NIX_SLOT",      K_BOOL,  &g_cfg.nix_slot,      0, 1},
-    {"NIX_ACP_MIN",   K_INT,   &g_cfg.nix_acp_min,   0, 60},
-    {"VFD_ROT_S",     K_INT,   &g_cfg.vfd_rot_s,     2, 600},
-    {"IV18_TYPE",     K_INT,   &g_cfg.iv18_type,     1, 2},
-    {"TZ",            K_STR,   g_cfg.tz,             1, 31},
-    {"VFD_BRT_MIN",   K_INT,   &g_cfg.vfd_brt_min,   50, 1000},
-    {"VFD_BRT_LUX",   K_INT,   &g_cfg.vfd_brt_lux,   10, 65535},
+    {"NOBODY_S",      K_INT,   &g_cfg.nobody_s,      10, 86400, false},
+    {"NIGHT",         K_NIGHT, NULL,                 0, 0, false},
+    {"HV_GAP_S",      K_INT,   &g_cfg.hv_gap_s,      1, 600, false},
+    {"NIX_CYCLE_MIN", K_INT,   &g_cfg.nix_cycle_min, 1, 1440, false},
+    {"FIL_HZ",        K_INT,   &g_cfg.fil_hz,        10000, 20000, false},   // IV-18 板 FIL_OK 检测要 ≥ 10 kHz
+    {"BZ_HZ",         K_INT,   &g_cfg.bz_hz,         200, 10000, false},
+    {"LUX_MS",        K_INT,   &g_cfg.lux_ms,        200, 60000, false},
+    {"GM_PERIOD_S",   K_INT,   &g_cfg.gm_period_s,   1, 3600, false},
+    {"NTP",           K_BOOL,  &g_cfg.ntp,           0, 1, false},
+    {"WIFI_SSID",     K_STR,   g_cfg.wifi_ssid,      0, 32, false},
+    {"WIFI_PASS",     K_STR,   g_cfg.wifi_pass,      0, 64, true},
+    {"BOOT_ANIM",     K_BOOL,  &g_cfg.boot_anim,     0, 1, false},
+    {"NIX_SLOT",      K_BOOL,  &g_cfg.nix_slot,      0, 1, false},
+    {"NIX_ACP_MIN",   K_INT,   &g_cfg.nix_acp_min,   0, 60, false},
+    {"VFD_ROT_S",     K_INT,   &g_cfg.vfd_rot_s,     2, 600, false},
+    {"IV18_TYPE",     K_INT,   &g_cfg.iv18_type,     1, 2, false},
+    {"TZ",            K_STR,   g_cfg.tz,             1, 31, false},
+    {"VFD_BRT_MIN",   K_INT,   &g_cfg.vfd_brt_min,   50, 1000, false},
+    {"VFD_BRT_LUX",   K_INT,   &g_cfg.vfd_brt_lux,   10, 65535, false},
+    {"WEB_PASS",      K_STR,   g_cfg.web_pass,       0, 32, true},
+    {"WX_CITY",       K_STR,   g_cfg.wx_city,        0, 48, false},
+    {"WX_LAT",        K_FLOAT, &g_cfg.wx_lat,        -90, 90, false},
+    {"WX_LON",        K_FLOAT, &g_cfg.wx_lon,        -180, 180, false},
+    {"WX_MIN",        K_INT,   &g_cfg.wx_min,        10, 240, false},
 };
 
 static const cfgkey_t *find_key(const char *k)
@@ -210,7 +254,7 @@ static const cfgkey_t *find_key(const char *k)
     return NULL;
 }
 
-cfg_err_t cfg_get(const char *key, char *out, int n)
+static cfg_err_t cfg_get_impl(const char *key, char *out, int n)
 {
     const cfgkey_t *k = find_key(key);
     if (!k) return CFG_ERR_KEY;
@@ -221,9 +265,15 @@ cfg_err_t cfg_get(const char *key, char *out, int n)
                            g_cfg.night_end_min / 60, g_cfg.night_end_min % 60); break;
     case K_STR:
         // 密码不回显明文
-        if (k->p == g_cfg.wifi_pass) snprintf(out, n, "%s=%s", k->name, g_cfg.wifi_pass[0] ? "***" : "");
+        if (k->secret) snprintf(out, n, "%s=%s", k->name, ((char *)k->p)[0] ? "***" : "");
         else snprintf(out, n, "%s=%s", k->name, (char *)k->p);
         break;
+    case K_FLOAT: {
+        float f = *(float *)k->p;
+        if (isnan(f)) snprintf(out, n, "%s=", k->name);
+        else snprintf(out, n, "%s=%.4f", k->name, (double)f);
+        break;
+    }
     }
     return CFG_OK;
 }
@@ -236,7 +286,7 @@ static bool parse_hhmm(const char *s, int *min)
     return true;
 }
 
-cfg_err_t cfg_set(const char *key, const char *val)
+static cfg_err_t cfg_set_impl(const char *key, const char *val)
 {
     const cfgkey_t *k = find_key(key);
     if (!k) return CFG_ERR_KEY;
@@ -261,8 +311,47 @@ cfg_err_t cfg_set(const char *key, const char *val)
     }
     case K_STR:
         if ((int)strlen(val) > k->hi || (int)strlen(val) < k->lo) return CFG_ERR_RANGE;
+        for (const char *q = val; *q; q++) if ((unsigned char)*q < 0x20) return CFG_ERR_RANGE;
         strcpy((char *)k->p, val);
+        if (k->p == g_cfg.wifi_ssid || k->p == g_cfg.wifi_pass) s_wifi_gen++;
+        break;
+    case K_FLOAT: {
+        if (*val == 0 || strcmp(val, "-") == 0) { *(float *)k->p = NAN; break; }
+        double d = strtod(val, &end);
+        if (*end || isnan(d) || d < k->lo || d > k->hi) return CFG_ERR_RANGE;
+        *(float *)k->p = (float)d;
         break;
     }
+    }
     return CFG_OK;
+}
+
+int cfg_key_count(void) { return (int)(sizeof(KEYS) / sizeof(KEYS[0])); }
+const char *cfg_key_name(int i) { return (i >= 0 && i < cfg_key_count()) ? KEYS[i].name : NULL; }
+bool cfg_key_secret(int i) { return i >= 0 && i < cfg_key_count() && KEYS[i].secret; }
+uint32_t cfg_wifi_gen(void) { return s_wifi_gen; }
+bool cfg_wx_set(void) { return !isnan(g_cfg.wx_lat) && !isnan(g_cfg.wx_lon); }
+
+cfg_err_t cfg_set(const char *key, const char *val)
+{
+    cfg_lock();
+    cfg_err_t r = cfg_set_impl(key, val);
+    cfg_unlock();
+    return r;
+}
+
+cfg_err_t cfg_get(const char *key, char *out, int n)
+{
+    cfg_lock();
+    cfg_err_t r = cfg_get_impl(key, out, n);
+    cfg_unlock();
+    return r;
+}
+
+bool cfg_save(void)
+{
+    cfg_lock();
+    bool r = cfg_save_impl();
+    cfg_unlock();
+    return r;
 }

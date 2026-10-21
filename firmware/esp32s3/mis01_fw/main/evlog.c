@@ -96,6 +96,7 @@ const char *evlog_name(ev_code_t c)
     case EV_TIME_SET:      return "TIME_SET";
     case EV_RTC_INVALID:   return "RTC_INVALID";
     case EV_SELFTEST_FAIL: return "SELFTEST_FAIL";
+    case EV_OTA:           return "OTA";
     }
     return "?";
 }

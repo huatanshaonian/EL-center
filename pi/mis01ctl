@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+"""给 ESP 发命令（经 mis01d 的套接字，不用自己开串口）。
+
+  mis01ctl "?"                  查状态
+  mis01ctl "NIX SHOW 123456"    一条命令
+  mis01ctl                      交互模式，一行一条，Ctrl-D 退出
+"""
+import socket
+import sys
+
+SOCK = "/run/mis01/esp.sock"
+
+
+def main():
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    try:
+        s.connect(SOCK)
+    except OSError as e:
+        print("连不上 %s（mis01d 在运行吗？用户在 dialout 组里吗？）：%s" % (SOCK, e), file=sys.stderr)
+        return 1
+    f = s.makefile("rwb", buffering=0)
+    cmds = [" ".join(sys.argv[1:])] if len(sys.argv) > 1 else None
+
+    def one(line):
+        f.write((line + "\n").encode("utf-8"))
+        while True:
+            r = f.readline().decode("utf-8", "replace").rstrip("\n")
+            print(r)
+            if not r.startswith("#"):
+                return r
+
+    if cmds:
+        r = one(cmds[0])
+        return 0 if r.startswith("OK") else 2
+    for line in sys.stdin:
+        line = line.strip()
+        if line:
+            one(line)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

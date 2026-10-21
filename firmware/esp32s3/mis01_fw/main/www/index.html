@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MIS-01 仪器层</title>
+<style>
+:root{--bg:#f4f3ef;--card:#fff;--fg:#1d1d1b;--mut:#76736b;--line:#e2dfd7;--acc:#c2410c;--ok:#15803d;--bad:#b91c1c}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--card:#1f1e1c;--fg:#ecebe6;--mut:#9a978f;--line:#33312d;--acc:#fb923c;--ok:#4ade80;--bad:#f87171}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:4px 0 2px}h2{font-size:16px;margin:0 0 12px}
+.sub{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tile{border:1px solid var(--line);border-radius:8px;padding:10px}
+.tile .k{color:var(--mut);font-size:12px}.tile .v{font-size:20px;font-variant-numeric:tabular-nums;word-break:break-all}
+.tile .s{color:var(--mut);font-size:12px}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+label{display:block;margin:10px 0 4px;font-size:13px;color:var(--mut)}
+input,select,button{font:inherit;color:inherit}
+input,select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg)}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
+button{padding:8px 14px;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:7px;cursor:pointer;flex:0 0 auto}
+button.ghost{background:transparent;color:var(--acc)}
+button:disabled{opacity:.5;cursor:default}
+.list{border:1px solid var(--line);border-radius:7px;margin-top:6px;max-height:220px;overflow:auto}
+.list div{padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer}.list div:last-child{border:0}
+.list div:hover{background:var(--bg)}
+.msg{min-height:20px;font-size:13px;margin-top:8px}
+.hide{display:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+progress{width:100%}
+</style>
+</head>
+<body>
+<main>
+<h1>MIS-01 仪器层</h1>
+<div class="sub" id="hdr">连接中…</div>
+
+<section class="card">
+<h2>状态</h2>
+<div class="grid" id="tiles"></div>
+<div class="msg bad" id="warn"></div>
+</section>
+
+<section class="card">
+<h2>管理</h2>
+<div id="ro" class="sub hide">未设网页密码（WEB_PASS），网页只读。可经 Pi 的配置文件或 USB 命令 <code>CFG WEB_PASS 密码</code> 设置。</div>
+<div id="login" class="row">
+  <input id="pw" type="password" placeholder="网页管理密码" autocomplete="current-password">
+  <button id="btnLogin">登录</button>
+</div>
+<div class="msg" id="loginMsg"></div>
+
+<div id="admin" class="hide">
+  <h2 style="margin-top:8px">Wi-Fi</h2>
+  <div class="row"><input id="WIFI_SSID" placeholder="网络名称"><button class="ghost" id="btnScan">扫描</button></div>
+  <div class="list hide" id="scanList"></div>
+  <label>密码（不改就留着 ***）</label><input id="WIFI_PASS" type="password" autocomplete="new-password">
+
+  <h2 style="margin-top:18px">城市与时区</h2>
+  <div class="row"><input id="citySearch" placeholder="输入城市名搜索，如 上海、Tokyo"><button class="ghost" id="btnCity">搜索</button></div>
+  <div class="list hide" id="cityList"></div>
+  <div class="two">
+    <div><label>城市（显示用）</label><input id="WX_CITY"></div>
+    <div><label>天气刷新间隔（分钟，10–240）</label><input id="WX_MIN" type="number" min="10" max="240"></div>
+    <div><label>纬度</label><input id="WX_LAT" placeholder="空 = 不取天气"></div>
+    <div><label>经度</label><input id="WX_LON"></div>
+  </div>
+  <label>时区（ESP 自己联网对时用；Pi 在线时 Pi 的时区要设成一样）</label>
+  <select id="tzSel"></select>
+  <input id="TZ" class="hide" placeholder="POSIX 时区串，如 CST-8" style="margin-top:6px">
+  <label><input type="checkbox" id="NTP" style="width:auto"> 每天用 Wi-Fi 自动对时（NTP）</label>
+
+  <h2 style="margin-top:18px">显示</h2>
+  <div class="two">
+    <div><label>夜间关显示 开始</label><input id="nightA" type="time"></div>
+    <div><label>夜间关显示 结束（与开始相同 = 不设夜间）</label><input id="nightB" type="time"></div>
+    <div><label>无人多久后关显示（秒）</label><input id="NOBODY_S" type="number" min="10"></div>
+    <div><label>IV-18 轮换间隔（秒）</label><input id="VFD_ROT_S" type="number" min="2" max="600"></div>
+    <div><label>IV-18 全黑时亮度（50–1000）</label><input id="VFD_BRT_MIN" type="number" min="50" max="1000"></div>
+    <div><label>多少 lux 起满亮度</label><input id="VFD_BRT_LUX" type="number" min="10" max="65535"></div>
+  </div>
+
+  <h2 style="margin-top:18px">网页密码</h2>
+  <label>新密码（不改就留着 ***；清空 = 网页变只读）</label><input id="WEB_PASS" type="password" autocomplete="new-password">
+
+  <div class="row" style="margin-top:16px"><span></span><button id="btnSave">保存设置</button></div>
+  <div class="msg" id="saveMsg"></div>
+
+  <h2 style="margin-top:18px">固件升级</h2>
+  <div class="sub">选编译出的 <code>mis01_fw.bin</code>。写入另一个程序区后重启；新固件 60 s 内出问题会自动退回旧版。</div>
+  <div class="row" style="margin-top:8px"><input id="fw" type="file" accept=".bin"><button id="btnOta">上传</button></div>
+  <progress id="otaProg" class="hide" max="100" value="0"></progress>
+  <div class="msg" id="otaMsg"></div>
+
+  <div class="row" style="margin-top:12px"><span></span><button class="ghost" id="btnReboot">重启 ESP</button></div>
+</div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const TZ=[["CST-8","北京/上海/台北（UTC+8）"],["HKT-8","香港（UTC+8）"],["JST-9","东京（UTC+9）"],["KST-9","首尔（UTC+9）"],
+["<+08>-8","新加坡（UTC+8）"],["<+07>-7","曼谷/河内（UTC+7）"],["IST-5:30","印度（UTC+5:30）"],["<+04>-4","迪拜（UTC+4）"],
+["MSK-3","莫斯科（UTC+3）"],["CET-1CEST,M3.5.0,M10.5.0/3","柏林/巴黎/罗马（中欧，夏令时）"],["GMT0BST,M3.5.0/1,M10.5.0","伦敦（夏令时）"],
+["UTC0","UTC"],["EST5EDT,M3.2.0,M11.1.0","纽约（美东，夏令时）"],["CST6CDT,M3.2.0,M11.1.0","芝加哥（美中，夏令时）"],
+["MST7MDT,M3.2.0,M11.1.0","丹佛（美山地，夏令时）"],["PST8PDT,M3.2.0,M11.1.0","洛杉矶（美西，夏令时）"],
+["AEST-10AEDT,M10.1.0,M4.1.0/3","悉尼（夏令时）"],["","自定义…"]];
+const IANA={"Asia/Shanghai":"CST-8","Asia/Chongqing":"CST-8","Asia/Harbin":"CST-8","Asia/Urumqi":"CST-8","Asia/Taipei":"CST-8",
+"Asia/Macau":"CST-8","Asia/Hong_Kong":"HKT-8","Asia/Tokyo":"JST-9","Asia/Seoul":"KST-9","Asia/Singapore":"<+08>-8",
+"Asia/Kuala_Lumpur":"<+08>-8","Asia/Bangkok":"<+07>-7","Asia/Ho_Chi_Minh":"<+07>-7","Asia/Kolkata":"IST-5:30","Asia/Dubai":"<+04>-4",
+"Europe/Moscow":"MSK-3","Europe/Berlin":"CET-1CEST,M3.5.0,M10.5.0/3","Europe/Paris":"CET-1CEST,M3.5.0,M10.5.0/3",
+"Europe/Rome":"CET-1CEST,M3.5.0,M10.5.0/3","Europe/Madrid":"CET-1CEST,M3.5.0,M10.5.0/3","Europe/Amsterdam":"CET-1CEST,M3.5.0,M10.5.0/3",
+"Europe/London":"GMT0BST,M3.5.0/1,M10.5.0","UTC":"UTC0","America/New_York":"EST5EDT,M3.2.0,M11.1.0","America/Chicago":"CST6CDT,M3.2.0,M11.1.0",
+"America/Denver":"MST7MDT,M3.2.0,M11.1.0","America/Los_Angeles":"PST8PDT,M3.2.0,M11.1.0","Australia/Sydney":"AEST-10AEDT,M10.1.0,M4.1.0/3"};
+const WMO={0:"晴",1:"大部晴",2:"多云",3:"阴",45:"雾",48:"雾凇",51:"小毛毛雨",53:"毛毛雨",55:"大毛毛雨",56:"冻毛毛雨",57:"冻毛毛雨",
+61:"小雨",63:"中雨",65:"大雨",66:"冻雨",67:"冻雨",71:"小雪",73:"中雪",75:"大雪",77:"米雪",80:"小阵雨",81:"阵雨",82:"强阵雨",
+85:"阵雪",86:"强阵雪",95:"雷暴",96:"雷暴冰雹",99:"雷暴冰雹"};
+const PWR={OFF:"关",WAIT:"等主机",RUN:"运行",SHUT:"关机中"};
+let pw=sessionStorage.getItem("pw")||"", cfg0={};
+const auth=()=>({"Authorization":"Basic "+btoa(unescape(encodeURIComponent("u:"+pw)))});
+const ago=s=>s<0?"—":s<90?s+" 秒前":s<5400?Math.round(s/60)+" 分钟前":Math.round(s/3600)+" 小时前";
+function tile(k,v,s,cls){return `<div class="tile"><div class="k">${k}</div><div class="v ${cls||""}">${v}</div><div class="s">${s||""}</div></div>`}
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+async function refresh(){
+  try{
+    const r=await fetch("/api/status");const d=await r.json();
+    $("hdr").textContent=`固件 ${d.fw}（规格 v${d.spec}，${d.build}）· ${d.wifi.ip} · 运行 ${Math.floor(d.uptime/3600)} 时 ${Math.floor(d.uptime/60)%60} 分 · 分区 ${d.ota.part}${d.ota.pending?"（新固件待确认）":""}`;
+    const wx=d.wx.valid?`${d.wx.t.toFixed(1)}°C`:"—";
+    const wxs=d.wx.valid?`${WMO[d.wx.code]||("代码 "+d.wx.code)} · 湿度 ${d.wx.rh}% · ${esc(d.city||"")} · ${ago(d.wx.age)}`:(d.city?esc(d.city)+" · 暂无数据":"未设城市");
+    $("tiles").innerHTML=
+      tile("时间",d.time.slice(11),d.time.slice(0,10)+" · 来源 "+d.time_src,d.time_valid?"":"bad")+
+      tile("室外",wx,wxs)+
+      tile("室内（时钟芯片）",d.temp==null?"—":d.temp.toFixed(1)+"°C","比室温偏高几度")+
+      tile("盖革",d.gm_valid?d.cpm+" CPM":"—",d.gm_valid?d.usv.toFixed(3)+" µSv/h":"高压未开")+
+      tile("电源",PWR[d.pwr]||d.pwr,`主机钮子${d.hostsw?"开":"关"} · Pi ${d.pi_online?"在线":"离线"}`)+
+      tile("高压",d.hv?"开":"关",`高压钮子${d.hvsw?"开":"关"}${d.pfail?" · 掉电预警":""}`,d.pfail?"bad":"")+
+      tile("环境",d.pres?"有人":"无人",d.lux<0?"无光照数据":d.lux+" lux")+
+      tile("Wi-Fi",d.wifi.up?d.wifi.rssi+" dBm":"未连接",esc(d.wifi.ssid||"未配置"),d.wifi.up?"ok":"bad")+
+      tile("自动对时",d.ntp.on?"开":"关",d.ntp.on?"上次 "+ago(d.ntp.age):"NTP 未开");
+    $("warn").textContent=d.pi_online&&d.ntp.on?"提示：Pi 在线时 Pi 也会下发时间，两边时区要一致（ESP 时区 "+d.tz+"）。":"";
+    $("ro").classList.toggle("hide",d.web_rw);$("login").classList.toggle("hide",!d.web_rw||!!pw&&!$("admin").classList.contains("hide"));
+  }catch(e){$("hdr").textContent="连不上 ESP";}
+}
+
+function fillTz(v){
+  const s=$("tzSel");s.innerHTML=TZ.map(([p,n])=>`<option value="${esc(p)}">${n}</option>`).join("");
+  const hit=TZ.some(([p])=>p&&p===v);s.value=hit?v:"";$("TZ").value=v;$("TZ").classList.toggle("hide",hit);
+}
+$("tzSel").onchange=()=>{const v=$("tzSel").value;$("TZ").classList.toggle("hide",!!v);if(v)$("TZ").value=v;};
+
+async function loadCfg(){
+  const c=await (await fetch("/api/cfg")).json();cfg0=c;
+  for(const k of ["WIFI_SSID","WIFI_PASS","WX_CITY","WX_MIN","WX_LAT","WX_LON","NOBODY_S","VFD_ROT_S","VFD_BRT_MIN","VFD_BRT_LUX","WEB_PASS"])$(k).value=c[k]??"";
+  $("NTP").checked=c.NTP==="1";fillTz(c.TZ||"CST-8");
+  const [a,b]=(c.NIGHT||"23:00-07:00").split("-");$("nightA").value=a;$("nightB").value=b;
+}
+
+async function login(){
+  pw=$("pw").value;
+  const r=await fetch("/api/auth",{headers:auth()});
+  if(r.ok){sessionStorage.setItem("pw",pw);$("admin").classList.remove("hide");$("login").classList.add("hide");$("loginMsg").textContent="";await loadCfg();}
+  else{pw="";sessionStorage.removeItem("pw");$("loginMsg").textContent=r.status===403?"网页只读（未设密码）":"密码不对";$("loginMsg").className="msg bad";}
+}
+$("btnLogin").onclick=login;$("pw").onkeydown=e=>{if(e.key==="Enter")login();};
+
+$("btnScan").onclick=async()=>{
+  const b=$("btnScan");b.disabled=true;b.textContent="扫描中…";
+  try{const r=await fetch("/api/scan",{headers:auth()});const a=await r.json();
+    $("scanList").innerHTML=a.map(x=>`<div data-s="${esc(x.ssid)}">${esc(x.ssid)} <span class="sub">${x.rssi} dBm${x.open?" · 无密码":""}</span></div>`).join("")||"<div>没找到网络</div>";
+    $("scanList").classList.remove("hide");
+  }finally{b.disabled=false;b.textContent="扫描";}
+};
+$("scanList").onclick=e=>{const d=e.target.closest("div[data-s]");if(d){$("WIFI_SSID").value=d.dataset.s;$("WIFI_PASS").value="";$("scanList").classList.add("hide");$("WIFI_PASS").focus();}};
+
+$("btnCity").onclick=async()=>{
+  const q=$("citySearch").value.trim();if(!q)return;
+  try{const r=await fetch("https://geocoding-api.open-meteo.com/v1/search?count=8&language=zh&format=json&name="+encodeURIComponent(q));
+    const d=await r.json();const a=d.results||[];
+    $("cityList").innerHTML=a.map((x,i)=>`<div data-i="${i}">${esc(x.name)} <span class="sub">${esc([x.admin1,x.country].filter(Boolean).join("，"))} · ${x.latitude.toFixed(2)}, ${x.longitude.toFixed(2)}</span></div>`).join("")||"<div>没找到，换个写法或直接填经纬度</div>";
+    $("cityList").classList.remove("hide");$("cityList")._a=a;
+  }catch(e){$("cityList").innerHTML="<div>搜索要用你这台设备上网（查 Open-Meteo），现在连不上</div>";$("cityList").classList.remove("hide");}
+};
+$("citySearch").onkeydown=e=>{if(e.key==="Enter")$("btnCity").click();};
+$("cityList").onclick=e=>{const d=e.target.closest("div[data-i]");if(!d)return;const x=$("cityList")._a[+d.dataset.i];
+  $("WX_CITY").value=x.name;$("WX_LAT").value=x.latitude.toFixed(4);$("WX_LON").value=x.longitude.toFixed(4);
+  if(IANA[x.timezone])fillTz(IANA[x.timezone]);$("cityList").classList.add("hide");};
+
+$("btnSave").onclick=async()=>{
+  const v={};for(const k of ["WIFI_SSID","WIFI_PASS","WX_CITY","WX_MIN","WX_LAT","WX_LON","NOBODY_S","VFD_ROT_S","VFD_BRT_MIN","VFD_BRT_LUX","WEB_PASS"])v[k]=$(k).value.trim();
+  v.TZ=($("tzSel").value||$("TZ").value).trim();v.NTP=$("NTP").checked?"1":"0";v.NIGHT=$("nightA").value+"-"+$("nightB").value;
+  const out={};for(const k in v)if(v[k]!==(cfg0[k]??""))out[k]=v[k];
+  if(!Object.keys(out).length){$("saveMsg").textContent="没有改动";$("saveMsg").className="msg";return;}
+  const r=await fetch("/api/cfg",{method:"POST",headers:{...auth(),"Content-Type":"application/json"},body:JSON.stringify(out)});
+  const d=await r.json();
+  if(d.ok){$("saveMsg").textContent=`已保存 ${d.changed} 项`+("WIFI_SSID" in out||"WIFI_PASS" in out?"；Wi-Fi 约 2 秒后按新设置重连（这个页面可能会断开）":"");$("saveMsg").className="msg ok";
+    if("WEB_PASS" in out){pw=out.WEB_PASS;pw?sessionStorage.setItem("pw",pw):sessionStorage.removeItem("pw");}
+    await loadCfg();}
+  else{$("saveMsg").textContent="有设置无效："+(d.bad||[]).join("、")+"（其余已保存）";$("saveMsg").className="msg bad";}
+};
+
+$("btnOta").onclick=()=>{
+  const f=$("fw").files[0];if(!f){$("otaMsg").textContent="先选文件";return;}
+  if(!confirm(`上传 ${f.name}（${(f.size/1024).toFixed(0)} KB）并重启？`))return;
+  const x=new XMLHttpRequest();x.open("POST","/api/ota");x.setRequestHeader("Authorization",auth().Authorization);
+  $("otaProg").classList.remove("hide");$("btnOta").disabled=true;
+  x.upload.onprogress=e=>{if(e.lengthComputable)$("otaProg").value=e.loaded/e.total*100;};
+  x.onload=()=>{let d={};try{d=JSON.parse(x.responseText)}catch(e){}
+    if(d.ok){$("otaMsg").textContent="写入完成，正在重启…约 10 秒后自动刷新";$("otaMsg").className="msg ok";setTimeout(()=>location.reload(),10000);}
+    else{$("otaMsg").textContent="升级失败："+(d.err||x.status);$("otaMsg").className="msg bad";$("btnOta").disabled=false;}};
+  x.onerror=()=>{$("otaMsg").textContent="上传中断";$("otaMsg").className="msg bad";$("btnOta").disabled=false;};
+  x.send(f);
+};
+$("btnReboot").onclick=async()=>{if(!confirm("重启 ESP？显示会中断几秒。"))return;await fetch("/api/reboot",{method:"POST",headers:auth()});$("saveMsg").textContent="正在重启…";setTimeout(()=>location.reload(),8000);};
+
+(async()=>{await refresh();setInterval(refresh,2000);
+  if(pw){const r=await fetch("/api/auth",{headers:auth()});if(r.ok){$("admin").classList.remove("hide");$("login").classList.add("hide");await loadCfg();}else{pw="";sessionStorage.removeItem("pw");}}})();
+</script>
+</body>
+</html>

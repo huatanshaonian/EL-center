@@ -1,0 +1,19 @@
+[Unit]
+Description=MIS-01 ESP32-S3 link, shutdown handshake, FPGA power
+After=local-fs.target
+
+[Service]
+Type=simple
+Environment=PYTHONPATH=/opt/mis01
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -m mis01d --conf /etc/mis01/mis01.conf
+Restart=always
+RestartSec=2
+# 关机时停止前要给 FPGA 发 R0（约 1 s）、给 ESP 发 SHUTDOWN
+TimeoutStopSec=10
+RuntimeDirectory=mis01
+RuntimeDirectoryMode=0755
+StateDirectory=mis01
+
+[Install]
+WantedBy=multi-user.target

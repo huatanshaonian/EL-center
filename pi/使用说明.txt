@@ -1,0 +1,35 @@
+MIS-01 Orange Pi 侧程序（服务 mis01d）
+====================================================================
+依据：firmware/esp32s3/ESP32-S3功能规格.txt 第 4 节（Pi 侧要求）、第 6 节（协议）。
+
+做什么
+  - 关机握手：ESP 拉低 40 针 22 脚（持续 ≥ 500 ms）或上报 !SHUTDOWN → poweroff；连上 ESP 时它已在 SHUT 也关机。
+  - 关机（不含重启）时：先给 FPGA 发 R0 关 EL 屏，再给 ESP 发 SHUTDOWN。
+  - 启动时给 FPGA 发 R1 开 EL 屏。
+  - PI_RUN（16 脚）由设备树补丁 overlay/mis01-pi-run.dts 在内核里拉高，直到断电，不靠本服务。
+  - ESP 连上后：Pi 已 NTP 同步就发 TIME 对时（之后每 6 h），按配置 [esp_cfg] 节核对并写入 ESP 的 CFG 键（Wi-Fi 账号等）。
+  - 其他程序经 /run/mis01/esp.sock 给 ESP 发命令；命令行用 mis01ctl。
+
+引脚（Orange Pi 4 用户手册 v2.4 第 70 页，原理图 v1.3 第 15/25 页）
+  16 脚 GPIO1_C6 = gpiochip1 第 22 线（PI_RUN，输出）
+  22 脚 GPIO1_D0 = gpiochip1 第 24 线（PI_SHDN_REQ，输入、内部上拉；上电默认是下拉）
+  19 脚 UART4_TX、21 脚 UART4_RX → FPGA（/dev/ttyS4，115200）
+  排针电平 3.0 V。
+
+安装（在 Pi 上）
+  1. 把本目录拷到 Pi（如 ~/mis01-pi），进入目录。
+  2. sudo sh install.sh
+  3. 编辑 /etc/mis01/mis01.conf（Wi-Fi 账号写在 [esp_cfg]），sudo systemctl restart mis01d
+  4. sudo reboot，重启后 sudo sh check.sh：
+       line 22 应为 output、"MIS01_PI_RUN"；line 24 应为 input、consumer "mis01d"；
+       日志里"PI_SHDN_REQ 已读到高，开始监视"（ESP 没接时靠内部上拉读高）。
+
+常用
+  mis01ctl "?"                     ESP 状态
+  mis01ctl "NIX SHOW 123456"       发一条命令
+  journalctl -u mis01d -f          看服务日志
+  sudo systemctl restart mis01d    改配置后重启服务
+
+电脑上给 ESP 写配置（ESP 插电脑 USB，协议口如 COM8）
+  python -m mis01d.cfgsync --port COM8 --conf 我的配置.conf
+  （在本目录下运行；只用到 [esp_cfg] 节；需要 pyserial）

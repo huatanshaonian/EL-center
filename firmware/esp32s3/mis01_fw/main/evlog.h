@@ -14,6 +14,7 @@ typedef enum {
     EV_TIME_SET,        // 参数 = 时间来源（1 HOST、2 NTP）
     EV_RTC_INVALID,     // DS3231 掉电标志置位
     EV_SELFTEST_FAIL,   // 参数 = 失败项位图
+    EV_OTA,             // 无线升级：参数 1 = 新固件已写入待重启，2 = 新固件运行 60 s 已确认
 } ev_code_t;
 
 #define EVLOG_SIZE 64

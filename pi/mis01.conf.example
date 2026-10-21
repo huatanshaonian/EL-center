@@ -1,0 +1,41 @@
+# MIS-01 Pi 侧服务配置。安装后在 /etc/mis01/mis01.conf（权限 600，里面有 Wi-Fi 密码）。
+# 改完：sudo systemctl restart mis01d（ESP 下次连上时自动核对 [esp_cfg]）。
+
+[esp]
+# ESP 原生 USB 口（udev 规则建的固定名字）
+port = /dev/mis01-esp
+# Pi 已 NTP 同步时给 ESP 对时的间隔（小时）
+time_sync_h = 6
+
+[fpga]
+port = /dev/ttyS4
+baud = 115200
+# 服务启动时给 FPGA 发 R1 开 EL 屏（FPGA 上电默认关）
+on_at_start = yes
+
+[gpio]
+# 40 针 22 脚 PI_SHDN_REQ = GPIO1_D0 = gpiochip1 第 24 线
+shdn_chip = gpiochip1
+shdn_line = 24
+shdn_debounce_ms = 500
+
+[service]
+sock_path = /run/mis01/esp.sock
+sock_group = dialout
+state_path = /var/lib/mis01/state.json
+dry_run = no
+
+# 下发给 ESP 的 CFG 键（规格 6.9）。ESP 连上时逐个读回比较，不一致就写入并 CFG SAVE。
+# 不写的键保持 ESP 现有值。值里有空格照原样写，不用加引号。
+# 注意：写在这里的键以这里为准——网页上改了，下次 ESP 连上 Pi 时会被改回来。想在网页上调的键（如城市、时区）就别写在这里。
+[esp_cfg]
+# WIFI_SSID = 我家的WiFi_2.4G      （ESP32 只支持 2.4 GHz；名字最长 32 字节，中文约 10 个字）
+# WIFI_PASS = 密码
+# NTP = 1                         （ESP 每天自己联网对时）
+# WEB_PASS = 网页管理密码          （http://mis01.local 改设置、升级要用；不设则网页只读）
+# WX_CITY = 上海                  （城市、经纬度也可以在网页上搜索设置）
+# WX_LAT = 31.2222
+# WX_LON = 121.4581
+# TZ = CST-8
+# NIGHT = 23:00-07:00
+# NOBODY_S = 300

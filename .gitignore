@@ -128,6 +128,12 @@
 # 台架测试脚本与诊断组件（用户要求测试类文件不进 git）
 /firmware/esp32s3/bench_test/
 
+# ---------------- Orange Pi 侧程序 ----------------
+!/pi/
+# 本机配置（含 Wi-Fi、网页密码）不进仓库
+/pi/*_local.conf
+/pi/*_local_state.json
+
 # 通用
 __pycache__/
 *.pyc

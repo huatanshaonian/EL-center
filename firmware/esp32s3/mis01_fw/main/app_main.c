@@ -5,7 +5,10 @@
 //   ctrl      0 / 10   10 ms 一轮：电源、高压、显示内容、盖革、蜂鸣器；SQW 换秒与 PFAIL 立即唤醒
 //   proto     0 / 7    协议命令执行；proto_tx 0 / 6 发送
 //   sensors   0 / 5    BH1750、LD2410 串口
-//   ntp       0 / 3    Wi-Fi NTP（仅 Pi 不在线且 NTP=1）
+//   net       0 / 4    Wi-Fi 常连、重连、mDNS（F15）
+//   ntp       0 / 3    Wi-Fi NTP，NTP=1 时每 24 h
+//   wx        0 / 2    天气（Open-Meteo）
+//   httpd     0 / 5    网页（mis01.local）
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
@@ -29,6 +32,10 @@
 #include "dispmode.h"
 #include "proto.h"
 #include "ntp.h"
+#include "wifi_net.h"
+#include "web.h"
+#include "weather.h"
+#include "ota.h"
 #include "safety.h"
 #include "anim.h"
 
@@ -62,6 +69,7 @@ static void ctrl_task(void *arg)
         eye_tick();
         meter_tick();
         buzzer_tick();
+        ota_tick();
     }
 }
 
@@ -97,7 +105,11 @@ void app_main(void)
 
     safety_selftest(spi_ok, i2c_ok);
     proto_init();
+    ota_init();
+    net_init();
     ntp_init();
+    weather_init();
+    web_init();
 
     if (g_cfg.boot_anim) anim_boot_request();
     xTaskNotify(s_ctrl, BIT_START, eSetBits);

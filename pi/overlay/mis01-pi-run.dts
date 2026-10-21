@@ -1,0 +1,21 @@
+// MIS-01：40 针 16 脚（GPIO1_C6 = gpiochip1 第 22 线）= PI_RUN，内核一起来就输出高，直到 Pi 断电。
+// 用 gpio-hog 而不是用户态服务：服务在关机流程中途退出，线可能提前变低，ESP 5 s 后就断电（规格第 4 节）。
+// 安装：sudo armbian-add-overlay mis01-pi-run.dts（install.sh 会做），重启生效。
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rk3399";
+
+	fragment@0 {
+		target = <&gpio1>;
+		__overlay__ {
+			mis01-pi-run-hog {
+				gpio-hog;
+				gpios = <22 0>;		/* GPIO1_C6，高有效 */
+				output-high;
+				line-name = "MIS01_PI_RUN";
+			};
+		};
+	};
+};
