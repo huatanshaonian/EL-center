@@ -1,0 +1,235 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+J1
+FOOTPRINT
+HDMI-SMD_HYC109-HDMIA19-160
+PARTTYPE
+HYC109-HDMIA19-160
+DESCRIPTION
+A型  公座夹板1.6 镀金 19PIN HDMI插座
+Component Kind
+Standard
+Unique ID
+gge1
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+HYC109-HDMIA19-160
+PCB Layer
+Default
+Symbol
+HYC109-HDMIA19-160
+Designator
+J1
+LCSC Part Name
+HDMI-A 公 19P
+Supplier Part
+C711355
+Manufacturer
+HOAUC(华宇创)
+Manufacturer Part
+HYC109-HDMIA19-160
+Supplier Footprint
+SMD
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/HYC109-HDMIA19-160/750250.html
+Supplier
+LCSC
+3D Model Title
+HDMI-SMD_HYC109-HDMIA19-160
+Connector Type
+HDMI-A
+Gender
+公
+Number of Pins
+19P
+Mounting Type
+夹板
+Current Rating
+500mA
+Voltage Rating
+40V
+Operating Temperature
+-25℃~+85℃
+Name
+HYC109-HDMIA19-160
+Description
+A型  公座夹板1.6 镀金 19PIN HDMI插座
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J2
+FOOTPRINT
+FPC-SMD_20P-P1.00_AFC11-S20ICC-00
+PARTTYPE
+AFC11-S20ICC-00
+DESCRIPTION
+锁定特性:抽屉式;触点类型:单侧触点/垂直;触点数量:20P;间距:0.5mm;安装方式:立贴;
+Component Kind
+Standard
+Unique ID
+gge2
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+AFC11-S20ICC-00
+PCB Layer
+Default
+Symbol
+AFC11-S20ICC-00
+Designator
+J2
+LCSC Part Name
+抽屉式 单侧触点/垂直 P数:20P 间距:0.5mm
+Supplier Part
+C11073
+Manufacturer
+JS(钜硕电子)
+Manufacturer Part
+AFC11-S20ICC-00
+Supplier Footprint
+SMD,P=0.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/AFC11-S20ICC-00/11620.html
+Supplier
+LCSC
+3D Model Title
+FPC-SMD_20P-P1.00_AFC11-S20ICC-00
+Locking Feature
+抽屉式
+Contact Type
+单侧触点/垂直
+Number of Contacts
+20P
+Pitch
+0.5mm
+Mounting Type
+立贴
+FFC, FCB Thickness
+0.3mm
+Height Above Board
+4.4mm
+Contact Material
+铜合金
+Contact Plating
+锡
+FPC/FFC Lock
+不带扣
+Forward Foot / Back Foot
+正脚
+Name
+AFC11-S20ICC-00
+Description
+锁定特性:抽屉式;触点类型:单侧触点/垂直;触点数量:20P;间距:0.5mm;安装方式:立贴;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+(
+D2P 
+J1-1 HYC109-HDMIA19-160-TMDS Data 2+ Passive 
+J2-1 AFC11-S20ICC-00-1 Passive 
+)
+(
+GND 
+J1-2 HYC109-HDMIA19-160-TMDS Data 2 Shield Passive 
+J1-5 HYC109-HDMIA19-160-TMDS Data 1 Shield Passive 
+J1-8 HYC109-HDMIA19-160-TMDS Data 0 Shield Passive 
+J1-11 HYC109-HDMIA19-160-TMDS Clock Shield Passive 
+J1-17 HYC109-HDMIA19-160-DDC/CEC Ground Passive 
+J1-20 HYC109-HDMIA19-160-EH Passive 
+J1-21 HYC109-HDMIA19-160-EH Passive 
+J1-22 HYC109-HDMIA19-160-EH Passive 
+J1-23 HYC109-HDMIA19-160-EH Passive 
+J2-2 AFC11-S20ICC-00-2 Passive 
+J2-5 AFC11-S20ICC-00-5 Passive 
+J2-8 AFC11-S20ICC-00-8 Passive 
+J2-11 AFC11-S20ICC-00-11 Passive 
+J2-17 AFC11-S20ICC-00-17 Passive 
+J2-18 AFC11-S20ICC-00-18 Passive 
+J2-20 AFC11-S20ICC-00-20 Passive 
+J2-21 AFC11-S20ICC-00-21 Passive 
+J2-22 AFC11-S20ICC-00-22 Passive 
+)
+(
+D2N 
+J1-3 HYC109-HDMIA19-160-TMDS Data 2- Passive 
+J2-3 AFC11-S20ICC-00-3 Passive 
+)
+(
+D1P 
+J1-4 HYC109-HDMIA19-160-TMDS Data 1+ Passive 
+J2-4 AFC11-S20ICC-00-4 Passive 
+)
+(
+D1N 
+J1-6 HYC109-HDMIA19-160-TMDS Data 1- Passive 
+J2-6 AFC11-S20ICC-00-6 Passive 
+)
+(
+D0P 
+J1-7 HYC109-HDMIA19-160-TMDS Data 0+ Passive 
+J2-7 AFC11-S20ICC-00-7 Passive 
+)
+(
+D0N 
+J1-9 HYC109-HDMIA19-160-TMDS Data 0- Passive 
+J2-9 AFC11-S20ICC-00-9 Passive 
+)
+(
+CKP 
+J1-10 HYC109-HDMIA19-160-TMDS Clock+ Passive 
+J2-10 AFC11-S20ICC-00-10 Passive 
+)
+(
+CKN 
+J1-12 HYC109-HDMIA19-160-TMDS Clock- Passive 
+J2-12 AFC11-S20ICC-00-12 Passive 
+)
+(
+CEC 
+J1-13 HYC109-HDMIA19-160-CEC Passive 
+J2-13 AFC11-S20ICC-00-13 Passive 
+)
+(
+UTIL 
+J1-14 HYC109-HDMIA19-160-Reserved (N.C.) Passive 
+J2-14 AFC11-S20ICC-00-14 Passive 
+)
+(
+SCL 
+J1-15 HYC109-HDMIA19-160-SCL Passive 
+J2-15 AFC11-S20ICC-00-15 Passive 
+)
+(
+SDA 
+J1-16 HYC109-HDMIA19-160-SDA Passive 
+J2-16 AFC11-S20ICC-00-16 Passive 
+)
+(
+HPD 
+J1-19 HYC109-HDMIA19-160-Hot Plug Detect Passive 
+J2-19 AFC11-S20ICC-00-19 Passive 
+)

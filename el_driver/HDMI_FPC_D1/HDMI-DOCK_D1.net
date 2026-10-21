@@ -1,0 +1,1100 @@
+PROTEL NETLIST 2.0
+[
+DESIGNATOR
+J1
+FOOTPRINT
+HDMI-SMD_HYC109-HDMIA19-160
+PARTTYPE
+HYC109-HDMIA19-160
+DESCRIPTION
+A型  公座夹板1.6 镀金 19PIN HDMI插座
+Component Kind
+Standard
+Unique ID
+gge1
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+HYC109-HDMIA19-160
+PCB Layer
+Default
+Symbol
+HYC109-HDMIA19-160
+Designator
+J1
+LCSC Part Name
+HDMI-A 公 19P
+Supplier Part
+C711355
+Manufacturer
+HOAUC(华宇创)
+Manufacturer Part
+HYC109-HDMIA19-160
+Supplier Footprint
+SMD
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/HYC109-HDMIA19-160/750250.html
+Supplier
+LCSC
+3D Model Title
+HDMI-SMD_HYC109-HDMIA19-160
+Connector Type
+HDMI-A
+Gender
+公
+Number of Pins
+19P
+Mounting Type
+夹板
+Current Rating
+500mA
+Voltage Rating
+40V
+Operating Temperature
+-25℃~+85℃
+Name
+HYC109-HDMIA19-160
+Description
+A型  公座夹板1.6 镀金 19PIN HDMI插座
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+J2
+FOOTPRINT
+FPC-SMD_20P-P1.00_AFC11-S20ICC-00
+PARTTYPE
+AFC11-S20ICC-00
+DESCRIPTION
+锁定特性:抽屉式;触点类型:单侧触点/垂直;触点数量:20P;间距:0.5mm;安装方式:立贴;
+Component Kind
+Standard
+Unique ID
+gge2
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+AFC11-S20ICC-00
+PCB Layer
+Default
+Symbol
+AFC11-S20ICC-00
+Designator
+J2
+LCSC Part Name
+抽屉式 单侧触点/垂直 P数:20P 间距:0.5mm
+Supplier Part
+C11073
+Manufacturer
+JS(钜硕电子)
+Manufacturer Part
+AFC11-S20ICC-00
+Supplier Footprint
+SMD,P=0.5mm
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/AFC11-S20ICC-00/11620.html
+Supplier
+LCSC
+3D Model Title
+FPC-SMD_20P-P1.00_AFC11-S20ICC-00
+Locking Feature
+抽屉式
+Contact Type
+单侧触点/垂直
+Number of Contacts
+20P
+Pitch
+0.5mm
+Mounting Type
+立贴
+FFC, FCB Thickness
+0.3mm
+Height Above Board
+4.4mm
+Contact Material
+铜合金
+Contact Plating
+锡
+FPC/FFC Lock
+不带扣
+Forward Foot / Back Foot
+正脚
+Name
+AFC11-S20ICC-00
+Description
+锁定特性:抽屉式;触点类型:单侧触点/垂直;触点数量:20P;间距:0.5mm;安装方式:立贴;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+U1
+FOOTPRINT
+SOT-23-5_L3.0-W1.7-P0.95-LS2.8-BL
+PARTTYPE
+ME6211C33M5G-N
+DESCRIPTION
+输出极性:正极;工作电压:6V;输出电压:3.3V;输出电流:500mA;电源纹波抑制比(PSRR):70dB@(1kHz);输出类型:固定;
+Component Kind
+Standard
+Unique ID
+gge3
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+ME6211C33M5G-N
+PCB Layer
+Default
+Symbol
+ME6211C33M5G-N
+Designator
+U1
+LCSC Part Name
+3.3V 500mA 6V
+Supplier Part
+C82942
+Manufacturer
+MICRONE(南京微盟)
+Manufacturer Part
+ME6211C33M5G-N
+Supplier Footprint
+SOT-23-5
+JLCPCB Part Class
+Extended Part
+Datasheet
+https://item.szlcsc.com/datasheet/ME6211C33M5G-N/84106.html
+Supplier
+LCSC
+3D Model Title
+SOT-23-5_L2.9-W1.6-H1.1-LS2.8-P0.95
+Output Configuration
+正极
+Voltage - Supply
+6V
+Output Voltage
+3.3V
+Output Current
+500mA
+Power Supply Rejection Ratio (PSRR)
+70dB@(1kHz)
+Voltage Dropout
+120mV@(100mA)
+standby current
+60uA
+Noise
+50uVrms
+Features
+使能控制；短路保护；过流保护
+Operating Temperature
+-40℃~+150℃
+Output Type
+固定
+Number of Outputs
+1
+Name
+ME6211C33M5G-N
+Description
+输出极性:正极;工作电压:6V;输出电压:3.3V;输出电流:500mA;电源纹波抑制比(PSRR):70dB@(1kHz);输出类型:固定;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C1
+FOOTPRINT
+C0603
+PARTTYPE
+CL10A105KB8NNNC
+DESCRIPTION
+容值:1uF;精度:±10%;额定电压:50V;温度系数:X5R;
+Component Kind
+Standard
+Unique ID
+gge4
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL10A105KB8NNNC
+PCB Layer
+Default
+Symbol
+CL10A105KB8NNNC
+Designator
+C1
+LCSC Part Name
+1uF ±10% 50V
+Supplier Part
+C15849
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL10A105KB8NNNC
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL10A105KB8NNNC/16531.html
+Supplier
+LCSC
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+Value
+1uF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X5R
+Name
+1uF
+Description
+容值:1uF;精度:±10%;额定电压:50V;温度系数:X5R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C2
+FOOTPRINT
+C0603
+PARTTYPE
+CL10A105KB8NNNC
+DESCRIPTION
+容值:1uF;精度:±10%;额定电压:50V;温度系数:X5R;
+Component Kind
+Standard
+Unique ID
+gge5
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CL10A105KB8NNNC
+PCB Layer
+Default
+Symbol
+CL10A105KB8NNNC
+Designator
+C2
+LCSC Part Name
+1uF ±10% 50V
+Supplier Part
+C15849
+Manufacturer
+SAMSUNG(三星)
+Manufacturer Part
+CL10A105KB8NNNC
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CL10A105KB8NNNC/16531.html
+Supplier
+LCSC
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+Value
+1uF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X5R
+Name
+1uF
+Description
+容值:1uF;精度:±10%;额定电压:50V;温度系数:X5R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+C3
+FOOTPRINT
+C0603
+PARTTYPE
+CC0603KRX7R9BB104
+DESCRIPTION
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Component Kind
+Standard
+Unique ID
+gge6
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+CC0603KRX7R9BB104
+PCB Layer
+Default
+Name
+100nF
+Designator
+C3
+Symbol
+CC0603KRX7R9BB104
+LCSC Part Name
+100nF ±10% 50V
+Supplier Part
+C14663
+Manufacturer
+YAGEO(国巨)
+Manufacturer Part
+CC0603KRX7R9BB104
+Supplier Footprint
+0603
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/CC0603KRX7R9BB104/15331.html
+Supplier
+LCSC
+3D Model Title
+C0603_L1.6-W0.8-H0.8
+Value
+100nF
+Tolerance
+±10%
+Voltage Rating
+50V
+Temperature Coefficient
+X7R
+Description
+容值:100nF;精度:±10%;额定电压:50V;温度系数:X7R;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R1
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge7
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R1
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R2
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge8
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R2
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R3
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge9
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R3
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R4
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge10
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R4
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R5
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge11
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R5
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R6
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge12
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R6
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R7
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge13
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R7
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+[
+DESIGNATOR
+R8
+FOOTPRINT
+R0402
+PARTTYPE
+0402WGF499JTCE
+DESCRIPTION
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Component Kind
+Standard
+Unique ID
+gge14
+Add into BOM
+yes
+Convert to PCB
+yes
+Device
+0402WGF499JTCE
+PCB Layer
+Default
+Symbol
+0402WGF499JTCE
+Designator
+R8
+LCSC Part Name
+49.9Ω ±1% 62.5mW 厚膜电阻
+Supplier Part
+C25120
+Manufacturer
+UNI-ROYAL(厚声)
+Manufacturer Part
+0402WGF499JTCE
+Supplier Footprint
+0402
+JLCPCB Part Class
+Basic Part
+Datasheet
+https://item.szlcsc.com/datasheet/0402WGF499JTCE/25863.html
+Supplier
+LCSC
+3D Model Title
+R0402_L1.0-W0.5-H0.4
+Type
+厚膜电阻
+Value
+49.9Ω
+Tolerance
+±1%
+Power(Watts)
+62.5mW
+Voltage-Supply(Max)
+50V
+Temperature Coefficient
+±100ppm/℃
+Operating Temperature
+-55℃~+155℃
+Name
+49.9Ω
+Description
+电阻类型:厚膜电阻;阻值:49.9Ω;精度:±1%;功率:62.5mW;工作电压:50V;温度系数:±100ppm/℃;
+Reuse Block
+
+Group ID
+
+Channel ID
+
+
+*
+]
+(
+D2P 
+J1-1 HYC109-HDMIA19-160-TMDS Data 2+ Passive 
+J2-20 AFC11-S20ICC-00-20 Passive 
+R1-1 0402WGF499JTCE-1 Input   
+)
+(
+GND 
+J1-2 HYC109-HDMIA19-160-TMDS Data 2 Shield Passive 
+J1-5 HYC109-HDMIA19-160-TMDS Data 1 Shield Passive 
+J1-8 HYC109-HDMIA19-160-TMDS Data 0 Shield Passive 
+J1-11 HYC109-HDMIA19-160-TMDS Clock Shield Passive 
+J1-17 HYC109-HDMIA19-160-DDC/CEC Ground Passive 
+J1-20 HYC109-HDMIA19-160-EH Passive 
+J1-21 HYC109-HDMIA19-160-EH Passive 
+J1-22 HYC109-HDMIA19-160-EH Passive 
+J1-23 HYC109-HDMIA19-160-EH Passive 
+J2-1 AFC11-S20ICC-00-1 Passive 
+J2-3 AFC11-S20ICC-00-3 Passive 
+J2-4 AFC11-S20ICC-00-4 Passive 
+J2-10 AFC11-S20ICC-00-10 Passive 
+J2-13 AFC11-S20ICC-00-13 Passive 
+J2-16 AFC11-S20ICC-00-16 Passive 
+J2-19 AFC11-S20ICC-00-19 Passive 
+J2-21 AFC11-S20ICC-00-21 Passive 
+J2-22 AFC11-S20ICC-00-22 Passive 
+U1-2 ME6211C33M5G-N-VSS Passive 
+C1-2 CL10A105KB8NNNC-2 Passive 
+C2-2 CL10A105KB8NNNC-2 Passive 
+C3-2 CC0603KRX7R9BB104-2 Passive 
+)
+(
+D2N 
+J1-3 HYC109-HDMIA19-160-TMDS Data 2- Passive 
+J2-18 AFC11-S20ICC-00-18 Passive 
+R2-1 0402WGF499JTCE-1 Input   
+)
+(
+D1P 
+J1-4 HYC109-HDMIA19-160-TMDS Data 1+ Passive 
+J2-17 AFC11-S20ICC-00-17 Passive 
+R3-1 0402WGF499JTCE-1 Input   
+)
+(
+D1N 
+J1-6 HYC109-HDMIA19-160-TMDS Data 1- Passive 
+J2-15 AFC11-S20ICC-00-15 Passive 
+R4-1 0402WGF499JTCE-1 Input   
+)
+(
+D0P 
+J1-7 HYC109-HDMIA19-160-TMDS Data 0+ Passive 
+J2-14 AFC11-S20ICC-00-14 Passive 
+R5-1 0402WGF499JTCE-1 Input   
+)
+(
+D0N 
+J1-9 HYC109-HDMIA19-160-TMDS Data 0- Passive 
+J2-12 AFC11-S20ICC-00-12 Passive 
+R6-1 0402WGF499JTCE-1 Input   
+)
+(
+CKP 
+J1-10 HYC109-HDMIA19-160-TMDS Clock+ Passive 
+J2-11 AFC11-S20ICC-00-11 Passive 
+R7-1 0402WGF499JTCE-1 Input   
+)
+(
+CKN 
+J1-12 HYC109-HDMIA19-160-TMDS Clock- Passive 
+J2-9 AFC11-S20ICC-00-9 Passive 
+R8-1 0402WGF499JTCE-1 Input   
+)
+(
+CEC 
+J1-13 HYC109-HDMIA19-160-CEC Passive 
+J2-8 AFC11-S20ICC-00-8 Passive 
+)
+(
+UTIL 
+J1-14 HYC109-HDMIA19-160-Reserved (N.C.) Passive 
+J2-7 AFC11-S20ICC-00-7 Passive 
+)
+(
+SCL 
+J1-15 HYC109-HDMIA19-160-SCL Passive 
+J2-6 AFC11-S20ICC-00-6 Passive 
+)
+(
+SDA 
+J1-16 HYC109-HDMIA19-160-SDA Passive 
+J2-5 AFC11-S20ICC-00-5 Passive 
+)
+(
++5V_DOCK 
+J1-18 HYC109-HDMIA19-160-+5V Power Passive 
+U1-1 ME6211C33M5G-N-VIN Passive 
+U1-3 ME6211C33M5G-N-CE Passive 
+C1-1 CL10A105KB8NNNC-1 Passive 
+)
+(
+HPD 
+J1-19 HYC109-HDMIA19-160-Hot Plug Detect Passive 
+J2-2 AFC11-S20ICC-00-2 Passive 
+)
+(
++3V3 
+U1-5 ME6211C33M5G-N-VOUT Passive 
+C2-1 CL10A105KB8NNNC-1 Passive 
+C3-1 CC0603KRX7R9BB104-1 Passive 
+R1-2 0402WGF499JTCE-2 Input   
+R2-2 0402WGF499JTCE-2 Input   
+R3-2 0402WGF499JTCE-2 Input   
+R4-2 0402WGF499JTCE-2 Input   
+R5-2 0402WGF499JTCE-2 Input   
+R6-2 0402WGF499JTCE-2 Input   
+R7-2 0402WGF499JTCE-2 Input   
+R8-2 0402WGF499JTCE-2 Input   
+)

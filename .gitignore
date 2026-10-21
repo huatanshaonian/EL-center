@@ -85,6 +85,10 @@
 !/el_driver/NIXIE-DRV_D1/sim/*.cir
 !/el_driver/NIXIE-DRV_D1/sim/*.txt
 !/el_driver/NIXIE-DRV_D1/sim/*.py
+!/el_driver/HDMI_FPC_D1/
+/el_driver/HDMI_FPC_D1/*
+!/el_driver/HDMI_FPC_D1/*.net
+!/el_driver/HDMI_FPC_D1/*.txt
 !/el_driver/IV18_D1/
 /el_driver/IV18_D1/*
 !/el_driver/IV18_D1/*.net
