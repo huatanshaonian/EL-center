@@ -1,0 +1,23 @@
+* IV-18 board: IV18_FIL square-wave detector (charge pump), 20 kHz 3.3 V
+* R7 220 -> C8 10n -> P ; D2 BAT43W clamp P to GND ; D3 BAT43W P -> FIL_OK ; C9 1u, R8 47k to GND
+* A: square wave 0-20.05 ms then stuck HIGH ; B: same then stuck LOW ; ESP output ~40 ohm
+.model BAT43 D(IS=4.8e-7 RS=2.5 N=1.04 CJO=14p BV=30 IBV=1e-6)
+VA srcA 0 PULSE(0 3.3 50u 20n 20n 25u 50u 401)
+VB srcB 0 PULSE(0 3.3 50u 20n 20n 25u 50u 401)
+VAH hold 0 PWL(0 0 20.06m 0 20.0601m 3.3)
+BA filA 0 V = max(v(srcA), v(hold))
+RA filA fa 40
+RB srcB fb 40
+R7A fa pa1 220
+C8A pa1 pA 10n
+D2A 0 pA BAT43
+D3A pA okA BAT43
+C9A okA 0 1u
+R8A okA 0 47k
+R7B fb pb1 220
+C8B pb1 pB 10n
+D2B 0 pB BAT43
+D3B pB okB BAT43
+C9B okB 0 1u
+R8B okB 0 47k
+.end
