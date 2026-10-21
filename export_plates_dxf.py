@@ -50,6 +50,9 @@ def export(plate):
     if code == "P3":
         for x, y in S.VENTS:                                                 # 通风孔
             msp.add_circle((x, y), 4.0, dxfattribs={"layer": "CUT"})
+    extra = S.EXTRA_M3.get(code, [])
+    for x, y in extra:                                                       # 零散 M3 孔（EL 接口板等）
+        msp.add_circle((x, y), S.GRID_D / 2, dxfattribs={"layer": "CUT"})
 
     # ---- 说明（NOTE 层）
     def txt(s, x, y, h=4.0):
@@ -63,6 +66,8 @@ def export(plate):
         lines.append(f"走线长圆孔 x {len(S.slots(code))}（宽 14，两端半圆）")
     if code == "P3":
         lines.append(f"通风孔 Ø8 x {len(S.VENTS)}")
+    if extra:
+        lines.append(f"M3 孔 Ø{S.GRID_D} x {len(extra)}（吊 EL 接口板）")
     if code == "P1":
         lines.append("前两角切 18 x 18")
     lines.append("原点 = 左前角；图中下边 = 机器前面；未注公差 ±0.2")
@@ -74,7 +79,7 @@ def export(plate):
     dim.render()
     path = os.path.join(OUT_DIR, FILE[code] + ".dxf")
     doc.saveas(path)
-    return path, len(holes) + len(g) + len(S.slots(code)) + (len(S.VENTS) if code == "P3" else 0)
+    return path, len(holes) + len(g) + len(S.slots(code)) + (len(S.VENTS) if code == "P3" else 0) + len(extra)
 
 
 def main():

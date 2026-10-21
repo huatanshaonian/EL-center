@@ -69,3 +69,40 @@ def build():
         add(f"HDMI-{tag.upper()}_D1", V.load_abs(AD_STEP[tag]).translate((x, AD_Y, AD_Z)), "pcb_b", "computer")
     ffc, _, _ = ffc_arch(PI_HDMI_X, DOCK_HDMI_X, AD_Z + 1.6 + FPC_H)
     add("FFC_20P_200mm", ffc, (0.85, 0.7, 0.35, 1), "computer")
+    build_extras()
+
+
+# ---------------------------------------------------------------- EL 接口板、Hub、Pi 散热（2026-10-22 暂定，待用户确认）
+EL_IF_STEP = "el_driver/D1.3/制板文件/EL-IF_D1.3.step"          # EL-IF D1.3，100×100，原点 = 板左下角，元件最高 15.7；不进 git
+EL_IF_XY = (160.0, 40.0)                                       # 板占 x 160–260、y 40–140（Dock 前半部上方）
+EL_IF_STANDOFF = 10                                            # 吊在顶板下：M3×10 铜柱，元件朝下
+
+
+def el_if():
+    """EL 接口板吊在顶板下面（元件朝下）：离 Dock J5/J6/J14 近（PMOD 线 15 cm），离 EL 屏也近；
+    在 HDMI 软排线拱顶（z 358）和 Pi 风扇上面，层板上已经放不下 100×100（Pi、Dock 占满）。顶板要按四角孔打 4 个 M3 孔。"""
+    from assembly_base import H
+    x0, y0 = EL_IF_XY
+    zb = H - EL_IF_STANDOFF                                    # 板背面（原底面）z 410
+    b = V.load_abs(EL_IF_STEP).rotate((0, 0, 0), (1, 0, 0), 180).translate((x0, y0 + 100, zb))
+    add("EL-IF_D1.3", b, "pcb_g", "computer")
+    for hx, hy in ((5, 5), (95, 5), (5, 95), (95, 95)):
+        add("standoff_M3x10_ELIF", P.standoff_m3(EL_IF_STANDOFF).translate((x0 + hx, y0 + hy, zb)), "brass", "computer")
+
+
+def usb_hub():
+    """一分四 USB2.0 Hub 模块（用户已有，尺寸 T 按常见 70×30×12 估，到货实测）：电脑层前沿、Pi 前面，M3×6 铜柱"""
+    add("USB_Hub_4port", P.box(70, 30, 12, 85, 40, Z_PLATE_TOP + 6), "module", "computer")
+
+
+def pi_cooling():
+    """RK3399 散热片 20×20×10（导热胶贴）+ 40×10 风扇（5 V）水平架在散热片上方往下吹；风扇用打印支架架在 Pi 两个安装孔的加长铜柱上（T）"""
+    cx, cy = PI_XR - 41.0, PI_YR - 24.0                        # RK3399 中心（Pi 局部约 (41, 24)，Pi 绕 Z 转了 180°）
+    z = Z_PCB + 1.6 + 1.5                                      # 芯片顶面
+    add("RK3399_heatsink_20x20", P.box(20, 20, 10, cx - 10, cy - 10, z), "alu", "computer")
+    fan = V.fan(40, 10).rotate((0, 0, 0), (1, 0, 0), 90).translate((cx, cy, z + 10.5))
+    add("Fan_40x10_Pi", fan, "dark", "computer")
+
+
+def build_extras():
+    el_if(); usb_hub(); pi_cooling()

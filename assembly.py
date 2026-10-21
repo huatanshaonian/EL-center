@@ -37,6 +37,7 @@ def frame():
     add("deck_plate_bakelite", deck.translate((2, 2, Z_DECK)), "bakelite", "plates")
     add("shelf_plate_bakelite", P.plate(W - 4, D - 52, PLATE_T).translate((2, 30, Z_SHELF)), "bakelite", "plates")
     vents = [(40 + i * 20, 60 + j * 20, 8) for i in range(13) for j in range(6)]
+    vents += [(x, y, 3.2) for x, y in ((165, 45), (255, 45), (165, 135), (255, 135))]   # 吊 EL 接口板 M3（frame_spec.EXTRA_M3）
     add("top_plate_bakelite_vented", P.plate(W, D, PLATE_T, holes=vents).translate((0, 0, H)), "bakelite", "top")
 
 # ------------------------------------------------------------------ EL 屏
