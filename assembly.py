@@ -55,12 +55,12 @@ Y_IV18 = 12                                    # IV-18 管轴（玻壳前沿 y 2
 Z_DRV = Z_DECK + PLATE_T + 10                  # 辉光驱动板底面：M3×10 铜柱立在甲板上
 Z_IN14_PCB = Z_DRV + 1.6 + 11                  # IN-14 小板底面 116.6：2×7 排母 8.5 + 排针塑料座 2.5 插在驱动板上（IV-18 顶 114；管顶 174.7，EL 托架下沿 176）
 DRV = (20, 40, 150, 80)                        # 辉光驱动板 x0, y0, 长, 宽（NIXIE-DRV D1，板原点 = 全局 (20, 40)）
-DRV_STEP = "el_driver/NIXIE-DRV_D1/制板文件_驱动板/NIXIE-DRV_D1.step"        # 约 26 MB，不进 git
+DRV_STEP = "el_driver/NIXIE-DRV_D1/制板文件_驱动板/NIXIE-DRV_D1.1.step"        # 约 26 MB，不进 git
 IN14_STEP = "el_driver/NIXIE-DRV_D1/制板文件_IN14小板/IN14-SOCK_D1.step"    # 板原点 = 全局 (管心 x − 10.5, 15)；STEP 里代替管子的 1×13 排针不装
 ESP_BASE = (40, 120, 110, 50)                  # ESP32-S3 底板 ESP-BASE D1 x0, y0, 长, 宽（mis-01-56 2026-10-21 画完，原 90×50 放不下竖插 DS3231 加宽）：驱动板后面，M3×6 铜柱，四孔 (45/145, 125/165) 都在孔阵上
 ESP_STEP = "el_driver/ESP-BASE_D1/制板文件/ESP-BASE_D1.step"   # 约 32 MB，不进 git；原点 = 板左前角，板底 z 0；含插座，不含开发板和 DS3231
 HVUNI_STEP = "el_driver/HV-UNI_D1/制板文件/HV-UNI_D1.step"   # 通用高压小板 80×40（mis-01-56），不进 git
-EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.step"     # 不进 git
+EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.1.step"     # 不进 git
 HVUNI_STACK = 11                               # 排针插宿主板排母，叠高 11，四角 M3×11 铜柱
 EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶面 z 111.6，管顶 173.6（托架下沿 176）
 IV18_STEM_X = 141                              # IV-18 芯柱端面（引线端）X。2026-10-21 调头：引线端在右（第 1 位紧挨引线），排气尖在左到 x≈26；数字区中心约 x 86
@@ -78,7 +78,7 @@ GEIGER_BOARD = (180, 110, 60, 70)              # 盖革主板 x0, y0, 长, 宽�
 EYE_BOARD = (210, 15, 90, 90)                  # 6E2 板 x0, y0, 长, 宽：前沿 y 15 让开 J305 和右夹子小板，后沿 y 105 让开右后走线孔（y ≥ 120），右沿 x 300；M3×6 铜柱，四角孔都要自己钻
 GEIGER_STEP = "el_driver/GEIGER_D1/制板文件_主板/GEIGER-MAIN_D1.step"   # 约 34 MB，不进 git
 GEIGER_CLIP_STEP = "el_driver/GEIGER_D1/制板文件_夹子板/GEIGER-CLIP_D1.step"   # 约 9 MB，不进 git；原点 = 全局 (153, 2)
-PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.step"   # 约 59 MB，不进 git
+PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
 NID_SOCKET = 8.5                               # NID100 插拔式：排母塑高（0 = 直接焊在板上）
