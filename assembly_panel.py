@@ -23,7 +23,7 @@ SEL = (37.0, 40)
 USB = ((30.0, 10), (67.0, 10))                  # 左 USB3（直连 Pi）、右 USB2（来自 Hub）；带耳延长线母头，中心距 ≥37（耳宽 35，T）
 PCB_D, PCB_T = 6.5, 1.6                           # 斜面电路板元件面到斜面内表面 6.5（推子贴死面板）
 PCB_X, PCB_U = (17.0, 166.0), (0.0, 78.0)         # SLANT D1 外形 x 17–166、u 0–78（下沿两个 USB 缺口，左上 x 17–21 只到 u 64）
-SLANT_STEP = "el_driver/SLANT_D1/制板文件/SLANT_D1.step"   # 约 26 MB，不进 git；板原点 = 斜面 (17, 0)，板 +y = u，顶层（元件面）朝面板
+SLANT_STEP = "el_driver/SLANT_D1/制板文件/SLANT_D1.1.step"   # 约 26 MB，不进 git；板原点 = 斜面 (17, 0)，板 +y = u，顶层（元件面）朝面板
 ENC = ((98.5, 63), (123.5, 63), (148.5, 63))   # 3 个编码器一排，中心距 25（Ø15 旋钮间隙 10）；2026-10-20 由 2 个改 3 个
 FADER_X, FADER_U = 123.5, (40, 24)                # 两根推子间距 16（原 40/18）
 TOG_X, TOG_U, LAMP_U = (180.5, 201.5, 222.5), 26, 63
@@ -134,11 +134,19 @@ def slant_pcb():
     b = V.load_abs_drop(SLANT_STEP, _slant_drop).rotate((0, 0, 0), (1, 0, 0), 90)
     b = b.translate((PCB_X[0], 2 + PCB_D + PCB_T, PCB_U[0]))
     add("SLANT_board", place(b, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
-    # 贴板背面、长边沿 u，中心斜面 (72.5, 45.5)（SLANT D1 U1；STEP 里没有 Pico 模型）；底面贴板、元件面和 USB 座朝里（2026-10-22 改正，原来装反）
-    # 待改：USB 口离 USB2 延长线本体只有 5.6 mm 插不进线（png/24、25），mis-01-56 改成转 180°、板边齐斜面电路板上沿，配 90° 弯头线
-    pico = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90).rotate((0, 0, 0), (0, 0, 1), 180)
-    pico = to_min(pico, 62, 2 + PCB_D + PCB_T, 20)                                              # 让开模式开关孔、USB 缺口、编码器和推子焊脚
-    add("RPi_Pico(on_slant_PCB)", place(pico, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
+    add("RPi_Pico(on_slant_PCB)", place(pico_on_slant(), 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
+
+
+PICO_C, PICO_L = (72.5, 52.0), 51.0               # SLANT D1.1 U1 中心（斜面 x, u），Pico 板长
+
+
+def pico_on_slant():
+    """Pico 在斜面局部坐标里（SLANT D1.1，mis-01-56 2026-10-22）：贴斜面电路板背面（元件面朝里），长边沿 u，
+    USB 口朝斜面电路板上沿：Pico 板占 u 26.5–77.5（离板上沿 u 78 退 0.5，1/40 脚焊盘不贴边），插座口约在 u 78.2。
+    原 D1 的 USB 朝下沿、离 USB2 延长线本体只有 5.6 mm 插不进线（png/24、25）。"""
+    p = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90).rotate((0, 0, 0), (1, 0, 0), 180)
+    pcb = max(p.solids().vals(), key=lambda s: s.BoundingBox().xlen * s.BoundingBox().zlen).BoundingBox()
+    return p.translate((PICO_C[0] - (pcb.xmin + pcb.xmax) / 2, 2 + PCB_D + PCB_T - pcb.ymin, PICO_C[1] + PICO_L / 2 - pcb.zmax))
 
 def chin_tray():
     """下巴托：底板（x −2..322、y TRAY_Y0..0、z −2..0）+ 两侧板（底板两边往上折）+ 底板后边往上折 18 锁前下横梁（M4 ×3）。

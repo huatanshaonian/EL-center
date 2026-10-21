@@ -10,6 +10,7 @@ import parts_modules as M
 import parts_panel as F
 import assembly_panel as AP
 import assembly_computers as AC
+import assembly_covers as ACV
 import vendor_parts as V
 from assembly_base import W, D, H, Z_DECK, Z_SHELF, Z_SCREEN, PLATE_T, ITEMS, add, to_min
 
@@ -220,6 +221,7 @@ def rear():
 def build():
     ITEMS.clear()
     frame(); screen(); AP.build(); tubes(); geiger(); esp_base(); lower(); computers(); rear()
+    ACV.build(IEC_PLATE)                      # 全高侧板、整块背板：纯盖板，不一定装（2026-10-22）
     return ITEMS
 
 if __name__ == "__main__":

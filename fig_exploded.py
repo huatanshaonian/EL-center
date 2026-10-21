@@ -19,6 +19,7 @@ GROUP_OFS = {
 NAME_OFS = {
     "shelf_plate_bakelite": (0, 0, 150),
     "base_plate_bakelite": (0, 0, -170),
+    "side_cover_L": (-230, 0, 0), "side_cover_R": (230, 0, 0),     # 全高侧板（不一定装）往两边拉开
 }
 
 LABELS = [

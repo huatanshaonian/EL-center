@@ -24,8 +24,8 @@ def parts_sheet(fname, cols=6):
 
 def views(outdir):
     items = A.build()
-    no_front = [it for it in items if it[3] not in ("front", "covers", "keyboard")]
-    no_rear = [it for it in items if it[3] not in ("rear", "covers", "top")]
+    no_front = [it for it in items if it[3] not in ("front", "covers", "keyboard", "sides")]
+    no_rear = [it for it in items if it[3] not in ("rear", "covers", "top", "sides")]
     R.render(items, f"{outdir}/01_front_iso.png", az=30, el=20, title="前等轴")
     R.render(no_front, f"{outdir}/02_front_iso_no_panel.png", az=30, el=20, title="前等轴（去前面板/防护罩）")
     R.render(no_rear, f"{outdir}/03_rear_iso_no_panel.png", az=150, el=25, title="后等轴（去后面板/顶板/防护罩）")
