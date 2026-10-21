@@ -187,3 +187,29 @@ def lrs200_24():
     for k in range(10):                                                                  # 散热孔示意（顶面）
         b = b.cut(box(2.0, W - 30, 1.0, 30 + k * 14, 15, H - 0.5))
     return b
+
+def cavity_speaker_3070():
+    """3 W 4 Ω 腔体喇叭（常见 “3070” 款，如 Adafruit 3351）：外形 17×70×30（T，按商品图；到货实测），
+    出声面在 X = 0（朝 −X），四个安装耳孔 Ø3.4 孔距 63×24（在出声面平面上）。原点 = 出声面中心"""
+    SPEC = dict(t=17.0, L=70.0, H=30.0, flange=2.0, body_L=56.0, hole=(63.0, 24.0, 3.4))
+    s = SPEC
+    b = box(s["flange"], s["L"], s["H"], 0, -s["L"] / 2, -s["H"] / 2)                       # 带耳的出声面板
+    b = b.union(box(s["t"] - s["flange"], s["body_L"], s["H"], s["flange"], -s["body_L"] / 2, -s["H"] / 2))   # 后腔
+    hx, hz, hd = s["hole"]
+    for sy in (-1, 1):
+        for sz in (-1, 1):
+            b = b.cut(cyl(hd / 2, s["flange"] + 2, -1, sy * hx / 2, sz * hz / 2, "X"))
+    for k in range(-4, 5):                                                                   # 出声孔（示意）
+        b = b.cut(box(1.0, 1.5, 14, -0.5, k * 4 - 0.75, -7))
+    return b
+
+
+def speaker_cradle():
+    """腔体喇叭打印支架（T，到货按实物改）：底座贴下层 Y 梁内侧面，M4 ×2 + T 螺母锁进型材内侧 T 槽（不在层板上打孔）；
+    喇叭坐在底座上，后墙托住后腔，喇叭耳孔用 M3 自攻锁到支架。局部坐标：X = 0 贴型材内侧面、+X 朝机内；Y 沿型材；Z = 0 在底板面"""
+    base = box(18, 60, 20, 0, -30, 0)                    # 喇叭下面的底座（z 0–20，和型材同高）
+    wall = box(3, 60, 30, 17, -30, 20)                   # 喇叭后墙（z 20–50）
+    c = base.union(wall)
+    for y in (-18, 18):
+        c = c.cut(cyl(2.25, 20, -1, y, 10, "X"))          # M4 锁型材 T 槽
+    return c

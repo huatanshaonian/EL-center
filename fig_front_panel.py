@@ -133,7 +133,7 @@ def front_view(ax):
 
 
 def side_view(ax):
-    ax.set_xlim(-75, 85); ax.set_ylim(-28, H + 20); ax.set_aspect("equal"); ax.axis("off")
+    ax.set_xlim(-75, 100); ax.set_ylim(-28, H + 20); ax.set_aspect("equal"); ax.axis("off")
     ax.set_title("侧视（x = 160 剖开，左边是前面；立柱是后方投影）", fontproperties=F, fontsize=11)
     # 机架：立柱（侧面）、前下 / 前上横梁、甲板、电脑层、底板
     rect(ax, 0, 0, 20, H, fc="#e6e6e6", ec="#999", ls="--", lw=0.8)
@@ -167,7 +167,7 @@ def side_view(ax):
     rect(ax, -2, 0, 2, 18, fc="#8a8f96", ec="#333")
     desk = -PLATE_T - AP.FEET_H
     rect(ax, 10, desk, 15, AP.FEET_H, fc="#222", ec="none")
-    ax.plot([-75, 85], [desk, desk], color="#999", lw=0.8)
+    ax.plot([-75, 100], [desk, desk], color="#999", lw=0.8)
     # 斜面电路板（离斜面内表面 6.5）
     u0, u1 = AP.PCB_U
     off = 2 + AP.PCB_D

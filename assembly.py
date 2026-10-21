@@ -82,6 +82,7 @@ GEIGER_CLIP_STEP = "el_driver/GEIGER_D1/制板文件_夹子板/GEIGER-CLIP_D1.st
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
+SPK_Y, SPK_Z = {"L": 45.0, "R": 55.0}, 35.0       # 腔体喇叭出声面中心 y、z（喇叭长 70、高 30）。左边再往后会碰 LRS-200（y ≥ 83），右边往前会碰斜面右上方键尾部
 NID_SOCKET = 8.5                               # NID100 插拔式：排母塑高（0 = 直接焊在板上）
 
 
@@ -180,8 +181,14 @@ def lower():
             .union(P.box(hl - 24, t, hh, hx + 24, hy, 0)).union(P.box(hl - 24, t, hh, hx + 24, hy + hw - t, 0))
             .union(P.box(24, t, 10 - t, hx, hy, 30)).union(P.box(24, t, 10 - t, hx, hy + hw - t, 30)))
     add("Mains_hood_acrylic", hood, "acrylic", "covers")
-    # 喇叭暗装：贴在左侧下层型材之间，朝开放的左侧面发声
-    add("Speaker_40mm", F.speaker_40().rotate((0, 0, 0), (0, 0, 1), -90).translate((22, 50, 45)), "dark", "power")
+    # 喇叭：两只 3 W 4 Ω 腔体喇叭（2026-10-22 用户定，立体声，PAM8403 两路都用），在底层左右前角、下层 Y 梁上方，
+    # 出声面朝外侧（x 20 / 300），声音穿过下层与甲板层 Y 梁之间的空当、从下巴托侧板的喇叭网出去；不固定在任何侧板上
+    spk, cr = M.cavity_speaker_3070(), M.speaker_cradle()
+    for tag, x, mir in (("L", 20, False), ("R", W - 20, True)):
+        sp, c = (spk.mirror("YZ"), cr.mirror("YZ")) if mir else (spk, cr)
+        add(f"Speaker_cavity_3070_{tag}", sp.translate((x, SPK_Y[tag], SPK_Z)), "dark", "power")
+        add(f"Speaker_cradle_{tag}", c.translate((x, SPK_Y[tag] + 5, 0)), "module", "power")
+    add("PAM8403_module", P.box(21, 18, 4, 150, 30, 3), "pcb_g", "power")            # 功放小板（尺寸 T），尼龙柱 3 mm
 
 
 def pcb3_nid_modules(z_face):

@@ -41,9 +41,9 @@ SENSOR = (304, 404)
 # 前壳（前面板 + 斜面，一块 2 mm 铝钣金）与下巴托（底板 + 两侧板，一块 2 mm 铝钣金），2026-10-22 用户确认（png/23 方案 + 两件拆法）
 SHELL_X0, SHELL_W = -2.0, W + 4.0                # 前面板加宽到 324，左右各盖住下巴托侧板的 2 mm
 SIDE_X = (-2.0, W)                               # 两侧板在机架外侧（x −2..0 / 320..322），M4 锁立柱和 Y 梁外侧 T 槽
-SIDE_BACK = 75.0                                 # 侧板往后盖到 y 75；左侧板盖住喇叭（y 30–70），开喇叭网孔
+SIDE_BACK = 90.0                                 # 侧板往后盖到 y 90；两侧板对着腔体喇叭开喇叭网
 SIDE_M4 = ((10, 30), (10, 60), (35, 10), (35, 80), (65, 10), (65, 80))   # 侧板 M4 孔 (y, z)：前立柱 ×2、下层 / 甲板层 Y 梁各 ×2
-GRILLE = (50.0, 45.0, 17.0, 3.0, 5.0)            # 左侧板喇叭网：中心 (y, z)、半径、孔径、孔距（六角排）
+GRILLE = {0: (24.0, 76.0), 1: (30.0, 86.0)}, (24.0, 46.0, 3.0, 5.0)   # 喇叭网 y 范围（左 / 右侧板，对着腔体喇叭；前立柱挡住 y < 20）；z0, z1, 孔径, 孔距（六角排）
 TRAY_Y0 = -48.0                                  # 下巴托底板前沿（键盘座背面下角 y −47.9 后面）
 FLANGE_T, FLANGE_U = 10.0, (8.0, 64.0)           # 斜面两侧翻边：往里 10，沿斜面 u 8–64（再往上翻边后角就伸进前立柱 y > 0）；各 2 个 M3 压铆螺母（u 20 / 56）锁侧板
 FLANGE_SCREW_U, FLANGE_SCREW_T = (20.0, 56.0), 6.0
@@ -162,18 +162,22 @@ def chin_tray():
     for z in PD.SPEC["end_holes_z"]:                                                # 键盘座两端 M3
         y, zz = slant_pt(z - dh, PD.SPEC["end_hole_y"])
         side = side.cut(P.cyl(1.7, 4, -1, y, zz, "X"))
-    gy, gz, gr, gd, gp = GRILLE
-    left = side
-    for i in range(-5, 6):
-        for j in range(-5, 6):
-            y, z = gy + gp * (i + 0.5 * (j % 2)), gz + gp * 0.866 * j
-            if (y - gy) ** 2 + (z - gz) ** 2 <= gr ** 2:
-                left = left.cut(P.cyl(gd / 2, 4, -1, y, z, "X"))
+    def grille(sd, gy0, gy1):
+        gz0, gz1, gd, gp = GRILLE[1]
+        j, z = 0, gz0 + gd / 2
+        while z <= gz1 - gd / 2 + 0.01:
+            y = gy0 + gd / 2 + (gp / 2 if j % 2 else 0)
+            while y <= gy1 - gd / 2 + 0.01:
+                sd = sd.cut(P.cyl(gd / 2, 4, -1, y, z, "X"))
+                y += gp
+            z += gp * 0.866; j += 1
+        return sd
+    sides = [grille(side, *GRILLE[0][k]) for k in (0, 1)]
     tray = P.box(SHELL_W, -TRAY_Y0, 2, SHELL_X0, TRAY_Y0, -2)
     back = P.box(W, 2, 18, 0, -2, 0)
     for x in (60, W / 2, W - 60):
         back = back.cut(P.cyl(2.25, 4, x, -3, 10, "Y"))
-    tray = tray.union(back).union(left.translate((SIDE_X[0], 0, 0))).union(side.translate((SIDE_X[1], 0, 0)))
+    tray = tray.union(back).union(sides[0].translate((SIDE_X[0], 0, 0))).union(sides[1].translate((SIDE_X[1], 0, 0)))
     add("chin_tray_alu", tray, "chin", "front")
 
 
