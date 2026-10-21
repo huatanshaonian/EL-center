@@ -63,7 +63,9 @@ EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.step"     # 不进 git
 HVUNI_STACK = 11                               # 排针插宿主板排母，叠高 11，四角 M3×11 铜柱
 EYE_STANDOFF = 6                               # 6E2 板铜柱 M3×6：管座顶面 z 111.6，管顶 173.6（托架下沿 176）
 IV18_STEM_X = 141                              # IV-18 芯柱端面（引线端）X。2026-10-21 调头：引线端在右（第 1 位紧挨引线），排气尖在左到 x≈26；数字区中心约 x 86
-IV18_ENDPLATE_X = 143                          # 竖立端板（垂直管轴，厚 1.6）：22 根引线不弯直接穿孔焊接，剪后伸出 ≤2 mm（到 x≈146.6）；外形 y 3–36、z 96.6–114
+IV18_ENDPLATE_X = 143                          # 竖立端板 IV18-END D1（垂直管轴，厚 1.6，黑色阻焊）：22 根引线不弯直接穿孔焊接，剪后伸出 ≤2 mm（到 x≈146.6）；外形 y 3–36.5、z 96.6–114
+IV18_STEP = "el_driver/IV18_D1/制板文件/IV18_D1.step"            # 主板 130×37，约 28 MB，不进 git；板原点 = 全局 (22, 3)，板底 z 0
+IV18_END_STEP = "el_driver/IV18_D1/制板文件/IV18-END_D1.step"    # 端板导出时平放（板厚沿 Z），全局 = (143 + Z, X, 96.6 + Y)，循环换轴不是镜像；不进 git
 Z_IV18_PCB = Z_DECK + PLATE_T + 1                        # IV-18 主板底面 95（1 mm 尼龙垫片，板底不能有凸出焊点），管心 Z=106.6
 EYE_Y = 31                                     # 6E2 管轴 Y：管座前耳孔在 y≈18，6E2 板前沿 ≥ y 13，才能从 J305（y ≤ 11.6 @ 板高）上方让开（2026-10-20 由 27 后移）
 EYE_ROT = 18                                   # 6E2 管座绕 Z 转角：荧光屏正对 7 脚、正对 -Y（前面板）时，缺口在 +X 往后偏 18°（北京 6E2，用户确认缺口在右）
@@ -101,10 +103,11 @@ def tubes():
         add("standoff_M3x10", P.standoff_m3(10).translate((xx, yy, Z_DECK + PLATE_T)), "brass", "tubes")
     # 170 V 高压小板插在驱动板后右（避开前沿 IN-14 小板），板占 x 85–165、y 77–117
     hv_uni("HV-UNI_170V", 85, 77, 0, Z_DRV + 1.6)
-    # IV-18（mis-01-56 在画，占位）：主板 130×37（x 22–152、y 3–40）用 1 mm 尼龙垫片坐在甲板上，孔 (45,35)(135,35) 在孔阵、(148,8) 自钻；
-    # 管子贴在主板上（玻壳底比板面高 0.5），两端硅胶垫 + 扎带（x≈37、128）；引线端穿竖立端板，端板用 1.27 双排直角排针接主板
-    add("IV18_PCB(placeholder)", P.box(130, 37, 1.6, 22, 3, Z_IV18_PCB), "pcb_b", "tubes")
-    add("IV18_endplate(placeholder)", P.box(1.6, 33, 114 - (Z_IV18_PCB + 1.6), IV18_ENDPLATE_X, 3, Z_IV18_PCB + 1.6), "pcb_b", "tubes")
+    # IV-18 主板 IV18 D1（mis-01-56）：130×37（x 22–152、y 3–40）用 1 mm 尼龙垫片坐在甲板上，孔 (45,35)(135,35) 在孔阵、(148,8) 自钻；
+    # 管子贴在主板上（玻壳底比板面高 0.5），两端硅胶垫 + 扎带（x≈37、128）；引线端穿竖立端板 IV18-END D1，端板下沿两面焊盘和主板 T 形焊、两个榫插主板槽
+    add("IV18_board", V.load_abs(IV18_STEP).translate((22, 3, Z_IV18_PCB)), "pcb_g", "tubes")
+    end = V.load_abs(IV18_END_STEP).rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 90)   # 循环换轴 (X,Y,Z) → (Z,X,Y)
+    add("IV18_endplate", end.translate((IV18_ENDPLATE_X, 0, Z_IV18_PCB + 1.6)), "pcb_b", "tubes")
     add("IV-18", P.iv18().rotate((0, 0, 0), (0, 0, 1), 180).translate((IV18_STEM_X, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
     # XL6009 模块（IV-18 栅/阳极 35 V）：长边沿 Y，甲板 x 178–199、y 55–98，M3×5 尼龙柱、两孔自钻；上方 z118 起是表头本体（2026-10-21 由 x 243–283、y 166–196 挪来，离 IV-18 板近）
     xl = M.xl6009_module().rotate((0, 0, 0), (0, 0, 1), 90)
