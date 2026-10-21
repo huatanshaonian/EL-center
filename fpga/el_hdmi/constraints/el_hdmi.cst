@@ -29,15 +29,16 @@ IO_PORT "led_n[3]" IO_TYPE=LVCMOS25 PULL_MODE=UP DRIVE=8 BANK_VCCIO=2.5;
 IO_PORT "led_n[4]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
 IO_PORT "led_n[5]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
 
-// ---------------- Dock J5 → EL-IF P1（8 路数据，J5-5..12 = UD0 UD1 UD2 UD3 LD0 LD1 LD2 LD3） ----------------
-IO_LOC  "el_ud[0]" L9;
-IO_LOC  "el_ud[1]" N8;
-IO_LOC  "el_ud[2]" N9;
-IO_LOC  "el_ud[3]" N7;
-IO_LOC  "el_ld[0]" N6;
-IO_LOC  "el_ld[1]" D11;
-IO_LOC  "el_ld[2]" A11;
-IO_LOC  "el_ld[3]" B11;
+// ---------------- Dock J5 → EL-IF P1（8 路数据，EL-IF D1.3 脚序） ----------------
+// J5-5 LD3，6 LD1，7 LD2，8 LD0，9 UD0，10 UD3，11 UD1，12 UD2（球号按 Dock 3714 原理图总图核对）
+IO_LOC  "el_ld[3]" L9;
+IO_LOC  "el_ld[1]" N8;
+IO_LOC  "el_ld[2]" N9;
+IO_LOC  "el_ld[0]" N7;
+IO_LOC  "el_ud[0]" N6;
+IO_LOC  "el_ud[3]" D11;
+IO_LOC  "el_ud[1]" A11;
+IO_LOC  "el_ud[2]" B11;
 IO_PORT "el_ud[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 IO_PORT "el_ud[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 IO_PORT "el_ud[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
@@ -47,38 +48,41 @@ IO_PORT "el_ld[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 IO_PORT "el_ld[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 IO_PORT "el_ld[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 
-// ---------------- Dock J6 → EL-IF P2（J6-5 CP2，6 CP1，7 S，8 OE_N，9 VD_ON_N，10 VD_HI_N 输入） ----------------
-IO_LOC  "el_cp2"  B12;
-IO_LOC  "el_cp1"  C12;
-IO_LOC  "el_s"    B13;
-IO_LOC  "oe_n"    A14;
-IO_LOC  "vd_on_n" B14;
-IO_LOC  "vd_hi_n" A15;
-IO_PORT "el_cp2"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "el_cp1"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "el_s"    IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "oe_n"    IO_TYPE=LVCMOS33 PULL_MODE=UP   DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "vd_on_n" IO_TYPE=LVCMOS33 PULL_MODE=UP   DRIVE=8 BANK_VCCIO=3.3;
+// ---------------- Dock J6 → EL-IF P2（EL-IF D1.3 脚序） ----------------
+// J6-6 VD_HI_N（输入），8 VD_ON_N，9 CP2，10 OE_N，11 CP1，12 S；J6-5、J6-7 不用
+IO_LOC  "vd_hi_n" C12;
+IO_LOC  "vd_on_n" A14;
+IO_LOC  "el_cp2"  B14;
+IO_LOC  "oe_n"    A15;
 IO_PORT "vd_hi_n" IO_TYPE=LVCMOS33 PULL_MODE=UP   BANK_VCCIO=3.3;
+IO_PORT "vd_on_n" IO_TYPE=LVCMOS33 PULL_MODE=UP   DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "el_cp2"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "oe_n"    IO_TYPE=LVCMOS33 PULL_MODE=UP   DRIVE=8 BANK_VCCIO=3.3;
+// J6-11/12（D14/E15）在 Bank 1，与 HDMI LVDS25 输入、LED0-3 同 bank，只能声明 LVCMOS25。
+// 按核心板原理图 Bank 1 实际 VCCIO 为 3.3 V（R5 0 Ω），输出仍是 3.3 V；即使为 2.5 V，AHCT245 VIH 2.0 V 也够。
+IO_LOC  "el_cp1"  D14;
+IO_LOC  "el_s"    E15;
+IO_PORT "el_cp1"  IO_TYPE=LVCMOS25 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=2.5;
+IO_PORT "el_s"    IO_TYPE=LVCMOS25 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=2.5;
 
-// ---------------- Dock J14 → EL-IF P3（状态输入 + Orange Pi UART） ----------------
-// J14-5 VL_FLT_N，J14-7 PFAIL_N，J14-8 VL_OK，J14-9 VD_FLT_N，J14-10 UART_TX（FPGA→OPi），J14-11 UART_RX（OPi→FPGA）
-// 面包板阶段状态线悬空：内部上拉读作 1 = 正常
-IO_LOC  "vl_flt_n" P9;
-IO_LOC  "pfail_n"  T8;
-IO_LOC  "vl_ok"    P8;
-IO_LOC  "vd_flt_n" R8;
-IO_LOC  "opi_tx"   T7;
+// ---------------- Dock J14 → EL-IF P3（状态输入 + Orange Pi UART，EL-IF D1.3 脚序） ----------------
+// J14-5 UART_TX（FPGA→OPi），7 SCR_EN，8 VD_FLT_N，9 VL_FLT_N，10 VL_OK，11 UART_RX（OPi→FPGA），12 PFAIL_N；
+// J14-6 不用（与板载 WS2812 共用）。面包板阶段状态线悬空：内部上拉读作 1 = 正常
+IO_LOC  "opi_tx"   P9;
+IO_LOC  "scr_en"   T8;
+IO_LOC  "vd_flt_n" P8;
+IO_LOC  "vl_flt_n" R8;
+IO_LOC  "vl_ok"    T7;
 IO_LOC  "opi_rx"   T6;
-IO_PORT "vl_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
-IO_PORT "pfail_n"  IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
-IO_PORT "vl_ok"    IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
-IO_PORT "vd_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC  "pfail_n"  P6;
 IO_PORT "opi_tx"   IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "opi_rx"   IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
-// J14-12 SCR_EN_3V3：斜面"屏幕"开关（EL-IF D1.2 起，板上 10k 上拉；悬空时内部上拉读作 1 = 允许开屏）
-IO_LOC  "scr_en"   P6;
+// SCR_EN_3V3：斜面"屏幕"开关（EL-IF 板上 10k 上拉；悬空时内部上拉读作 1 = 允许开屏）
 IO_PORT "scr_en"   IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_PORT "vd_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_PORT "vl_flt_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_PORT "vl_ok"    IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_PORT "opi_rx"   IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_PORT "pfail_n"  IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
 
 // ---------------- Dock USB 调试串口（BL702，115200 8N1） ----------------
 IO_LOC  "dbg_tx" M11;

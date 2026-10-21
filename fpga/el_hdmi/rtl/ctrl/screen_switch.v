@@ -1,5 +1,5 @@
 // screen_switch.v
-// 斜面"屏幕"钮子开关（经电源板、EL-IF J_PF-2 → SCR_EN_3V3 → Dock J14-12）。
+// 斜面"屏幕"钮子开关（经电源板、EL-IF J_PF-2 → SCR_EN_3V3 → Dock J14-7）。
 //   scr_en = 1：允许开屏（EL-IF 上 10k 上拉，J_PF 不插时也是 1）
 //   scr_en = 0：开关关闭。EL-IF 上 D4 已经硬件拉低 EN_VD；FPGA 这边同时撤掉 VD_ON_N（vd_inhibit=1），
 //              否则开关重新打开时二极管一松，VD 会在 FPGA 没准备的情况下直接上电。

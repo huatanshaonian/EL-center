@@ -8,7 +8,7 @@
 // 跨域：像素数据经 async_fifo（pclk → clk）；设置（阈值等，变化很慢）两级同步进 pclk；状态位两级同步进 clk。
 //
 // 按键（低有效）：RUN（T10）开/关机；SRC（T3）切信号源；HPD（T2）让信号源重读 EDID。
-// UART：Orange Pi（J14-10/11）和 Dock USB 调试口共用一套命令，见 ctrl/ctrl_cmd.v。
+// UART：Orange Pi（J14-5/11）和 Dock USB 调试口共用一套命令，见 ctrl/ctrl_cmd.v。
 `timescale 1ns / 1ps
 module el_hdmi_top #(
     parameter         EDID_FILE       = "edid/edid_640x480.hex",
@@ -42,10 +42,10 @@ module el_hdmi_top #(
     input  wire       pfail_n,
     input  wire       vl_ok,
     input  wire       vd_flt_n,
-    input  wire       scr_en,       // J14-12：斜面"屏幕"开关，1 = 允许开屏（EL-IF D1.2 起）
+    input  wire       scr_en,       // J14-7：斜面"屏幕"开关，1 = 允许开屏（EL-IF D1.2 起）
 
     // UART
-    output wire       opi_tx,       // J14-10 → Orange Pi RX
+    output wire       opi_tx,       // J14-5 → Orange Pi RX
     input  wire       opi_rx,       // J14-11 ← Orange Pi TX
     output wire       dbg_tx,       // Dock USB 调试串口（BL702）
     input  wire       dbg_rx,
