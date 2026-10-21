@@ -73,7 +73,7 @@ def orangepi4():
     b = b.union(box(23, 16, 13.5, 72, 24, t))                     # RJ45 CN3
     b = b.union(box(16, 7, 7, 79, 43, t))                         # 板端第三个口（DXF 窄座，高度未知）
     hx0, hx1, hy0, hy1 = ORANGEPI4_HEADER
-    b = b.union(box(hx1 - hx0, hy1 - hy0, 8.5, hx0, hy0, -8.5))   # 排针（2 排）：用户的 Pi 4 排针焊在板子背面、朝下（2026-10-22）
+    b = b.union(box(hx1 - hx0, hy1 - hy0, 8.6, hx0, hy0, -8.6))   # 排针（2 排）：用户的 Pi 4 排针焊在板子背面、朝下，连塑料座高 8.6（用户实测 2026-10-22）
     b = b.union(box(15, 15, 1.5, 33.5, 16.5, t))                  # RK3399（中心约 x 41, y 24）
     return b
 
