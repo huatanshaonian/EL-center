@@ -137,7 +137,7 @@ def main(fname="png/08_free_space.png"):
                             bbox=dict(fc="white", ec="none", alpha=0.6, pad=0.5))
             for n, bb in labels:                                        # 标主要障碍物
                 if any(k2 in n for k2 in ("2020", "corner", "standoff", "clip", "Indicator", "Toggle", "Rect_lamp", "EC11", "Fader", "USB-A",
-                                           "IN14_socket", "IN-14_", "chin", "base_strip", "slant", "Noval", "bracket", "cheek", "fan", "rear_panel")):
+                                           "IN14_socket", "IN-14_", "chin", "base_strip", "slant", "Noval", "bracket", "cheek", "fan", "rear_panel", "front_shell", "IEC_plate", "Keyboard", "X1_", "rubber")):
                     continue
                 cx, cy = (max(bb.xmin, x0) + min(bb.xmax, x1)) / 2, (max(bb.ymin, y0) + min(bb.ymax, y1)) / 2
                 ax.text(cx, cy, n.replace("_", " "), fontproperties=F, fontsize=8, ha="center", va="center", color="#333", alpha=0.85)

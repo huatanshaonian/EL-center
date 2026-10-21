@@ -202,14 +202,19 @@ def computers():
     AC.build()
 
 # ------------------------------------------------------------------ 后面板
+IEC_PLATE = (210.0, 0.0, W - 210.0, 110.0)          # 背面 IEC 小板 x0, z0, 宽, 高（2 mm 铝，嘉立创钣金，接 PE）
+
+
 def rear():
+    """背板先不装（2026-10-22 用户定），背面右下角只装一块金属 IEC 小板：IEC C14 + SMA ×2；
+    M4 锁右后立柱（x 310）和后下横梁（z 10），小板要接 PE（整机架构 5.3）"""
     IEC = (276.0, 54.0)                                               # AC-14-F12 开孔中心；耳孔 x 256 / 296，螺母让开右后立柱（x ≥ 300）
-    cut = [(IEC[0] - 14, IEC[1] - 30, 28, 60)]                        # IEC C14 三合一开孔 28x60；电脑接口窗待板子定位后再开
-    holes = [(cx, 340, 56) for cx in (100, 220)]                       # 原 60 风扇位，2026-10-20 不装风扇，留作通风孔
-    holes += [(IEC[0] + sx * 20, IEC[1], 3.5) for sx in (-1, 1)]     # 电源座耳孔 M3
-    holes += [(10, z, 4.5) for z in (10, 210, 410)] + [(W - 10, z, 4.5) for z in (10, 210, 410)]
-    holes += [(x, 40, 6.5) for x in (225, 247)]                        # 后 SMA ×2 预留
-    add("rear_panel_2mm", P.panel(W, H, 2, cut, holes).translate((0, D, 0)), "panel", "rear")
+    x0, z0, pw, ph = IEC_PLATE
+    cut = [(IEC[0] - 14 - x0, IEC[1] - 30 - z0, 28, 60)]              # IEC C14 三合一开孔 28x60
+    holes = [(IEC[0] + sx * 20 - x0, IEC[1] - z0, 3.5) for sx in (-1, 1)]   # 电源座耳孔 M3
+    holes += [(x - x0, 40 - z0, 6.5) for x in (225, 247)]              # 后 SMA ×2
+    holes += [(W - 10 - x0, z - z0, 4.5) for z in (10, 100)] + [(220 - x0, 10 - z0, 4.5)]   # M4：右后立柱 ×2、后下横梁 ×1
+    add("IEC_plate_alu", P.panel(pw, ph, 2, cut, holes).translate((x0, D, z0)), "panel", "rear")
     add("IEC_C14_AC-14-F12", F.iec_c14_inlet().rotate((0, 0, 0), (0, 0, 1), 180).translate((IEC[0], D + 2, IEC[1])), "dark", "rear")
 
 def build():

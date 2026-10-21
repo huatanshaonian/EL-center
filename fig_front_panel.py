@@ -8,6 +8,7 @@ from matplotlib.patches import Circle, Ellipse, Rectangle, Polygon, FancyBboxPat
 import render as R
 import assembly_panel as AP
 import assembly as A
+import parts_dock as PD
 from assembly_base import W, D, H, Z_DECK, Z_SHELF, Z_SCREEN, PLATE_T
 
 F = R.FONT
@@ -29,7 +30,7 @@ def slant_z(u):
 
 
 def front_view(ax):
-    ax.set_xlim(-40, W + 45); ax.set_ylim(-25, H + 20); ax.set_aspect("equal"); ax.axis("off")
+    ax.set_xlim(-40, W + 45); ax.set_ylim(-28, H + 20); ax.set_aspect("equal"); ax.axis("off")
     ax.set_title("正视（斜面按 33° 投影压扁）", fontproperties=F, fontsize=12)
     # 机架立柱 / 横梁（虚线，在面板后面）
     for x in (0, W - 20):
@@ -38,7 +39,7 @@ def front_view(ax):
         rect(ax, 20, z, W - 40, 20, fc="none", ec="#999", ls="--", lw=0.8)
     # 竖直前面板 z 88–420
     z0 = AP.Z_CHIN
-    rect(ax, 0, z0, W, H - z0, fc=PANEL, ec="#333", lw=1.2)
+    rect(ax, AP.SHELL_X0, z0, AP.SHELL_W, H - z0, fc=PANEL, ec="#333", lw=1.2)
     # EL 视窗 + 屏
     sx0 = (W - 267) / 2
     aa_w, aa_h = 211.2, 158.4
@@ -95,7 +96,9 @@ def front_view(ax):
         ax.add_patch(Circle((x, z), 2.25, fc="white", ec="#333", lw=0.8))
     # 斜面（投影）
     zb, zc = AP.Z_BASE, AP.Z_CHIN
-    rect(ax, 2, zb, W - 4, zc - zb, fc=CHIN, ec="#222", lw=1.0)
+    rect(ax, 0, zb, W, zc - zb, fc=CHIN, ec="#222", lw=1.0)
+    for x in PD.SPEC["tongue_x"]:                                                      # 键盘座舌片 M3 沉头
+        ax.add_patch(Circle((W / 2 + x, slant_z(PD.SCREW_U)), 3, fc="#222", ec="#aaa", lw=0.6))
     for x, u in [AP.SEL]:
         ax.add_patch(Ellipse((x, slant_z(u)), 33, 33 * CA, fc="#111", ec="#000"))
     for x, u in AP.USB:
@@ -110,23 +113,27 @@ def front_view(ax):
     for x in AP.KEY_X:
         for u in AP.KEY_U:
             rect(ax, x - 12, slant_z(u) - 9 * CA, 24, 18 * CA, fc="#f2c96b", ec="#8a6a1a")
-    # 底座条
-    rect(ax, 2, 0, W - 4, zb, fc="#44474d", ec="#222")
-    label(ax, W / 2, zb / 2, "底座条（X1 键盘座）", 8, color="white")
+    # 键盘座（后仰，屏幕面接着斜面往下）+ 下巴托两侧板（在机架外侧，正面只看到 2 mm 边）
+    zd = slant_z(-PD.SPEC["H"])
+    rect(ax, 0, zd, W, zb - zd, fc="#202124", ec="#000")
+    label(ax, W / 2, (zb + zd) / 2, "X1 磁吸键盘座（后仰，两端锁侧板）", 7.5, color="white")
+    for x in AP.SIDE_X:
+        rect(ax, x, -2, 2, zc + 2, fc="#8a8f96", ec="#333", lw=0.6)
+    rect(ax, AP.SHELL_X0, -2, AP.SHELL_W, 2, fc="#8a8f96", ec="#333", lw=0.6)
     # 尺寸
-    ax.annotate("", (0, H + 10), (W, H + 10), arrowprops=dict(arrowstyle="<->", lw=0.8))
-    label(ax, W / 2, H + 15, f"{W}", 9)
-    for z, t in ((H, f"{H}"), (zc, f"{zc:.0f} 面板下沿 / 斜面上沿"), (zb, f"{zb:.1f} 斜面下沿"), (0, "0")):
+    ax.annotate("", (AP.SHELL_X0, H + 10), (AP.SHELL_X0 + AP.SHELL_W, H + 10), arrowprops=dict(arrowstyle="<->", lw=0.8))
+    label(ax, W / 2, H + 15, f"{AP.SHELL_W:.0f}（机架 {W}，左右各多 2 盖住下巴托侧板）", 9)
+    for z, t in ((H, f"{H}"), (zc, f"{zc:.0f} 面板下沿 / 斜面上沿"), (zb, f"{zb:.1f} 斜面下沿"), (zd, f"{zd:.1f} 键盘座底面前沿"), (0, "0")):
         ax.plot([W + 3, W + 12], [z, z], color="#333", lw=0.8)
         ax.text(W + 14, z, t, va="center", fontproperties=F, fontsize=8)
-    label(ax, -22, (zc + H) / 2, "竖直前面板\n320×332×2", 9, rotation=90)
-    label(ax, -22, (zb + zc) / 2, "斜面\n展开 316×83", 8, rotation=90)
-    ax.text(0, -18, "虚线框 = 后面的 2020 立柱 / 横梁；蓝点线 = 背面亚克力；白点 = M4 固定孔（锁进立柱、顶横梁的 T 螺母）",
+    label(ax, -22, (zc + H) / 2, f"前壳：竖直前面板\n{AP.SHELL_W:.0f}×332×2", 9, rotation=90)
+    label(ax, -22, (zb + zc) / 2, f"斜面（同一块板折 33°）\n展开 {W}×83", 8, rotation=90)
+    ax.text(0, -18, "虚线框 = 后面的 2020 立柱 / 横梁；蓝点线 = 背面亚克力；白点 = M4 固定孔（锁进立柱、顶横梁的 T 螺母）；斜面下沿 3 个黑点 = 键盘座 M3 沉头",
             fontproperties=F, fontsize=8, color="#444")
 
 
 def side_view(ax):
-    ax.set_xlim(-75, 70); ax.set_ylim(-25, H + 20); ax.set_aspect("equal"); ax.axis("off")
+    ax.set_xlim(-75, 85); ax.set_ylim(-28, H + 20); ax.set_aspect("equal"); ax.axis("off")
     ax.set_title("侧视（x = 160 剖开，左边是前面；立柱是后方投影）", fontproperties=F, fontsize=11)
     # 机架：立柱（侧面）、前下 / 前上横梁、甲板、电脑层、底板
     rect(ax, 0, 0, 20, H, fc="#e6e6e6", ec="#999", ls="--", lw=0.8)
@@ -149,28 +156,40 @@ def side_view(ax):
     yb, zb, zc = AP.Y_BASE, AP.Z_BASE, AP.Z_CHIN
     nx, nz = CA * 2, -SA * 2      # 斜面法向（朝里）
     ax.add_patch(Polygon([(-2, zc), (yb, zb), (yb + nx, zb + nz), (-2 + nx, zc + nz)], closed=True, fc="#333", ec="#000"))
-    rect(ax, yb, 0, 2, zb - 2 * SA, fc="#333", ec="#000")
-    rect(ax, yb, -3, -yb, 3, fc="#222", ec="#000")
     label(ax, (yb - 2) / 2 - 10, (zb + zc) / 2 + 4, "斜面 33°", 8, rotation=57)
-    label(ax, yb - 9, zb / 2, "底座条", 7, rotation=90)
+    # 键盘座（屏幕面接着斜面往下）、X1 连接条、下巴托底板（后边上翻锁前下横梁）、脚垫
+    dh, dd = PD.SPEC["H"], PD.SPEC["D"]
+    sp = AP.slant_pt
+    ax.add_patch(Polygon([sp(-dh, 0), sp(0, 0), sp(0, dd), sp(-dh, dd)], closed=True, fc="#202124", ec="#000"))
+    ax.add_patch(Polygon([sp(-dh - 5, 0), sp(-dh, 0), sp(-dh, dd), sp(-dh - 5, dd)], closed=True, fc="none", ec="#c0392b", ls="--"))
+    label(ax, yb - 22, zb - 4, "键盘座", 7)
+    rect(ax, AP.TRAY_Y0, -2, -AP.TRAY_Y0, 2, fc="#8a8f96", ec="#333")
+    rect(ax, -2, 0, 2, 18, fc="#8a8f96", ec="#333")
+    desk = -PLATE_T - AP.FEET_H
+    rect(ax, 10, desk, 15, AP.FEET_H, fc="#222", ec="none")
+    ax.plot([-75, 85], [desk, desk], color="#999", lw=0.8)
     # 斜面电路板（离斜面内表面 6.5）
     u0, u1 = AP.PCB_U
     off = 2 + AP.PCB_D
     p = lambda u, o: (yb + u * SA + o * CA, zb + u * CA - o * SA)
     ax.add_patch(Polygon([p(u0, off), p(u1, off), p(u1, off + 1.6), p(u0, off + 1.6)], closed=True, fc="#2f7d3a", ec="#174"))
     label(ax, -12, 40, "斜面\n电路板", 7, color="#174")
-    # 侧封板轮廓（在 x 0–2 和 318–320，这里画外形虚线）
-    ax.add_patch(Polygon([(0, 0), (0, zc), (-2, zc), (yb, zb), (yb, 0)], closed=True, fc="none", ec="#1f7fbf", ls=":", lw=1.2))
-    label(ax, -40, -14, "蓝点线 = 两侧三角封板外形", 7, color="#1f7fbf")
+    # 下巴托侧板外形（在机架外侧 x −2..0 / 320..322）
+    pts = [(AP.TRAY_Y0, -2), (AP.SIDE_BACK, -2), (AP.SIDE_BACK, zc), (-2, zc), sp(-dh, 0), sp(-dh, dd)]
+    ax.add_patch(Polygon(pts, closed=True, fc="none", ec="#1f7fbf", ls=":", lw=1.2))
+    for y, z in AP.SIDE_M4:
+        ax.add_patch(Circle((y, z), 2.25, fc="none", ec="#1f7fbf", lw=0.8))
+    label(ax, -10, -21, "蓝点线 = 下巴托侧板外形（圈 = M4 锁型材）；红虚线 = 键盘连接条", 7, color="#1f7fbf")
     # 尺寸
-    ax.annotate("", (yb, -10), (0, -10), arrowprops=dict(arrowstyle="<->", lw=0.8))
-    label(ax, yb / 2, -6, f"前探 {-yb:.0f}", 7.5)
+    yf = sp(-dh, 0)[0]
+    ax.annotate("", (yf, -13), (0, -13), arrowprops=dict(arrowstyle="<->", lw=0.8))
+    label(ax, yf / 2, -9.5, f"前探 {-yf:.0f}", 7.5)
 
 
 def main(fname="png/20_front_panel.png"):
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(16, 11), dpi=110, gridspec_kw=dict(width_ratios=[3.2, 1.25]))
     front_view(a1); side_view(a2)
-    fig.suptitle("MIS-01 前面板现状（2026-10-21）", fontproperties=F, fontsize=15)
+    fig.suptitle("MIS-01 前面板现状（2026-10-22：前面板 + 斜面一块铝板，下巴托 + 后仰键盘座）", fontproperties=F, fontsize=15)
     fig.tight_layout(); fig.savefig(fname, facecolor="white"); plt.close(fig)
     print("saved", fname)
 

@@ -9,7 +9,7 @@ import parts_modules as M
 import parts_panel as F
 import parts_dock as PD
 import vendor_parts as V
-from assembly_base import W, H, Z_DECK, Z_SCREEN, add, place, to_min
+from assembly_base import W, H, Z_DECK, Z_SCREEN, PLATE_T, add, place, to_min
 
 # ---------------------------------------------------------------- 斜面几何
 SLANT_L, SLANT_ANG = 83.0, 33.0                  # 斜面展开长、与竖直面夹角
@@ -38,6 +38,30 @@ NICHE = (24, 92, 146, 84)                        # 管龛窗 x, z, w, h（左边
 SBM_WIN = (180, 94, 118, 19)                     # 盖革窗，右边与 6E2 开口齐平（x 298）
 SENSOR = (304, 404)
 
+# 前壳（前面板 + 斜面，一块 2 mm 铝钣金）与下巴托（底板 + 两侧板，一块 2 mm 铝钣金），2026-10-22 用户确认（png/23 方案 + 两件拆法）
+SHELL_X0, SHELL_W = -2.0, W + 4.0                # 前面板加宽到 324，左右各盖住下巴托侧板的 2 mm
+SIDE_X = (-2.0, W)                               # 两侧板在机架外侧（x −2..0 / 320..322），M4 锁立柱和 Y 梁外侧 T 槽
+SIDE_BACK = 75.0                                 # 侧板往后盖到 y 75；左侧板盖住喇叭（y 30–70），开喇叭网孔
+SIDE_M4 = ((10, 30), (10, 60), (35, 10), (35, 80), (65, 10), (65, 80))   # 侧板 M4 孔 (y, z)：前立柱 ×2、下层 / 甲板层 Y 梁各 ×2
+GRILLE = (50.0, 45.0, 17.0, 3.0, 5.0)            # 左侧板喇叭网：中心 (y, z)、半径、孔径、孔距（六角排）
+TRAY_Y0 = -48.0                                  # 下巴托底板前沿（键盘座背面下角 y −47.9 后面）
+FLANGE_T, FLANGE_U = 10.0, (8.0, 64.0)           # 斜面两侧翻边：往里 10，沿斜面 u 8–64（再往上翻边后角就伸进前立柱 y > 0）；各 2 个 M3 压铆螺母（u 20 / 56）锁侧板
+FLANGE_SCREW_U, FLANGE_SCREW_T = (20.0, 56.0), 6.0
+FEET_H = 3.0                                     # 底板下橡胶脚垫
+
+SHELL = []                                       # 前壳的两段（前面板、斜面），build() 里合成一个零件
+
+
+def on_slant_local(shape):
+    """斜面局部坐标（x = 全局 x，Y = 从斜面外表面往里 t，Z = 沿斜面 u）→ 全局"""
+    return place(shape, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),))
+
+
+def slant_pt(u, t):
+    """斜面局部 (u, t) → 全局 (y, z)"""
+    return (Y_BASE + u * SA + t * CA, Z_BASE + u * CA - t * SA)
+
+
 def on_slant(shape, x, u, back=False):
     """面板件（原点=前表面开孔中心，-Y 朝外，+Z 向上）放到斜面 (x,u)；back=True 表示原点在面板背面（如 EC11）"""
     if back:
@@ -54,9 +78,9 @@ def front_panel():
     holes = [(METER[0], METER[1], 50)] + [(METER[0] + sx * 26, METER[1] - 13, 3.2) for sx in (-1, 1)]   # 85C1：Ø50 + 2×M3（孔距 52）
     holes += [(SENSOR[0], SENSOR[1], 6)]
     holes += [(x, z, 4.5) for x in (10, W - 10) for z in (140, 280, 410)] + [(x, H - 10, 4.5) for x in (110, 210)]
-    cut = [(x, z - z0, w, h) for x, z, w, h in cut]
-    holes = [(x, z - z0, d) for x, z, d in holes]
-    add("front_panel_2mm", P.panel(W, H - z0, 2, cut, holes).translate((0, -2, z0)), "panel", "front")
+    cut = [(x - SHELL_X0, z - z0, w, h) for x, z, w, h in cut]
+    holes = [(x - SHELL_X0, z - z0, d) for x, z, d in holes]
+    SHELL.append(P.panel(SHELL_W, H - z0, 2, cut, holes).translate((SHELL_X0, -2, z0)))
     add("Panel_meter_85C1", F.panel_meter().translate((METER[0], -2, METER[1])), "meter", "ui")
     # 透明亚克力（贴在面板背面，VHB 双面胶或 UV 胶）
     # 右：L 形一片盖 6E2 + 盖革两个窗，让开表头螺柱（x 241.5）和右侧 EL 托架（x ≥ 298、z ≥ 176）
@@ -74,15 +98,14 @@ def slant():
     holes += [(x, u, 16.2) for x in KEY_X for u in KEY_U]                                     # LA16 按钮 Ø16
     holes += [(x, u, 7.2) for x, u in ENC]
     holes += [(x, TOG_U, 6.2) for x in TOG_X] + [(x, LAMP_U, 16.2) for x in TOG_X]
-    sp = P.panel(W - 4, SLANT_L, 2, [(x - 2, u, w, h) for x, u, w, h in cut], [(x - 2, u, d) for x, u, d in holes])
-    add("slant_panel_2mm", place(sp, 2, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "chin", "front")      # 夹在两侧封板之间
-    # 两侧三角封板、底座条、斜面下底板
-    pts = [(0, 0), (0, Z_CHIN), (-2, Z_CHIN), (Y_BASE, Z_BASE), (Y_BASE, 0)]
-    cheek = cq.Workplane("YZ").polyline(pts).close().extrude(2)
-    add("chin_cheek_L", cheek, "chin", "front")
-    add("chin_cheek_R", cheek.translate((W - 2, 0, 0)), "chin", "front")
-    add("base_strip_2mm", P.panel(W - 4, Z_BASE - 2 * SA, 2).translate((2, Y_BASE, 0)), "panel", "front")   # 顶边让开斜面板内角
-    add("chin_bottom_3mm", P.plate(W, -Y_BASE, 3).translate((0, Y_BASE, -3)), "dark", "front")
+    holes += [(W / 2 + x, PD.SCREW_U, 3.4) for x in PD.SPEC["tongue_x"]]                     # 键盘座舌片 M3 沉头
+    sp = P.panel(W, SLANT_L, 2, cut, holes)                                                  # 斜面局部坐标：x = 全局 x，Y = t，Z = u
+    for x0 in (0.0, W - 2):                                                                  # 两侧翻边（往里折 90°）
+        fl = P.box(2, FLANGE_T, FLANGE_U[1] - FLANGE_U[0], x0, 2, FLANGE_U[0])
+        for u in FLANGE_SCREW_U:
+            fl = fl.cut(P.cyl(1.7, 4, x0 - 1, 2 + FLANGE_SCREW_T, u, "X"))
+        sp = sp.union(fl)
+    SHELL.append(on_slant_local(sp))
     # 操作件
     add("Rotary_selector_5pos", on_slant(F.rotary_selector(), *SEL), "knob", "ui")
     for k, (x, u) in enumerate(USB):
@@ -111,17 +134,58 @@ def slant_pcb():
     b = V.load_abs_drop(SLANT_STEP, _slant_drop).rotate((0, 0, 0), (1, 0, 0), 90)
     b = b.translate((PCB_X[0], 2 + PCB_D + PCB_T, PCB_U[0]))
     add("SLANT_board", place(b, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
-    pico = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90)     # 贴板背面、长边沿 u，中心斜面 (72.5, 45.5)（SLANT D1 U1；STEP 里没有 Pico 模型）
+    # 贴板背面、长边沿 u，中心斜面 (72.5, 45.5)（SLANT D1 U1；STEP 里没有 Pico 模型）；底面贴板、元件面和 USB 座朝里（2026-10-22 改正，原来装反）
+    # 待改：USB 口离 USB2 延长线本体只有 5.6 mm 插不进线（png/24、25），mis-01-56 改成转 180°、板边齐斜面电路板上沿，配 90° 弯头线
+    pico = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90).rotate((0, 0, 0), (0, 0, 1), 180)
     pico = to_min(pico, 62, 2 + PCB_D + PCB_T, 20)                                              # 让开模式开关孔、USB 缺口、编码器和推子焊脚
     add("RPi_Pico(on_slant_PCB)", place(pico, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
 
+def chin_tray():
+    """下巴托：底板（x −2..322、y TRAY_Y0..0、z −2..0）+ 两侧板（底板两边往上折）+ 底板后边往上折 18 锁前下横梁（M4 ×3）。
+    侧板外形：沿斜面外表面线往下到键盘座底面前角，再沿键盘座底面到背面下角；往后盖到 y SIDE_BACK、往上到 z Z_CHIN"""
+    dh, dd = PD.SPEC["H"], PD.SPEC["D"]
+    pts = [(TRAY_Y0, -2), (SIDE_BACK, -2), (SIDE_BACK, Z_CHIN), (-2, Z_CHIN), slant_pt(-dh, 0), slant_pt(-dh, dd)]
+    side = cq.Workplane("YZ").polyline(pts).close().extrude(2)
+    for y, z in SIDE_M4:
+        side = side.cut(P.cyl(2.25, 4, -1, y, z, "X"))
+    for u in FLANGE_SCREW_U:                                                        # 斜面翻边 M3
+        y, z = slant_pt(u, 2 + FLANGE_SCREW_T)
+        side = side.cut(P.cyl(1.7, 4, -1, y, z, "X"))
+    for z in PD.SPEC["end_holes_z"]:                                                # 键盘座两端 M3
+        y, zz = slant_pt(z - dh, PD.SPEC["end_hole_y"])
+        side = side.cut(P.cyl(1.7, 4, -1, y, zz, "X"))
+    gy, gz, gr, gd, gp = GRILLE
+    left = side
+    for i in range(-5, 6):
+        for j in range(-5, 6):
+            y, z = gy + gp * (i + 0.5 * (j % 2)), gz + gp * 0.866 * j
+            if (y - gy) ** 2 + (z - gz) ** 2 <= gr ** 2:
+                left = left.cut(P.cyl(gd / 2, 4, -1, y, z, "X"))
+    tray = P.box(SHELL_W, -TRAY_Y0, 2, SHELL_X0, TRAY_Y0, -2)
+    back = P.box(W, 2, 18, 0, -2, 0)
+    for x in (60, W / 2, W - 60):
+        back = back.cut(P.cyl(2.25, 4, x, -3, 10, "Y"))
+    tray = tray.union(back).union(left.translate((SIDE_X[0], 0, 0))).union(side.translate((SIDE_X[1], 0, 0)))
+    add("chin_tray_alu", tray, "chin", "front")
+
+
 def keyboard():
-    """底座条前装键盘座，X1 键盘平放在桌面上，连接带贴住舌条"""
-    dock = PD.keyboard_dock()                                                  # 暂时竖直放；2026-10-22 用户定：要随斜面后仰（还没改模型），背后怎么接机架待定
-    y_dock = Y_BASE - PD.SPEC["D"]
-    add("Keyboard_dock", dock.translate((W / 2, y_dock, 0)), "dark", "keyboard")
-    kb = M.x1_tablet_keyboard()
-    add("X1_Tablet_keyboard", kb.translate(((W - 300) / 2, y_dock - 226, 0)), "kbd", "keyboard")
+    """键盘座随斜面后仰：屏幕面与斜面外表面共面、顶面顶住斜面下沿；X1 键盘连接条（5 mm，用户实测）吸在座子底面，键盘平放在桌面"""
+    dh = PD.SPEC["H"]
+    to_slant = lambda shp: on_slant_local(shp.translate((W / 2, 0, -dh)))
+    add("Keyboard_dock", to_slant(PD.keyboard_dock()), "dark", "front")
+    add("Keyboard_dock_cover", to_slant(PD.keyboard_dock_cover()), "dark", "front")
+    spine_t, spine_l = 5.0, 280.0
+    spine = P.box(spine_l, PD.SPEC["D"], spine_t, W / 2 - spine_l / 2, 0, -dh - spine_t)
+    add("X1_keyboard_spine", on_slant_local(spine), "kbd", "keyboard")
+    desk = -PLATE_T - FEET_H
+    y_back = slant_pt(-dh - spine_t, 0)[0] - 2                                      # 键盘后沿在连接条前下角前面
+    add("X1_Tablet_keyboard", M.x1_tablet_keyboard().translate(((W - 300) / 2, y_back - 226, desk)), "kbd", "keyboard")
+    for x in (15, W - 15):                                                          # 橡胶脚垫 Ø15
+        for y in (15, 205):
+            add("rubber_foot", P.cyl(7.5, FEET_H, x, y, desk), "dark", "plates")
 
 def build():
-    front_panel(); slant(); slant_pcb(); keyboard()
+    SHELL.clear()
+    front_panel(); slant(); slant_pcb(); chin_tray(); keyboard()
+    add("front_shell_alu", SHELL[0].union(SHELL[1]), "panel", "front")      # 前面板 + 斜面：一块铝板折 33°
