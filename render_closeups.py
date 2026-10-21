@@ -39,7 +39,7 @@ def computer_hdmi():
     box = (0, 320, 60, 230, 255, 425)
     sel = [x for x in ITEMS if inbox(x[1], box) and not x[0].startswith(("rear_panel", "top_plate", "2020_Xrail_L280_RT"))]
     R.render(sel, "png/21_computer_hdmi_ffc.png", az=200, el=28, size=(12, 9),
-             title=f"电脑层暂定布置：HDMI 口面 y {AC.Y_PORT}（后面板内侧 y 220），20 cm 排线拱顶 z 358（后面板、顶板已隐藏）",
+             title=f"电脑层暂定布置（Pi 用 25 mm 铜柱抬高）：HDMI 口面 y {AC.Y_PORT}（后面板内侧 y 220），20 cm 排线拱顶 z {AC.ffc_arch(AC.PI_HDMI_X, AC.DOCK_HDMI_X, AC.AD_ZS["Pi"] + 1.6 + AC.FPC_H, AC.AD_ZS["Dock"] + 1.6 + AC.FPC_H)[2]:.0f}（后面板、顶板已隐藏）",
              labels=[((AC.PI_HDMI_X, 200, 300), "Pi 端小板"), ((AC.DOCK_HDMI_X, 200, 300), "Dock 端小板"),
                      ((110, 140, 300), "Orange Pi 4"), ((215, 130, 300), "Tang 20K Dock")])
 

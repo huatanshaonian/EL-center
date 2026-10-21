@@ -50,6 +50,8 @@ def lj64k052():
                 body = body.cut(cyl(d / 2, T + 2, L / 2 + sx * px / 2, -1, H / 2 + sz * pz / 2, "Y"))
     return body
 
+ORANGEPI4_HEADER = (23.0, 57.0, 51.0, 54.6)   # 排针在 Pi 局部的 x0, x1, y0, y1（DXF 量的长 34，实物是 2×20 的话约 51，待实测）
+
 def orangepi4():
     """Orange Pi 4 —— 板框、孔位、接口平面位置取自官方 orangepi-4-LTS-V1.1_top.dxf（step/vendor/orangepi4lts/，
     非 LTS 版同板型，实物到手复核）；接口高度是常见规格的估计值。
@@ -70,7 +72,8 @@ def orangepi4():
     b = b.union(box(19, 12, 15.6, 76, 7, t))                      # USB 叠层（伸出板端约 4）
     b = b.union(box(23, 16, 13.5, 72, 24, t))                     # RJ45 CN3
     b = b.union(box(16, 7, 7, 79, 43, t))                         # 板端第三个口（DXF 窄座，高度未知）
-    b = b.union(box(34, 3.6, 8.5, 23, 51, t))                     # 排针（2 排）
+    hx0, hx1, hy0, hy1 = ORANGEPI4_HEADER
+    b = b.union(box(hx1 - hx0, hy1 - hy0, 8.5, hx0, hy0, -8.5))   # 排针（2 排）：用户的 Pi 4 排针焊在板子背面、朝下（2026-10-22）
     b = b.union(box(15, 15, 1.5, 33.5, 16.5, t))                  # RK3399（中心约 x 41, y 24）
     return b
 
