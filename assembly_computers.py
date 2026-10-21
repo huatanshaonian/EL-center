@@ -50,9 +50,9 @@ def _pi_and_dock():
     add("OrangePi_4", pi, "opi", "computer")
     for hx, hy in ((2.86, 2.61), (87.97, 2.61), (2.86, 53.06), (87.97, 53.06)):
         add("standoff_M2.5x25_Pi", P.standoff_m3(PI_STANDOFF).translate((PI_XR - hx, PI_YR - hy, Z_PLATE_TOP)), "brass", "computer")
-    # 板底排针下插着的杜邦插头（占位：塑料座 2.5 下面 14 长）
-    hx0, hx1, hy0, hy1 = P.ORANGEPI4_HEADER
-    add("Dupont_on_Pi_header", P.box(hx1 - hx0, hy1 - hy0 + 1, 14, PI_XR - hx1, PI_YR - hy1 - 0.5, Z_PCB_PI - 2.5 - 14), "dark", "computer")
+    # 板底 26 针排针、3 针调试串口下插着的杜邦插头（占位：塑料座 2.5 下面 14 长）
+    for tag, (hx0, hx1, hy0, hy1) in (("header", P.ORANGEPI4_HEADER), ("uart", P.ORANGEPI4_UART)):
+        add(f"Dupont_on_Pi_{tag}", P.box(hx1 - hx0, hy1 - hy0 + 1, 14, PI_XR - hx1, PI_YR - hy1 - 0.5, Z_PCB_PI - 2.5 - 14), "dark", "computer")
     add("Tang20K_Dock", P.tang20k_dock().translate((DOCK_X0, DOCK_Y0, Z_PCB)), "pcb_g", "computer")
     for hx, hy in ((4, 4), (91, 4), (4, 69), (91, 69)):
         add("standoff_M2.5x6_Dock", P.standoff_m3(STANDOFF).translate((DOCK_X0 + hx, DOCK_Y0 + hy, Z_PLATE_TOP)), "brass", "computer")
