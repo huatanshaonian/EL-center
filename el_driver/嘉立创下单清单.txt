@@ -22,6 +22,7 @@ MIS-01 嘉立创下单清单（2026-10-22）
   4  HDMI-PI D1            HDMI_FPC_D1\制板文件\                ★板厚必须 1.6            5      要，全贴片，贴 2 套：JLC_SMT_BOM/CPL_HDMI-PI_D1
   5  HDMI-DOCK D1          HDMI_FPC_D1\制板文件\                ★板厚必须 1.6            5      要，全贴片，贴 2 套：JLC_SMT_BOM/CPL_HDMI-DOCK_D1
                            （HDMI 插头 C711355 难度高，要选"标准 PCBA"，经济型不行）
+                           （J1 是夹板式插头，骑在板前沿、两面都有焊盘：下单备注"J1 为夹板式 HDMI 插头，上下两面焊盘都需焊接"，按双面贴装报价）
   6  IV-18 主板 IV18 D1    IV18_D1\制板文件\Gerber_IV18_D1                               5      要，贴 2 套：JLC_SMT_BOM/CPL_IV18_D1（不含 U1 MAX6921，自己焊；R17–R19 不贴）
   7  IV-18 端板 IV18-END   IV18_D1\制板文件\Gerber_IV18-END_D1  ★黑色阻焊               5      不要
   8  高压小板 HV-UNI D1    HV-UNI_D1\制板文件\                                           5      要，贴 3 套（用 3 块）：JLC_SMT_BOM/CPL_HV-UNI_D1（电感、采样电阻）
