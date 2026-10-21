@@ -118,7 +118,12 @@ MIS-01 各板上电测试清单
      HDMI 18 脚和 J2 任何脚都不通；相邻脚不短路。Dock 板 R1–R8 每只 49.9 Ω 左右（在板上量会并着别的通路，看个大概）。
   2. 排线（20 cm 同向）两头插好、推上锁：Pi 板 J1 第 k 脚 ↔ Dock 板 J1 第 k 脚都通（k = 1–17、19），18 脚两头不通。
   3. Dock 板插到 Dock、Dock 上电（Pi 不接）：Dock 板 C2 两端 3.3 V ± 0.1；8 根 TMDS 线对地约 3.0 V（Dock 的 499 Ω 下拉分压）。
-  4. 再插 Pi 端、Pi 上电出图：fpga-8c 的 RX_SENSE 应全为 1、FPGA 锁定（使用说明 fpga\el_hdmi\使用说明.txt）。
+  插拔排线一律在 Pi 和 Dock 都断电时进行。
+  4a. 只看端接（与 FPGA 程序无关）：再插 Pi 端，Pi 上电出图后执行 sudo ~/hdmi_diag2.sh，看 /tmp/hdmi_diag2.txt 里的 PHY_STAT0：
+      应为 0xF3（bit7–4 = RX_SENSE3..0 全 1，bit1 = HPD，bit0 = PHY 锁定）。没接端接时实测是 0x03。RX_SENSE 是 Pi 那边的寄存器。
+  4b. FPGA 收到信号：Dock 烧 el_hdmi（27 MHz EDID 版），Pi 运行时把 EDID 覆盖成 none（Pi 重启后会恢复，见 fpga\el_hdmi\使用说明.txt）；
+      串口 COM4 发"?"，应回 HDMI=1 VID=1 H=280 V=1E0，SHOWN 在增长。
+  判断：4a 不过，查本节两块板和排线；4a 过、4b 不过，问题在 FPGA 对齐/解码（fpga-8c），不用改板。
 
 --------------------------------------------------------------------
 10. 整机联调顺序
