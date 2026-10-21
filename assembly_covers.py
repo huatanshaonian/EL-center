@@ -34,7 +34,8 @@ def _slots(shape, rows, plane):
 def side_cover():
     """一块侧板（x 0..2 局部，之后平移）：y 0..D+2、z −PLATE_T..H+PLATE_T，左下前角让出下巴托侧板"""
     y1, z0, z1 = D + T, -PLATE_T, H + PLATE_T
-    pts = [(AP.SIDE_BACK, z0), (y1, z0), (y1, z1), (0, z1), (0, AP.Z_CHIN), (AP.SIDE_BACK, AP.Z_CHIN)]
+    zc = AP.SIDE_TOP + 0.5                                       # 下巴托侧板上沿 + 0.5
+    pts = [(AP.SIDE_BACK, z0), (y1, z0), (y1, z1), (0, z1), (0, zc), (AP.SIDE_BACK, zc)]
     s = cq.Workplane("YZ").polyline(pts).close().extrude(T)
     for y, z in SIDE_M4:
         s = s.cut(P.cyl(2.25, T + 2, -1, y, z, "X"))

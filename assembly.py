@@ -213,17 +213,24 @@ def computers():
 IEC_PLATE = (210.0, 0.0, W - 210.0, 110.0)          # 背面 IEC 小板 x0, z0, 宽, 高（2 mm 铝，嘉立创钣金，接 PE）
 
 
-def rear():
-    """背板先不装（2026-10-22 用户定），背面右下角只装一块金属 IEC 小板：IEC C14 + SMA ×2；
-    M4 锁右后立柱（x 310）和后下横梁（z 10），小板要接 PE（整机架构 5.3）"""
-    IEC = (276.0, 54.0)                                               # AC-14-F12 开孔中心；耳孔 x 256 / 296，螺母让开右后立柱（x ≥ 300）
+IEC_XZ = (276.0, 54.0)                           # AC-14-F12 开孔中心；耳孔 x 256 / 296，螺母让开右后立柱（x ≥ 300）
+
+
+def iec_plate():
+    """背面 IEC 小板（2 mm 铝，嘉立创钣金，接 PE）：IEC C14 开孔 28×60 + 耳孔 M3 ×2、SMA ×2、M4 ×3（右后立柱 ×2、后下横梁）"""
     x0, z0, pw, ph = IEC_PLATE
-    cut = [(IEC[0] - 14 - x0, IEC[1] - 30 - z0, 28, 60)]              # IEC C14 三合一开孔 28x60
-    holes = [(IEC[0] + sx * 20 - x0, IEC[1] - z0, 3.5) for sx in (-1, 1)]   # 电源座耳孔 M3
-    holes += [(x - x0, 40 - z0, 6.5) for x in (225, 247)]              # 后 SMA ×2
-    holes += [(W - 10 - x0, z - z0, 4.5) for z in (10, 100)] + [(220 - x0, 10 - z0, 4.5)]   # M4：右后立柱 ×2、后下横梁 ×1
-    add("IEC_plate_alu", P.panel(pw, ph, 2, cut, holes).translate((x0, D, z0)), "panel", "rear")
-    add("IEC_C14_AC-14-F12", F.iec_c14_inlet().rotate((0, 0, 0), (0, 0, 1), 180).translate((IEC[0], D + 2, IEC[1])), "dark", "rear")
+    cut = [(IEC_XZ[0] - 14 - x0, IEC_XZ[1] - 30 - z0, 28, 60)]
+    holes = [(IEC_XZ[0] + sx * 20 - x0, IEC_XZ[1] - z0, 3.5) for sx in (-1, 1)]
+    holes += [(x - x0, 40 - z0, 6.5) for x in (225, 247)]
+    holes += [(W - 10 - x0, z - z0, 4.5) for z in (10, 100)] + [(220 - x0, 10 - z0, 4.5)]
+    return P.panel(pw, ph, 2, cut, holes).translate((x0, D, z0))
+
+
+def rear():
+    """背板不一定装（2026-10-22 用户定，整块背板在 assembly_covers），背面右下角的金属 IEC 小板一定装：IEC C14 + SMA ×2；
+    M4 锁右后立柱（x 310）和后下横梁（z 10），小板要接 PE（整机架构 5.3）"""
+    add("IEC_plate_alu", iec_plate(), "panel", "rear")
+    add("IEC_C14_AC-14-F12", F.iec_c14_inlet().rotate((0, 0, 0), (0, 0, 1), 180).translate((IEC_XZ[0], D + 2, IEC_XZ[1])), "dark", "rear")
 
 def build():
     ITEMS.clear()

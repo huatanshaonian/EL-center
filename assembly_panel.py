@@ -34,7 +34,7 @@ METER = (214, 146)
 EYE_X = (261, 285)                               # 6E2 管心 x
 EYE_WIN = (248, 118, 50, 56)                     # 6E2 开口 x, z, w, h：上下边与表头面框齐平（z 118–174），表头底边向右延伸成横条，把 6E2 和下面的盖革窗隔开
 ACRYLIC_T = 2                                    # 三个开口背后都贴透明亚克力（管龛 170 V、6E2 250 V、盖革管 400 V，手指够不着）
-NICHE = (24, 92, 146, 84)                        # 管龛窗 x, z, w, h（左边让出 2 mm 给亚克力贴边，亚克力不能压到左 EL 托架 x 20–22）
+NICHE = (24, 93, 146, 83)                        # 管龛窗 x, z, w, h（左边让出 2 mm 给亚克力贴边，亚克力不能压到左 EL 托架 x 20–22）；下沿 z 93：离前壳折弯切点（z 88.5）≥ 4.5（2026-10-22 由 92 抬）
 SBM_WIN = (180, 94, 118, 19)                     # 盖革窗，右边与 6E2 开口齐平（x 298）
 SENSOR = (304, 404)
 
@@ -42,14 +42,15 @@ SENSOR = (304, 404)
 SHELL_X0, SHELL_W = -2.0, W + 4.0                # 前面板加宽到 324，左右各盖住下巴托侧板的 2 mm
 SIDE_X = (-2.0, W)                               # 两侧板在机架外侧（x −2..0 / 320..322），M4 锁立柱和 Y 梁外侧 T 槽
 SIDE_BACK = 90.0                                 # 侧板往后盖到 y 90；两侧板对着腔体喇叭开喇叭网
+SIDE_TOP = 89.5                                  # 侧板上沿（前壳前面板两侧 2 mm 的“耳朵”从 z 90 开始，中间留 0.5）
 SIDE_M4 = ((10, 30), (10, 60), (35, 10), (35, 80), (65, 10), (65, 80))   # 侧板 M4 孔 (y, z)：前立柱 ×2、下层 / 甲板层 Y 梁各 ×2
 GRILLE = {0: (24.0, 76.0), 1: (30.0, 86.0)}, (24.0, 46.0, 3.0, 5.0)   # 喇叭网 y 范围（左 / 右侧板，对着腔体喇叭；前立柱挡住 y < 20）；z0, z1, 孔径, 孔距（六角排）
-TRAY_Y0 = -48.0                                  # 下巴托底板前沿（键盘座背面下角 y −47.9 后面）
-FLANGE_T, FLANGE_U = 10.0, (8.0, 64.0)           # 斜面两侧翻边：往里 10，沿斜面 u 8–64（再往上翻边后角就伸进前立柱 y > 0）；各 2 个 M3 压铆螺母（u 20 / 56）锁侧板
-FLANGE_SCREW_U, FLANGE_SCREW_T = (20.0, 56.0), 6.0
+TRAY_Y0 = -47.0                                  # 下巴托底板前沿 = 两侧折弯起点（键盘座背面下角 y −47.9 前面，不碰折弯圆角）
+FLANGE_T, FLANGE_U = 14.0, (8.0, 64.0)           # 斜面两侧翻边：从斜面外表面往里 14，沿斜面 u 8–64（再往上翻边后角伸进前立柱 y > 0）；各 2 个 M3 压铆螺母锁侧板
+FLANGE_SCREW_U, FLANGE_SCREW_T = (20.0, 56.0), 8.5   # 压铆螺母孔中心 t 8.5：离翻边外沿 5.5、离折弯切点 4.8（CLS-M3 要求 ≥ 4.8）
 FEET_H = 3.0                                     # 底板下橡胶脚垫
 
-SHELL = []                                       # 前壳的两段（前面板、斜面），build() 里合成一个零件
+FEATURES = {}                                    # 前面板 / 斜面的开孔（front_panel()、slant() 填），assembly_shell 用来做钣金件
 
 
 def on_slant_local(shape):
@@ -78,9 +79,7 @@ def front_panel():
     holes = [(METER[0], METER[1], 50)] + [(METER[0] + sx * 26, METER[1] - 13, 3.2) for sx in (-1, 1)]   # 85C1：Ø50 + 2×M3（孔距 52）
     holes += [(SENSOR[0], SENSOR[1], 6)]
     holes += [(x, z, 4.5) for x in (10, W - 10) for z in (140, 280, 410)] + [(x, H - 10, 4.5) for x in (110, 210)]
-    cut = [(x - SHELL_X0, z - z0, w, h) for x, z, w, h in cut]
-    holes = [(x - SHELL_X0, z - z0, d) for x, z, d in holes]
-    SHELL.append(P.panel(SHELL_W, H - z0, 2, cut, holes).translate((SHELL_X0, -2, z0)))
+    FEATURES["front"] = (cut, holes)                                                       # 全局 (x, z)
     add("Panel_meter_85C1", F.panel_meter().translate((METER[0], -2, METER[1])), "meter", "ui")
     # 透明亚克力（贴在面板背面，VHB 双面胶或 UV 胶）
     # 右：L 形一片盖 6E2 + 盖革两个窗，让开表头螺柱（x 241.5）和右侧 EL 托架（x ≥ 298、z ≥ 176）
@@ -99,13 +98,7 @@ def slant():
     holes += [(x, u, 7.2) for x, u in ENC]
     holes += [(x, TOG_U, 6.2) for x in TOG_X] + [(x, LAMP_U, 16.2) for x in TOG_X]
     holes += [(W / 2 + x, PD.SCREW_U, 3.4) for x in PD.SPEC["tongue_x"]]                     # 键盘座舌片 M3 沉头
-    sp = P.panel(W, SLANT_L, 2, cut, holes)                                                  # 斜面局部坐标：x = 全局 x，Y = t，Z = u
-    for x0 in (0.0, W - 2):                                                                  # 两侧翻边（往里折 90°）
-        fl = P.box(2, FLANGE_T, FLANGE_U[1] - FLANGE_U[0], x0, 2, FLANGE_U[0])
-        for u in FLANGE_SCREW_U:
-            fl = fl.cut(P.cyl(1.7, 4, x0 - 1, 2 + FLANGE_SCREW_T, u, "X"))
-        sp = sp.union(fl)
-    SHELL.append(on_slant_local(sp))
+    FEATURES["slant"] = (cut, holes)                                                       # 斜面局部 (x, u)
     # 操作件
     add("Rotary_selector_5pos", on_slant(F.rotary_selector(), *SEL), "knob", "ui")
     for k, (x, u) in enumerate(USB):
@@ -148,39 +141,6 @@ def pico_on_slant():
     pcb = max(p.solids().vals(), key=lambda s: s.BoundingBox().xlen * s.BoundingBox().zlen).BoundingBox()
     return p.translate((PICO_C[0] - (pcb.xmin + pcb.xmax) / 2, 2 + PCB_D + PCB_T - pcb.ymin, PICO_C[1] + PICO_L / 2 - pcb.zmax))
 
-def chin_tray():
-    """下巴托：底板（x −2..322、y TRAY_Y0..0、z −2..0）+ 两侧板（底板两边往上折）+ 底板后边往上折 18 锁前下横梁（M4 ×3）。
-    侧板外形：沿斜面外表面线往下到键盘座底面前角，再沿键盘座底面到背面下角；往后盖到 y SIDE_BACK、往上到 z Z_CHIN"""
-    dh, dd = PD.SPEC["H"], PD.SPEC["D"]
-    pts = [(TRAY_Y0, -2), (SIDE_BACK, -2), (SIDE_BACK, Z_CHIN), (-2, Z_CHIN), slant_pt(-dh, 0), slant_pt(-dh, dd)]
-    side = cq.Workplane("YZ").polyline(pts).close().extrude(2)
-    for y, z in SIDE_M4:
-        side = side.cut(P.cyl(2.25, 4, -1, y, z, "X"))
-    for u in FLANGE_SCREW_U:                                                        # 斜面翻边 M3
-        y, z = slant_pt(u, 2 + FLANGE_SCREW_T)
-        side = side.cut(P.cyl(1.7, 4, -1, y, z, "X"))
-    for z in PD.SPEC["end_holes_z"]:                                                # 键盘座两端 M3
-        y, zz = slant_pt(z - dh, PD.SPEC["end_hole_y"])
-        side = side.cut(P.cyl(1.7, 4, -1, y, zz, "X"))
-    def grille(sd, gy0, gy1):
-        gz0, gz1, gd, gp = GRILLE[1]
-        j, z = 0, gz0 + gd / 2
-        while z <= gz1 - gd / 2 + 0.01:
-            y = gy0 + gd / 2 + (gp / 2 if j % 2 else 0)
-            while y <= gy1 - gd / 2 + 0.01:
-                sd = sd.cut(P.cyl(gd / 2, 4, -1, y, z, "X"))
-                y += gp
-            z += gp * 0.866; j += 1
-        return sd
-    sides = [grille(side, *GRILLE[0][k]) for k in (0, 1)]
-    tray = P.box(SHELL_W, -TRAY_Y0, 2, SHELL_X0, TRAY_Y0, -2)
-    back = P.box(W, 2, 18, 0, -2, 0)
-    for x in (60, W / 2, W - 60):
-        back = back.cut(P.cyl(2.25, 4, x, -3, 10, "Y"))
-    tray = tray.union(back).union(sides[0].translate((SIDE_X[0], 0, 0))).union(sides[1].translate((SIDE_X[1], 0, 0)))
-    add("chin_tray_alu", tray, "chin", "front")
-
-
 def keyboard():
     """键盘座随斜面后仰：屏幕面与斜面外表面共面、顶面顶住斜面下沿；X1 键盘连接条（5 mm，用户实测）吸在座子底面，键盘平放在桌面"""
     dh = PD.SPEC["H"]
@@ -198,6 +158,6 @@ def keyboard():
             add("rubber_foot", P.cyl(7.5, FEET_H, x, y, desk), "dark", "plates")
 
 def build():
-    SHELL.clear()
-    front_panel(); slant(); slant_pcb(); chin_tray(); keyboard()
-    add("front_shell_alu", SHELL[0].union(SHELL[1]), "panel", "front")      # 前面板 + 斜面：一块铝板折 33°
+    import assembly_shell as SH                                                     # 前壳、下巴托两个钣金件（带折弯圆角）
+    front_panel(); slant(); slant_pcb(); keyboard()
+    SH.build()

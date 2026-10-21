@@ -175,7 +175,8 @@ def side_view(ax):
     ax.add_patch(Polygon([p(u0, off), p(u1, off), p(u1, off + 1.6), p(u0, off + 1.6)], closed=True, fc="#2f7d3a", ec="#174"))
     label(ax, -12, 40, "斜面\n电路板", 7, color="#174")
     # 下巴托侧板外形（在机架外侧 x −2..0 / 320..322）
-    pts = [(AP.TRAY_Y0, -2), (AP.SIDE_BACK, -2), (AP.SIDE_BACK, zc), (-2, zc), sp(-dh, 0), sp(-dh, dd)]
+    import assembly_shell as SH
+    pts = SH.side_outline()
     ax.add_patch(Polygon(pts, closed=True, fc="none", ec="#1f7fbf", ls=":", lw=1.2))
     for y, z in AP.SIDE_M4:
         ax.add_patch(Circle((y, z), 2.25, fc="none", ec="#1f7fbf", lw=0.8))
