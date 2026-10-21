@@ -49,13 +49,22 @@ def front_view(ax):
     # 管龛：IN-14 ×6 + IV-18
     nx, nz, nw, nh = AP.NICHE
     rect(ax, nx, nz, nw, nh, fc=CUT, ec="#111")
+    # IN-14 只画玻壳（底 = 小板底 + 板厚 + 4 mm 引线根），引线在小板以下看不见
+    z_in14 = A.Z_IN14_PCB + 1.6 + 4
     for x in A.TUBE_X:
-        ax.add_patch(FancyBboxPatch((x - 9, 109.4), 18, 174.7 - 109.4, boxstyle="round,pad=0,rounding_size=8",
+        rect(ax, x - 10.5, A.Z_IN14_PCB, 21, 1.6, fc="#1f6b35", ec="none")          # 小板侧边
+        ax.add_patch(FancyBboxPatch((x - 9, z_in14), 18, 174.7 - z_in14, boxstyle="round,pad=0,rounding_size=8",
                                     fc="#e07a2e", ec="#7a3500", alpha=0.75))
-    ax.add_patch(FancyBboxPatch((22.8, 97.6), 142 - 22.8, 18, boxstyle="round,pad=0,rounding_size=8",
+    # IV-18：玻壳 Ø19，芯柱端面在 IV18_STEM_X，总长 115 含排气尖；字位第 1 位离芯柱端 17.5、位距 9.8，特殊位在第 8 位左 8
+    zc = A.Z_IV18_PCB + 11.6
+    sx = A.IV18_STEM_X
+    ax.add_patch(FancyBboxPatch((sx - 115, zc - 9.5), 115, 19, boxstyle="round,pad=0,rounding_size=8",
                                 fc="#4fd6c2", ec="#11695c", alpha=0.75))
+    digits = [sx - 17.5 - 9.8 * k for k in range(8)] + [sx - 17.5 - 9.8 * 7 - 8]
+    for dx in digits:
+        rect(ax, dx - 2.7, zc - 5.25, 5.4, 10.5, fc="none", ec="#063", lw=0.6)
     label(ax, nx + nw / 2, 166, "IN-14 ×6", 9, color="white")
-    label(ax, 82, 106.6, "IV-18", 8, color="#063")
+    label(ax, sum(digits[:8]) / 8, zc - 7.5, "IV-18", 7, color="#063")
     # 表头
     mx, mz = AP.METER
     ax.add_patch(FancyBboxPatch((mx - 32, mz - 28), 64, 56, boxstyle="round,pad=0,rounding_size=3", fc="#222", ec="#000"))

@@ -117,7 +117,7 @@ def slant_pcb():
 
 def keyboard():
     """底座条前装键盘座，X1 键盘平放在桌面上，连接带贴住舌条"""
-    dock = PD.keyboard_dock()                                                  # 暂时竖直放；是否随斜面后仰、背后怎么接机架待定
+    dock = PD.keyboard_dock()                                                  # 暂时竖直放；2026-10-22 用户定：要随斜面后仰（还没改模型），背后怎么接机架待定
     y_dock = Y_BASE - PD.SPEC["D"]
     add("Keyboard_dock", dock.translate((W / 2, y_dock, 0)), "dark", "keyboard")
     kb = M.x1_tablet_keyboard()
