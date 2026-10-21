@@ -1,5 +1,5 @@
 """
-MIS-01 整机布局装配（布局 E11；Orange Pi 4、FPGA Dock 暂作未安装模块，不在总装内）
+MIS-01 整机布局装配（布局 E11；Orange Pi 4、FPGA Dock 在电脑层为暂定布置，见 assembly_computers.py）
 全局坐标：X 向右(宽)、Y 由前向后(深)、Z 向上；竖直前面板外表面 Y=-2，框架前沿 Y=0。
 框架外形 320(W) x 220(D) x 420(H)，2020 型材；底部斜面与键盘座向前探出约 45（见 assembly_panel.py）。
 公共尺寸/配色/零件表在 assembly_base.py。
@@ -9,6 +9,7 @@ import parts as P
 import parts_modules as M
 import parts_panel as F
 import assembly_panel as AP
+import assembly_computers as AC
 import vendor_parts as V
 from assembly_base import W, D, H, Z_DECK, Z_SHELF, Z_SCREEN, PLATE_T, ITEMS, add, to_min
 
@@ -180,10 +181,10 @@ def lower():
     add("Speaker_40mm", F.speaker_40().rotate((0, 0, 0), (0, 0, 1), -90).translate((22, 50, 45)), "dark", "power")
 
 # ------------------------------------------------------------------ 电脑层
-# Orange Pi 4 和 Tang Primer 20K Dock 暂不定位置，作为未安装模块处理（单件 STEP 见 P04 / P03）。
-# 等第一版自制 PCB 出来后，与各板一起重新布置；后面板接口窗也随之再开。
+# Orange Pi 4、Dock、HDMI 软排线两头小板：暂定布置（2026-10-21，待用户确认），见 assembly_computers.py。
+# EL 接口板、Hub 模块、风扇小板还没放；后面板接口窗等布置定了再开。
 def computers():
-    pass
+    AC.build()
 
 # ------------------------------------------------------------------ 后面板
 def rear():

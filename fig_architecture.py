@@ -44,13 +44,13 @@ def signal_diagram(fname="png/11_architecture.png"):
 
     # 主机
     group(ax, 41, 30, 30, 22, "主机层", "host")
-    opi = box(ax, 46, 38, 20, 8, "Orange Pi 4\n（Armbian）\n未安装，位置待定", "host", 11, True)
+    opi = box(ax, 46, 38, 20, 8, "Orange Pi 4\n（Armbian）\n电脑层，暂定位置", "host", 11, True)
     hub = box(ax, 46, 31.5, 12, 4.5, "一分四 USB2.0\nHub 模块（买现成）", "dev", 8.5)
     arrow(ax, edge(hub, "t"), (52, 38), "USB2 口 2", both=True, off=(2.8, -0.6))
 
     # EL（不展开）
     group(ax, 41, 58, 30, 18, "EL 显示子系统（单独开发，这里不展开）", "el")
-    fpga = box(ax, 44, 62, 11, 7, "Tang Primer 20K\nDock（FPGA）\n未安装", "el", 9)
+    fpga = box(ax, 44, 62, 11, 7, "Tang Primer 20K\nDock（FPGA）\n电脑层", "el", 9)
     elif_ = box(ax, 57, 62, 6, 7, "EL-IF\n(PCB-1)", "el", 9)
     scr = box(ax, 65, 62, 5, 7, "EL 屏\nLJ64K052", "el", 8)
     arrow(ax, edge(opi, "t"), edge(fpga, "b"), "HDMI", off=(-2.5, -1))

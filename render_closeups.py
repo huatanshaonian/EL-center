@@ -1,6 +1,7 @@
-"""局部说明图 → png/16–19：6E2 开口（面板拉开示意、正视）、PCB-3 倒挂在甲板下（等轴、正视）
+"""局部说明图 → png/16–19：6E2 开口（面板拉开示意、正视）、PCB-3 倒挂在甲板下（等轴、正视）；png/20：电脑层 HDMI 排线（暂定布置）
 PCB-3 位置见 assembly.py lower()（用 mis-01-56 导出的整板 STEP）。
-运行：.venv/Scripts/python.exe render_closeups.py（约 8 分钟）"""
+运行：.venv/Scripts/python.exe render_closeups.py（约 8 分钟）；只出 png/20：加参数 hdmi"""
+import sys
 import render as R
 import assembly as A
 
@@ -30,7 +31,22 @@ def pcb3(items):
              title="正视（去掉前面板）：甲板底 z 90 / PCB-3 元件最低 z 51 / LRS 顶 z 30", size=(12, 6))
 
 
+def computer_hdmi():
+    """电脑层只搭框架、层板、后面板和 assembly_computers 的内容，从后上方看 HDMI 小板和排线拱"""
+    import assembly_computers as AC
+    from assembly_base import ITEMS
+    ITEMS.clear(); A.frame(); A.rear(); AC.build()
+    box = (0, 320, 60, 230, 255, 425)
+    sel = [x for x in ITEMS if inbox(x[1], box) and not x[0].startswith(("rear_panel", "top_plate", "2020_Xrail_L280_RT"))]
+    R.render(sel, "png/20_computer_hdmi_ffc.png", az=200, el=28, size=(12, 9),
+             title=f"电脑层暂定布置：HDMI 口面 y {AC.Y_PORT}（后面板内侧 y 220），20 cm 排线拱顶 z 358（后面板、顶板已隐藏）",
+             labels=[((AC.PI_HDMI_X, 200, 300), "Pi 端小板"), ((AC.DOCK_HDMI_X, 200, 300), "Dock 端小板"),
+                     ((110, 140, 300), "Orange Pi 4"), ((215, 130, 300), "Tang 20K Dock")])
+
+
 if __name__ == "__main__":
+    if "hdmi" in sys.argv:
+        computer_hdmi(); sys.exit()
     items = A.build()
     eye_window(items)
     pcb3(items)

@@ -51,19 +51,27 @@ def lj64k052():
     return body
 
 def orangepi4():
-    """Orange Pi 4（非 LTS）—— 91x56 已确认，孔位/接口位置暂定"""
-    SPEC = dict(L=91, W=56, t=1.6, hole_d=2.75, holes=((3.5, 3.5), (61.5, 3.5), (3.5, 52.5), (61.5, 52.5)))
+    """Orange Pi 4 —— 板框、孔位、接口平面位置取自官方 orangepi-4-LTS-V1.1_top.dxf（step/vendor/orangepi4lts/，
+    非 LTS 版同板型，实物到手复核）；接口高度是常见规格的估计值。
+    原点 = 板底面、FPC 端与 HDMI 长边的交角：X 沿长边指向网口/USB 端，Y 由 HDMI 长边指向排针长边。
+    换算：x = 23.93 − y_dxf，y = x_dxf + 33.05。HDMI 长边上的口：耳机、HDMI、Type-C、DC 4.0×1.7（口面在 y < 0）"""
+    SPEC = dict(L=91, W=55.7, t=1.6, hole_d=2.75,                                   # C：DXF 板框 91×55.7
+                holes=((2.86, 2.61), (87.97, 2.61), (2.86, 53.06), (87.97, 53.06)),   # C：DXF 安装孔
+                hdmi=(17.13, 32.13, -2.85, 6.1))                                     # C 平面（x0, x1, 口面 y）；T 高 6.1
     L, W, t = SPEC["L"], SPEC["W"], SPEC["t"]
     b = box(L, W, t)
     for x, y in SPEC["holes"]:
         b = b.cut(cyl(SPEC["hole_d"] / 2, 3, x, y, -1))
-    b = b.union(box(13, 13, 1.5, 30, 22, t))                     # RK3399
-    b = b.union(box(14, 16, 16, L - 18, 2, t))                   # RJ45（伸出 2 mm）
-    b = b.union(box(14, 13, 15, L - 13, 21, t))                  # USB3.0
-    b = b.union(box(14, 13, 15, L - 13, 38, t))                  # 2xUSB2.0（叠层）
-    b = b.union(box(15, 11.5, 6, 20, -1.5, t))                   # HDMI（下沿）
-    b = b.union(box(9, 7.5, 3.3, 40, -1, t))                     # Type-C
-    b = b.union(box(33, 5, 8.5, 12, W - 7, t))                   # 26pin 母座
+    hx0, hx1, hy, hh = SPEC["hdmi"]
+    b = b.union(box(hx1 - hx0, 8.6 - hy, hh, hx0, hy, t))         # HDMI J8401：宽 15，口面伸出板边 2.85
+    b = b.union(box(9, 15, 5.5, 5.9, -3.0, t))                    # 3.5 mm 耳机口 J7103（口中心 x 10.5，伸出 3）
+    b = b.union(box(9, 8, 3.3, 35.9, -0.55, t))                   # Type-C J11（口中心 x 40.4）
+    b = b.union(box(8, 13.5, 6.5, 60.9, -3.0, t))                 # DC 4.0×1.7（口中心 x 64.9，伸出 3）
+    b = b.union(box(19, 12, 15.6, 76, 7, t))                      # USB 叠层（伸出板端约 4）
+    b = b.union(box(23, 16, 13.5, 72, 24, t))                     # RJ45 CN3
+    b = b.union(box(16, 7, 7, 79, 43, t))                         # 板端第三个口（DXF 窄座，高度未知）
+    b = b.union(box(34, 3.6, 8.5, 23, 51, t))                     # 排针（2 排）
+    b = b.union(box(15, 15, 1.5, 33.5, 16.5, t))                  # RK3399（中心约 x 41, y 24）
     return b
 
 def si3bg():
