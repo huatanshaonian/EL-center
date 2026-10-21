@@ -34,6 +34,10 @@
 /el_driver/D1.2/*
 !/el_driver/D1.2/*.net
 !/el_driver/D1.2/变更记录_D1.2.txt
+!/el_driver/D1.3/
+/el_driver/D1.3/*
+!/el_driver/D1.3/*.net
+!/el_driver/D1.3/变更记录_D1.3.txt
 !/el_driver/KBD-ADAPT_D1/
 /el_driver/KBD-ADAPT_D1/*
 !/el_driver/KBD-ADAPT_D1/*.net
