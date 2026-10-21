@@ -128,18 +128,37 @@ def slant_pcb():
     b = b.translate((PCB_X[0], 2 + PCB_D + PCB_T, PCB_U[0]))
     add("SLANT_board", place(b, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
     add("RPi_Pico(on_slant_PCB)", place(pico_on_slant(), 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
+    for k, h in enumerate(pico_sockets()):
+        add(("Pico_socket_1x20", "Pico_pin_base_1x20")[k % 2], on_slant_local(h), "dark", "ui")
 
 
 PICO_C, PICO_L = (72.5, 52.0), 51.0               # SLANT D1.1 U1 中心（斜面 x, u），Pico 板长
+PICO_SOCKET, PICO_PIN_BASE = 8.5, 2.5            # Pico 插针装（2026-10-22 用户定）：斜面电路板背面两条 1×20 排母（塑高 8.5）+ Pico 排针塑料座 2.5
+PICO_ROW_DX = 17.78 / 2                          # 两排针离 Pico 中线（两排通孔间距 17.78）
+PICO_PIN_U = (28.2 + 76.46) / 2                  # 通孔沿 u 的中心（SLANT D1.1 孔位 u 28.2–76.46，1 脚在上沿那头）
 
 
 def pico_on_slant():
     """Pico 在斜面局部坐标里（SLANT D1.1，mis-01-56 2026-10-22）：贴斜面电路板背面（元件面朝里），长边沿 u，
     USB 口朝斜面电路板上沿：Pico 板占 u 26.5–77.5（离板上沿 u 78 退 0.5，1/40 脚焊盘不贴边），插座口约在 u 78.2。
-    原 D1 的 USB 朝下沿、离 USB2 延长线本体只有 5.6 mm 插不进线（png/24、25）。"""
+    原 D1 的 USB 朝下沿、离 USB2 延长线本体只有 5.6 mm 插不进线（png/24、25）。
+    插针装：Pico 板底离斜面电路板背面 PICO_SOCKET + PICO_PIN_BASE = 11（t 21.1），插座口仍在 u ≈ 78.2。"""
     p = M.rpi_pico().rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 1, 0), 90).rotate((0, 0, 0), (1, 0, 0), 180)
     pcb = max(p.solids().vals(), key=lambda s: s.BoundingBox().xlen * s.BoundingBox().zlen).BoundingBox()
-    return p.translate((PICO_C[0] - (pcb.xmin + pcb.xmax) / 2, 2 + PCB_D + PCB_T - pcb.ymin, PICO_C[1] + PICO_L / 2 - pcb.zmax))
+    t0 = 2 + PCB_D + PCB_T + PICO_SOCKET + PICO_PIN_BASE
+    return p.translate((PICO_C[0] - (pcb.xmin + pcb.xmax) / 2, t0 - pcb.ymin, PICO_C[1] + PICO_L / 2 - pcb.zmax))
+
+
+def pico_sockets():
+    """两条 1×20 排母（焊在斜面电路板背面）+ Pico 排针塑料座，斜面局部坐标"""
+    t0 = 2 + PCB_D + PCB_T
+    L = 20 * 2.54
+    out = []
+    for sx in (-1, 1):
+        x = PICO_C[0] + sx * PICO_ROW_DX
+        out.append(P.box(2.54, PICO_SOCKET, L, x - 1.27, t0, PICO_PIN_U - L / 2))
+        out.append(P.box(2.54, PICO_PIN_BASE, L, x - 1.27, t0 + PICO_SOCKET, PICO_PIN_U - L / 2))
+    return out
 
 def keyboard():
     """键盘座随斜面后仰：屏幕面与斜面外表面共面、顶面顶住斜面下沿；X1 键盘连接条（5 mm，用户实测）吸在座子底面，键盘平放在桌面"""
