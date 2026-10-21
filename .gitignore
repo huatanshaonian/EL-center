@@ -114,6 +114,11 @@
 !/firmware/
 /firmware/**/build/
 /firmware/**/.pio/
+/firmware/**/managed_components/
+/firmware/**/sdkconfig
+/firmware/**/sdkconfig.old
+# 台架测试脚本与诊断组件（用户要求测试类文件不进 git）
+/firmware/esp32s3/bench_test/
 
 # 通用
 __pycache__/
