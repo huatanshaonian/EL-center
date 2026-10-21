@@ -26,7 +26,7 @@ MIS-01 嘉立创下单清单（2026-10-22）
   6  IV-18 主板 IV18 D1    IV18_D1\制板文件\Gerber_IV18_D1                               5      要，贴 2 套：JLC_SMT_BOM/CPL_IV18_D1（不含 U1 MAX6921，自己焊；R17–R19 不贴）
   7  IV-18 端板 IV18-END   IV18_D1\制板文件\Gerber_IV18-END_D1  ★黑色阻焊               5      不要
   8  高压小板 HV-UNI D1    HV-UNI_D1\制板文件\                                           5      要，贴 3 套（用 3 块）：JLC_SMT_BOM/CPL_HV-UNI_D1（电感、采样电阻）
-  9  IN-14 小板 IN14-SOCK  NIXIE-DRV_D1\制板文件_IN14小板\                               10     要，贴 7 套（用 7 块）：JLC_SMT_BOM/CPL_IN14-SOCK_D1（只贴 R_PR）
+  9  IN-14 小板 IN14-SOCK  NIXIE-DRV_D1\制板文件_IN14小板\                               10     要，贴 7 套（装机 6 块 + 1 块备用）：JLC_SMT_BOM/CPL_IN14-SOCK_D1（只贴 R_PR）
   10 辉光驱动板 NIXIE D1.1 NIXIE-DRV_D1\制板文件_驱动板\         150×80                   5      不要
   11 6E2 板 EYE-6E2 D1.1   EYE-6E2_D1\制板文件\                                          5      不要
   12 盖革主板 GEIGER-MAIN  GEIGER_D1\制板文件_主板\              60×70                    5      不要
