@@ -25,9 +25,13 @@ MIS-01 EL驱动 D1.2 → D1.3 变更记录（EL-IF 接口板）
      P3：P3-2 顶层短接 P3-1；UART_TX 从 P3-5、UART_RX 从 P3-11（顶层上到 y 81.6 接原横线）、
          SCR_EN 从 P3-7 接 x 4.2 原竖线，原 x 1.15 下行支路改接到 x 1.72 原上行线。
   4. 丝印：三个插座 1 脚旁加"1"；板名改 D1.3。
-  5. FPGA 引脚约束必须同步改（fpga/el_hdmi、fpga/el_test 的 .cst，由 fpga-8c 改）：上表是"Dock 第几脚 = 哪根信号"，
-     Dock 脚 → FPGA 球号以 Dock 原理图为准。注意：现有 .cst 注释写 J5-5..12 = L9 N8 N9 N7 N6 D11 A11 B11，
-     而 Dock 3713 原理图里 J5-5 = RGB_LCD_R0 = N9、J5-6 = R1 = N7、J5-7 = R2 = N6……，像是整体错开两位，请一并核对。
+  5. FPGA 引脚约束必须同步改（fpga/el_hdmi、fpga/el_test 的 .cst，由 fpga-8c 改，需用户在那边确认）：
+     上表是"Dock 第几脚 = 哪根信号"。fpga-8c 按 Dock 原理图换算的球号：
+       J5：5 LD3=L9，6 LD1=N8，7 LD2=N9，8 LD0=N7，9 UD0=N6，10 UD3=D11，11 UD1=A11，12 UD2=B11
+       J6：6 VD_HI_N=C12，8 VD_ON_N=A14，9 CP2=B14，10 OE_N=A15，11 CP1=D14，12 S=E15
+       J14：5 UART_TX=P9，7 SCR_EN=T8，8 VD_FLT_N=P8，9 VL_FLT_N=R8，10 VL_OK=T7，11 UART_RX=T6，12 PFAIL_N=P6
+     J6-11/12（D14/E15）在 Bank 1，与 HDMI 输入同 bank，CP1、S 只能声明 LVCMOS25；AHCT245 的 VIH 2.0 V，可靠识别，EL-IF 不用改。
+     （原 .cst 的 J5 对应表经 fpga-8c 核对是对的，此前"错开两位"是我从 PDF 抽文字时串行，不成立。）
   6. 连接：用 2×6 母对母延长线（两头 1 脚对 1 脚，PMOD 延长线即可），两头都对准"1"；不能 180° 调头插。
      首次上电前万用表量：Dock J5-1 与 P1-1 通、P1-1 与 P1-3 不通（3V3 与 GND 不短）。
 
