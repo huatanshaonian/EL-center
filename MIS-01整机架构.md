@@ -249,7 +249,8 @@ PCB-3 是下一步最先画的板子，插座编号和针序见接线方案第 4
 **立创商城**
 
 - 第一单（已下单）：`procurement/MIS-01_直插件合单+面板输入_立创商城BOM.xlsx`
-- 第二批补单（PCB-3 直插件 + 通用高压小板 ×3 + 6E2 板，合并下单）：`procurement/MIS-01_第二批补单_立创商城BOM.xlsx`，由 `procurement/build_lcsc_bom_order2.py` 生成；PCB-3 的贴片件由嘉立创随 PCB 配料贴装，不在单里。
+- 第二批补单（PCB-3 直插件 + 通用高压小板 ×3 + 6E2 板，合并下单）：`procurement/MIS-01_第二批补单_立创商城BOM.xlsx`，由 `procurement/build_lcsc_bom_order2.py` 生成；PCB-3 的贴片件由嘉立创随 PCB 配料贴装，不在单里。2026-10-21 加 C11107 20 cm 同向排线 ×5（HDMI 小板用 1 根，立创 5 根起订）。
+- 嘉立创 PCBA（板厂配料贴装，元件不进补单）：HDMI-PI D1（18×26）、HDMI-DOCK D1（25×26），两层、1.6 mm，标准 PCBA、双面贴装（夹板 HDMI 公头两面都有焊盘）；文件在 `el_driver/HDMI_FPC_D1/制板文件/`（Gerber、BOM、坐标）。BOM：两块各 C711355 ×1、C11073 ×1；Dock 板另有 C25120 ×8、C82942 ×1、C15849 ×2、C14663 ×1。
 
 第一单说明：
 
