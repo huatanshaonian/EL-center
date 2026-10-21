@@ -50,8 +50,8 @@ def lj64k052():
                 body = body.cut(cyl(d / 2, T + 2, L / 2 + sx * px / 2, -1, H / 2 + sz * pz / 2, "Y"))
     return body
 
-ORANGEPI4_HEADER = (23.28, 56.30, 50.69, 55.77)   # 2×13 = 26 针排针在 Pi 局部的 x0, x1, y0, y1（DXF 焊盘：两排 y 51.96 / 54.5，x 24.55–55.03，节距 2.54）
-ORANGEPI4_UART = (15.55, 23.17, 53.12, 55.66)     # 3 针调试串口（DXF 焊盘 y 54.39，x 16.82 / 19.36 / 21.9），紧挨排针一头
+ORANGEPI4_HEADER = (23.28, 74.08, 50.69, 55.77)   # 2×20 = 40 针排针（用户的是 Pi 4 非 LTS，40 针；LTS 图纸只有 2×13）：按 LTS 图 1 脚位置（x 24.55、两排 y 51.96 / 54.5）往网口端延长到 20 位，实物核对
+ORANGEPI4_UART = (15.55, 23.17, 53.12, 55.66)     # 3 针调试串口（按 LTS 图焊盘 y 54.39，x 16.82 / 19.36 / 21.9，紧挨排针一头；非 LTS 实物核对）
 
 def orangepi4():
     """Orange Pi 4 —— 板框、孔位、接口平面位置取自官方 orangepi-4-LTS-V1.1_top.dxf（step/vendor/orangepi4lts/，
@@ -73,7 +73,7 @@ def orangepi4():
     b = b.union(box(19, 12, 15.6, 76, 7, t))                      # USB 叠层（伸出板端约 4）
     b = b.union(box(23, 16, 13.5, 72, 24, t))                     # RJ45 CN3
     b = b.union(box(16, 7, 7, 79, 43, t))                         # 板端第三个口（DXF 窄座，高度未知）
-    for hx0, hx1, hy0, hy1 in (ORANGEPI4_HEADER, ORANGEPI4_UART):    # 26 针排针、3 针调试串口：用户的 Pi 4 都焊在板子背面、朝下，
+    for hx0, hx1, hy0, hy1 in (ORANGEPI4_HEADER, ORANGEPI4_UART):    # 40 针排针、3 针调试串口：用户的 Pi 4 都焊在板子背面、朝下，
         b = b.union(box(hx1 - hx0, hy1 - hy0, 8.6, hx0, hy0, -8.6))   # 连塑料座高 8.6（用户实测 2026-10-22）
     b = b.union(box(15, 15, 1.5, 33.5, 16.5, t))                  # RK3399（中心约 x 41, y 24）
     return b
