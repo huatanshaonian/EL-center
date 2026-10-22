@@ -36,13 +36,16 @@ def parse_pdf_bytes(data, source=''):
     for page in doc:
         for t in page.find_tables().tables:
             for r in t.extract():
-                cells = [(c or '').replace('\n', '') for c in r]
+                raw = [c or '' for c in r]
+                cells = [c.replace('\n', '') for c in raw]
                 if len(cells) < 8 or not cells[0].strip().isdigit():
                     continue
                 m = re.match(r'\s*(C\d+)', cells[1])
                 if not m:
                     continue
-                qty = int(_nums(cells[5])[-1])
+                # 数量只看格子最后一行：描述栏“±1%”的“1”会换行挤进数量格，整格拼起来成了“1100个”
+                qty_lines = [s for s in raw[5].split('\n') if _nums(s)]
+                qty = int(_nums(qty_lines[-1])[-1]) if qty_lines else 0
                 price, amount = _decimal(cells[6]), _decimal(cells[7])
                 if price is None or amount is None or abs(qty * price - amount) > 0.02:
                     problems.append(f'第 {cells[0]} 行 {m.group(1)}：数量 {qty} × 单价 {price} ≠ 金额 {amount}')
