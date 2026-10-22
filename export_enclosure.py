@@ -70,7 +70,7 @@ NOTE = """MIS-01 外壳加工下单说明（{date}，由 export_enclosure.py 生
 5. 背板_rear_cover.step / .dxf ×1（可选）：320×420 平板，右下角缺口让 IEC 小板。
 6. 键盘座_keyboard_dock.step ×1：嘉立创 3D 打印，尼龙 MJF（PA12，染黑），一整件打（长 320）。
    孔：舌片 3 个、两端各 2 个 Ø4.0（两端孔深 7），装配时用烙铁压 M3×4 热熔铜螺母。
-   槽底板只有 0.8 mm 厚，报价页若提示壁厚不足，告诉 Claude 再改。
+   上传 .stl（嘉立创建议 STL）。嘉立创要求壁厚 > 1.2、最薄处 ≥ 0.8：本件槽底板 0.8、磁铁开孔横筋 0.8 正好在下限。
 7. 键盘座背盖_dock_cover.step ×1：和键盘座一起尼龙 MJF 打印，1.2 mm 薄片，M2 自攻锁到座子背面（孔位装配时配钻）。
 8. 喇叭不用支架：5151 腔体喇叭耳朵朝上下，M3 螺丝 + 2020 用 M3 锤头螺母直接锁上下两根 Y 梁内侧槽。
 """
@@ -81,6 +81,8 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for name, shp, title, labels, az, el, to_xy in parts():
         cq.exporters.export(shp, os.path.join(OUT, name + ".step"))
+        if "键盘座" in name:                      # 3D 打印件：嘉立创 3D 打印建议传 STL（细分到 0.02 mm，圆孔不出棱）
+            cq.exporters.export(shp, os.path.join(OUT, name + ".stl"), tolerance=0.02, angularTolerance=0.1)
         if to_xy:
             _dxf(shp, name, to_xy)
         col = C["dark"] if "键盘座" in name else C["panel"]
