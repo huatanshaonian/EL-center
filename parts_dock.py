@@ -39,7 +39,8 @@ def _stadium(length, width, x, y, z0, h):
 def _rrect(lx, ly, r, x, y, z0, h):
     return cq.Workplane("XY").rect(lx, ly).extrude(h).edges("|Z").fillet(r).translate((x, y, z0))
 
-def keyboard_dock():
+def keyboard_dock(hole_r=INSERT_R):
+    """hole_r：7 个 M3 孔半径。打印件 INSERT_R（Ø4 压热熔铜螺母）；CNC 询价图用 1.25（Ø2.5 攻 M3）"""
     s = SPEC
     L, D, H = s["L"], s["D"], s["H"]
     gl, gw, gd = s["groove"]
@@ -57,7 +58,7 @@ def keyboard_dock():
     tw, th, tt = s["tongue"]
     for x in s["tongue_x"]:
         b = b.union(box(tw, tt, th, x - tw / 2, s["wall"], H))
-        b = b.cut(cyl(INSERT_R, tt + 2, x, s["wall"] - 1, H + SCREW_U, "Y"))      # 热熔铜螺母孔 Ø4.0（舌片厚 4，压 M3×4）
+        b = b.cut(cyl(hole_r, tt + 2, x, s["wall"] - 1, H + SCREW_U, "Y"))      # 热熔铜螺母孔 Ø4.0（舌片厚 4，压 M3×4）
     # 横向加强筋（YZ 面）：只放在不装东西的区段 —— 第二对螺丝与第一对自攻孔之间、最外自攻孔以外
     for x in (40.2, 110.0, 120.0, 130.0, 140.0):
         for sx in (-1, 1):
@@ -109,7 +110,7 @@ def keyboard_dock():
     # ---- 两端 M3 孔（沿 X，深 7）
     for sx in (-1, 1):
         for z in s["end_holes_z"]:
-            b = b.cut(cyl(INSERT_R, 7, sx * (L / 2 - 7) if sx > 0 else -L / 2, s["end_hole_y"], z, "X"))
+            b = b.cut(cyl(hole_r, 7, sx * (L / 2 - 7) if sx > 0 else -L / 2, s["end_hole_y"], z, "X"))
     return b
 
 def keyboard_dock_cover():
