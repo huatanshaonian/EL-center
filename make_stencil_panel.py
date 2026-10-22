@@ -72,7 +72,7 @@ if __name__ == '__main__':
     os.makedirs(OUT_DIR, exist_ok=True)
     gtp, height = merge('Gerber_TopPasteMaskLayer.GTP')
     gko, _ = merge('Gerber_BoardOutlineLayer.GKO')
-    zp = os.path.join(OUT_DIR, '钢网_EL-IF+PWR-DIST+IV18.zip')
+    zp = os.path.join(OUT_DIR, 'Stencil_ELIF_PWRDIST_IV18.zip')
     with zipfile.ZipFile(zp, 'w', zipfile.ZIP_DEFLATED) as z:
         z.writestr('Gerber_TopPasteMaskLayer.GTP', gtp)
         z.writestr('Gerber_BoardOutlineLayer.GKO', gko)
