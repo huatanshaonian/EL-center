@@ -49,8 +49,8 @@ def parts():
     out.append(("背板_rear_cover", ACV.rear_cover(A.IEC_PLATE), "背板（可选）：2 mm 5052 平板，右下角让出 IEC 小板",
                 [((100, D, 340), "Ø56 通风孔 ×2"), ((10, D, 210), "M4 ×7")], 180, 10, lambda s: s.rotate((0, 0, 0), (1, 0, 0), 90)))
     out.append(("键盘座_keyboard_dock", PD.keyboard_dock(), "键盘座：嘉立创 3D 打印尼龙 MJF（黑），长 320",
-                [((0, 0, 0), "槽面（键盘连接条吸在这里）"), ((PD.SPEC["tongue_x"][0], 2, PD.SPEC["H"] + 4), "舌片 M3 底孔 Ø2.5 ×3（攻 M3）"),
-                 ((PD.SPEC["L"] / 2, 5, 8), "两端 M3 底孔 Ø2.5 ×2 / 端（攻 M3，深 7）")], 30, 30, None))
+                [((0, 0, 0), "槽面（键盘连接条吸在这里）"), ((PD.SPEC["tongue_x"][0], 2, PD.SPEC["H"] + 4), "舌片 Ø4 ×3（压 M3 热熔铜螺母）"),
+                 ((PD.SPEC["L"] / 2, 5, 8), "两端 Ø4 ×2 / 端（深 7，压 M3 热熔铜螺母）")], 30, 30, None))
     out.append(("键盘座背盖_dock_cover", PD.keyboard_dock_cover(), "键盘座背盖：尼龙 MJF 打印 1.2 mm", [], 30, 30, None))
     return out
 
