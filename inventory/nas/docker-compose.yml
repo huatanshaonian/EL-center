@@ -1,0 +1,37 @@
+# MIS-01 元器件库存：Part-DB，部署在群晖 NAS /volume2/docker/partdb/
+# 用 deploy.sh 启动（需 root），不要直接 docker-compose up：首次要建库、打印管理员密码。
+# 数据全在本目录：db/（SQLite 库）、uploads/（附件、自动迁移备份）、public_media/（图片）。
+# 升级：改下面的镜像版本号，再跑一次 deploy.sh（会自动做数据库迁移）。
+services:
+  partdb:
+    image: jbtronics/part-db1:2.20.2
+    container_name: partdb
+    ports:
+      - "8088:80"
+    volumes:
+      - ./uploads:/var/www/html/uploads
+      - ./public_media:/var/www/html/public/media
+      - ./db:/var/www/html/var/db
+    env_file:
+      # APP_SECRET 由 deploy.sh 首次运行时随机生成，只存在 NAS 上
+      - secret.env
+    environment:
+      - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
+      - DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1
+      - APP_ENV=docker
+      - DEFAULT_LANG=zh
+      - DEFAULT_TIMEZONE=Asia/Shanghai
+      # 库内基准货币，建库后不能改
+      - BASE_CURRENCY=CNY
+      - INSTANCE_NAME=元器件库
+      - DEFAULT_URI=http://192.168.1.6:8088/
+      # 只允许用这几个地址访问（局域网两个口 + Tailscale）；换别的地址访问要加在这里
+      # 结尾 $$ 是 compose 对 $ 的转义，实际传进容器是 $
+      - TRUSTED_HOSTS=^(192\.168\.1\.5|192\.168\.1\.6|100\.65\.10\.90|localhost|127\.0\.0\.1)$$
+      # 立创数据源：输入 C 编号自动带出型号、封装、参数、规格书（用 lcsc.com 内部接口，无需 key）
+      - PROVIDER_LCSC_ENABLED=1
+      - PROVIDER_LCSC_CURRENCY=USD
+      # 允许按网址把规格书 PDF 下载到 NAS 上存一份（立创链接以后失效也不怕）
+      - ALLOW_ATTACHMENT_DOWNLOADS=1
+      - USE_GRAVATAR=0
+    restart: unless-stopped

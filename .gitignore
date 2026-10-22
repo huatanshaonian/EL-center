@@ -140,3 +140,9 @@
 # 通用
 __pycache__/
 *.pyc
+
+# ---------------- 元器件库存（Part-DB，部署在 NAS） ----------------
+!/inventory/
+# 密钥、接口 token、本机地址不进仓库
+/inventory/**/secret.env
+/inventory/**/*_local.*
