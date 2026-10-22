@@ -111,6 +111,9 @@
 !/el_driver/SLANT_D1/sim/*.cir
 !/el_driver/SLANT_D1/sim/*.txt
 !/el_driver/SLANT_D1/sim/*.py
+!/el_driver/焊接图/
+/el_driver/焊接图/*
+!/el_driver/焊接图/*.html
 !/el_driver/面包板图_D1.1/
 /el_driver/面包板图_D1.1/*.bak_r0
 /el_driver/面包板图_D1.1/src/*.png

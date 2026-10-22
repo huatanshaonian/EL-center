@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IN14-SOCK D1 焊接图</title>
+<style>
+:root{--bg:#f6f5f1;--fg:#1d1d1b;--muted:#6b6a64;--card:#fff;--line:#dcdad3;--pcb:#0f4d2c;--silk:#f3f1e8;--pad:#c9a646;--hl:#e8483b;--done:#9a9890}
+@media (prefers-color-scheme: dark){:root{--bg:#161614;--fg:#ecebe6;--muted:#9a9890;--card:#1f1f1c;--line:#34332f;--pcb:#0d3d24;--silk:#e9e6da;--pad:#b8963c;--hl:#ff6a5c;--done:#6b6a64}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,"Microsoft YaHei",sans-serif}
+header{padding:10px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+h1{font-size:17px;margin:0}.note{color:var(--muted);font-size:13px;flex-basis:100%}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:4px 10px;border-radius:6px;cursor:pointer}
+.btn.on{background:var(--fg);color:var(--bg)}
+main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:calc(100vh - 62px)}
+@media (max-width:820px){main{grid-template-columns:1fr;height:auto}#view{height:60vh}}
+#view{background:var(--pcb);position:relative;overflow:hidden}svg{width:100%;height:100%}
+.ol{fill:none;stroke:#ffd84a;stroke-linecap:round}.olf{fill:none}
+.st,.sb{fill:none;stroke:var(--silk);stroke-linecap:round;stroke-linejoin:round;opacity:.85}.stf,.sbf{fill:var(--silk);opacity:.85}
+.pad{fill:var(--pad);opacity:.9}.pad.hole{stroke:#000;stroke-opacity:.35;stroke-width:.15}
+.pad.p1{fill:#e2c25a}.pad.dim{opacity:.25}.pad.sel{fill:var(--hl);opacity:1}
+.box{fill:none;stroke:var(--hl);stroke-width:.35;stroke-dasharray:1 .6}
+#list{overflow:auto;border-left:1px solid var(--line)}
+.grp{display:grid;grid-template-columns:22px 1fr;gap:2px 8px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+.grp:hover{background:var(--card)}.grp.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}
+.grp .v{font-weight:600}.grp .d{grid-column:2;color:var(--muted);font-size:12.5px;word-break:break-all}
+.grp .m{grid-column:2;color:var(--muted);font-size:12px}
+.grp.done .v,.grp.done .d{color:var(--done);text-decoration:line-through}
+.grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
+.sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
+#tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
+</style></head><body>
+<header><h1>IN14-SOCK D1 焊接图</h1>
+<button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
+<span id="prog" style="color:var(--muted)"></span>
+<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。做 7 块（6 装机 + 1 备）。R_PR 嘉立创已贴；J1 2×7 排针焊在板子底面。</div></header>
+<main><div id="view"><svg id="svg" viewBox="-2.00 -42.00 25.00 44.00">
+<g id="flip"><g id="silkB"><path class="sb" d="M1.869,-25.814 L1.869,-26.309 L1.839,-26.400 L1.808,-26.433 L1.745,-26.464 L1.684,-26.464 L1.620,-26.433 L1.590,-26.400 L1.559,-26.309 L1.559,-26.245" stroke-width="0.152"/>
+<path class="sb" d="M2.171,-25.938 L2.232,-25.905 L2.324,-25.814 L2.324,-26.464" stroke-width="0.152"/>
+<path class="sb" d="M4.200,-29.550 L1.610,-29.550" stroke-width="0.254"/>
+<path class="sb" d="M4.200,-32.090 L4.200,-29.550" stroke-width="0.254"/>
+<path class="sb" d="M1.610,-32.090 L19.390,-32.090" stroke-width="0.254"/>
+<path class="sb" d="M1.610,-27.010 L1.610,-32.090" stroke-width="0.254"/>
+<path class="sb" d="M19.390,-27.010 L1.610,-27.010" stroke-width="0.254"/>
+<path class="sb" d="M19.390,-32.090 L19.390,-27.010" stroke-width="0.254"/></g><g id="silkT"><path class="st" d="M6.320,-20.923 L6.320,-20.356" stroke-width="0.152"/>
+<path class="st" d="M6.320,-20.923 L6.564,-20.923 L6.645,-20.897 L6.671,-20.869 L6.699,-20.816 L6.699,-20.763 L6.671,-20.707 L6.645,-20.681 L6.564,-20.653 L6.320,-20.653" stroke-width="0.152"/>
+<path class="st" d="M6.508,-20.653 L6.699,-20.356" stroke-width="0.152"/>
+<path class="st" d="M6.981,-20.168 L7.466,-20.168" stroke-width="0.152"/>
+<path class="st" d="M7.964,-20.923 L7.748,-20.356" stroke-width="0.152"/>
+<path class="st" d="M7.964,-20.923 L8.180,-20.356" stroke-width="0.152"/>
+<path class="st" d="M7.829,-20.547 L8.098,-20.547" stroke-width="0.152"/>
+<path class="st" d="M10.177,-23.097 L10.744,-23.313" stroke-width="0.152"/>
+<path class="st" d="M10.177,-23.529 L10.744,-23.313" stroke-width="0.152"/>
+<path class="st" d="M10.284,-23.811 L10.256,-23.864 L10.177,-23.945 L10.744,-23.945" stroke-width="0.152"/>
+<path class="st" d="M1.120,-17.725 L1.435,-17.725" stroke-width="0.152"/>
+<path class="st" d="M1.120,-17.725 L1.120,-17.860 L1.135,-17.906 L1.150,-17.921 L1.181,-17.936 L1.209,-17.936 L1.239,-17.921 L1.254,-17.906 L1.270,-17.860 L1.270,-17.725" stroke-width="0.152"/>
+<path class="st" d="M1.270,-17.832 L1.435,-17.936" stroke-width="0.152"/>
+<path class="st" d="M1.541,-18.162 L1.541,-18.431" stroke-width="0.152"/>
+<path class="st" d="M1.120,-18.657 L1.435,-18.657" stroke-width="0.152"/>
+<path class="st" d="M1.120,-18.657 L1.120,-18.792 L1.135,-18.838 L1.150,-18.853 L1.181,-18.868 L1.224,-18.868 L1.254,-18.853 L1.270,-18.838 L1.285,-18.792 L1.285,-18.657" stroke-width="0.152"/>
+<path class="st" d="M1.120,-19.094 L1.435,-19.094" stroke-width="0.152"/>
+<path class="st" d="M1.435,-19.094 L1.435,-19.275" stroke-width="0.152"/>
+<path class="st" d="M19.520,-17.710 L19.835,-17.710" stroke-width="0.152"/>
+<path class="st" d="M19.520,-17.710 L19.520,-17.845 L19.535,-17.890 L19.550,-17.906 L19.581,-17.921 L19.609,-17.921 L19.639,-17.906 L19.654,-17.890 L19.670,-17.845 L19.670,-17.710" stroke-width="0.152"/>
+<path class="st" d="M19.670,-17.817 L19.835,-17.921" stroke-width="0.152"/>
+<path class="st" d="M19.941,-18.147 L19.941,-18.416" stroke-width="0.152"/>
+<path class="st" d="M19.520,-18.642 L19.835,-18.642" stroke-width="0.152"/>
+<path class="st" d="M19.520,-18.642 L19.520,-18.777 L19.535,-18.823 L19.550,-18.838 L19.581,-18.853 L19.624,-18.853 L19.654,-18.838 L19.670,-18.823 L19.685,-18.777 L19.685,-18.642" stroke-width="0.152"/>
+<path class="st" d="M19.520,-19.079 L19.835,-19.079" stroke-width="0.152"/>
+<path class="st" d="M19.520,-19.079 L19.520,-19.214 L19.535,-19.259 L19.550,-19.275 L19.581,-19.290 L19.609,-19.290 L19.639,-19.275 L19.654,-19.259 L19.670,-19.214 L19.670,-19.079" stroke-width="0.152"/>
+<path class="st" d="M19.670,-19.183 L19.835,-19.290" stroke-width="0.152"/>
+<path class="st" d="M7.668,-1.446 L7.668,-1.015" stroke-width="0.152"/>
+<path class="st" d="M7.919,-1.446 L7.919,-1.015" stroke-width="0.152"/>
+<path class="st" d="M7.919,-1.446 L8.209,-1.015" stroke-width="0.152"/>
+<path class="st" d="M8.209,-1.446 L8.209,-1.015" stroke-width="0.152"/>
+<path class="st" d="M8.460,-1.365 L8.501,-1.385 L8.565,-1.446 L8.565,-1.015" stroke-width="0.152"/>
+<path class="st" d="M9.022,-1.446 L8.816,-1.159 L9.126,-1.159" stroke-width="0.152"/>
+<path class="st" d="M9.022,-1.446 L9.022,-1.015" stroke-width="0.152"/>
+<path class="st" d="M9.377,-1.200 L9.748,-1.200" stroke-width="0.152"/>
+<path class="st" d="M10.289,-1.385 L10.249,-1.426 L10.185,-1.446 L10.104,-1.446 L10.040,-1.426 L10.000,-1.385 L10.000,-1.345 L10.020,-1.304 L10.040,-1.281 L10.083,-1.261 L10.205,-1.220 L10.249,-1.200 L10.269,-1.180 L10.289,-1.139 L10.289,-1.076 L10.249,-1.035 L10.185,-1.015 L10.104,-1.015 L10.040,-1.035 L10.000,-1.076" stroke-width="0.152"/>
+<path class="st" d="M10.665,-1.446 L10.624,-1.426 L10.581,-1.385 L10.561,-1.345 L10.541,-1.281 L10.541,-1.180 L10.561,-1.116 L10.581,-1.076 L10.624,-1.035 L10.665,-1.015 L10.746,-1.015 L10.790,-1.035 L10.830,-1.076 L10.851,-1.116 L10.871,-1.180 L10.871,-1.281 L10.851,-1.345 L10.830,-1.385 L10.790,-1.426 L10.746,-1.446 L10.665,-1.446" stroke-width="0.152"/>
+<path class="st" d="M11.432,-1.345 L11.412,-1.385 L11.371,-1.426 L11.328,-1.446 L11.247,-1.446 L11.206,-1.426 L11.163,-1.385 L11.143,-1.345 L11.122,-1.281 L11.122,-1.180 L11.143,-1.116 L11.163,-1.076 L11.206,-1.035 L11.247,-1.015 L11.328,-1.015 L11.371,-1.035 L11.412,-1.076 L11.432,-1.116" stroke-width="0.152"/>
+<path class="st" d="M11.684,-1.446 L11.684,-1.015" stroke-width="0.152"/>
+<path class="st" d="M11.973,-1.446 L11.684,-1.159" stroke-width="0.152"/>
+<path class="st" d="M11.788,-1.261 L11.973,-1.015" stroke-width="0.152"/>
+<path class="st" d="M12.687,-1.446 L12.687,-1.015" stroke-width="0.152"/>
+<path class="st" d="M12.687,-1.446 L12.832,-1.446 L12.893,-1.426 L12.936,-1.385 L12.956,-1.345 L12.976,-1.281 L12.976,-1.180 L12.956,-1.116 L12.936,-1.076 L12.893,-1.035 L12.832,-1.015 L12.687,-1.015" stroke-width="0.152"/>
+<path class="st" d="M13.228,-1.365 L13.269,-1.385 L13.332,-1.446 L13.332,-1.015" stroke-width="0.152"/>
+<path class="st" d="M6.741,-39.152 L6.741,-38.886" stroke-width="0.152"/>
+<path class="st" d="M6.741,-39.152 L6.830,-39.152 L6.868,-39.140 L6.893,-39.114 L6.906,-39.089 L6.919,-39.051 L6.919,-38.987 L6.906,-38.949 L6.893,-38.924 L6.868,-38.898 L6.830,-38.886 L6.741,-38.886" stroke-width="0.152"/>
+<path class="st" d="M7.132,-39.152 L7.132,-38.886" stroke-width="0.152"/>
+<path class="st" d="M7.132,-39.152 L7.246,-39.152 L7.284,-39.140 L7.297,-39.127 L7.310,-39.102 L7.310,-39.063 L7.297,-39.038 L7.284,-39.025 L7.246,-39.013 L7.132,-39.013" stroke-width="0.152"/>
+<path class="st" d="M7.536,-39.038 L7.523,-39.025 L7.536,-39.013 L7.549,-39.025 L7.536,-39.038" stroke-width="0.152"/>
+<path class="st" d="M7.536,-38.949 L7.523,-38.937 L7.536,-38.924 L7.549,-38.937 L7.536,-38.949" stroke-width="0.152"/>
+<path class="st" d="M8.148,-39.152 L8.123,-39.152 L8.097,-39.140 L8.084,-39.102 L8.084,-38.886" stroke-width="0.152"/>
+<path class="st" d="M8.046,-39.063 L8.135,-39.063" stroke-width="0.152"/>
+<path class="st" d="M8.361,-39.152 L8.374,-39.140 L8.387,-39.152 L8.374,-39.165 L8.361,-39.152" stroke-width="0.152"/>
+<path class="st" d="M8.374,-39.063 L8.374,-38.886" stroke-width="0.152"/>
+<path class="st" d="M8.638,-39.152 L8.638,-38.937 L8.651,-38.898 L8.676,-38.886 L8.702,-38.886" stroke-width="0.152"/>
+<path class="st" d="M8.600,-39.063 L8.689,-39.063" stroke-width="0.152"/>
+<path class="st" d="M9.200,-39.152 L9.200,-38.886" stroke-width="0.152"/>
+<path class="st" d="M9.200,-39.152 L9.314,-39.152 L9.352,-39.140 L9.365,-39.127 L9.377,-39.102 L9.377,-39.076 L9.365,-39.051 L9.352,-39.038 L9.314,-39.025 L9.200,-39.025" stroke-width="0.152"/>
+<path class="st" d="M9.288,-39.025 L9.377,-38.886" stroke-width="0.152"/>
+<path class="st" d="M9.591,-38.797 L9.819,-38.797" stroke-width="0.152"/>
+<path class="st" d="M10.033,-39.152 L10.033,-38.886" stroke-width="0.152"/>
+<path class="st" d="M10.033,-39.152 L10.147,-39.152 L10.185,-39.140 L10.198,-39.127 L10.210,-39.102 L10.210,-39.063 L10.198,-39.038 L10.185,-39.025 L10.147,-39.013 L10.033,-39.013" stroke-width="0.152"/>
+<path class="st" d="M10.424,-39.152 L10.424,-38.886" stroke-width="0.152"/>
+<path class="st" d="M10.424,-39.152 L10.538,-39.152 L10.576,-39.140 L10.589,-39.127 L10.602,-39.102 L10.602,-39.076 L10.589,-39.051 L10.576,-39.038 L10.538,-39.025 L10.424,-39.025" stroke-width="0.152"/>
+<path class="st" d="M10.513,-39.025 L10.602,-38.886" stroke-width="0.152"/>
+<path class="st" d="M11.188,-39.203 L11.163,-39.178 L11.138,-39.140 L11.112,-39.089 L11.099,-39.025 L11.099,-38.975 L11.112,-38.911 L11.138,-38.860 L11.163,-38.822 L11.188,-38.797" stroke-width="0.152"/>
+<path class="st" d="M11.402,-39.152 L11.402,-38.886" stroke-width="0.152"/>
+<path class="st" d="M11.402,-39.152 L11.516,-39.152 L11.554,-39.140 L11.567,-39.127 L11.579,-39.102 L11.579,-39.076 L11.567,-39.051 L11.554,-39.038 L11.516,-39.025 L11.402,-39.025" stroke-width="0.152"/>
+<path class="st" d="M11.491,-39.025 L11.579,-38.886" stroke-width="0.152"/>
+<path class="st" d="M11.793,-38.797 L12.021,-38.797" stroke-width="0.152"/>
+<path class="st" d="M12.235,-39.152 L12.235,-38.886" stroke-width="0.152"/>
+<path class="st" d="M12.235,-39.152 L12.349,-39.152 L12.387,-39.140 L12.400,-39.127 L12.413,-39.102 L12.413,-39.063 L12.400,-39.038 L12.387,-39.025 L12.349,-39.013 L12.235,-39.013" stroke-width="0.152"/>
+<path class="st" d="M12.626,-39.152 L12.626,-38.886" stroke-width="0.152"/>
+<path class="st" d="M12.626,-38.886 L12.778,-38.886" stroke-width="0.152"/>
+<path class="st" d="M13.429,-39.063 L13.429,-38.886" stroke-width="0.152"/>
+<path class="st" d="M13.429,-39.025 L13.403,-39.051 L13.378,-39.063 L13.340,-39.063 L13.314,-39.051 L13.289,-39.025 L13.276,-38.987 L13.276,-38.962 L13.289,-38.924 L13.314,-38.898 L13.340,-38.886 L13.378,-38.886 L13.403,-38.898 L13.429,-38.924" stroke-width="0.152"/>
+<path class="st" d="M13.642,-39.152 L13.642,-38.886" stroke-width="0.152"/>
+<path class="st" d="M13.893,-39.152 L13.893,-38.937 L13.906,-38.898 L13.932,-38.886 L13.957,-38.886" stroke-width="0.152"/>
+<path class="st" d="M13.855,-39.063 L13.944,-39.063" stroke-width="0.152"/>
+<path class="st" d="M14.170,-39.203 L14.196,-39.178 L14.221,-39.140 L14.246,-39.089 L14.259,-39.025 L14.259,-38.975 L14.246,-38.911 L14.221,-38.860 L14.196,-38.822 L14.170,-38.797" stroke-width="0.152"/>
+<path class="st" d="M2.931,-20.600 L4.000,-20.600" stroke-width="0.254"/>
+<path class="st" d="M10.500,-20.596 L11.569,-20.596" stroke-width="0.254"/>
+<path class="st" d="M4.000,-19.450 L4.000,-21.750" stroke-width="0.254"/>
+<path class="st" d="M4.000,-21.750 L10.500,-21.750" stroke-width="0.254"/>
+<path class="st" d="M10.500,-21.720 L10.500,-19.480" stroke-width="0.254"/>
+<path class="st" d="M10.500,-19.450 L4.000,-19.450" stroke-width="0.254"/>
+<path class="st" d="M10.500,-21.600 L10.500,-22.600" stroke-width="0.203"/>
+<path class="st" d="M5.476,-17.583 L6.761,-17.583 L6.761,-19.417 L5.476,-19.417" stroke-width="0.152"/>
+<path class="st" d="M4.524,-17.583 L3.239,-17.583 L3.239,-19.417 L4.524,-19.417" stroke-width="0.152"/>
+<path class="st" d="M15.524,-19.417 L14.239,-19.417 L14.239,-17.583 L15.524,-17.583" stroke-width="0.152"/>
+<path class="st" d="M16.476,-19.417 L17.761,-19.417 L17.761,-17.583 L16.476,-17.583" stroke-width="0.152"/>
+<path class="st" d="M1.500,-12.000 L19.500,-12.000 L1.500,-12.000" stroke-width="0.152"/></g><g><path class="ol" d="M0.000,-0.000 L0.000,-40.000 L21.000,-40.000 L21.000,-0.000 L0.000,-0.000" stroke-width="0.254"/></g><g id="pads"></g><g id="boxes"></g></g>
+</svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main>
+<script>
+const D = {"board": "IN14-SOCK D1", "groups": [{"val": "22kΩ", "comment": "22kΩ", "fp": "RES-TH_BD2.3-L6.5-P10.50-D0.5", "mpn": "MF1/4W-22KΩ±1% T", "sup": "C119354", "des": ["R_A"], "smt": false, "dnp": false, "side": ["T"]}, {"val": "PZ254V-11-13P", "comment": "PZ254V-11-13P", "fp": "HDR-TH_13P-P2.54-V-M-1", "mpn": "PZ254V-11-13P", "sup": "C22465873", "des": ["V1"], "smt": false, "dnp": false, "side": ["T"]}, {"val": "PZ254V-12-14P", "comment": "PZ254V-12-14P", "fp": "HDR-TH_14P-P2.54-V-M-R2-C7-S2.54", "mpn": "PZ254V-12-14P", "sup": "C492424", "des": ["J1"], "smt": false, "dnp": false, "side": ["B"]}, {"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PR"], "smt": true, "dnp": false, "side": ["T"]}, {"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PL"], "smt": false, "dnp": true, "side": ["T"]}], "parts": {"J1": {"x": 10.5, "y": -29.55, "side": "B", "pads": [{"n": "1", "x": 2.88, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "R", "th": true, "l": "T", "net": "NET_1"}, {"n": "2", "x": 2.88, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "3", "x": 5.42, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "DP"}, {"n": "4", "x": 5.42, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "NET_2"}, {"n": "5", "x": 7.96, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "6", "x": 7.96, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "7", "x": 10.5, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "8", "x": 10.5, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "9", "x": 13.04, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "10", "x": 13.04, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "11", "x": 15.58, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "12", "x": 15.58, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "13", "x": 18.12, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "14", "x": 18.12, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}]}, "R_A": {"x": 7.25, "y": -20.6, "side": "T", "pads": [{"n": "1", "x": 2.0, "y": -20.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "2", "x": 12.5, "y": -20.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "AN"}]}, "R_PL": {"x": 5.0, "y": -18.5, "side": "T", "pads": [{"n": "1", "x": 4.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "T", "net": "DP"}, {"n": "2", "x": 6.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "T", "net": "PL"}]}, "R_PR": {"x": 16.0, "y": -18.5, "side": "T", "pads": [{"n": "1", "x": 17.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "T", "net": "DP"}, {"n": "2", "x": 15.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "T", "net": "PR"}]}, "V1": {"x": 10.5, "y": -12.0, "side": "T", "pads": [{"n": "1", "x": 10.5, "y": -18.0, "w": 1.6, "h": 1.6, "a": 0, "s": "R", "th": true, "l": "T", "net": "AN"}, {"n": "2", "x": 7.712, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PL"}, {"n": "3", "x": 5.562, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "4", "x": 4.544, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "5", "x": 4.89, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "6", "x": 6.521, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "7", "x": 9.064, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "8", "x": 11.936, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "9", "x": 14.479, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "10", "x": 16.11, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}, {"n": "11", "x": 16.456, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "12", "x": 15.438, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "13", "x": 13.288, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PR"}]}}}, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
+let done = {}; try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+let side = 'T', active = null;
+const padsG = document.getElementById('pads'), boxesG = document.getElementById('boxes');
+const padEls = {};
+for (const [des, p] of Object.entries(D.parts)) {
+  padEls[des] = [];
+  const minN = p.pads.reduce((m, q) => (/^\d+$/.test(q.n) && (m === null || +q.n < m)) ? +q.n : m, null);
+  for (const q of p.pads) {
+    const e = document.createElementNS(NS, q.s === 'C' || q.s === 'E' ? 'ellipse' : 'rect');
+    if (e.tagName === 'ellipse') { e.setAttribute('cx', q.x); e.setAttribute('cy', q.y); e.setAttribute('rx', q.w / 2); e.setAttribute('ry', q.h / 2); }
+    else { e.setAttribute('x', q.x - q.w / 2); e.setAttribute('y', q.y - q.h / 2); e.setAttribute('width', q.w); e.setAttribute('height', q.h); }
+    if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
+    e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
+    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : ''); e.appendChild(t);
+    padsG.appendChild(e); padEls[des].push(e);
+  }
+}
+function render() {
+  document.getElementById('flip').setAttribute('transform', side === 'B' ? 'translate(21.00,0) scale(-1,1)' : '');
+  document.getElementById('silkT').style.display = side === 'T' ? '' : 'none';
+  document.getElementById('silkB').style.display = side === 'B' ? '' : 'none';
+  bTop.classList.toggle('on', side === 'T'); bBot.classList.toggle('on', side === 'B');
+  for (const [des, els] of Object.entries(padEls)) for (const e of els) e.style.display = (e.dataset.side === 'B' || e.dataset.side === side) ? '' : 'none';
+  const sel = new Set(active ? active.des : []);
+  boxesG.innerHTML = '';
+  for (const [des, els] of Object.entries(padEls)) for (const e of els) { e.classList.toggle('sel', sel.has(des)); e.classList.toggle('dim', !!active && !sel.has(des)); }
+  for (const des of sel) { const p = D.parts[des]; if (!p || !p.pads.length) continue;
+    const xs = p.pads.map(q => q.x), ys = p.pads.map(q => q.y), m = 1.2;
+    const r = document.createElementNS(NS, 'rect'); r.setAttribute('class', 'box');
+    r.setAttribute('x', Math.min(...xs) - m); r.setAttribute('y', Math.min(...ys) - m);
+    r.setAttribute('width', Math.max(...xs) - Math.min(...xs) + 2 * m); r.setAttribute('height', Math.max(...ys) - Math.min(...ys) + 2 * m); boxesG.appendChild(r); }
+  const hand = D.groups.filter(g => !g.smt && !g.dnp), fin = hand.filter(g => done[g.des.join(',')]).length;
+  document.getElementById('prog').textContent = `手焊 ${fin}/${hand.length} 组`;
+}
+bTop.onclick = () => { side = 'T'; render(); }; bBot.onclick = () => { side = 'B'; render(); };
+const list = document.getElementById('list');
+function sec(t) { const s = document.createElement('div'); s.className = 'sec'; s.textContent = t; list.appendChild(s); }
+let lastSec = null;
+for (const g of D.groups) {
+  const kind = g.dnp ? '不焊' : g.smt ? '嘉立创已贴（不用焊）' : '自己焊';
+  if (kind !== lastSec) { sec(kind); lastSec = kind; }
+  const row = document.createElement('div'); row.className = 'grp' + (g.smt || g.dnp ? ' skip' : '');
+  const k = g.des.join(','); const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[k];
+  cb.onclick = ev => { ev.stopPropagation(); done[k] = cb.checked; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} row.classList.toggle('done', cb.checked); render(); };
+  if (g.smt || g.dnp) cb.disabled = true;
+  row.classList.toggle('done', !!done[k]);
+  const v = document.createElement('div'); v.className = 'v'; v.textContent = `${g.val || g.comment}  ×${g.des.length}`;
+  if (g.side.includes('B') && !g.side.includes('T')) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = '背面'; v.appendChild(t); }
+  const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');
+  const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
+  row.append(cb, v, d, m);
+  row.onclick = () => { active = active === g ? null : g; document.querySelectorAll('.grp.act').forEach(x => x.classList.remove('act')); if (active) row.classList.add('act');
+    if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; } render(); };
+  list.appendChild(row);
+}
+const svg = document.getElementById('svg'); let vb = svg.getAttribute('viewBox').split(' ').map(Number), drag = null;
+svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect(), f = e.deltaY > 0 ? 1.15 : 1 / 1.15;
+  const px = vb[0] + (e.clientX - r.left) / r.width * vb[2], py = vb[1] + (e.clientY - r.top) / r.height * vb[3];
+  vb = [px - (px - vb[0]) * f, py - (py - vb[1]) * f, vb[2] * f, vb[3] * f]; svg.setAttribute('viewBox', vb.join(' ')); }, {passive: false});
+svg.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY, vb[0], vb[1]]; svg.setPointerCapture(e.pointerId); });
+svg.addEventListener('pointermove', e => { if (!drag) return; const r = svg.getBoundingClientRect();
+  vb[0] = drag[2] - (e.clientX - drag[0]) / r.width * vb[2]; vb[1] = drag[3] - (e.clientY - drag[1]) / r.height * vb[3]; svg.setAttribute('viewBox', vb.join(' ')); });
+svg.addEventListener('pointerup', () => drag = null);
+render();
+</script></body></html>
