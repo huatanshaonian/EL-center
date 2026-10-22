@@ -48,10 +48,10 @@ def parts():
                 [((0, 210, 350), "M4 ×8"), ((0, 150, 45), "通风长孔")], 90, 10, lambda s: s.rotate((0, 0, 0), (0, 1, 0), 90)))
     out.append(("背板_rear_cover", ACV.rear_cover(A.IEC_PLATE), "背板（可选）：2 mm 5052 平板，右下角让出 IEC 小板",
                 [((100, D, 340), "Ø56 通风孔 ×2"), ((10, D, 210), "M4 ×7")], 180, 10, lambda s: s.rotate((0, 0, 0), (1, 0, 0), 90)))
-    out.append(("键盘座_keyboard_dock", PD.keyboard_dock(), "键盘座：黑色 POM CNC（或树脂打印），长 320",
+    out.append(("键盘座_keyboard_dock", PD.keyboard_dock(), "键盘座：嘉立创 3D 打印尼龙 MJF（黑），长 320",
                 [((0, 0, 0), "槽面（键盘连接条吸在这里）"), ((PD.SPEC["tongue_x"][0], 2, PD.SPEC["H"] + 4), "舌片 M3 底孔 Ø2.5 ×3（攻 M3）"),
                  ((PD.SPEC["L"] / 2, 5, 8), "两端 M3 底孔 Ø2.5 ×2 / 端（攻 M3，深 7）")], 30, 30, None))
-    out.append(("键盘座背盖_dock_cover", PD.keyboard_dock_cover(), "键盘座背盖：POM / 打印 1.2 mm", [], 30, 30, None))
+    out.append(("键盘座背盖_dock_cover", PD.keyboard_dock_cover(), "键盘座背盖：尼龙 MJF 打印 1.2 mm", [], 30, 30, None))
     return out
 
 
@@ -68,9 +68,10 @@ NOTE = """MIS-01 外壳加工下单说明（{date}，由 export_enclosure.py 生
 3. IEC小板_iec_plate.step / .dxf ×1：110×110 平板。
 4. 全高侧板_side_cover_x2.step / .dxf ×2（可选，左右是同一个零件）：222×428 平板，带通风长孔。
 5. 背板_rear_cover.step / .dxf ×1（可选）：320×420 平板，右下角缺口让 IEC 小板。
-6. 键盘座_keyboard_dock.step ×1：嘉立创 CNC，黑色 POM。孔：舌片 3 个、两端各 2 个 Ø2.5 底孔，攻 M3（两端孔深 7）。
-   用打印件的话：底孔扩到 Ø4.0 压 M3 热熔铜螺母；320 长多数打印机放不下，要分两段打再粘。
-7. 键盘座背盖_dock_cover.step ×1：POM 或打印，1.2 mm 薄片，M2 自攻锁到座子背面（孔位装配时配钻）。
+6. 键盘座_keyboard_dock.step ×1：嘉立创 3D 打印，尼龙 MJF（PA12，染黑），一整件打（长 320）。
+   孔：舌片 3 个、两端各 2 个 Ø4.0（两端孔深 7），装配时用烙铁压 M3×4 热熔铜螺母。
+   槽底板只有 0.8 mm 厚，报价页若提示壁厚不足，告诉 Claude 再改。
+7. 键盘座背盖_dock_cover.step ×1：和键盘座一起尼龙 MJF 打印，1.2 mm 薄片，M2 自攻锁到座子背面（孔位装配时配钻）。
 8. 喇叭不用支架：5151 腔体喇叭耳朵朝上下，M3 螺丝 + 2020 用 M3 锤头螺母直接锁上下两根 Y 梁内侧槽。
 """
 

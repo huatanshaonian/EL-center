@@ -5,10 +5,12 @@ MIS-01 —— 磁吸键盘座：仿 ThinkPad X1 Tablet 底边，让原装键盘�
 
 局部坐标（未倾斜，等同平板竖放）：X 沿长度、0 = 中心，左右对称；Y = 厚度方向，0 = 屏幕面，向后为正；Z = 0 为底面（槽口朝下），向上为正。
 装到机身上时整体绕 X 轴后仰，屏幕面与斜面外表面共面，顶面顶住斜面下沿（2026-10-22 用户确认方案 png/23）：
-- 长 320，正好夹在下巴托两块侧板之间；两端各一段实心块，每端 2 个 M3 孔（POM 直接攻丝 / 打印件压 M3 热熔铜螺母），侧板外面打沉头螺丝；
+- 长 320，正好夹在下巴托两块侧板之间；两端各一段实心块，每端 2 个 M3 孔（压 M3×4 热熔铜螺母），侧板外面打沉头螺丝；
 - 顶面加顶板，顶板上 3 个舌片伸到斜面板背后，斜面下沿从正面打 3 颗 M3 沉头拧进舌片；
 - 背面敞开装 POGO 小板和磁铁，装好后另盖一块背板（keyboard_dock_cover）。
-尺寸来源：U = 用户实测；T = 暂定（3D 打印件，按实物试装再改）。"""
+尺寸来源：U = 用户实测；T = 暂定（3D 打印件，按实物试装再改）。
+加工：2026-10-23 定为嘉立创 3D 打印尼龙 MJF（PA12 染黑），不用 CNC（薄壁、多面装夹，CNC 难做且贵）；
+螺丝孔全部 Ø4.0，压 M3×4 滚花热熔铜螺母（外径约 4.2）。"""
 import cadquery as cq
 from parts import box, cyl
 
@@ -24,6 +26,7 @@ SPEC = dict(
     cover_t=1.2,                                 # 背盖厚
 )
 SCREW_U = 3.3                                    # 斜面下沿 M3 沉头孔中心离下沿（沿斜面）
+INSERT_R = 2.0                                   # M3 热熔铜螺母孔 Ø4.0（尼龙打印件）
 
 def _inner(gap, w):
     """“相距 gap”= 一对孔最近边的距离 → 右侧孔中心 X"""
@@ -54,7 +57,7 @@ def keyboard_dock():
     tw, th, tt = s["tongue"]
     for x in s["tongue_x"]:
         b = b.union(box(tw, tt, th, x - tw / 2, s["wall"], H))
-        b = b.cut(cyl(1.25, tt + 2, x, s["wall"] - 1, H + SCREW_U, "Y"))         # M3 底孔 Ø2.5（POM 攻丝）；打印件扩到 Ø4 压热熔铜螺母
+        b = b.cut(cyl(INSERT_R, tt + 2, x, s["wall"] - 1, H + SCREW_U, "Y"))      # 热熔铜螺母孔 Ø4.0（舌片厚 4，压 M3×4）
     # 横向加强筋（YZ 面）：只放在不装东西的区段 —— 第二对螺丝与第一对自攻孔之间、最外自攻孔以外
     for x in (40.2, 110.0, 120.0, 130.0, 140.0):
         for sx in (-1, 1):
@@ -106,7 +109,7 @@ def keyboard_dock():
     # ---- 两端 M3 孔（沿 X，深 7）
     for sx in (-1, 1):
         for z in s["end_holes_z"]:
-            b = b.cut(cyl(1.25, 7, sx * (L / 2 - 7) if sx > 0 else -L / 2, s["end_hole_y"], z, "X"))
+            b = b.cut(cyl(INSERT_R, 7, sx * (L / 2 - 7) if sx > 0 else -L / 2, s["end_hole_y"], z, "X"))
     return b
 
 def keyboard_dock_cover():
