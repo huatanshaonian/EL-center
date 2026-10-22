@@ -117,6 +117,8 @@ MIS-01 PCB-3 电源板（PWR-DIST）原理图 D1 设计记录
      - 高度（mis-01-90 47105cc 入模核对）：模块最低点离 LRS-200 顶面 12.8 mm，算扎带头最少约 9.8 mm，不碰。
      - 丝印：两模块之间加"NID100: 1x6+1x7 SOCKET + CABLE TIE"；板名改 D1.1。
   2. C_DVC（U_EC 的 dV/dt 电容，EL 12 V + Dock）1 nF → 3.3 nF C0G（三星 CL10C332JB8NNNC，C55395），焊盘不变。
+     2026-10-22 下单时嘉立创缺货换料（贴片 BOM 已改，EDA 工程里仍是原编号）：C_DVC → C107048（Yageo NP0），
+     C_DVA/B/D 2.2 nF → C107043（Yageo NP0 50 V），R_ILMD 3.32 k → C2930088，U_INV → SN74LVC2G14DBVR(UMW) C5375976（同脚位）。
      原因：TPS259470L 是锁死版；负载总电容约 1000 µF 时（EL-IF 自身 57 µF，Dock 未知）1 nF 的上电浪涌会让芯片过温锁死，
      而 HOLD 一直拉着 EN，锁死后不会自己恢复。3.3 nF 时 1000 µF、60 °C 最坏结温约 147 °C，不锁死；12 V 上升约 18 ms（行为模型仿真）。
      其他三路（2.2 nF）在各自负载电容范围内都不锁死。

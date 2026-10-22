@@ -5,6 +5,8 @@ MIS-01 嘉立创下单清单（2026-10-22）
   B. 立创商城第二批补单：procurement\MIS-01_第二批补单_立创商城BOM.xlsx（74 行，直插件为主），
      立创商城 → BOM 配单 → 上传 xlsx → 核对匹配结果 → 加购物车。和 A 是同一个账号，可以合并发货。
   C. 淘宝自购第二批：procurement\MIS-01_自购清单_第二批.xlsx（40 项）。第 27–32 项是外壳件，不在淘宝买，见 D。
+  B2. 立创商城第三单（自焊贴片件）：procurement\MIS-01_第三单_自焊贴片件_立创商城BOM.xlsx（5 行，约 40 元）。
+     为省贴片加工费（经济型每款 50 元、标准型 150 元），08/09/13 不贴片、04/05 的 HDMI 插头 J1 改自己用烙铁焊，料在这一单。
   D. 外壳（嘉立创钣金 / CNC）：..\外壳加工\下单说明.txt。前面板丝印还没出、喇叭支架等喇叭到货再出，
      建议等板子和喇叭到货试装后再下。
 
@@ -30,18 +32,18 @@ MIS-01 嘉立创下单清单（2026-10-22）
   1  EL 接口板 EL-IF D1.3  D1.3\制板文件\                      100×100                  5      要，贴 2 套：JLC_SMT_BOM/CPL_EL-IF_D1.3
   2  电源板 PWR-DIST D1.1  PWR-DIST_D1\制板文件\               铜厚 1 oz 即可，150×100 5      要，贴 2 套：JLC_SMT_BOM/CPL_PWR-DIST_D1.1
   3  键盘转接板 KBD-ADAPT  KBD-ADAPT_D1\制板文件\                                       5      要，贴 2 套：JLC_SMT_BOM/CPL_KBD-ADAPT_D1
-  4  HDMI-PI D1            HDMI_FPC_D1\制板文件\                ★板厚必须 1.6            5      要，全贴片，贴 2 套：JLC_SMT_BOM/CPL_HDMI-PI_D1
-  5  HDMI-DOCK D1          HDMI_FPC_D1\制板文件\                ★板厚必须 1.6            5      要，全贴片，贴 2 套：JLC_SMT_BOM/CPL_HDMI-DOCK_D1
-                           （HDMI 插头 C711355 难度高，要选"标准 PCBA"，经济型不行）
-                           （J1 是夹板式插头，骑在板前沿、两面都有焊盘：下单备注"J1 为夹板式 HDMI 插头，上下两面焊盘都需焊接"，按双面贴装报价）
+  4  HDMI-PI D1            HDMI_FPC_D1\制板文件\                ★板厚必须 1.6            5      要，经济型，贴 2 套：JLC_SMT_BOM/CPL_HDMI-PI_D1（只贴 J2 排线座）
+  5  HDMI-DOCK D1          HDMI_FPC_D1\制板文件\                ★板厚必须 1.6            5      要，经济型，贴 2 套：JLC_SMT_BOM/CPL_HDMI-DOCK_D1
+                           （J1 夹板式 HDMI 插头不贴，自己拖焊，料在第三单；2026-10-22 起，原方案要标准 PCBA 150 元/款）
+                           （建议勾"确认生产稿"，看板边 J1 焊盘没被内缩；备注"板前沿 J1 焊盘为夹板插头焊盘，请勿内缩"）
   6  IV-18 主板 IV18 D1    IV18_D1\制板文件\Gerber_IV18_D1                               5      要，贴 2 套：JLC_SMT_BOM/CPL_IV18_D1（不含 U1 MAX6921，自己焊；R17–R19 不贴）
   7  IV-18 端板 IV18-END   IV18_D1\制板文件\Gerber_IV18-END_D1  ★黑色阻焊               5      不要
-  8  高压小板 HV-UNI D1    HV-UNI_D1\制板文件\                                           5      要，贴 3 套（用 3 块）：JLC_SMT_BOM/CPL_HV-UNI_D1（电感、采样电阻）
-  9  IN-14 小板 IN14-SOCK  NIXIE-DRV_D1\制板文件_IN14小板\                               10     要，贴 7 套（装机 6 块 + 1 块备用）：JLC_SMT_BOM/CPL_IN14-SOCK_D1（只贴 R_PR）
+  8  高压小板 HV-UNI D1    HV-UNI_D1\制板文件\                                           5      不要（L1 电感、RS1 采样电阻自己焊，料在第三单）
+  9  IN-14 小板 IN14-SOCK  NIXIE-DRV_D1\制板文件_IN14小板\                               10     不要（R_PR 0 Ω 自己焊或用电阻腿短接）
   10 辉光驱动板 NIXIE D1.1 NIXIE-DRV_D1\制板文件_驱动板\         150×80                   5      不要
   11 6E2 板 EYE-6E2 D1.1   EYE-6E2_D1\制板文件\                                          5      不要
   12 盖革主板 GEIGER-MAIN  GEIGER_D1\制板文件_主板\              60×70                    5      不要
-  13 盖革夹子板 GEIGER-CLIP GEIGER_D1\制板文件_夹子板\                                    5      要，贴 2 套：JLC_SMT_BOM/CPL_GEIGER-CLIP_D1（4.7 MΩ 阳极电阻）
+  13 盖革夹子板 GEIGER-CLIP GEIGER_D1\制板文件_夹子板\                                    5      不要（R2 4.7 MΩ 2512 自己焊，料在第三单）
   14 斜面板 SLANT D1.1     SLANT_D1\制板文件\                                            5      不要（Pico 插针装，自己焊排母）
   15 ESP 底板 ESP-BASE D1  ESP-BASE_D1\制板文件\                110×50                   5      不要（U1 PCA9555 预留不焊）
 
@@ -51,5 +53,8 @@ MIS-01 嘉立创下单清单（2026-10-22）
   1. 电源板选 1 oz 即可（2026-10-22 复核：2 oz 加价约 300 元；1 oz 下主干最坏负载温升约 10–20 ℃，见设计记录）。
      丝印上的"Cu 2oz"字样不用管。
   2. 两块 HDMI 小板板厚必须 1.6（HDMI 插头是夹板式）。
-  3. 贴片件当天看一下库存（重点：电源板 TPS259470LRPWR C3662793 ×4、HDMI 插头 C711355），缺货告诉 Claude 换料。
+  3. 贴片件当天看一下库存（重点：电源板 TPS259470LRPWR C3662793 ×4），缺货告诉 Claude 换料。
+     2026-10-22 已按嘉立创库存换过：EL-IF CDV12 → C520075、U_NOR → C7394016（UMW 同脚位）；
+     电源板 C_DVA/B/D → C107043、C_DVC → C107048、R_ILMD → C2930088、U_INV → C5375976（UMW 同脚位）。
+  5. 贴片类型：01/02/03/04/05/06 都选经济型（贴片件都在顶层，单面）。
   4. EL 接口板、电源板之前的"下单前核对.txt"（D1.2 目录）里列了要看方向的器件，贴片预览时对照。
