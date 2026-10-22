@@ -33,10 +33,15 @@ udevadm trigger --subsystem-match=tty
 
 echo "== 5/6 设备树：PI_RUN gpio-hog、uart4（先备份 $ENV）"
 cp "$ENV" "$ENV.bak-mis01-$(date +%Y%m%d%H%M%S)"
-if grep -q "mis01-pi-run" "$ENV"; then
-    echo "   mis01-pi-run 已在 user_overlays 里"
+# 每次都重新编译（改过 overlay 后重跑 install.sh 即更新）
+install -d /boot/overlay-user
+dtc -@ -q -I dts -O dtb -o /boot/overlay-user/mis01-pi-run.dtbo "$D/overlay/mis01-pi-run.dts"
+if grep -q "^user_overlays=.*mis01-pi-run" "$ENV"; then
+    echo "   mis01-pi-run 已在 user_overlays 里（dtbo 已更新）"
+elif grep -q "^user_overlays=" "$ENV"; then
+    sed -i 's/^user_overlays=\(.*\)$/user_overlays=\1 mis01-pi-run/' "$ENV"
 else
-    armbian-add-overlay "$D/overlay/mis01-pi-run.dts"
+    echo "user_overlays=mis01-pi-run" >> "$ENV"
 fi
 if grep -q "^overlays=.*rk3399-uart4" "$ENV"; then
     echo "   uart4 已开"

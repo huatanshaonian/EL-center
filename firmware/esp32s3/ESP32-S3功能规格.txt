@@ -1,6 +1,6 @@
 MIS-01 仪器层控制器 ESP32-S3 功能规格
 ====================================================================
-版本：v0.9.6（2026-10-22）
+版本：v0.9.7（2026-10-22）
 硬件：微雪 Waveshare ESP32-S3-DEV-KIT（用户 2026-10-20 确认，不是乐鑫官方 DevKitC-1），模组 ESP32-S3-WROOM-1U-N16R8（Flash 16 MB，Octal PSRAM 8 MB，外接天线）；
       两排排针中心距实测约 23.0 mm（外侧 23.7 / 内侧 22.3），按 0.9 英寸 = 22.86 mm 设计底板。
       微雪板排针脚序与乐鑫 DevKitC-1 完全相同（两排各 22 针，1 脚在天线端）；只有一个 USB-C，板载 CH334F Hub
@@ -207,7 +207,9 @@ Pi（Armbian，程序在仓库 pi/，服务 mis01d）：
   - 40 针 16 脚 = GPIO1_C6（gpiochip1 第 22 线）、22 脚 = GPIO1_D0（gpiochip1 第 24 线）（wiringOP 引脚表，两处资料一致）。
   - PI_RUN（16 脚）用设备树 gpio-hog 拉高（pi/overlay，用户 overlay）：内核一起来就高，直到 Pi 真正断电才低。
     不交给用户态服务——服务在关机流程中途就退出，线会提前变低，ESP 5 s 后断电时文件系统可能还没卸载。
-  - mis01d 服务：监视 22 脚（PI_SHDN_REQ），开内部上拉（ESP 底板上没有上拉，悬空可能误关机），持续低 ≥ 500 ms 才执行 poweroff（去抖）；
+  - 22 脚（PI_SHDN_REQ）内部上拉也在同一 overlay 里用 pinctrl 设（挂在空的 regulator-fixed 节点上）：这个脚上电默认下拉，
+    rockchip GPIO 驱动不支持用户态设 bias（libgpiod 请求上拉被静默忽略，2026-10-22 实测仍读 0）。ESP 底板上没有上拉，悬空可能误关机。
+  - mis01d 服务：监视 22 脚（PI_SHDN_REQ），必须先读到过高、之后持续低 ≥ 500 ms 才执行 poweroff（去抖；上拉失效时不误关机）；
     打开 ESP 原生 USB 口（udev 按 VID:PID 303A:4001 建 /dev/mis01-esp，避免和 CH343 日志口抢 ttyACM0），收到 !SHUTDOWN 也执行 poweroff（两路先到先执行）。
   - 关机（poweroff/halt，不含 reboot）时 mis01d 停止前：先经 /dev/ttyS4 给 FPGA 发 "R0"（关 VD、停扫描，等到 ST=0 或 3 s），再给 ESP 发 SHUTDOWN。
     reboot 时两样都不发（FPGA 保持显示，ESP 不进 SHUT）。
@@ -325,6 +327,7 @@ ESP 底板：BLANK 上拉、IV18_PWR_EN 下拉、PI_RUN 下拉、GEIGER_IN 上�
 --------------------------------------------------------------------
 修订记录
 --------------------------------------------------------------------
+v0.9.7 2026-10-22 第 4 节：Pi 22 脚上拉改由设备树 pinctrl 设（用户态请求无效，已在 Pi 上实测生效）；mis01d 先见高才认低。
 v0.9.6 2026-10-22 用户定把 ESP 联网功能用起来：新增 F15 网络（常连 Wi-Fi、mis01.local 网页、无线升级带回滚、Open-Meteo 天气）；
      NTP=1 改为每 24 h 自己对时（不再限 Pi 不在线）；F5 轮换加室外温度；新增 NET?、WX?；新增 CFG WEB_PASS、WX_CITY、WX_LAT、WX_LON、WX_MIN；
      第 7 节分区表改两个程序区。城市、时区都在网页上可改（用户要求）。

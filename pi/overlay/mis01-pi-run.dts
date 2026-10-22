@@ -1,6 +1,11 @@
-// MIS-01：40 针 16 脚（GPIO1_C6 = gpiochip1 第 22 线）= PI_RUN，内核一起来就输出高，直到 Pi 断电。
-// 用 gpio-hog 而不是用户态服务：服务在关机流程中途退出，线可能提前变低，ESP 5 s 后就断电（规格第 4 节）。
-// 安装：sudo armbian-add-overlay mis01-pi-run.dts（install.sh 会做），重启生效。
+// MIS-01 用户 overlay（Orange Pi 4，RK3399）：
+//  1. 40 针 16 脚（GPIO1_C6 = gpiochip1 第 22 线）= PI_RUN：gpio-hog 输出高，内核一起来就高，直到 Pi 断电。
+//     不用用户态服务拉：服务在关机流程中途退出，线可能提前变低，ESP 5 s 后就断电（规格第 4 节）。
+//  2. 40 针 22 脚（GPIO1_D0 = gpiochip1 第 24 线）= PI_SHDN_REQ：上拉。
+//     这个脚上电默认下拉（原理图 _d），而 rockchip 的 GPIO 驱动不支持用户态设 bias（libgpiod 的 pull-up 被静默忽略，
+//     2026-10-22 实测仍读 0），所以在设备树里用 pinctrl 设。上拉挂在一个空的 regulator-fixed 节点上（它探测时套用
+//     pinctrl 默认状态）；不挂在 gpio1 节点上——PMIC、触摸、FUSB302 的中断都走 gpio1，出错会影响开机。
+// 安装：install.sh 编译成 /boot/overlay-user/mis01-pi-run.dtbo 并加进 user_overlays，重启生效。
 /dts-v1/;
 /plugin/;
 
@@ -15,6 +20,32 @@
 				gpios = <22 0>;		/* GPIO1_C6，高有效 */
 				output-high;
 				line-name = "MIS01_PI_RUN";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&pinctrl>;
+		__overlay__ {
+			mis01 {
+				mis01_shdn_pu: mis01-shdn-pu {
+					/* bank 1，RK_PD0 = 24，功能 0 = GPIO，上拉 */
+					rockchip,pins = <1 24 0 &pcfg_pull_up>;
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target-path = "/";
+		__overlay__ {
+			mis01-pullups {
+				compatible = "regulator-fixed";
+				regulator-name = "mis01-pullups";
+				regulator-min-microvolt = <3000000>;
+				regulator-max-microvolt = <3000000>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&mis01_shdn_pu>;
 			};
 		};
 	};
