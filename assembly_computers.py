@@ -1,6 +1,6 @@
 """
 MIS-01 电脑层（层板顶面 z 264）：Orange Pi 4、Tang Primer 20K Dock、HDMI 软排线两头小板（HDMI-PI / HDMI-DOCK D1）和排线。
-**暂定布置（2026-10-21，待用户确认）**：两块板 HDMI 所在的边都朝后，口面都在 y 172.7，离后面板内侧（y 220）47 mm。
+**布置（2026-10-21，10-23 用户确认）**：两块板 HDMI 所在的边都朝后，口面在 y 172.7（Dock）/ 174.2（Pi），离后面板内侧（y 220）约 46 mm（2026-10-23 Pi 后移 1.5、Dock 左移 2.5，孔躲层板孔阵和走线孔）。
 不贴层板后沿（y 198）放，是因为同一条边上还有直头的 DC 插头（Pi 4.0×1.7、Dock 5.5×2.1）和 Pi 耳机插头，要 40 mm 以上才弯得过来。
 Pi 在左：网口/USB 朝左（−X），HDMI 长边朝后；Dock 在右，按厂家模型方向（HDMI/网口/DC 一侧朝 +Y）。
 两块 HDMI 小板（mis-01-56，STEP 原点 = 板前沿中点，+Y 背离插头，顶层 +Z，只需平移）：C711355 夹板式公头水平插入（−Y），
@@ -19,26 +19,28 @@ Z_PCB = Z_PLATE_TOP + STANDOFF           # Dock 板底 z 270
 PI_STANDOFF = 25                         # Pi：M2.5×25 铜柱。用户的 Pi 4 排针在板子背面朝下（2026-10-22），下面要插杜邦：
                                          # 排针塑料座 2.5 + 插头 14 → 插头下沿离板底 16.5，再留约 8 让线弯过去
 Z_PCB_PI = Z_PLATE_TOP + PI_STANDOFF     # Pi 板底 z 289（比 Dock 高 19）
-Y_PORT = 172.7                           # 两个 HDMI 口面
+Y_PORT = 172.7                           # Dock 的 HDMI 口面
+Y_PORT_PI = Y_PORT + 1.5                 # Pi 的 HDMI 口面 174.2（2026-10-23 后移 1.5：层板已做好只能手钻，Pi 的孔要躲开孔阵孔和后走线孔）
 HDMI_Z = Z_PCB + 5.375                   # 插口中心高 275.4（Dock STEP 口面截面：外壳 z 2.75–8.0，宽边朝上；Pi 按同规格估计）
 
 # Orange Pi 4：模型原点（FPC 端 × HDMI 长边）放在 (PI_XR, PI_YR)，绕 Z 转 180°
 PI_RJ45_X = 70                           # 网口端板边 x（USB 插头向左还要约 45）
 PI_XR = PI_RJ45_X + 91                   # 161
-PI_YR = Y_PORT - 2.85                    # HDMI 长边板边 y 169.85
+PI_YR = Y_PORT_PI - 2.85                 # HDMI 长边板边 y 171.35
 PI_HDMI_X = PI_XR - (17.13 + 32.13) / 2  # 136.37
 
 # Dock：板左前角放在 (DOCK_X0, DOCK_Y0)
-DOCK_X0 = 170
+DOCK_X0 = 167.5                          # 2026-10-23 由 170 左移 2.5（孔躲层板孔阵）
 DOCK_Y0 = Y_PORT - 73.7                  # 99.0
-DOCK_HDMI_X = DOCK_X0 + 32.4             # 202.4
+DOCK_HDMI_X = DOCK_X0 + 32.4             # 199.9
 
 # HDMI 小板 STEP（约 7 / 12 MB，不进 git）
 AD_DIR = "el_driver/HDMI_FPC_D1/制板文件/"
 AD_STEP = {"Pi": AD_DIR + "HDMI-PI_D1.step", "Dock": AD_DIR + "HDMI-DOCK_D1.step"}
 PLUG_TIP, PLUG_ZC = -12.42, 0.73         # 小板坐标里插头壳前端 y、壳中心 z（壳 z −1.5..2.96）
 INSERT = 6.8                             # 插入深度
-AD_Y = Y_PORT - INSERT - PLUG_TIP        # 小板原点（板前沿）世界 y 178.3
+AD_YS = {"Pi": Y_PORT_PI - INSERT - PLUG_TIP, "Dock": Y_PORT - INSERT - PLUG_TIP}   # 小板原点（板前沿）世界 y：Pi 179.8、Dock 178.3
+AD_Y = (AD_YS["Pi"] + AD_YS["Dock"]) / 2   # 排线按两头平均 y 画（实际两头前后差 1.5，排线略斜）
 AD_Z = HDMI_Z - PLUG_ZC                  # Dock 端小板板底世界 z 274.6
 AD_ZS = {"Pi": AD_Z + Z_PCB_PI - Z_PCB, "Dock": AD_Z}   # Pi 端跟着 Pi 抬高 19
 FPC_YC, FPC_H = 17, 4.4                  # 立式座中心 y、高（STEP 里座子 z 1.6–6.0；规格书写 5.65，以实物为准）
@@ -76,7 +78,7 @@ def ffc_arch(x0, x1, z0, z1, length=FFC_LEN, w=FFC_W, t=0.3, y=AD_Y + FPC_YC):
 def build():
     _pi_and_dock()
     for tag, x in (("Pi", PI_HDMI_X), ("Dock", DOCK_HDMI_X)):
-        add(f"HDMI-{tag.upper()}_D1", V.load_abs(AD_STEP[tag]).translate((x, AD_Y, AD_ZS[tag])), "pcb_b", "computer")
+        add(f"HDMI-{tag.upper()}_D1", V.load_abs(AD_STEP[tag]).translate((x, AD_YS[tag], AD_ZS[tag])), "pcb_b", "computer")
     ffc, _, _ = ffc_arch(PI_HDMI_X, DOCK_HDMI_X, AD_ZS["Pi"] + 1.6 + FPC_H, AD_ZS["Dock"] + 1.6 + FPC_H)
     add("FFC_20P_200mm", ffc, (0.85, 0.7, 0.35, 1), "computer")
     build_extras()

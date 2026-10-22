@@ -1,5 +1,5 @@
 """
-MIS-01 整机布局装配（布局 E11；Orange Pi 4、FPGA Dock 在电脑层为暂定布置，见 assembly_computers.py）
+MIS-01 整机布局装配（布局 E11；Orange Pi 4、FPGA Dock 在电脑层，见 assembly_computers.py）
 全局坐标：X 向右(宽)、Y 由前向后(深)、Z 向上；竖直前面板外表面 Y=-2，框架前沿 Y=0。
 框架外形 320(W) x 220(D) x 420(H)，2020 型材；底部斜面与键盘座向前探出约 45（见 assembly_panel.py）。
 公共尺寸/配色/零件表在 assembly_base.py。
@@ -206,7 +206,7 @@ def pcb3_nid_modules(z_face):
             add("socket_2.54_1x13_" + name.split("_", 1)[1], P.box(48.2 + 2.54, 2.5, NID_SOCKET, gx - 1.27, gy - 1.25, z_root), "dark", "power")
 
 # ------------------------------------------------------------------ 电脑层
-# Orange Pi 4、Dock、HDMI 软排线两头小板：暂定布置（2026-10-21，待用户确认），见 assembly_computers.py。
+# Orange Pi 4、Dock、HDMI 软排线两头小板：2026-10-23 用户确认，见 assembly_computers.py。
 # EL 接口板、Hub 模块、风扇小板还没放；后面板接口窗等布置定了再开。
 def computers():
     AC.build()
