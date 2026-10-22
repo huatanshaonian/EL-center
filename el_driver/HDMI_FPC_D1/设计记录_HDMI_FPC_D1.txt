@@ -31,6 +31,8 @@ MIS-01 HDMI 软排线两头小板 HDMI-PI D1 + HDMI-DOCK D1 设计记录
   HDMI-DOCK D1：J1、J2 同上，另加：
     R1–R8 49.9 Ω 1% 0402（C25120）：D2±、D1±、D0±、CLK± 各一只上拉到 +3V3，就是 Dock 原来缺的接收端接。
     U1 ME6211C33M5G-N（C82942）：VIN、CE 接 Dock 18 脚 5 V（D5 后，0.1 A 时约 4.65 V），出 +3V3。
+    2026-10-23 下单时嘉立创 ME6211 无货，贴片 BOM 换 AP2112K-3.3TRG1（Diodes，C51118）：SOT-23-5 脚位相同
+    （1 VIN 2 GND 3 EN 4 NC 5 VOUT），Vin ≤ 6 V，C2 1 µF 陶瓷输出电容满足稳定要求；EDA 工程里仍是原编号。
     C1 1 µF（VIN）、C2 1 µF + C3 100 nF（+3V3），0603。
     Dock 上的 499 Ω 下拉还在：线上静态约 3.0 V、单端摆幅约 450 mV，在 HDMI 接收范围内（fpga-8c 算过）。
   网表与 hd_netlist.py 逐脚比对 0 不符（Pi 44 脚、Dock 71 脚）。
