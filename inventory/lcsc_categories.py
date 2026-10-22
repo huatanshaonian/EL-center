@@ -1,4 +1,5 @@
 """立创补单表“分类”一栏 → 库里的（大类, 子类）。和旧库存表的分类树保持一致。"""
+import re
 
 FIXED = {
     '直插铝电解电容': ('电容', '铝电解电容'), '铝电解电容': ('电容', '铝电解电容'),
@@ -45,10 +46,10 @@ def _smd(model, desc):
     for prefixes, path in SMD_PREFIX:
         if m.startswith(prefixes):
             return list(path)
-    d = (desc or '').strip()
-    if d.endswith('Ω'):
+    d = (desc or '').strip()   # 规格有两种写法：“100kΩ”或立创英文“RES 10kΩ ±1% …”“CAP CER 1uF 50V …”
+    if d.upper().startswith('RES') or re.search(r'\d\s*[mkKM]?Ω$', d):
         return ['电阻', '贴片电阻']
-    if d[-2:] in ('pF', 'nF', 'uF', 'µF'):
+    if d.upper().startswith('CAP') or re.search(r'\d\s*[pnuµ]F$', d):
         return ['电容', '贴片电容']
     return None
 
