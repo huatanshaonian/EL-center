@@ -83,7 +83,8 @@ GEIGER_CLIP_STEP = "el_driver/GEIGER_D1/制板文件_夹子板/GEIGER-CLIP_D1.st
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.1.step"   # 约 59 MB，不进 git
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
-SPK_Y, SPK_Z = {"L": 45.0, "R": 55.0}, 35.0       # 腔体喇叭出声面中心 y、z（喇叭长 70、高 30）。左边再往后会碰 LRS-200（y ≥ 83），右边往前会碰斜面右上方键尾部
+SPK_Y, SPK_Z = {"L": 47.5, "R": 49.5}, 45.0       # 5151 腔体喇叭出声面中心 y、z：本体 51×51 正对两根 Y 梁之间 z 20–70 的空档（L y 22–73、R y 24–75）；
+                                                 # 耳孔 z 10.5 / 79.5 对下层、甲板层 Y 梁内侧槽中心 z 10 / 80。L 往前离立柱 2，R 往前离灯按钮 2.8
 NID_SOCKET = 8.5                               # NID100 插拔式：排母塑高（0 = 直接焊在板上）
 
 
@@ -182,13 +183,13 @@ def lower():
             .union(P.box(hl - 24, t, hh, hx + 24, hy, 0)).union(P.box(hl - 24, t, hh, hx + 24, hy + hw - t, 0))
             .union(P.box(24, t, 10 - t, hx, hy, 30)).union(P.box(24, t, 10 - t, hx, hy + hw - t, 30)))
     add("Mains_hood_acrylic", hood, "acrylic", "covers")
-    # 喇叭：两只 3 W 4 Ω 腔体喇叭（2026-10-22 用户定，立体声，PAM8403 两路都用），在底层左右前角、下层 Y 梁上方，
-    # 出声面朝外侧（x 20 / 300），声音穿过下层与甲板层 Y 梁之间的空当、从下巴托侧板的喇叭网出去；不固定在任何侧板上
-    spk, cr = M.cavity_speaker_3070(), M.speaker_cradle()
+    # 喇叭：两只 4 Ω 腔体喇叭 5151 款（2026-10-23 由 3070 改，音腔大约 4 倍；立体声，PAM8403 两路），在底层左右前角，
+    # 出声面贴 Y 梁内侧面（x 20 / 300）朝外，声音穿过下层与甲板层 Y 梁之间的空当、从下巴托侧板的喇叭网出去。
+    # 不用支架：耳朵朝上下，M3 螺丝 + 2020 用 M3 锤头螺母锁进上下两根 Y 梁的内侧槽（孔距 69，槽心距 70，槽宽 6 能吃下）
+    spk = M.cavity_speaker_5151()
     for tag, x, mir in (("L", 20, False), ("R", W - 20, True)):
-        sp, c = (spk.mirror("YZ"), cr.mirror("YZ")) if mir else (spk, cr)
-        add(f"Speaker_cavity_3070_{tag}", sp.translate((x, SPK_Y[tag], SPK_Z)), "dark", "power")
-        add(f"Speaker_cradle_{tag}", c.translate((x, SPK_Y[tag] + 5, 0)), "module", "power")
+        sp = spk.mirror("YZ") if mir else spk
+        add(f"Speaker_cavity_5151_{tag}", sp.translate((x, SPK_Y[tag], SPK_Z)), "dark", "power")
     add("PAM8403_module", P.box(21, 18, 4, 150, 30, 3), "pcb_g", "power")            # 功放小板（尺寸 T），尼龙柱 3 mm
 
 
