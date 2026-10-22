@@ -24,11 +24,44 @@ FIXED = {
 }
 
 
+# 第四单（自贴三板）分类一栏只写“贴片件”，按型号前缀细分；按顺序匹配，先到先得
+SMD_PREFIX = [
+    (('SMBJ',), ('二极管', 'TVS')),
+    (('BZT52',), ('二极管', '稳压二极管')),
+    (('BAT',), ('二极管', '肖特基二极管')),
+    (('1812L',), ('保险丝', '自恢复保险丝')),
+    (('AO34', 'BSS138', 'NCE'), ('场效应管', 'MOSFET')),
+    (('MMBT3906',), ('三极管', 'PNP')),
+    (('TPS2594',), ('集成电路', '电子保险丝')),
+    (('TPS3808',), ('集成电路', '电压监控')),
+    (('AP2112', 'ME6211'), ('集成电路', 'LDO')),
+    (('CD74', 'SN74'), ('集成电路', '逻辑 IC')),
+    (('L9110',), ('集成电路', '电机驱动')),
+]
+
+
+def _smd(model, desc):
+    m = (model or '').upper()
+    for prefixes, path in SMD_PREFIX:
+        if m.startswith(prefixes):
+            return list(path)
+    d = (desc or '').strip()
+    if d.endswith('Ω'):
+        return ['电阻', '贴片电阻']
+    if d[-2:] in ('pF', 'nF', 'uF', 'µF'):
+        return ['电容', '贴片电容']
+    return None
+
+
 def category_path(lcsc_cat, model='', desc='', provider_cat=''):
     """返回 [大类, 子类]。补单表没有这一行时，用立创数据源的英文分类最后一级放进“未归类”。"""
     c = (lcsc_cat or '').strip()
     if c in FIXED:
         return list(FIXED[c])
+    if c == '贴片件':
+        guess = _smd(model, desc)
+        if guess:
+            return guess
     if c == '线对板连接器':
         return ['连接器', 'XH 插座' if model.upper().startswith('XH') else '线对板连接器']
     if c == '排针排母':
