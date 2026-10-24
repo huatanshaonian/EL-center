@@ -147,3 +147,4 @@ __pycache__/
 # 密钥、接口 token、本机地址不进仓库
 /inventory/**/secret.env
 /inventory/**/*_local.*
+/inventory/收纳/*.pdf
