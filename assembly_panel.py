@@ -30,7 +30,7 @@ TOG_X, TOG_U, LAMP_U = (180.5, 201.5, 222.5), 26, 63
 KEY_X, KEY_U = (256.0, 286.0), (63, 40, 18)
 
 # 竖直前面板上的仪表（全局 x, z）
-METER = (214, 146)
+METER = (214, 146)                               # 85C1 面框中心；开孔中心 / 螺柱位置见 parts_panel.METER_SPEC
 EYE_X = (261, 285)                               # 6E2 管心 x
 EYE_WIN = (248, 118, 50, 56)                     # 6E2 开口 x, z, w, h：上下边与表头面框齐平（z 118–174），表头底边向右延伸成横条，把 6E2 和下面的盖革窗隔开
 ACRYLIC_T = 2                                    # 三个开口背后都贴透明亚克力（管龛 170 V、6E2 250 V、盖革管 400 V，手指够不着）
@@ -76,14 +76,16 @@ def front_panel():
     cut = [(sx0 + (267 - aa_w) / 2 - 2, Z_SCREEN + (220 - aa_h) / 2 - 2, aa_w + 4, aa_h + 4),   # EL 视窗
            NICHE, SBM_WIN]
     cut += [EYE_WIN]                                                                         # 6E2 大开口
-    holes = [(METER[0], METER[1], 50)] + [(METER[0] + sx * 26, METER[1] - 13, 3.2) for sx in (-1, 1)]   # 85C1：Ø50 + 2×M3（孔距 52）
+    ms = F.METER_SPEC                                                                        # 85C1（实测）：METER = 面框中心
+    holes = [(METER[0], METER[1] + ms["boss_z"], ms["hole_d"])]
+    holes += [(METER[0] + sx * ms["stud_dx"] / 2, METER[1] + ms["stud_z"], 3.2) for sx in (-1, 1)]
     holes += [(SENSOR[0], SENSOR[1], 6)]
     holes += [(x, z, 4.5) for x in (10, W - 10) for z in (140, 280, 410)] + [(x, H - 10, 4.5) for x in (110, 210)]
     FEATURES["front"] = (cut, holes)                                                       # 全局 (x, z)
     add("Panel_meter_85C1", F.panel_meter().translate((METER[0], -2, METER[1])), "meter", "ui")
     # 透明亚克力（贴在面板背面，VHB 双面胶或 UV 胶）
-    # 右：L 形一片盖 6E2 + 盖革两个窗，让开表头螺柱（x 241.5）和右侧 EL 托架（x ≥ 298、z ≥ 176）
-    acr = P.box(299 - 178, ACRYLIC_T, 116 - 91, 178, 0, 91).union(P.box(299 - 244, ACRYLIC_T, 175.5 - 91, 244, 0, 91))
+    # 右：L 形一片盖 6E2 + 盖革两个窗，让开表头右螺柱（x 240.5，M3 螺母 + 垫片到 x 244）和右侧 EL 托架（x ≥ 298、z ≥ 176）
+    acr = P.box(299 - 178, ACRYLIC_T, 116 - 91, 178, 0, 91).union(P.box(299 - 245, ACRYLIC_T, 175.5 - 91, 245, 0, 91))
     add("Window_acrylic_clear_R", acr, "acrylic", "front")
     # 左：管龛一片，让开左 EL 托架（x 20–22）
     add("Window_acrylic_clear_L", P.box(173 - 22.5, ACRYLIC_T, 179 - 89, 22.5, 0, 89), "acrylic", "front")

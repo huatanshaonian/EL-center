@@ -63,18 +63,25 @@ def rotary_selector():
     knob = knob.union(box(3, 1.5, s["skirt_d"] / 2, -1.5, y_skirt - s["knob_h"] - 1.5, 0))                # 指针条
     return b.union(knob)
 
+# 85C1 表头，用户实测 2026-10-26（零件实测记录.txt）：原点 = 面框中心；凸台 / 螺柱位置相对面框中心
+# 凸台 Ø48：下沿离面框下边 2、上沿离上边 5.5 → 凸台中心比面框中心低 1.75；左右基本居中（7.8 / 8.2）
+# 螺柱 M3，中心离面框下边 12.4 → z −15.6；孔距 53；面框厚 9.6；板后 32（不含接线螺丝）/ 42（含）
+METER_SPEC = dict(face_w=64.0, face_h=56.0, face_t=9.6, boss_d=48.0, boss_t=2.5, boss_z=-1.75, body_d=26.0, depth=32.0,
+                  term_L=10.0, stud_dx=53.0, stud_z=-15.6, stud_L=12.0, hole_d=49.0, panel_t=2.0)
+
+
 def panel_meter():
-    """方形指针表头 85C1（0–1 mA）：面框 64x56，背面凸台 Ø49x2.5 嵌进面板 Ø50 孔，表体 Ø26；
-    2 颗 M3 螺柱水平孔距 52、在表心下方 13；板后总深 47.5（C：浦江 Enerdis 矩形电表样本 p20；面框厚 T）"""
-    SPEC = dict(face_w=64.0, face_h=56.0, face_t=11.0, boss_d=49.0, boss_t=2.5, body_d=26.0, depth=47.5,
-                stud_dx=52.0, stud_z=-13.0, stud_L=12.0, panel_t=2.0)
-    s = SPEC
+    """方形指针表头 85C1（0–1 mA）：面框 64x56，背面凸台 Ø48 嵌进面板 Ø49 孔（凸台中心比面框中心低 1.75），
+    表体 Ø26 深 32 + 接线螺丝 10；2 颗 M3 螺柱孔距 53。原点 = 面框中心（贴面板前表面）。表体直径、凸台厚、螺柱长 T"""
+    s = METER_SPEC
+    bz = s["boss_z"]
     m = box(s["face_w"], s["face_t"], s["face_h"], -s["face_w"] / 2, -s["face_t"], -s["face_h"] / 2).edges("|Y").fillet(3)
     m = m.cut(box(s["face_w"] - 8, 1.0, s["face_h"] - 16, -s["face_w"] / 2 + 4, -s["face_t"] - 0.01, -s["face_h"] / 2 + 12))   # 表盘窗
-    m = m.union(cyl(s["boss_d"] / 2, s["boss_t"], 0, 0, 0, "Y"))                                   # 凸台
-    m = m.union(cyl(s["body_d"] / 2, s["depth"], 0, 0, 0, "Y"))                                   # 表体
+    m = m.union(cyl(s["boss_d"] / 2, s["boss_t"], 0, 0, bz, "Y"))                                  # 凸台
+    m = m.union(cyl(s["body_d"] / 2, s["depth"], 0, 0, bz, "Y"))                                  # 表体
     for sx in (-1, 1):
         m = m.union(cyl(1.5, s["stud_L"], sx * s["stud_dx"] / 2, 0, s["stud_z"], "Y"))
+        m = m.union(cyl(1.5, s["term_L"], sx * 7, s["depth"], bz, "Y"))                           # 接线螺丝（位置 T）
     return m
 
 def speaker_40():
