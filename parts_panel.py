@@ -111,9 +111,10 @@ def rect_lamp_button():
 def fader_60(pos=0.5):
     """60 mm 行程直滑推子（Bourns PTA6043 类）+ 推子帽，本体贴在面板背面，拨杆穿过开槽
     原点=开槽中心（面板前表面），槽沿 X；pos=推子帽位置 0..1
-    本体 75x9、行程 60、拨杆 15、外壳顶面到 PCB 座面 6.5：C（Bourns PTA 规格书 p2 PTAxx43 图）；开槽、推子帽：T"""
-    SPEC = dict(body_L=75.0, body_W=9.0, body_H=6.5, travel=60.0, lever_L=15.0, lever=(4.0, 1.2),
-                cap=(10.0, 12.0, 12.0), slot=(62.0, 2.0), panel_t=2.0)
+    本体 75x9、行程 60、拨杆 15、外壳顶面到 PCB 座面 6.5：C（Bourns PTA 规格书 p2 PTAxx43 图）；推子帽：T
+    用户实测 2026-10-26：拨杆 5（沿槽）× 1.2，本体槽长 67、总长 75、两端螺丝孔距 70 → 面板开槽 67 × 2，与本体槽同长，不卡行程"""
+    SPEC = dict(body_L=75.0, body_W=9.0, body_H=6.5, travel=60.0, lever_L=15.0, lever=(5.0, 1.2),
+                cap=(10.0, 12.0, 12.0), slot=(67.0, 2.0), panel_t=2.0)
     s = SPEC
     L, Wb, Hb, t = s["body_L"], s["body_W"], s["body_H"], s["panel_t"]
     f = box(L, Hb, Wb, -L / 2, t, -Wb / 2)

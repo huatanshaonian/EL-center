@@ -93,7 +93,7 @@ def front_panel():
 def slant():
     cw, ch = F.USB_EXT["cut"]
     cut = [(x - cw / 2, u - ch / 2, cw, ch) for x, u in USB]
-    cut += [(FADER_X - 31, u - 1, 62, 2) for u in FADER_U]
+    cut += [(FADER_X - 33.5, u - 1, 67, 2) for u in FADER_U]                              # 推子槽 67×2（实测：与本体槽同长）
     holes = [(SEL[0], SEL[1], 10.1)] + [(SEL[0] + sx * 11, SEL[1], 4.2) for sx in (-1, 1)]       # MFR01：Ø10 + 2 个 Ø4.1 防转孔（距 22）
     holes += [(x + sx * F.USB_EXT["hole_dx"] / 2, u, 3.2) for x, u in USB for sx in (-1, 1)]     # 延长线耳孔
     holes += [(x, u, 16.2) for x in KEY_X for u in KEY_U]                                     # LA16 按钮 Ø16
