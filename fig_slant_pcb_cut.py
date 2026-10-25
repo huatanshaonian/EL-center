@@ -89,8 +89,10 @@ def main():
     zoom(fig.add_axes([0.60, 0.50, 0.38, 0.42]), False, "顶面左下角放大（单位 mm）")
     zoom(fig.add_axes([0.60, 0.05, 0.38, 0.42]), True, "背面右下角放大（单位 mm）")
     fig.suptitle("SLANT D1.1 斜面电路板：左 USB 缺口加高 3.5 mm（红色那条切掉）", fontproperties=F, fontsize=15)
-    fig.text(0.5, 0.012, "红色一条只有接地铺铜，没有走线和元件；焊元件前切。美工刀沿钢尺两面各划 15–20 遍，钳子掰断，砂纸磨平，"
-             "铜边涂指甲油。宁可多切 0.5，不要少切。", fontproperties=F, fontsize=9, ha="center", wrap=True)
+    fig.text(0.5, 0.028, "红色一条只有接地铺铜，没有走线和元件；焊元件前切。切完后模式开关大孔下缘（离板下沿 23）和缺口之间只剩约 2.5 mm 板筋，"
+             "不能掰，会裂。", fontproperties=F, fontsize=9.5, ha="center", color="#b71c1c")
+    fig.text(0.5, 0.008, "切法：细齿钢锯条或拉花锯沿线锯（板夹紧，靠切线外侧下锯），或斜口钳从缺口一点点剪进去；再用锉刀 / 砂纸修到线，"
+             "铜边涂指甲油。只能多切不超过 0.5，不要少切。", fontproperties=F, fontsize=9.5, ha="center")
     fig.savefig("png/28_slant_pcb_cut.png", dpi=130)
     print("saved png/28_slant_pcb_cut.png")
 
