@@ -1,7 +1,7 @@
 """生成元件柜的抽屉标签和收纳对照表（A4，HTML + PDF）。
 
   标签：每个抽屉一条（编号 + 前/后格内容），空着的抽屉只印编号；另附同尺寸空白标签手写用。
-        小抽屉 30×10 mm，大抽屉 50×14 mm，沿灰线剪开贴在抽屉面上。
+        小抽屉 35×10 mm，大抽屉 50×14 mm，沿灰线剪开贴在抽屉面上。
   对照表：每一格该放 Part-DB 里的哪些料（含数量、现在的库位），照着一格一格放。
 规划本身在 storage_plan.py。用法：G:\\anaconda\\python.exe make_storage_labels.py
 输出 inventory/收纳/；PDF 用 Edge 无头模式打印，打印时选“实际大小”（100%）。
@@ -9,6 +9,7 @@
 import collections
 import html
 import os
+import re
 import subprocess
 import sys
 
@@ -19,7 +20,7 @@ from value_parse import _values
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '收纳')
 EDGE = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
-BLANK_SMALL, BLANK_BIG = 48, 9
+BLANK_SMALL, BLANK_BIG = 37, 6  # 凑满整行，整页一张 A4
 
 CSS_BASE = """
 @page { size: A4; margin: 10mm; }
@@ -31,18 +32,20 @@ h1 { font-size: 10pt; margin: 0 0 2mm; }
 
 CSS_LABEL = """
 .grid { display: inline-grid; vertical-align: top; border-top: 0.2mm solid #999; border-left: 0.2mm solid #999; margin-bottom: 5mm; }
-.s { grid-template-columns: repeat(6, 30mm); }
+.s { grid-template-columns: repeat(5, 35mm); }
 .b { grid-template-columns: repeat(3, 50mm); }
 .lab { border-right: 0.2mm solid #999; border-bottom: 0.2mm solid #999; display: flex; align-items: center;
        overflow: hidden; white-space: nowrap; }
-.s .lab { width: 30mm; height: 10mm; padding: 0 1mm; }
+.s .lab { width: 35mm; height: 10mm; padding: 0 1mm; }
 .b .lab { width: 50mm; height: 14mm; padding: 0 1.5mm; }
 .code { font-weight: bold; }
-.s .code { font-size: 7pt; width: 6.5mm; }
-.b .code { font-size: 9pt; width: 9.5mm; }
-.rows { display: flex; flex-direction: column; }
-.s .rows { font-size: 6.5pt; line-height: 3.8mm; }
-.b .rows { font-size: 7.5pt; line-height: 5mm; }
+.s .code { font-size: 8pt; width: 7mm; flex: none; }
+.b .code { font-size: 10.5pt; width: 11mm; flex: none; }
+.rows { display: flex; flex-direction: column; min-width: 0; }
+.rows > div { overflow: hidden; }
+.s .rows { font-size: 7.5pt; line-height: 4.4mm; }
+.b .rows { font-size: 9.5pt; line-height: 6mm; }
+.over { outline: 0.6mm solid red; }
 .fb { color: #777; margin-right: 0.6mm; }
 """
 
@@ -76,10 +79,14 @@ def labels_html():
     return f"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>元件柜标签</title>
 <style>{CSS_BASE}{CSS_LABEL}</style></head><body>
 <h1>元件柜抽屉标签</h1>
-<p class="note">打印选“实际大小 / 100%”；沿灰线剪开贴在抽屉面上，可再贴一层透明胶防磨。小抽屉 30×10 mm（A01–A18、B01–B30），
+<p class="note">打印选“实际大小 / 100%”；沿灰线剪开贴在抽屉面上，可再贴一层透明胶防磨。小抽屉 35×10 mm（A01–A18、B01–B30），
 大抽屉 50×14 mm（AL1–AL6）。只印编号的是空着备用的抽屉，后面整格空白的留给手写。</p>
 <div class="grid s">{''.join(small)}</div>
 <div class="grid b">{''.join(big)}</div>
+<script>/* 字超出格子的标签描红，check_overflow() 靠它检查 */
+for (const d of document.querySelectorAll('.rows > div'))
+  if (d.scrollWidth > d.clientWidth + 1) d.closest('.lab').classList.add('over');
+</script>
 </body></html>"""
 
 
@@ -126,6 +133,13 @@ def guide_html(parts):
 </body></html>"""
 
 
+def check_overflow(html_path):
+    """用 Edge 渲染一次，返回字超出格子的标签编号。"""
+    dom = subprocess.run([EDGE, '--headless', '--disable-gpu', '--dump-dom', 'file:///' + html_path.replace('\\', '/')],
+                         capture_output=True, timeout=120, encoding='utf-8', errors='replace').stdout
+    return re.findall(r'class="lab over"><div class="code">([^<]*)<', dom)
+
+
 def to_pdf(html_path):
     pdf = os.path.splitext(html_path)[0] + '.pdf'
     subprocess.run([EDGE, '--headless', '--disable-gpu', '--no-pdf-header-footer', '--print-to-pdf-no-header',
@@ -143,4 +157,6 @@ if __name__ == '__main__':
         with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(text)
         print(path, '->', to_pdf(path))
+        if name == '收纳标签':
+            print('字超出格子的标签：', check_overflow(path) or '无')
     print('未分配：', [p['name'] for p in parts if not assign(p)] or '无')
