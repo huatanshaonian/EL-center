@@ -11,6 +11,7 @@ import math
 import cadquery as cq
 import parts as P
 import vendor_parts as V
+import parts_modules as M
 from assembly_base import Z_SHELF, PLATE_T, add, place
 
 Z_PLATE_TOP = Z_SHELF + PLATE_T          # 264
@@ -102,9 +103,17 @@ def el_if():
         add("standoff_M3x10_ELIF", P.standoff_m3(EL_IF_STANDOFF).translate((x0 + hx, y0 + hy, zb)), "brass", "computer")
 
 
+HUB_XY = (87.0, 40.0)                                          # Hub 模块左前角（2026-10-26 按实测 66×50 定）
+
+
 def usb_hub():
-    """一分四 USB2.0 Hub 模块（用户已有，尺寸 T 按常见 70×30×12 估，到货实测）：电脑层前沿、Pi 前面，M3×6 铜柱"""
-    add("USB_Hub_4port", P.box(70, 30, 12, 85, 40, Z_PLATE_TOP + 6), "module", "computer")
+    """一分四 USB2.0 Hub 模块（用户实测 66×50×16，孔距 58×44）：电脑层前沿、Pi 前面，x 87–153、y 40–90，M3×6 铜柱；
+    四孔 (91/149, 43/87) 都离孔阵 ≥ 4.5，自钻"""
+    x0, y0 = HUB_XY
+    add("USB_Hub_4port", M.usb_hub_4port().translate((x0, y0, Z_PLATE_TOP + 6)), "module", "computer")
+    for hx in (4.0, 62.0):
+        for hy in (3.0, 47.0):
+            add("standoff_M3x6_HUB", P.standoff_m3(6).translate((x0 + hx, y0 + hy, Z_PLATE_TOP)), "brass", "computer")
 
 
 def pi_cooling():

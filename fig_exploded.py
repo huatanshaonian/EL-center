@@ -55,9 +55,9 @@ LABELS_REAR = [
 ]
 
 
-def main(which=("front", "rear")):
+def main(which=("front", "rear"), items=None):
     os.makedirs("png", exist_ok=True)
-    items = exploded(A.build())
+    items = exploded(items if items is not None else A.build())
     print("parts", len(items))
     if "front" in which:
         R.render(items, "png/22_exploded_front.png", az=30, el=22, title="MIS-01 爆炸图（前等轴）",

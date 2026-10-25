@@ -57,9 +57,11 @@ def _flange_left():
 
 
 def _slant():
-    """斜面平板（局部坐标）：u 0..83−0.5（上端接折弯），两侧翻边处去掉 x 0..3.7 并开 1 mm 让位口"""
+    """斜面平板（局部坐标）：u U_EDGE..83−0.5（上端接折弯），两侧翻边处去掉 x 0..3.7 并开 1 mm 让位口"""
     cut, holes = AP.FEATURES["slant"]
-    s = P.panel(W, AP.SLANT_L - D_TAN, T, cut, holes)
+    e = AP.U_EDGE
+    s = P.panel(W, AP.SLANT_L - D_TAN, T, [(x, u - e, *rest) for x, u, *rest in cut],
+                [(x, u - e, d) for x, u, d in holes]).translate((0, 0, e))
     u0, u1 = AP.FLANGE_U
     fl = _flange_left()
     for mirror in (False, True):
@@ -78,11 +80,12 @@ def front_shell():
 
 # ---------------------------------------------------------------- 下巴托
 def side_outline():
-    """侧板外形 (y, z)：下沿 = 折弯切点 z 1.7；前沿沿斜面外表面线、键盘座底面；上沿 z SIDE_TOP，往后到 y SIDE_BACK"""
+    """侧板外形 (y, z)：下沿 = 底板折弯切点 TRAY_Z + 1.7；前沿沿斜面外表面线、键盘座底面；上沿 z SIDE_TOP，往后到 y SIDE_BACK"""
     dh, dd = PD.SPEC["H"], PD.SPEC["D"]
-    fb, bb = AP.slant_pt(-dh, 0), AP.slant_pt(-dh, dd)          # 键盘座底面前角、后角
-    return [(AP.TRAY_Y0, RI), (AP.SIDE_BACK, RI), (AP.SIDE_BACK, AP.SIDE_TOP), (-T, AP.SIDE_TOP), (-T, AP.Z_CHIN),
-            fb, bb, (bb[0], RI)]
+    fb, bb = AP.slant_pt(AP.U_EDGE - dh, 0), AP.slant_pt(AP.U_EDGE - dh, dd)   # 键盘座底面前角、后角
+    zl = AP.TRAY_Z + RI
+    return [(AP.TRAY_Y0, zl), (AP.SIDE_BACK, zl), (AP.SIDE_BACK, AP.SIDE_TOP), (-T, AP.SIDE_TOP), (-T, AP.Z_CHIN),
+            fb, bb, (bb[0], zl)]
 
 
 def _side_plate(grille_y):
@@ -95,7 +98,7 @@ def _side_plate(grille_y):
         s = s.cut(P.cyl(1.7, T + 2, -1, y, z, "X"))
     dh = PD.SPEC["H"]
     for z in PD.SPEC["end_holes_z"]:
-        y, zz = AP.slant_pt(z - dh, PD.SPEC["end_hole_y"])
+        y, zz = AP.slant_pt(AP.U_EDGE + z - dh, PD.SPEC["end_hole_y"])
         s = s.cut(P.cyl(1.7, T + 2, -1, y, zz, "X"))
     gz0, gz1, gd, gp = AP.GRILLE[1]
     gy0, gy1 = grille_y
@@ -110,18 +113,24 @@ def _side_plate(grille_y):
 
 
 def chin_tray():
-    """底板（z −2..0，y TRAY_Y0..0）+ 两侧板（机架外侧 x −2..0 / 320..322，往上折 90°）+ 后翻边（贴前下横梁，往上折 90°，M4 ×3）"""
-    y0 = AP.TRAY_Y0
+    """底板（z TRAY_Z−2..TRAY_Z，y TRAY_Y0..0）+ 两侧板（机架外侧 x −2..0 / 320..322，往上折 90°）+ 后翻边（贴前下横梁，往上折 90°，M4 ×3）；
+    底板上 4 个 Ø2.4 孔装键盘转接小板 KBD-ADAPT 的 M2 铜柱"""
+    y0, zt = AP.TRAY_Y0, AP.TRAY_Z
     yb = -RO - RELIEF                                                     # 侧边折弯后端（离后折弯留让位口）
-    bottom = P.box(W + 2 * T - 2 * RO, -RO - y0, T, -T + RO, y0, -T)
-    back_bend = sector("YZ", (-RO, -T + RO), RI, RO, 270, 360, W + 2 * T - 2 * RO - 2 * RELIEF).translate((-T + RO + RELIEF, 0, 0))
-    back = P.box(W + 2 * T - 2 * RO - 2 * RELIEF, T, 18 - (-T + RO), -T + RO + RELIEF, -T, -T + RO)
-    for x in (60, W / 2, W - 60):
+    bottom = P.box(W + 2 * T - 2 * RO, -RO - y0, T, -T + RO, y0, zt - T)
+    kx, ky = AP.KBD_XY
+    for hx, hy in AP.KBD_HOLES:
+        bottom = bottom.cut(P.cyl(1.2, T + 2, kx + hx, ky + hy, zt - T - 1))
+    back_bend = sector("YZ", (-RO, zt + RI), RI, RO, 270, 360, W + 2 * T - 2 * RO - 2 * RELIEF).translate((-T + RO + RELIEF, 0, 0))
+    back = P.box(W + 2 * T - 2 * RO - 2 * RELIEF, T, AP.BACK_FLANGE_TOP - (zt + RI), -T + RO + RELIEF, -T, zt + RI)
+    nx, nz = AP.BACK_FLANGE_NOTCH
+    back = back.cut(P.box(W + T - nx, T + 2, AP.BACK_FLANGE_TOP, nx, -T - 1, nz).edges("|Y and <X and <Z").fillet(2))
+    for x in AP.BACK_FLANGE_HOLES_X:
         back = back.cut(P.cyl(2.25, T + 2, x, -T - 1, 10, "Y"))
     tray = bottom.union(back_bend).union(back)
     for k, xs in enumerate((-T, W)):
         side = _side_plate(AP.GRILLE[0][k])
-        bend = sector("XZ", (RO, -T + RO), RI, RO, 180, 270, yb - y0)   # XZ 平面法向 −Y：从 yb 往前拉到 y0
+        bend = sector("XZ", (RO, zt + RI), RI, RO, 180, 270, yb - y0)   # XZ 平面法向 −Y：从 yb 往前拉到 y0
         bend = bend.translate((0, yb, 0))
         if k == 0:
             tray = tray.union(side.translate((-T, 0, 0))).union(bend.translate((-T, 0, 0)))

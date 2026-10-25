@@ -12,17 +12,22 @@ import vendor_parts as V
 from assembly_base import W, H, Z_DECK, Z_SCREEN, PLATE_T, add, place, to_min
 
 # ---------------------------------------------------------------- 斜面几何
-SLANT_L, SLANT_ANG = 83.0, 33.0                  # 斜面展开长、与竖直面夹角
+SLANT_TOP_U, SLANT_ANG = 83.0, 33.0              # 斜面上沿（折弯）的 u、与竖直面夹角；u 0 = 斜面电路板下沿（原斜面下沿）
+SLANT_EXT = 7.8                                  # 斜面往下加长（2026-10-26：脚垫 6 高，键盘座 15 不变整体下移，下巴跟着往下延伸）
+SLANT_L = SLANT_TOP_U + SLANT_EXT                # 斜面展开长 90.8
+U_EDGE = -SLANT_EXT                              # 斜面下沿的 u（键盘座顶面顶在这里）
 Z_CHIN = 88.0                                    # 竖直前面板下沿 = 斜面上沿（外表面 Y=-2）
 SA, CA = math.sin(math.radians(SLANT_ANG)), math.cos(math.radians(SLANT_ANG))
-Y_BASE = -2 - SLANT_L * SA                       # 斜面下沿 / 底座条外表面，约 -47.2（前探 45.2）
-Z_BASE = Z_CHIN - SLANT_L * CA                   # 斜面下沿高度，约 18.4（底座条高）
+Y_BASE = -2 - SLANT_TOP_U * SA                   # u 0（斜面电路板下沿）外表面，约 -47.2；斜面下沿再往前下 7.8
+Z_BASE = Z_CHIN - SLANT_TOP_U * CA               # u 0 高度，约 18.4
 
 # 斜面器件位置 (x, u)。四组等距 14、右边距放宽到 22：右列长方形键的键体（深约 30）要让开右前立柱（x≥300）
 SEL = (37.0, 40)
-USB = ((30.0, 10), (67.0, 10))                  # 左 USB3（直连 Pi）、右 USB2（来自 Hub）；带耳延长线母头，中心距 ≥37（耳宽 35，T）
+USB = ((28.0, 10),)                             # 上下叠放双口 USB 面板座 1 个（2026-10-26 实测，放斜面电路板左缺口；右缺口空着）
 PCB_D, PCB_T = 6.5, 1.6                           # 斜面电路板元件面到斜面内表面 6.5（推子贴死面板）
+PCB_CUT = (0.0, 17.0, 24.0, 3.5)                  # 左 USB 缺口加高：板本地 x 0–24、y 17–20.5 手工切掉（双口 USB 本体高 19.2，见 fig_slant_pcb_cut.py）
 PCB_X, PCB_U = (17.0, 166.0), (0.0, 78.0)         # SLANT D1 外形 x 17–166、u 0–78（下沿两个 USB 缺口，左上 x 17–21 只到 u 64）
+KBD_STEP = "el_driver/KBD-ADAPT_D1/制板文件/KBD-ADAPT_D1.step"   # 原点 = 板左下角，板顶面 z 0；不进 git
 SLANT_STEP = "el_driver/SLANT_D1/制板文件/SLANT_D1.1.step"   # 约 26 MB，不进 git；板原点 = 斜面 (17, 0)，板 +y = u，顶层（元件面）朝面板
 ENC = ((98.5, 63), (123.5, 63), (148.5, 63))   # 3 个编码器一排，中心距 25（Ø15 旋钮间隙 10）；2026-10-20 由 2 个改 3 个
 FADER_X, FADER_U = 123.5, (40, 24)                # 两根推子间距 16（原 40/18）
@@ -45,7 +50,13 @@ SIDE_BACK = 90.0                                 # 侧板往后盖到 y 90；两
 SIDE_TOP = 89.5                                  # 侧板上沿（前壳前面板两侧 2 mm 的“耳朵”从 z 90 开始，中间留 0.5）
 SIDE_M4 = ((10, 30), (10, 60), (35, 10), (35, 80), (65, 10), (65, 80))   # 侧板 M4 孔 (y, z)：前立柱 ×2、下层 / 甲板层 Y 梁各 ×2
 GRILLE = {0: (22.0, 73.0), 1: (24.0, 75.0)}, (22.0, 68.0, 3.0, 5.0)   # 喇叭网 y 范围（左 / 右侧板，正对 5151 喇叭本体）；z0, z1（两根 Y 梁之间的空档 z 20–70）, 孔径, 孔距（六角排）
-TRAY_Y0 = -47.0                                  # 下巴托底板前沿 = 两侧折弯起点（键盘座背面下角 y −47.9 前面，不碰折弯圆角）
+TRAY_Y0 = -51.2                                  # 下巴托底板前沿 = 两侧折弯起点（键盘座背面下角 y −52.2 后面 1 mm；2026-10-26 随斜面加长由 −47 改）
+TRAY_Z = -5.7                                    # 下巴托底板上表面（底面 −7.7，离桌面 2.3；侧板下沿 = TRAY_Z + 1.7 = −4，和底板电木下表面齐）
+BACK_FLANGE_TOP, BACK_FLANGE_HOLES_X = 18.0, (60.0, 160.0, 225.0)   # 下巴托后翻边上沿、M4 孔 x（锁前下横梁，孔高 z 10）
+BACK_FLANGE_NOTCH = (238.0, 8.0)                 # 后翻边右段 x ≥ 238 降到 z 8：最下排方形按钮（x 256 / 286）焊片离翻边只有 1.35，翻边接 PE，怕短路（2026-10-26）
+KBD_XY, KBD_STANDOFF = (170.0, -36.0), 5.0       # 键盘转接小板 KBD-ADAPT 40×30 左前角（转 180°：排线座朝前对着键盘座背盖出线口，前面留约 9 插排线、扳翻盖）、M2 铜柱高；
+                                                 # x 170–210 让开后翻边 x 160 / 225 两颗 M4 的螺丝刀路径
+KBD_HOLES = ((2.5, 2.5), (37.5, 2.5), (2.5, 27.5), (37.5, 27.5))   # 板上四角 M2 孔（板本地，四角对称，转 180° 后不变）
 FLANGE_T, FLANGE_U = 14.0, (8.0, 64.0)           # 斜面两侧翻边：从斜面外表面往里 14，沿斜面 u 8–64（再往上翻边后角伸进前立柱 y > 0）；各 2 个 M3 压铆螺母锁侧板
 FLANGE_SCREW_U, FLANGE_SCREW_T = (20.0, 56.0), 8.5   # 压铆螺母孔中心 t 8.5：离翻边外沿 5.5、离折弯切点 4.8（CLS-M3 要求 ≥ 4.8）
 FEET_H = 6.0                                     # 底板下铝脚垫：6 高 + 1 mm 垫圈，实际按 6 算（宁可键盘连接条离桌面多 0.5，不能比脚垫先着地）；2026-10-26 用户定
@@ -56,7 +67,7 @@ FEATURES = {}                                    # 前面板 / 斜面的开孔�
 
 
 def on_slant_local(shape):
-    """斜面局部坐标（x = 全局 x，Y = 从斜面外表面往里 t，Z = 沿斜面 u）→ 全局"""
+    """斜面局部坐标（x = 全局 x，Y = 从斜面外表面往里 t，Z = 沿斜面 u，u 0 = 斜面电路板下沿）→ 全局"""
     return place(shape, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),))
 
 
@@ -94,25 +105,25 @@ def front_panel():
 
 def slant():
     cw, ch = F.USB_EXT["cut"]
-    cut = [(x - cw / 2, u - ch / 2, cw, ch) for x, u in USB]
+    cut = [(x - cw / 2, u - ch / 2, cw, ch, F.USB_EXT["cut_r"]) for x, u in USB]
     cut += [(FADER_X - 33.5, u - 1, 67, 2) for u in FADER_U]                              # 推子槽 67×2（实测：与本体槽同长）
     holes = [(SEL[0], SEL[1], 10.1)] + [(SEL[0] + sx * 11, SEL[1], 4.2) for sx in (-1, 1)]       # MFR01：Ø10 + 2 个 Ø4.1 防转孔（距 22）
     holes += [(x + sx * F.USB_EXT["hole_dx"] / 2, u, 3.2) for x, u in USB for sx in (-1, 1)]     # 延长线耳孔
     holes += [(x, u, 16.2) for x in KEY_X for u in KEY_U]                                     # LA16 按钮 Ø16
     holes += [(x, u, 7.2) for x, u in ENC]
     holes += [(x, TOG_U, 6.2) for x in TOG_X] + [(x, LAMP_U, 16.2) for x in TOG_X]
-    holes += [(W / 2 + x, PD.SCREW_U, 3.4) for x in PD.SPEC["tongue_x"]]                     # 键盘座舌片 M3 沉头
+    holes += [(W / 2 + x, U_EDGE + PD.SCREW_U, 3.4) for x in PD.SPEC["tongue_x"]]            # 键盘座舌片 M3 沉头
     FEATURES["slant"] = (cut, holes)                                                       # 斜面局部 (x, u)
     # 操作件
     add("Rotary_selector_5pos", on_slant(F.rotary_selector(), *SEL), "knob", "ui")
     for k, (x, u) in enumerate(USB):
-        add(("USB3_panel_ext", "USB2_panel_ext")[k], on_slant(F.usb_panel_ext(), x, u), "dark", "ui")
+        add("USB_dual_panel_ext", on_slant(F.usb_panel_ext(), x, u), "dark", "ui")
     for k, (x, u) in enumerate(ENC):
         add(f"EC11_encoder_{k+1}", on_slant(P.ec11().translate((0, PCB_D - 4.5, 0)), x, u, back=True), "knob", "ui")   # 本体高 4.5 坐在电路板上
     for k, (u, pos) in enumerate(zip(FADER_U, (0.7, 0.35))):
         add(f"Fader_60mm_{k+1}", on_slant(F.fader_60(pos), FADER_X, u), "alu", "ui")
     for k, x in enumerate(TOG_X):
-        add(f"Toggle_guarded_{k+1}", on_slant(F.toggle_guarded(), x, TOG_U), "guard", "ui")
+        add(f"Toggle_{k+1}", on_slant(F.toggle(), x, TOG_U), "guard", "ui")
         add(f"Indicator_lamp_{k+1}", on_slant(F.indicator_lamp(), x, LAMP_U), "alu", "ui")
     key = F.rect_lamp_button()
     for i, u in enumerate(KEY_U):
@@ -130,6 +141,8 @@ def slant_pcb():
     元件面到斜面内表面 PCB_D。STEP 绕 X 转 +90°：板 z（顶层朝上）→ 局部 -Y（朝面板），板 y → 局部 Z（= u）"""
     b = V.load_abs_drop(SLANT_STEP, _slant_drop).rotate((0, 0, 0), (1, 0, 0), 90)
     b = b.translate((PCB_X[0], 2 + PCB_D + PCB_T, PCB_U[0]))
+    x0, u0, w, h = PCB_CUT                                                          # 到货后手工切掉的一条（png/28），模型里也切掉
+    b = b.cut(P.box(w, PCB_T + 1, h, PCB_X[0] + x0, 2 + PCB_D - 0.5, PCB_U[0] + u0))
     add("SLANT_board", place(b, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
     add("RPi_Pico(on_slant_PCB)", place(pico_on_slant(), 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
     for k, h in enumerate(pico_sockets()):
@@ -167,15 +180,22 @@ def pico_sockets():
 def keyboard():
     """键盘座随斜面后仰：屏幕面与斜面外表面共面、顶面顶住斜面下沿；X1 键盘连接条（5 mm，用户实测）吸在座子底面，键盘平放在桌面"""
     dh = PD.SPEC["H"]
-    to_slant = lambda shp: on_slant_local(shp.translate((W / 2, 0, -dh)))
+    to_slant = lambda shp: on_slant_local(shp.translate((W / 2, 0, U_EDGE - dh)))
     add("Keyboard_dock", to_slant(PD.keyboard_dock()), "dark", "front")
     add("Keyboard_dock_cover", to_slant(PD.keyboard_dock_cover()), "dark", "front")
     spine_t, spine_l = 5.0, 280.0
-    spine = P.box(spine_l, PD.SPEC["D"], spine_t, W / 2 - spine_l / 2, 0, -dh - spine_t)
+    spine = P.box(spine_l, PD.SPEC["D"], spine_t, W / 2 - spine_l / 2, 0, U_EDGE - dh - spine_t)
     add("X1_keyboard_spine", on_slant_local(spine), "kbd", "keyboard")
     desk = -PLATE_T - FEET_H
-    y_back = slant_pt(-dh - spine_t, 0)[0] - 2                                      # 键盘后沿在连接条前下角前面
+    y_back = slant_pt(U_EDGE - dh - spine_t, 0)[0] - 2                                      # 键盘后沿在连接条前下角前面
     add("X1_Tablet_keyboard", M.x1_tablet_keyboard().translate(((W - 300) / 2, y_back - 226, desk)), "kbd", "keyboard")
+    # 键盘转接小板 KBD-ADAPT：M2 铜柱立在下巴托底板上，转 180° 让排线座（板本地上沿）朝前对着键盘座背盖出线口
+    kx, ky = KBD_XY
+    zb = TRAY_Z + KBD_STANDOFF
+    kb = V.load_abs(KBD_STEP).rotate((0, 0, 0), (0, 0, 1), 180).translate((kx + 40, ky + 30, zb + 1.6))
+    add("KBD-ADAPT_board", kb, "pcb_g", "keyboard")
+    for hx, hy in KBD_HOLES:
+        add("standoff_M2x5_KBD", P.cyl(1.75, KBD_STANDOFF, kx + hx, ky + hy, TRAY_Z), "brass", "keyboard")
     for x, y in FEET_XY:                                                            # 铝脚垫，装在四根立柱底下
         add("rubber_foot", P.cyl(FEET_D / 2, FEET_H, x, y, desk), "dark", "plates")
 

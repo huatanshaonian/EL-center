@@ -60,6 +60,7 @@ DRV = (20, 40, 150, 80)                        # 辉光驱动板 x0, y0, 长, �
 DRV_STEP = "el_driver/NIXIE-DRV_D1/制板文件_驱动板/NIXIE-DRV_D1.1.step"        # 约 26 MB，不进 git
 IN14_STEP = "el_driver/NIXIE-DRV_D1/制板文件_IN14小板/IN14-SOCK_D1.step"    # 板原点 = 全局 (管心 x − 10.5, 15)；STEP 里代替管子的 1×13 排针不装
 ESP_BASE = (40, 120, 110, 50)                  # ESP32-S3 底板 ESP-BASE D1 x0, y0, 长, 宽（mis-01-56 2026-10-21 画完，原 90×50 放不下竖插 DS3231 加宽）：驱动板后面，M3×6 铜柱，四孔 (45/145, 125/165) 都在孔阵上
+SMA_DECK = (120.0, 187.0)                       # 甲板上 SMA 天线座孔 Ø6.5（全局 x, y）：上方到电脑层板 z 260 全空，天线竖放顶到约 z 256
 ESP_STEP = "el_driver/ESP-BASE_D1/制板文件/ESP-BASE_D1.step"   # 约 32 MB，不进 git；原点 = 板左前角，板底 z 0；含插座，不含开发板和 DS3231
 HVUNI_STEP = "el_driver/HV-UNI_D1/制板文件/HV-UNI_D1.step"   # 通用高压小板 80×40（mis-01-56），不进 git
 EYE_STEP = "el_driver/EYE-6E2_D1/制板文件/EYE-6E2_D1.1.step"     # 不进 git
@@ -81,6 +82,7 @@ EYE_BOARD = (210, 15, 90, 90)                  # 6E2 板 x0, y0, 长, 宽：前�
 GEIGER_STEP = "el_driver/GEIGER_D1/制板文件_主板/GEIGER-MAIN_D1.step"   # 约 34 MB，不进 git
 GEIGER_CLIP_STEP = "el_driver/GEIGER_D1/制板文件_夹子板/GEIGER-CLIP_D1.step"   # 约 9 MB，不进 git；原点 = 全局 (153, 2)
 PCB3_STEP = "el_driver/PWR-DIST_D1/制板文件/PWR-DIST_D1.1.step"   # 约 59 MB，不进 git
+PAM_XY = (150.0, 30.0)                          # PAM8403 模块左前角（底板前部，喇叭线往左右前角走）；右侧两孔 (171, 33)(171, 42.5)
 PCB3_XY = (80, 160)                            # 倒挂后板的左边 x、后边 y（板占 x 80–230、y 60–160）
 PCB3_STANDOFF = 10
 SPK_Y, SPK_Z = {"L": 47.5, "R": 49.5}, 45.0       # 5151 腔体喇叭出声面中心 y、z：本体 51×51 正对两根 Y 梁之间 z 20–70 的空档（L y 22–73、R y 24–75）；
@@ -115,7 +117,7 @@ def tubes():
     end = V.load_abs(IV18_END_STEP).rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 90)   # 循环换轴 (X,Y,Z) → (Z,X,Y)
     add("IV18_endplate", end.translate((IV18_ENDPLATE_X, 0, Z_IV18_PCB + 1.6)), "pcb_b", "tubes")
     add("IV-18", P.iv18().rotate((0, 0, 0), (0, 0, 1), 180).translate((IV18_STEM_X, Y_IV18, Z_IV18_PCB + 11.6)), "vfd", "tubes")
-    # XL6009 模块（IV-18 栅/阳极 35 V）：长边沿 Y，甲板 x 178–199、y 55–98，M3×5 尼龙柱、两孔自钻；上方 z118 起是表头本体（2026-10-21 由 x 243–283、y 166–196 挪来，离 IV-18 板近）
+    # XL6009 模块（IV-18 栅/阳极 35 V，实测 43×25×13）：长边沿 Y，甲板 x 178–203、y 55–98，M3×5 尼龙柱、对角两孔 (181,61)(200,92) 自钻；上方 z118 起是表头本体（2026-10-21 由 x 243–283、y 166–196 挪来，离 IV-18 板近）
     xl = M.xl6009_module().rotate((0, 0, 0), (0, 0, 1), 90)
     add("IV18_PSU_XL6009", to_min(xl, 178, 55, Z_DECK + PLATE_T + 5), "module", "tubes")
     # 6E2 ×2：管座在甲板上，管子竖立在前面板竖窗后
@@ -163,6 +165,11 @@ def esp_base():
     # DS3231：模块 X(朝弯针) → −Z，Y(针排) → +X，Z(板厚) → −Y；弯针中心 (45, 11, 8.82) 落到 (125, 142)，针尖插到排母内 6 mm
     rtc = M.ds3231_module().rotate((0, 0, 0), (0, 1, 0), 90).rotate((0, 0, 0), (0, 0, 1), -90)
     add("DS3231_module", rtc.translate((125 - 11, 142 + 8.82, top + 2.5 + 45)), "pcb_b", "esp")
+    # 天线：开发板自带 IPEX→SMA 穿墙线（20 cm），SMA 座装在甲板后部 Ø6.5 孔里，螺纹朝上、棒状天线（15 cm，可折弯）竖在上面；
+    # 线从开发板 U.FL 经后走线孔（x 135–185、y 176–190）下到甲板底，再从下面接 SMA 座（2026-10-26 由 IEC 小板挪来）
+    sx, sy = SMA_DECK
+    add("SMA_bulkhead_deck", V.sma_bulkhead().rotate((0, 0, 0), (1, 0, 0), -90).translate((sx, sy, Z_DECK)), "brass", "esp")
+    add("WiFi_antenna_15cm", P.cyl(5, 150, sx, sy, Z_DECK + PLATE_T + 8), "dark", "esp")
 
 # ------------------------------------------------------------------ 下舱：电源、配电、喇叭
 def lower():
@@ -190,7 +197,7 @@ def lower():
     for tag, x, mir in (("L", 20, False), ("R", W - 20, True)):
         sp = spk.mirror("YZ") if mir else spk
         add(f"Speaker_cavity_5151_{tag}", sp.translate((x, SPK_Y[tag], SPK_Z)), "dark", "power")
-    add("PAM8403_module", P.box(21, 18, 4, 150, 30, 3), "pcb_g", "power")            # 功放小板（尺寸 T），尼龙柱 3 mm
+    add("PAM8403_module", M.pam8403_module().translate(PAM_XY + (3,)), "pcb_g", "power")   # 功放模块 24×15.5，右侧两孔 M3×3 尼龙柱，底板自钻
 
 
 def pcb3_nid_modules(z_face):
@@ -219,17 +226,17 @@ IEC_XZ = (276.0, 54.0)                           # AC-14-F12 开孔中心；耳�
 
 
 def iec_plate():
-    """背面 IEC 小板（2 mm 铝，嘉立创钣金，接 PE）：IEC C14 开孔 28×60 + 耳孔 M3 ×2、SMA ×2、M4 ×3（右后立柱 ×2、后下横梁）"""
+    """背面 IEC 小板（2 mm 铝，嘉立创钣金，接 PE）：IEC C14 开孔 28×60 + 耳孔 M3 ×2、M4 ×3（右后立柱 ×2、后下横梁）；
+    原来的 SMA ×2 去掉（2026-10-26：ESP 自带 IPEX→SMA 线只有 20 cm，SMA 改装在甲板上）"""
     x0, z0, pw, ph = IEC_PLATE
     cut = [(IEC_XZ[0] - 14 - x0, IEC_XZ[1] - 30 - z0, 28, 60)]
     holes = [(IEC_XZ[0] + sx * 20 - x0, IEC_XZ[1] - z0, 3.5) for sx in (-1, 1)]
-    holes += [(x - x0, 40 - z0, 6.5) for x in (225, 247)]
     holes += [(W - 10 - x0, z - z0, 4.5) for z in (10, 100)] + [(220 - x0, 10 - z0, 4.5)]
     return P.panel(pw, ph, 2, cut, holes).translate((x0, D, z0))
 
 
 def rear():
-    """背板不一定装（2026-10-22 用户定，整块背板在 assembly_covers），背面右下角的金属 IEC 小板一定装：IEC C14 + SMA ×2；
+    """背板不一定装（2026-10-22 用户定，整块背板在 assembly_covers），背面右下角的金属 IEC 小板一定装：IEC C14；
     M4 锁右后立柱（x 310）和后下横梁（z 10），小板要接 PE（整机架构 5.3）"""
     add("IEC_plate_alu", iec_plate(), "panel", "rear")
     add("IEC_C14_AC-14-F12", F.iec_c14_inlet().rotate((0, 0, 0), (0, 0, 1), 180).translate((IEC_XZ[0], D + 2, IEC_XZ[1])), "dark", "rear")

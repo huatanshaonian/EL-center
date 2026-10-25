@@ -26,9 +26,10 @@ NOTES = [
     "技术要求",
     "1. 材料黑色 POM，整件机加工；以 3D STEP 为准，本图标注主要尺寸。零件以长度中线左右对称。",
     "2. 7 处 M3 螺纹孔（底孔 Ø2.5）：顶部 3 个舌片各 1 处，贯通（舌片厚 4）；两端面各 2 处，孔深 7、螺纹深 6。",
+    f"   两端块背面各 2 处 M2 自攻底孔 Ø1.7 深 6（锁背盖），X = ±{S['cover_screw_x']:g}，高 {S['cover_screw_z'][0]:g} / {S['cover_screw_z'][1]:g}。",
     "3. 底面槽内 4 处 Ø1.3 为 M1.6 自攻底孔，从背面凸台贯通到槽面；4 处 Ø1.65 通孔。",
     "4. 关键配合：槽宽 3.8、磁铁开孔宽 2.2、触点开孔 17.1×2 取 0 / +0.1；其余未注 ±0.1。",
-    "5. 最薄处：槽底板 0.8 厚（槽深 1.7 之上），横向加强筋 1.2，正面磁铁槽后壁 1.0，注意装夹变形。",
+    f"5. 最薄处：槽底板 0.8 厚（槽深 1.7 之上），横向加强筋 {S['rib_t']:g}，正面磁铁槽后壁 1.0，注意装夹变形。",
     "6. 背面敞开（内部空腔、加强筋、自攻凸台见背面视图）；顶面后棱倒角 1.2×45°。",
     "7. 去毛刺，锐边倒钝 0.2；表面为原色机加工面（可选细喷砂）。",
 ]
@@ -58,11 +59,13 @@ def page1(pdf, shp):
     ribs = (40.2, 110.0, 120.0, 130.0, 140.0)
     s.ordinate([k((x, D, H)) for x in ribs], 140 + H + TH + 2, [f"筋 {x:g}" for x in ribs], size=5.5)
     s.text(k((40, D, H))[0], 140 - 7, f"加强筋厚 {S['rib_t']:g}，左右对称（X = ±40.2、±110、±120、±130、±140）", size=6.5)
+    cx, cz = S["cover_screw_x"], S["cover_screw_z"]
+    s.leader(k((cx, D, cz[1])), (k((cx, D, 0))[0] + 30, 140 + H + TH + 16), f"背盖 M2 自攻底孔 Ø1.7 深 6 ×4（两端各 2，高 {cz[0]:g} / {cz[1]:g}）")
 
 
     e = s.view(shp, "right", 30, 16, 4, "右端视图 4:1（图右 = 背面）", label_below=False)
     s.dim_h(e((L / 2, 0, 0)), e((L / 2, D, 0)), 11, f"{D:g}")
-    s.dim_h(e((L / 2, S["wall"], H + TH)), e((L / 2, S["wall"] + TT, H + TH)), 16 + 4 * (H + TH) + 2, f"舌片厚 {TT:g}，离屏幕面 {S['wall']:g}")
+    s.dim_h(e((L / 2, S["wall"], H + TH)), e((L / 2, S["wall"] + TT, H + TH)), 16 + 4 * (H + TH) + 10, f"舌片厚 {TT:g}，离屏幕面 {S['wall']:g}")
     s.dim_v(e((L / 2, 0, 0)), e((L / 2, 0, H)), 22, f"{H:g}")
     for z in S["end_holes_z"]:
         s.leader(e((L / 2, S["end_hole_y"], z)), (e((L / 2, D, 0))[0] + 8, e((0, 0, z))[1]), f"M3 深 6（底孔 Ø2.5 深 7），高 {z:g}")
@@ -115,12 +118,18 @@ def cover_pdf(path, shp):
     with PdfPages(path) as pdf:
         s = Sheet(pdf, "MIS-01 键盘座背盖", 1, 1, MAT)
         f = s.view(shp, "back", 50 + L / 2, 180, 1, "背盖（从后往前看）")
-        cl = L - 2 * S["end_wall"]
+        cl = L
         zb, zt = GD + S["floor"] - 1, H - S["top_t"] + 1
+        cx, cz = S["cover_screw_x"], S["cover_screw_z"]
+        sw, sh = S["cable_slot"]
         s.dim_h(f((cl / 2, D + S["cover_t"], zb)), f((-cl / 2, D + S["cover_t"], zb)), 170, f"{cl:g}")
         s.dim_v(f((-cl / 2, D, zb)), f((-cl / 2, D, zt)), f((-cl / 2, D, 0))[0] + 6, f"{zt - zb:g}")
-        for i, n in enumerate(["技术要求", f"1. 黑色 POM 平板，厚 {S['cover_t']:g}，外形 {cl:g} × {zt - zb:g}。",
-                               "2. 4 角 M2 自攻螺丝孔和排线出线槽位置待定（询价可先按无孔平板报价）。", "3. 去毛刺，锐边倒钝。"]):
+        s.dim_h(f((sw / 2, D + S["cover_t"], zb)), f((-sw / 2, D + S["cover_t"], zb)), 164, f"出线口 {sw:g}")
+        s.dim_h(f((cx, D + S["cover_t"], zt)), f((-cx, D + S["cover_t"], zt)), 180 + zt - zb + 4, f"孔距 {2 * cx:g}")
+        for i, n in enumerate(["技术要求", f"1. 平板，厚 {S['cover_t']:g}，外形 {cl:g} × {zt - zb:g}（打印件：尼龙 MJF，和键盘座一起打）。",
+                               f"2. 4 个 Ø2.4 过孔（M2 自攻螺丝），中心离两端 {L / 2 - cx:g}、离下沿 {cz[0] - zb:g} / {cz[1] - zb:g}。",
+                               f"3. 下沿中间排线出线口 {sw:g} 宽 × {sh - zb:g} 高（上角 R1.5）；两端下角倒斜角约 3×3（让开下巴托折弯圆角）。",
+                               "4. 去毛刺，锐边倒钝。"]):
             s.text(60, 120 - 7 * i, n, size=8 if i == 0 else 7.5)
         s.title_block("1:1")
         s.save()

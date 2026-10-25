@@ -199,10 +199,12 @@ def geiger_pcb():
     return p
 
 def panel(w, h, t=2.0, cutouts=(), holes=()):
-    """平板（XZ 平面，厚度沿 +Y）。cutouts: (x,z,w,h) 矩形开窗；holes: (x,z,d)"""
+    """平板（XZ 平面，厚度沿 +Y）。cutouts: (x,z,w,h) 或 (x,z,w,h,r) 矩形开窗（r 圆角半径，缺省按短边自动取，最大 R3）；holes: (x,z,d)"""
     p = box(w, t, h)
-    for x, z, cw, ch in cutouts:
-        p = p.cut(box(cw, t + 2, ch, x, -1, z).edges("|Y").fillet(min(cw, ch, 6) / 2 - 0.01) if min(cw, ch) > 6 else box(cw, t + 2, ch, x, -1, z))
+    for x, z, cw, ch, *r in cutouts:
+        r = r[0] if r else (min(cw, ch, 6) / 2 - 0.01 if min(cw, ch) > 6 else 0)
+        c = box(cw, t + 2, ch, x, -1, z)
+        p = p.cut(c.edges("|Y").fillet(r) if r > 0 else c)
     for x, z, d in holes:
         p = p.cut(cyl(d / 2, t + 2, x, -1, z, "Y"))
     return p

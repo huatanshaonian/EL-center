@@ -38,7 +38,7 @@ PARTS = {
  "P37_USB-A_Socket": M.usb_a_socket,
  "P38_Geiger_Board": M.geiger_board,
  "P39_Square_Lamp_Button_16": F.square_lamp_button,
- "P40_Toggle_Switch_Guarded": F.toggle_guarded,
+ "P40_Toggle_Switch": F.toggle,
  "P41_Indicator_Lamp_8mm": F.indicator_lamp,
  "P42_Rotary_Selector_with_Knob": F.rotary_selector,
  "P43_Panel_Meter_85C1": F.panel_meter,

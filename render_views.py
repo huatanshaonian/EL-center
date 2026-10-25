@@ -22,9 +22,9 @@ def parts_sheet(fname, cols=6):
     fig.suptitle("MIS-01 零件模型一览（包围盒尺寸 mm）", fontproperties=R.FONT, fontsize=14)
     fig.tight_layout(); fig.savefig(fname, facecolor="white"); plt.close(fig)
 
-def views(outdir):
-    """全高侧板 / 背板（分组 sides、rear）是可选盖板：01 / 05 不画侧板，04 / 07 全部装上"""
-    items = A.build()
+def views(outdir, items=None):
+    """全高侧板 / 背板（分组 sides、rear）是可选盖板：01 / 05 不画侧板，04 / 07 全部装上；items 不给就自己建"""
+    items = items if items is not None else A.build()
     no_front = [it for it in items if it[3] not in ("front", "covers", "keyboard", "sides")]
     no_rear = [it for it in items if it[3] not in ("rear", "covers", "top", "sides")]
     no_sides = [it for it in items if it[3] != "sides"]

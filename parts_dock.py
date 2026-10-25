@@ -7,7 +7,8 @@ MIS-01 —— 磁吸键盘座：仿 ThinkPad X1 Tablet 底边，让原装键盘�
 装到机身上时整体绕 X 轴后仰，屏幕面与斜面外表面共面，顶面顶住斜面下沿（2026-10-22 用户确认方案 png/23）：
 - 长 320，正好夹在下巴托两块侧板之间；两端各一段实心块，每端 2 个 M3 孔（压 M3×4 热熔铜螺母），侧板外面打沉头螺丝；
 - 顶面加顶板，顶板上 3 个舌片伸到斜面板背后，斜面下沿从正面打 3 颗 M3 沉头拧进舌片；
-- 背面敞开装 POGO 小板和磁铁，装好后另盖一块背板（keyboard_dock_cover）。
+- 背面敞开装 POGO 小板和磁铁，装好后另盖一块背板（keyboard_dock_cover）：全长 320，两端各 2 颗 M2 自攻锁进两端实心块；
+  背板下沿中间开出线口（01AY247 排线宽 20、扭着走占约 45），排线往后下接下巴托底板上的键盘转接小板 KBD-ADAPT。
 尺寸来源：U = 用户实测；T = 暂定（3D 打印件，按实物试装再改）。
 加工：2026-10-23 定为嘉立创 3D 打印尼龙 MJF（PA12 染黑），不用 CNC（薄壁、多面装夹，CNC 难做且贵）；
 螺丝孔全部 Ø4.0，压 M3×4 滚花热熔铜螺母（外径约 4.2）。"""
@@ -19,11 +20,13 @@ SPEC = dict(
     groove=(211.0, 3.8, 1.7), groove_y=2.5,      # U 槽长、宽、深；槽前边离屏幕面
     floor=0.8,                                   # U 槽底板厚
     wall=2.0, band=4.0,                          # T 屏幕面墙厚；只在屏幕面磁铁槽处局部加厚到 4，下沿 45° 斜面（免支撑、让开装在里面的零件）
-    end_wall=8.0, rib_t=1.2,                     # 两端实心块长（放 M3 螺丝孔）、横向加强筋厚
+    end_wall=12.0, rib_t=1.5,                    # 两端实心块长（放 M3 螺丝孔 + 背盖 M2 孔；2026-10-26 由 8 加长）、横向加强筋厚（1.2 → 1.5）
     top_t=2.5,                                   # 顶板厚
     tongue=(16.0, 6.5, 4.0), tongue_x=(-35.0, 45.0, 120.0),   # 舌片 宽×高（沿斜面）×厚、中心 X（全局 x = 160 + X；让开 x<90 的 USB 延长线耳板和 x 90/159 的电路板铜柱）
     end_holes_z=(5.5, 11.0), end_hole_y=5.0,     # 两端 M3 孔（沿 X）的 Z、Y
-    cover_t=1.2,                                 # 背盖厚
+    cover_t=1.5,                                 # 背盖厚（1.2 → 1.5）
+    cover_screw_x=150.5, cover_screw_z=(4.5, 10.5),   # 背盖 M2 自攻孔：|X|、Z（离两端 M3 孔 ≥ 1.7）；块上底孔 Ø1.7 深 6，背盖过孔 Ø2.4
+    cable_slot=(46.0, 8.0),                      # 背盖下沿出线口 宽 × 高（从背盖下沿 Z 1.5 往上到 Z 8；POGO 小板顶 Z 6.2）
 )
 SCREW_U = 3.3                                    # 斜面下沿 M3 沉头孔中心离下沿（沿斜面）
 INSERT_R = 2.0                                   # M3 热熔铜螺母孔 Ø4.0（尼龙打印件）
@@ -111,13 +114,25 @@ def keyboard_dock(hole_r=INSERT_R):
     for sx in (-1, 1):
         for z in s["end_holes_z"]:
             b = b.cut(cyl(hole_r, 7, sx * (L / 2 - 7) if sx > 0 else -L / 2, s["end_hole_y"], z, "X"))
+    # ---- 背盖 M2 自攻底孔（沿 Y，从背面往里 6）
+    for sx in (-1, 1):
+        for z in s["cover_screw_z"]:
+            b = b.cut(cyl(0.85, 6.01, sx * s["cover_screw_x"], D - 6, z, "Y"))
     return b
 
 def keyboard_dock_cover():
-    """背盖：盖住背面开口（POGO 小板、磁铁装好后），四角 M2 自攻；局部坐标同 keyboard_dock，贴在 Y = D 面上"""
+    """背盖：全长盖住背面开口（POGO 小板、磁铁装好后），两端各 2 颗 M2 自攻；下沿中间开排线出线口；局部坐标同 keyboard_dock，贴在 Y = D 面上"""
     s = SPEC
     zb, zt = s["groove"][2] + s["floor"], s["H"] - s["top_t"]
-    return box(s["L"] - 2 * s["end_wall"], s["cover_t"], zt - zb + 2, -s["L"] / 2 + s["end_wall"], s["D"], zb - 1)
+    c = box(s["L"], s["cover_t"], zt - zb + 2, -s["L"] / 2, s["D"], zb - 1)
+    for sx in (-1, 1):
+        for z in s["cover_screw_z"]:
+            c = c.cut(cyl(1.2, s["cover_t"] + 0.02, sx * s["cover_screw_x"], s["D"] - 0.01, z, "Y"))
+    corner = box(4.3, s["cover_t"] + 0.2, 4.3, -2.15, s["D"] - 0.1, -2.15).rotate((0, 0, 0), (0, 1, 0), 45)   # 转 45° 的方块：切掉直角边约 3 的三角
+    for sx in (-1, 1):                                                         # 两端下角倒斜角：让开下巴托底板和侧板之间的折弯圆角
+        c = c.cut(corner.translate((sx * s["L"] / 2, 0, zb - 1)))
+    sw, sh = s["cable_slot"]
+    return c.cut(box(sw, s["cover_t"] + 0.02, sh - (zb - 1) + 0.01, -sw / 2, s["D"] - 0.01, zb - 1 - 0.01).edges("|Y and >Z").fillet(1.5))
 
 if __name__ == "__main__":
     d = keyboard_dock()

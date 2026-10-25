@@ -21,23 +21,19 @@ def square_lamp_button():
     b = b.union(_hex(19, 3, s["panel_t"]))
     return b.union(box(12, s["term_L"], 6, -6, s["body_L"], -3))
 
-def toggle_guarded():
-    """带翻盖保护罩的钮子开关（M6 螺纹小钮子 + 红色保护盖）"""
-    SPEC = dict(bush_d=6.0, bush_L=9.0, lever_d=3.0, lever_L=10.0, body=(8.0, 10.0, 13.0), term_L=4.0,
-                cover=(15.0, 17.0, 33.0), cover_wall=1.5, panel_t=2.0)
+def toggle():
+    """钮子开关 MT-0-102（立创 C1788492，M6×0.75 螺纹套长 8.6）；保护盖没买到合适的，不装（2026-10-26）"""
+    SPEC = dict(bush_d=6.0, bush_L=8.6, lever_d=3.0, lever_L=10.0, body=(8.0, 10.0, 13.0), term_L=4.0, panel_t=2.0)
     s = SPEC
     bx, by, bz = s["body"]
     t = cyl(s["bush_d"] / 2, s["bush_L"], 0, -s["bush_L"] + s["panel_t"], 0, "Y")
     t = t.union(cyl(s["lever_d"] / 2, s["lever_L"], 0, -s["bush_L"] + s["panel_t"] - s["lever_L"], 0, "Y"))
     t = t.union(box(bx, by, bz, -bx / 2, s["panel_t"], -bz / 2))
-    t = t.union(box(bx - 2, s["term_L"], bz - 2, -bx / 2 + 1, s["panel_t"] + by, -bz / 2 + 1))
-    cx, cy, cz = s["cover"]; w = s["cover_wall"]
-    cover = box(cx, cy, cz, -cx / 2, -cy, -cz / 2 + 4).cut(box(cx - 2 * w, cy - w, cz - 2 * w, -cx / 2 + w, -cy + w, -cz / 2 + 4 + w))
-    return t.union(cover)
+    return t.union(box(bx - 2, s["term_L"], bz - 2, -bx / 2 + 1, s["panel_t"] + by, -bz / 2 + 1))
 
 def indicator_lamp():
-    """Ø16 开孔指示灯，12 V（灯头外径 19.5 按商品页；灯头高、身长为 T）"""
-    SPEC = dict(head_d=19.5, head_h=6.0, body_d=16.0, body_L=40.0, panel_t=2.0)
+    """Ø16 开孔指示灯，12 V（灯头外径 19 用户实测 2026-10-26；灯头高、身长为 T）"""
+    SPEC = dict(head_d=19.0, head_h=6.0, body_d=16.0, body_L=40.0, panel_t=2.0)
     s = SPEC
     b = cyl(s["head_d"] / 2, s["head_h"], 0, -s["head_h"], 0, "Y").edges("<Y").fillet(1.5)
     return b.union(cyl(s["body_d"] / 2 - 0.1, s["body_L"], 0, 0, 0, "Y")).union(_hex(20, 3.0, s["panel_t"]).rotate((0, 0, 0), (0, 1, 0), 30))   # 螺母平边对平边（灯距 21）
@@ -127,21 +123,24 @@ def fader_60(pos=0.5):
     cx, cy, cz = s["cap"]
     return f.union(box(cx, cy, cz, x - cx / 2, tip - 2, -cz / 2).edges("|Z").fillet(1.5))
 
-USB_EXT = dict(cut=(15.0, 8.0), ear=(35.0, 11.0, 2.5), hole_dx=28.0, body=(18.0, 10.0, 22.0), boot_d=8.0, boot_L=15.0,
-               port=(12.5, 5.1, 12.0), panel_t=2.0)
+USB_EXT = dict(cut=(15.8, 14.8), cut_r=0.5, mouth=(15.5, 14.5), ear=(39.0, 17.0, 2.0), hole_dx=30.0, body=(23.0, 19.2, 30.0),
+               boot_d=6.0, boot_L=10.0, port=(12.5, 5.1, 12.0), port_dz=3.6, panel_t=2.0)
 
 def usb_panel_ext():
-    """带安装耳的 USB-A 面板安装延长线母头（USB3 / USB2 同外形）：开孔 15x8，耳板 35x11 贴面板背面，
-    2 个 M3 耳孔距 28，母座口与面板前表面齐平；后面接线尾（全部 T，按常见商品估计，到货实测）"""
+    """上下叠放双口 USB-A 面板座（带耳延长线，2026-10-26 实测）：口部 15.5×14.5，斜面开 15.8×14.8 方孔（R0.5）；
+    耳孔距 30（M3）；本体 宽 23 × 高 19.2 × 深 30（从面板背面算）。耳板外形 39×17×2 和两根线尾为 T。
+    口部比面板凸出的部分用户自己削平，模型按口部与面板前表面齐平。原点 = 开孔中心"""
     s = USB_EXT
-    cw, ch = s["cut"]; ew, eh, et = s["ear"]; bw, bh, bl = s["body"]; pw, ph, pd = s["port"]; t = s["panel_t"]
-    u = box(cw - 0.3, t, ch - 0.3, -cw / 2 + 0.15, 0, -ch / 2 + 0.15).edges("|Y").fillet((ch - 0.3) / 2 - 0.05)   # 口部，配 P.panel 的长圆开孔
+    mw, mh = s["mouth"]; ew, eh, et = s["ear"]; bw, bh, bl = s["body"]; pw, ph, pd = s["port"]; t = s["panel_t"]
+    u = box(mw, t, mh, -mw / 2, 0, -mh / 2).edges("|Y").fillet(0.4)                          # 口部
     u = u.union(box(ew, et, eh, -ew / 2, t, -eh / 2))                                        # 耳板
     for sx in (-1, 1):
         u = u.cut(cyl(1.6, et + 0.02, sx * s["hole_dx"] / 2, t - 0.01, 0, "Y"))
-    u = u.union(box(bw, bl, bh, -bw / 2, t + et, -bh / 2))                                   # 母座本体
-    u = u.union(cyl(s["boot_d"] / 2, s["boot_L"], 0, t + et + bl, 0, "Y"))                   # 线尾
-    return u.cut(box(pw, pd, ph, -pw / 2, -0.01, -ph / 2))                                   # 插口
+    u = u.union(box(bw, bl - et, bh, -bw / 2, t + et, -bh / 2))                              # 母座本体（含耳板共深 30）
+    for sz in (-1, 1):
+        u = u.union(cyl(s["boot_d"] / 2, s["boot_L"], 0, t + bl, sz * s["port_dz"], "Y"))    # 两根线尾
+        u = u.cut(box(pw, pd, ph, -pw / 2, -0.01, sz * s["port_dz"] - ph / 2))                # 两个插口
+    return u
 
 def iec_c14_inlet():
     """后面板 IEC C14 三合一电源座 AC-14-F12（插座 + 双保险丝 + 双极船型开关，左右耳固定）。

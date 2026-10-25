@@ -25,18 +25,19 @@ COMMON = [
 def front_shell(pdf, shp):
     s = Sheet(pdf, "MIS-01 前壳（前面板 + 斜面）", material=MAT)
     f = s.view(shp, "front", *place(shp, "front", 0.5, 40, 60), 0.5, "正视图 1:2（从前往后看）")
-    s.overall(shp, "front", f, txt_w="324", txt_h="402.7")
+    bb = shp.val().BoundingBox()
+    s.overall(shp, "front", f, txt_w=f"{bb.xlen:.0f}", txt_h=f"{bb.zlen:.1f}")
     r = s.view(shp, "right", *place(shp, "right", 0.5, 215, 60), 0.5, "右视图 1:2（折弯剖面）", label_below=False)
-    s.overall(shp, "right", r, txt_w="47.3", txt_h=False)
-    s.leader(r((322, -24, 50)), (245, 90), "斜面展开长 83，与竖直面夹角 33°")
+    s.overall(shp, "right", r, txt_w=f"{bb.ylen:.1f}", txt_h=False)
+    s.leader(r((322, -24, 50)), (245, 90), f"斜面展开长 {AP.SLANT_L:g}，与竖直面夹角 33°")
     s.leader(r((322, -24, 70)), (245, 104), "斜面两侧各 1 道 90° 翻边（往里，高 14）")
     y, z = AP.slant_pt(AP.FLANGE_SCREW_U[0], AP.FLANGE_SCREW_T)
     s.leader(r((322, y, z)), (245, 118), "翻边上 4 颗 M3 压铆螺母（每边 2，CLS-M3-1，孔 Ø4.2，从外侧压入）")
     s.notes(255, 280, COMMON + [
         "6. 开孔：EL 屏视窗、管龛窗、6E2 窗、盖革窗、表头 Ø49 + 2×M3（孔距 53）；",
         "   斜面上按钮 / 指示灯 Ø16.2 ×9、钮子 Ø6.2 ×3、旋转开关 Ø10.1 + 2×Ø4.2、",
-        "   编码器 Ø7.2 ×3、推子槽 67×2 ×2、USB 方孔 ×2、键盘座 M3 沉头孔 ×3。",
-        "7. 询价版：部分开孔尺寸待面板件实测后微调（不影响报价）。",
+        "   编码器 Ø7.2 ×3、推子槽 67×2 ×2、USB 方孔 15.8×14.8（R0.5）×1 + 2×M3（孔距 30）、键盘座 M3 沉头孔 ×3。",
+        "7. 开孔尺寸已按面板件实测核对（2026-10-26）。",
         "8. 接地点：前面板右侧 M4 孔（x 310, z 140 附近）背面遮蔽。",
     ], step=5.5)
     s.title_block("1:2")
@@ -46,15 +47,18 @@ def front_shell(pdf, shp):
 def chin_tray(pdf, shp):
     s = Sheet(pdf, "MIS-01 下巴托（底板 + 两侧板）", material=MAT)
     t = s.view(shp, "top", *place(shp, "top", 0.5, 40, 205), 0.5, "俯视图 1:2（图上方 = 后）")
-    s.overall(shp, "top", t, txt_w="324", txt_h="145.4")
+    bb = shp.val().BoundingBox()
+    s.overall(shp, "top", t, txt_w=f"{bb.xlen:.0f}", txt_h=f"{bb.ylen:.1f}")
     f = s.view(shp, "front", *place(shp, "front", 0.5, 40, 130), 0.5, "正视图 1:2（从前往后看）")
-    s.overall(shp, "front", f, txt_h="91.5")
+    s.overall(shp, "front", f, txt_h=f"{bb.zlen:.1f}")
     l = s.view(shp, "left", *place(shp, "left", 0.5, 240, 130), 0.5, "左视图 1:2（左侧板外侧，喇叭网）", label_below=False)
     s.overall(shp, "left", l)
     s.notes(40, 105, COMMON + [
-        "6. 三道 90° 折弯：两侧板往上折、后边翻边往上折 18。",
+        f"6. 三道 90° 折弯：两侧板往上折；后翻边往上折，高 {AP.BACK_FLANGE_TOP - AP.TRAY_Z:.1f}（从底板上表面量），右段降到 {AP.BACK_FLANGE_NOTCH[1] - AP.TRAY_Z:.1f}。",
         "7. 每块侧板：M4 ×6（锁型材）、M3 ×2（锁前壳翻边压铆螺母）、M3 ×2（锁键盘座两端）、喇叭网 Ø3 六角排孔。",
-        "8. 后翻边 M4 ×3；中间孔背面 Ø12 遮蔽（接地点）。",
+        f"8. 后翻边 M4 ×3（离左端 {AP.BACK_FLANGE_HOLES_X[0] + 2:g} / {AP.BACK_FLANGE_HOLES_X[1] + 2:g} / {AP.BACK_FLANGE_HOLES_X[2] + 2:g}，离底板上表面 {10 - AP.TRAY_Z:.1f}）；"
+        f"离左端 {AP.BACK_FLANGE_NOTCH[0] + 2:g} 以右降低（让开按钮焊片）；中间孔背面 Ø12 遮蔽（接地点）。",
+        "9. 底板 Ø2.4 ×4（M2 铜柱，装键盘转接小板），孔距 35 × 25。",
     ], step=5.5)
     s.title_block("1:2")
     s.save()
@@ -77,7 +81,7 @@ def main():
         "前壳_front_shell": lambda pdf, s: front_shell(pdf, s),
         "下巴托_chin_tray": lambda pdf, s: chin_tray(pdf, s),
         "IEC小板_iec_plate": lambda pdf, s: flat(pdf, s, "MIS-01 IEC 小板", "back", 1.0, (60, 120), [
-            "1", "6. IEC C14 三合一插座开孔 28×60 + 2×M3（孔距 40）；SMA 天线座 Ø6.5 ×2；M4 ×3 锁型材。",
+            "1", "6. IEC C14 三合一插座开孔 28×60 + 2×M3（孔距 40）；M4 ×3 锁型材。",
             "7. 右下 M4 孔背面 Ø12 遮蔽（接地点，必须接 PE）。"], "1:1"),
         "全高侧板_side_cover_x2": lambda pdf, s: flat(pdf, s, "MIS-01 全高侧板（左右同件）", "left", 0.5, (60, 70), [
             "2", "6. 左右两块是同一零件，做 2 件；M4 ×8 锁型材，带通风长孔。可选件，可单独报价。",

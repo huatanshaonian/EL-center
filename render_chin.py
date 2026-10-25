@@ -8,7 +8,7 @@ import assembly_panel as AP
 
 KEEP = ("front_shell", "chin_tray", "Keyboard_dock", "X1_", "rubber_foot", "2020_post", "2020_Xrail_L280_FB", "2020_Yrail_L180_bot",
         "2020_Yrail_L180_deck", "base_plate", "deck_plate", "SLANT_board", "RPi_Pico", "USB", "Rotary", "EC11", "Fader", "Toggle",
-        "Indicator", "Rect_lamp", "Speaker", "corner_bracket")
+        "Indicator", "Rect_lamp", "Speaker", "corner_bracket", "KBD-ADAPT", "standoff_M2x5_KBD", "PAM8403")
 
 
 def pick(items, zmax=200):
@@ -27,10 +27,12 @@ def pick(items, zmax=200):
     return out
 
 
-def main():
-    items = pick(A.build())
+def main(items=None):
+    """items：已经建好的整机零件表（一次建好传进来），不给就自己建"""
+    items = pick(items if items is not None else A.build())
     lab = [((AP.SIDE_X[0], 20, 45), "下巴托侧板（机架外侧）\nM4 锁立柱 ×2、Y 梁 ×2"), ((160, -30, 60), "前壳：前面板 + 斜面一块铝板"),
-           ((40, -52, 4), "键盘座（后仰，两端锁侧板）"), ((160, -150, -6), "X1 键盘"), ((300, -20, -2), "下巴托底板")]
+           ((40, -56, -2), "键盘座（后仰，两端锁侧板）"), ((160, -150, -10), "X1 键盘"), ((300, -20, AP.TRAY_Z), "下巴托底板"),
+           ((180, -28, AP.TRAY_Z + 7), "键盘转接小板 KBD-ADAPT")]
     R.render(items, "png/26_chin_iso.png", az=-35, el=18, size=(13, 9), labels=lab,
              title="前壳 + 下巴托 + 后仰键盘座（左前下方看）")
     R.render([x for x in items if not x[0].startswith("2020_post")], "png/26_chin_side.png", az=-90, el=0, size=(12, 8),
