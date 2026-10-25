@@ -30,7 +30,7 @@ DRAWERS = {
     'AL2': ('编码器/开关', '直滑推子'),
     'AL3': ('模块', '模块（2）'),
     'AL4': ('喇叭', 'DC头/USB座'),
-    'AL5': ('HDMI/DF11/端子', ''),
+    'AL5': ('HDMI/DF11/端子', '管座/IEC座'),
     'AL6': ('五金 M4螺丝', '五金 M4 T螺母'),
     'B01': ('电阻 1–91Ω', '电阻 100–910Ω'),
     'B02': ('电阻 1–9.1k', '电阻 10–91k'),
@@ -58,8 +58,7 @@ BIG = {k for k in DRAWERS if k.startswith('AL')}
 
 # Part-DB 里没有、但要放进格子的东西（淘宝件、五金），对照表里提示
 EXTRA = {
-    'B14前': 'XH 胶壳 2P（淘宝）', 'B14后': 'XH 胶壳 3P（淘宝）', 'B15前': 'XH 胶壳 4P（淘宝）',
-    'B15后': 'XH 胶壳 5P/7P/8P/14P（淘宝）', 'B16前': 'XH 散装端子（淘宝，压线钳用）',
+    'B16前': 'XH 散装端子（淘宝，压线钳用）',
     'B17前': 'M3 螺丝（各长度，内六角/十字）', 'B17后': 'M3 螺母',
     'B18前': 'M3 沉头螺丝（黑/本色）、M3 尼龙螺丝螺母套装', 'B18后': 'M3 锤头螺母（2020）',
     'B19前': 'M3 六角铜柱 6/10/11 mm', 'B19后': 'M2.5×25 铜柱 + M2.5×6 螺丝',
@@ -72,7 +71,7 @@ EXTRA = {
 OUTSIDE = {
     '层架': '明纬电源（太大）',
     '文件袋': 'FFC 软排线（不能折，平放）',
-    '大盒子': '辉光管、IV18、6E2、盖革管（连包装一起放）',
+    '大盒子': '辉光管、IV18、6E2、盖革管、指针表头（连包装一起放）',
 }
 
 # 旧盒子的三极管库位直接整格搬
@@ -131,7 +130,7 @@ def _capacitor(p):
     return None
 
 
-SMD_IC = ('DBVR', 'RPWR', 'SM/TR', 'AP2112K', 'M96')
+SMD_IC = ('DBVR', 'RPWR', 'SM/TR', 'AP2112K', 'M96', 'MAX6921')
 ANALOG_IC = ('NE555', 'TLC555', 'LM393', 'TL431')
 
 
@@ -167,6 +166,12 @@ def assign(p):
         if any(k in name for k in SMD_IC):
             return 'A09前'
         return 'A08后' if name.startswith(ANALOG_IC) else 'A08前'
+    if major in ('显示器件', '电子管'):  # 表头、各种管子：大件，连包装放大盒子
+        return '大盒子'
+    if cat == 'IC 插座/电子管座' or cat == '连接器/电源插座':
+        return 'AL5后'
+    if major in ('射频', '散热'):  # 天线、风扇
+        return 'AL4后'
     if major == 'IC 插座':
         return 'A10前' if re.search(r'DIP-(8|14)\b', desc) else 'A10后'
     if major == '电位器':
@@ -176,15 +181,15 @@ def assign(p):
     if cat == '声学器件/扬声器':
         return 'AL4前'
     if major == '保险丝':
-        return 'A12后' if (cat.endswith('自恢复保险丝') or name.startswith('3557')) else 'A12前'
+        return 'A12后' if (cat.endswith('自恢复保险丝') or name.startswith('3557') or 'ATM' in name) else 'A12前'
     if major == '电感':
         return 'A13前' if cat.endswith('色环轴向电感') else 'A13后'
     if major in ('开关', '输入器件'):
         return 'AL2前'
     if major == '模块':
         return 'AL3前'
-    if major == '电源模块':
-        return '层架'
+    if major == '电源模块':  # 明纬 AC/DC 太大放层架，DC/DC 升压模块进抽屉
+        return '层架' if (name.startswith('明纬') or cat.endswith('AC/DC 开关电源')) else 'AL3后'
     if major == '电阻':
         return _resistor(p)
     if major == '电容':
@@ -193,6 +198,11 @@ def assign(p):
         sub = cat.split('/')[1]
         if sub in ('DC 插头', 'USB-A 母座'):
             return 'AL4后'
+        if sub == '跳线帽':
+            return 'B10前'
+        if sub == 'XH 胶壳':
+            n = int(re.search(r'(\d+)P', name).group(1))
+            return {2: 'B14前', 3: 'B14后', 4: 'B15前'}.get(n, 'B15后')
         if sub == 'FFC 排线':
             return '文件袋'
         if sub == 'XH 插座':
