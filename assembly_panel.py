@@ -48,7 +48,9 @@ GRILLE = {0: (22.0, 73.0), 1: (24.0, 75.0)}, (22.0, 68.0, 3.0, 5.0)   # 喇叭�
 TRAY_Y0 = -47.0                                  # 下巴托底板前沿 = 两侧折弯起点（键盘座背面下角 y −47.9 前面，不碰折弯圆角）
 FLANGE_T, FLANGE_U = 14.0, (8.0, 64.0)           # 斜面两侧翻边：从斜面外表面往里 14，沿斜面 u 8–64（再往上翻边后角伸进前立柱 y > 0）；各 2 个 M3 压铆螺母锁侧板
 FLANGE_SCREW_U, FLANGE_SCREW_T = (20.0, 56.0), 8.5   # 压铆螺母孔中心 t 8.5：离翻边外沿 5.5、离折弯切点 4.8（CLS-M3 要求 ≥ 4.8）
-FEET_H = 3.0                                     # 底板下橡胶脚垫
+FEET_H = 6.0                                     # 底板下铝脚垫：6 高 + 1 mm 垫圈，实际按 6 算（宁可键盘连接条离桌面多 0.5，不能比脚垫先着地）；2026-10-26 用户定
+FEET_XY = ((10, 10), (W - 10, 10), (10, 210), (W - 10, 210))   # 四根立柱中心：M6 顶丝穿底板 Ø6.5 孔拧进立柱底端（底端要自己攻 M6）
+FEET_D = 20.0                                   # 脚垫直径（待量）
 
 FEATURES = {}                                    # 前面板 / 斜面的开孔（front_panel()、slant() 填），assembly_shell 用来做钣金件
 
@@ -174,9 +176,8 @@ def keyboard():
     desk = -PLATE_T - FEET_H
     y_back = slant_pt(-dh - spine_t, 0)[0] - 2                                      # 键盘后沿在连接条前下角前面
     add("X1_Tablet_keyboard", M.x1_tablet_keyboard().translate(((W - 300) / 2, y_back - 226, desk)), "kbd", "keyboard")
-    for x in (15, W - 15):                                                          # 橡胶脚垫 Ø15
-        for y in (15, 205):
-            add("rubber_foot", P.cyl(7.5, FEET_H, x, y, desk), "dark", "plates")
+    for x, y in FEET_XY:                                                            # 铝脚垫，装在四根立柱底下
+        add("rubber_foot", P.cyl(FEET_D / 2, FEET_H, x, y, desk), "dark", "plates")
 
 def build():
     import assembly_shell as SH                                                     # 前壳、下巴托两个钣金件（带折弯圆角）
