@@ -144,6 +144,8 @@ def assign(p):
         for l in locs:
             if l in LEGACY_T:
                 return LEGACY_T[l]
+            if l in LEGACY_T.values():  # 已经挪到新格子了（apply_storage_locations.py 跑过之后）
+                return l
         if name.startswith('MMBT'):
             return 'A04后'
         return 'A03前' if ('高压' in desc and cat.endswith('NPN')) else None
