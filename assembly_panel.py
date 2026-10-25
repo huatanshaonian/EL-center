@@ -193,9 +193,9 @@ def keyboard():
     kx, ky = KBD_XY
     zb = TRAY_Z + KBD_STANDOFF
     kb = V.load_abs(KBD_STEP).rotate((0, 0, 0), (0, 0, 1), 180).translate((kx + 40, ky + 30, zb + 1.6))
-    add("KBD-ADAPT_board", kb, "pcb_g", "keyboard")
+    add("KBD-ADAPT_board", kb, "pcb_g", "front")
     for hx, hy in KBD_HOLES:
-        add("standoff_M2x5_KBD", P.cyl(1.75, KBD_STANDOFF, kx + hx, ky + hy, TRAY_Z), "brass", "keyboard")
+        add("standoff_M2x5_KBD", P.cyl(1.75, KBD_STANDOFF, kx + hx, ky + hy, TRAY_Z), "brass", "front")
     for x, y in FEET_XY:                                                            # 铝脚垫，装在四根立柱底下
         add("rubber_foot", P.cyl(FEET_D / 2, FEET_H, x, y, desk), "dark", "plates")
 
