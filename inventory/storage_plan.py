@@ -131,7 +131,7 @@ def _capacitor(p):
 
 
 SMD_IC = ('DBVR', 'RPWR', 'SM/TR', 'AP2112K', 'M96', 'MAX6921')
-ANALOG_IC = ('NE555', 'TLC555', 'LM393', 'TL431')
+ANALOG_IC = ('NE555', 'TLC555', 'LM393', 'TL431', 'UC3843')
 
 
 def assign(p):
