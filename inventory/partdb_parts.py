@@ -23,9 +23,10 @@ def fetch_parts(db=None):
         lots = []
         for l in p.get('partLots') or []:
             sl = l.get('storage_location')
-            lots.append((l.get('amount'), sl.get('name') if isinstance(sl, dict) else locs.get(sl), l.get('@id')))
+            lots.append((l.get('amount'), sl.get('name') if isinstance(sl, dict) else locs.get(sl), l.get('@id'),
+                         l.get('description') or ''))
         out.append({'id': p['id'], 'iri': p['@id'], 'name': p.get('name') or '',
                     'desc': p.get('description') or '', 'cat': cpath(_iri(p.get('category'))),
-                    'amount': sum(a or 0 for a, _, _ in lots), 'lots': [(a, n) for a, n, _ in lots],
-                    'lot_iris': [i for _, _, i in lots]})
+                    'amount': sum(a or 0 for a, *_ in lots), 'lots': [(a, n) for a, n, *_ in lots],
+                    'lot_iris': [l[2] for l in lots], 'lot_desc': [l[3] for l in lots]})
     return out
