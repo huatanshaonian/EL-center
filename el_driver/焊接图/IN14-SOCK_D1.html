@@ -26,13 +26,21 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
 .grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
 .loc .warn{color:var(--hl)}.loc .q{color:var(--muted)}
+.ov{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.6}
+.blk{padding:7px 12px;border-bottom:1px solid var(--line);cursor:pointer}.blk:hover{background:var(--card)}
+.blk.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}.blk .bn{font-weight:600}.blk .bc{color:var(--muted);font-size:12px;margin-left:6px}
+.blk .bt,.grp .ex{display:none;font-size:13px;line-height:1.6;margin-top:4px;white-space:pre-wrap}
+.blk.act .bt{display:block}.grp.act .ex{display:block;grid-column:2}
+.tips{display:block;margin-top:4px;color:var(--hl)}.ex .pd{display:block}.ex .pd b{font-weight:600}
+.chip{display:inline-block;font-size:12px;border:1px solid var(--hl);color:var(--hl);border-radius:10px;padding:0 7px;margin:4px 4px 0 0;cursor:pointer}
+.sec.tg{cursor:pointer}
 .sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
 #tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
 </style></head><body>
 <header><h1>IN14-SOCK D1 焊接图</h1>
 <button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
 <button class="btn" id="bSort">按格子排</button><span id="prog" style="color:var(--muted)"></span>
-<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。做 7 块（6 装机 + 1 备）。R_PR 0 Ω 自己焊（或电阻腿短接）；J1 2×7 排针焊在板子底面。</div></header>
+<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。点开一行能看到每个元件的作用；最上面“电路说明”讲每一块电路的原理，点一块板上就高亮那一块；点板上的焊盘会跳到它那一行。做 7 块（6 装机 + 1 备）。R_PR 0 Ω 自己焊（或电阻腿短接）；J1 2×7 排针焊在板子底面。</div></header>
 <main><div id="view"><svg id="svg" viewBox="-2.00 -42.00 25.00 44.00">
 <g id="flip"><g id="silkB"><path class="sb" d="M1.869,-25.814 L1.869,-26.309 L1.839,-26.400 L1.808,-26.433 L1.745,-26.464 L1.684,-26.464 L1.620,-26.433 L1.590,-26.400 L1.559,-26.309 L1.559,-26.245" stroke-width="0.152"/>
 <path class="sb" d="M2.171,-25.938 L2.232,-25.905 L2.324,-25.814 L2.324,-26.464" stroke-width="0.152"/>
@@ -135,7 +143,10 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 <path class="st" d="M1.500,-12.000 L19.500,-12.000 L1.500,-12.000" stroke-width="0.152"/></g><g><path class="ol" d="M0.000,-0.000 L0.000,-40.000 L21.000,-40.000 L21.000,-0.000 L0.000,-0.000" stroke-width="0.254"/></g><g id="pads"></g><g id="boxes"></g></g>
 </svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main>
 <script>
-const D = {"board": "IN14-SOCK D1", "groups": [{"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PR"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "C", "cells": ["B05后"], "stock": 100, "names": ["0805W8F0000T5E"]}}, {"val": "22kΩ", "comment": "22kΩ", "fp": "RES-TH_BD2.3-L6.5-P10.50-D0.5", "mpn": "MF1/4W-22KΩ±1% T", "sup": "C119354", "des": ["R_A"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "C", "cells": ["B02后"], "stock": 50, "names": ["MF1/4W-22KΩ±1% T"]}}, {"val": "IN-14 辉光管（BOM 里是 1×13 排针占位）", "comment": "IN-14 辉光管（BOM 里是 1×13 排针占位）", "fp": "", "mpn": "IN-14 辉光管", "sup": "", "des": ["V1"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "型号", "cells": ["大盒子"], "stock": 7, "names": ["IN-14 辉光管"]}}, {"val": "PZ254V-12-14P", "comment": "PZ254V-12-14P", "fp": "HDR-TH_14P-P2.54-V-M-R2-C7-S2.54", "mpn": "PZ254V-12-14P", "sup": "C492424", "des": ["J1"], "smt": false, "dnp": false, "side": ["B"], "loc": {"how": "C", "cells": ["B10后"], "stock": 10, "names": ["PZ254V-12-14P"]}}, {"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PL"], "smt": false, "dnp": true, "side": ["T"], "loc": null}], "parts": {"J1": {"x": 10.5, "y": -29.55, "side": "B", "pads": [{"n": "1", "x": 2.88, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "R", "th": true, "l": "T", "net": "NET_1"}, {"n": "2", "x": 2.88, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "3", "x": 5.42, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "DP"}, {"n": "4", "x": 5.42, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "NET_2"}, {"n": "5", "x": 7.96, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "6", "x": 7.96, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "7", "x": 10.5, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "8", "x": 10.5, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "9", "x": 13.04, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "10", "x": 13.04, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "11", "x": 15.58, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "12", "x": 15.58, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "13", "x": 18.12, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "14", "x": 18.12, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}]}, "R_A": {"x": 7.25, "y": -20.6, "side": "T", "pads": [{"n": "1", "x": 2.0, "y": -20.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "2", "x": 12.5, "y": -20.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "AN"}]}, "R_PL": {"x": 5.0, "y": -18.5, "side": "T", "pads": [{"n": "1", "x": 4.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "T", "net": "DP"}, {"n": "2", "x": 6.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "T", "net": "PL"}]}, "R_PR": {"x": 16.0, "y": -18.5, "side": "T", "pads": [{"n": "1", "x": 17.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "T", "net": "DP"}, {"n": "2", "x": 15.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "T", "net": "PR"}]}, "V1": {"x": 10.5, "y": -12.0, "side": "T", "pads": [{"n": "1", "x": 10.5, "y": -18.0, "w": 1.6, "h": 1.6, "a": 0, "s": "R", "th": true, "l": "T", "net": "AN"}, {"n": "2", "x": 7.712, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PL"}, {"n": "3", "x": 5.562, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "4", "x": 4.544, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "5", "x": 4.89, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "6", "x": 6.521, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "7", "x": 9.064, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "8", "x": 11.936, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "9", "x": 14.479, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "10", "x": 16.11, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}, {"n": "11", "x": 16.456, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "12", "x": 15.438, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "13", "x": 13.288, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PR"}]}}, "hasLoc": true, "copies": 7, "when": "2026-10-26 19:50"}, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
+const D = {"board": "IN14-SOCK D1", "groups": [{"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PR"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "C", "cells": ["B05后"], "stock": 100, "names": ["0805W8F0000T5E"]}}, {"val": "22kΩ", "comment": "22kΩ", "fp": "RES-TH_BD2.3-L6.5-P10.50-D0.5", "mpn": "MF1/4W-22KΩ±1% T", "sup": "C119354", "des": ["R_A"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "C", "cells": ["B02后"], "stock": 50, "names": ["MF1/4W-22KΩ±1% T"]}}, {"val": "IN-14 辉光管（BOM 里是 1×13 排针占位）", "comment": "IN-14 辉光管（BOM 里是 1×13 排针占位）", "fp": "", "mpn": "IN-14 辉光管", "sup": "", "des": ["V1"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "型号", "cells": ["大盒子"], "stock": 7, "names": ["IN-14 辉光管"]}}, {"val": "PZ254V-12-14P", "comment": "PZ254V-12-14P", "fp": "HDR-TH_14P-P2.54-V-M-R2-C7-S2.54", "mpn": "PZ254V-12-14P", "sup": "C492424", "des": ["J1"], "smt": false, "dnp": false, "side": ["B"], "loc": {"how": "C", "cells": ["B10后"], "stock": 10, "names": ["PZ254V-12-14P"]}}, {"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PL"], "smt": false, "dnp": true, "side": ["T"], "loc": null}], "parts": {"J1": {"x": 10.5, "y": -29.55, "side": "B", "pads": [{"n": "1", "x": 2.88, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "R", "th": true, "l": "T", "net": "NET_1"}, {"n": "2", "x": 2.88, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "3", "x": 5.42, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "DP"}, {"n": "4", "x": 5.42, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "NET_2"}, {"n": "5", "x": 7.96, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "6", "x": 7.96, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "7", "x": 10.5, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "8", "x": 10.5, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "9", "x": 13.04, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "10", "x": 13.04, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "11", "x": 15.58, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "12", "x": 15.58, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "13", "x": 18.12, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "14", "x": 18.12, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}]}, "R_A": {"x": 7.25, "y": -20.6, "side": "T", "pads": [{"n": "1", "x": 2.0, "y": -20.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "2", "x": 12.5, "y": -20.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "AN"}]}, "R_PL": {"x": 5.0, "y": -18.5, "side": "T", "pads": [{"n": "1", "x": 4.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "T", "net": "DP"}, {"n": "2", "x": 6.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "T", "net": "PL"}]}, "R_PR": {"x": 16.0, "y": -18.5, "side": "T", "pads": [{"n": "1", "x": 17.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "T", "net": "DP"}, {"n": "2", "x": 15.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "T", "net": "PR"}]}, "V1": {"x": 10.5, "y": -12.0, "side": "T", "pads": [{"n": "1", "x": 10.5, "y": -18.0, "w": 1.6, "h": 1.6, "a": 0, "s": "R", "th": true, "l": "T", "net": "AN"}, {"n": "2", "x": 7.712, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PL"}, {"n": "3", "x": 5.562, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "4", "x": 4.544, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "5", "x": 4.89, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "6", "x": 6.521, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "7", "x": 9.064, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "8", "x": 11.936, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "9", "x": 14.479, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "10", "x": 16.11, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}, {"n": "11", "x": 16.456, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "12", "x": 15.438, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "13", "x": 13.288, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PR"}]}}, "hasLoc": true, "copies": 7, "when": "2026-10-27 07:18"}, N = {"board": "IN14-SOCK D1", "overview": "每只 IN-14 辉光管焊在一块 21×40 的小板上（做 7 块，6 块装机 + 1 块备用），小板底面的 2×7 排针插进驱动板 NIXIE-DRV 的排母，再用一颗 M3 螺丝和铜柱锁住。驱动板送来 170–185 V 的 HV、一路小数点和 10 路数字阴极：HV 经本板 R_A 22 k 限流后接管子阳极，阴极由驱动板的 K155ID1 选一路接地，那个数字就亮。小数点经 0 Ω 电阻 R_PR（或 R_PL）选到管子的右（或左）小数点。全板只有三部分：管子与阳极电阻、小数点左右选择、插针。V1 是管子本身，BOM 里用排针占位，不买。", "blocks": [{"name": "IN-14 管与阳极限流电阻", "refs": ["V1", "R_A"], "text": "IN-14 是辉光管：玻壳里充氖气，阳极和数字形阴极之间加上一百多伏，被接地的那个阴极表面会发橙色辉光。管脚（底视图）：1 阳极，2 左小数点，3–11 = 数字 1–9，12 = 数字 0，13 = 右小数点。辉光一旦起来，管子本身不限电流，必须串电阻限流（推断），这就是 R_A：网表 J1-2（HV）→ R_A 22 k → V1-1（网络 AN，阳极）。170 V 时阳极电流约 1.1–1.4 mA（偏暗、寿命长），185 V 时约 1.5–1.8 mA，目标 1.5–2.5 mA，嫌暗调高 HV-UNI（不超过 200 V）。小数点和数字共用这只 R_A。V1 在 BOM 里显示为 1×13 排针，只是占位，实物是自有的 IN-14；封装改成直径 12 mm 圆周 13 孔（孔 0.9、焊盘 1.6，1 脚方焊盘在后侧朝排针，7、8 脚在前）。管子直接焊在板上，玻壳底离板约 4 mm，R_A 卧装在玻壳下面。", "tips": "先焊 R_A（卧装贴板，它在玻壳下面，管子焊上后就够不着了），管子最后焊。1 脚方焊盘在后（排针一侧）；顶视图方向按“左小数点 2 脚在左”推定，装反时数字由固件 LUT 修正、小数点改焊 R_PL。玻壳底离板约 4 mm，不要压到底。焊完背面剪脚 ≤2 mm，否则顶到下方 IV-18 玻壳。高压危险：通电时 J1 2 脚和 R_A 一端是 170 V 以上，插拔前断电等放电。量阳极电流：R_A 两端电压 ÷ 22 kΩ。"}, {"name": "小数点左右选择", "refs": ["R_PR", "R_PL"], "text": "驱动板给每只管只有一路小数点（本板 J1-3，网络 DP）。IN-14 管内左右各有一个小数点（2 脚左、13 脚右），而顶视图方向是推定的，所以留了两个 0805 的 0 Ω 电阻当跳线：R_PR 把 DP 接到 13 脚（右小数点，默认焊），R_PL 把 DP 接到 2 脚（左小数点）。正常只焊 R_PR；上电后若小数点在左边亮，说明管子方向与推定相反，拆 R_PR 改焊 R_PL。两者二选一，不能都焊。两个焊盘之间穿过了阴极线，所以只能焊电阻，不能用焊锡直接桥接，否则会和阴极线短路。小数点的电流由驱动板上的 RDP 限制。", "tips": "R_PR 默认焊，R_PL 默认不焊。0805 很小：先给一个焊盘上点锡，用镊子按住电阻熔化这点锡固定，再焊另一端。没有 0 Ω 电阻可以用剪下的电阻腿当跳线（采购单注明），但不能用焊锡桥。焊后用表确认 J1-3 到管子 13 脚导通、到 2 脚不通。"}, {"name": "插针（接驱动板）", "refs": ["J1"], "text": "J1 是 2×7 直针排针，装在小板底面（PCB 底层），向下插进驱动板的排母。因为翻了面，每列两排对调，小板 J1 脚号 = 驱动板脚号奇偶互换：2 = HV、3 = 小数点 DP、6 = 数字 0、5 = 1、8 = 2、7 = 3、10 = 4、9 = 5、12 = 6、11 = 7、14 = 8、13 = 9（网表 K0–K9），1、4 不接（对应驱动板的 2、3 空脚，隔开高压）。原理图已按位置对好，插上后脚对脚。排针中心在管心后方，排针后面是 M3 孔（Ø6.6 空铜环），用 M3×11 铜柱锁到驱动板。布线时 HV、AN 两个高压网络对其他线留了 1.3 mm 间距。", "tips": "J1 装在底面：塑料座贴底面、针朝下，焊点在正面（管子那面）（推断，底层直插件常规做法）。建议先焊 J1 再焊管子，免得烙铁伸不进去（推断）。可以先把排针插在驱动板排母上对齐再焊，保证 6 块都插得进。焊针时别让锡流到 2 脚（HV）和相邻的 1、4 空脚之间。"}], "parts": {"V1": "IN-14 辉光管本体（BOM 用 1×13 排针占位，实物自有，不买）", "R_A": "阳极限流 22 k：HV → 管子 1 脚，定阳极电流", "R_PR": "0 Ω 跳线：小数点接 13 脚（右小数点），默认焊", "R_PL": "0 Ω 跳线：小数点接 2 脚（左小数点），默认不焊", "J1": "2×7 排针（底面），插驱动板：2 HV、3 小数点、5–14 数字"}}, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
+// 电路分块：每块做成和料组一样的 {des, side} 对象，选中时板上高亮
+const BLOCKS = N ? N.blocks.map(b => ({...b, des: b.refs, side: [...new Set(b.refs.map(r => (D.parts[r] || {}).side).filter(Boolean))]})) : [];
+const blocksOf = des => BLOCKS.filter(b => b.refs.includes(des));
 let done = {}; try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
 let side = 'T', active = null;
 const padsG = document.getElementById('pads'), boxesG = document.getElementById('boxes');
@@ -149,7 +160,7 @@ for (const [des, p] of Object.entries(D.parts)) {
     else { e.setAttribute('x', q.x - q.w / 2); e.setAttribute('y', q.y - q.h / 2); e.setAttribute('width', q.w); e.setAttribute('height', q.h); }
     if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
     e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
-    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : ''); e.appendChild(t);
+    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
     padsG.appendChild(e); padEls[des].push(e);
   }
 }
@@ -192,8 +203,44 @@ function locLine(g) {
   }
   return el;
 }
+let notesOpen = true; try { notesOpen = localStorage.getItem('solder:notes') !== '0'; } catch (e) {}
+function select(obj, el) {
+  active = active === obj ? null : obj;
+  document.querySelectorAll('.grp.act,.blk.act').forEach(x => x.classList.remove('act'));
+  if (active && el) el.classList.add('act');
+  if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; }
+  render();
+}
+function buildNotes() {
+  const h = document.createElement('div'); h.className = 'sec tg'; h.textContent = (notesOpen ? '▾ ' : '▸ ') + '电路说明（点一块看原理，板上高亮这一块）';
+  h.onclick = () => { notesOpen = !notesOpen; try { localStorage.setItem('solder:notes', notesOpen ? '1' : '0'); } catch (e) {} buildList(); };
+  list.appendChild(h);
+  if (!notesOpen) return;
+  const ov = document.createElement('div'); ov.className = 'ov'; ov.textContent = N.overview; list.appendChild(ov);
+  for (const b of BLOCKS) {
+    const el = document.createElement('div'); el.className = 'blk' + (active === b ? ' act' : ''); el.id = 'blk-' + BLOCKS.indexOf(b);
+    const n = document.createElement('div'); n.innerHTML = '<span class="bn"></span><span class="bc"></span>';
+    n.firstChild.textContent = b.name; n.lastChild.textContent = `${b.refs.length} 个元件`;
+    const t = document.createElement('div'); t.className = 'bt'; t.textContent = b.text;
+    if (b.tips) { const tp = document.createElement('span'); tp.className = 'tips'; tp.textContent = '焊接 / 上电注意：' + b.tips; t.appendChild(tp); }
+    el.append(n, t); el.onclick = () => select(b, el); list.appendChild(el);
+  }
+}
+function partNotes(g) {
+  const ex = document.createElement('div'); ex.className = 'ex';
+  const byText = new Map();
+  for (const d of g.des) { const t = N.parts[d] || ''; if (!byText.has(t)) byText.set(t, []); byText.get(t).push(d); }
+  for (const [t, ds] of byText) { if (!t) continue; const p = document.createElement('span'); p.className = 'pd'; p.innerHTML = '<b></b>：'; p.firstChild.textContent = ds.join(' '); p.append(t); ex.appendChild(p); }
+  for (const b of new Set(g.des.flatMap(blocksOf))) {
+    const c = document.createElement('span'); c.className = 'chip'; c.textContent = '属于：' + b.name;
+    c.onclick = ev => { ev.stopPropagation(); if (!notesOpen) { notesOpen = true; buildList(); } const el = document.getElementById('blk-' + BLOCKS.indexOf(b)); select(b, el); el.scrollIntoView({block: 'nearest'}); };
+    ex.appendChild(c);
+  }
+  return ex;
+}
 function buildList() {
 list.innerHTML = '';
+if (N) buildNotes();
 let lastSec = null;
 const order = D.groups.slice();
 if (byCell) order.sort((a, b) => { const ka = (a.smt || a.dnp ? 'zzz' : '') + cellKey(firstCell(a)), kb = (b.smt || b.dnp ? 'zzz' : '') + cellKey(firstCell(b)); return ka < kb ? -1 : ka > kb ? 1 : 0; });
@@ -211,8 +258,9 @@ for (const g of order) {
   const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
   row.append(cb, v, d, m);
   if (D.hasLoc && !g.smt && !g.dnp) row.appendChild(locLine(g));
-  row.onclick = () => { active = active === g ? null : g; document.querySelectorAll('.grp.act').forEach(x => x.classList.remove('act')); if (active) row.classList.add('act');
-    if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; } render(); };
+  if (N) row.appendChild(partNotes(g));
+  row.id = 'grp-' + D.groups.indexOf(g);
+  row.onclick = () => select(g, row);
   if (active === g) row.classList.add('act');
   list.appendChild(row);
 }
@@ -229,6 +277,15 @@ svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundi
 svg.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY, vb[0], vb[1]]; svg.setPointerCapture(e.pointerId); });
 svg.addEventListener('pointermove', e => { if (!drag) return; const r = svg.getBoundingClientRect();
   vb[0] = drag[2] - (e.clientX - drag[0]) / r.width * vb[2]; vb[1] = drag[3] - (e.clientY - drag[1]) / r.height * vb[3]; svg.setAttribute('viewBox', vb.join(' ')); });
-svg.addEventListener('pointerup', () => drag = null);
+svg.addEventListener('pointerup', e => {
+  const moved = drag && Math.hypot(e.clientX - drag[0], e.clientY - drag[1]) > 4; drag = null;
+  if (moved) return;
+  const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.dataset && x.dataset.des);  // 点焊盘：跳到它那一行
+  const g = hit && D.groups.find(q => q.des.includes(hit.dataset.des));
+  if (!g) return;
+  const el = document.getElementById('grp-' + D.groups.indexOf(g));
+  if (active !== g) select(g, el);
+  el.scrollIntoView({block: 'nearest'});
+});
 render();
 </script></body></html>

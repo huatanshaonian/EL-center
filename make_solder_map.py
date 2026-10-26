@@ -2,7 +2,8 @@
 
 数据只来自各板"制板文件"目录：Gerber 压缩包（丝印、板框、飞针表里的焊盘坐标）、BOM_*_全部.csv、
 JLC_SMT_CPL_*.csv（嘉立创已贴的位号，标灰）；每组料放在元件柜哪一格、库存多少从 Part-DB 查
-（inventory/bom_locate.py，连不上 Part-DB 时不显示格子）。
+（inventory/bom_locate.py，连不上 Part-DB 时不显示格子）；元件作用和电路分块原理来自
+el_driver/焊接图/说明/<板名>.json（没有就不显示）。
 用法：python make_solder_map.py            生成 BOARDS 里全部板子
       python make_solder_map.py NIXIE-DRV  只生成名字里含该字样的板子
 输出：el_driver/焊接图/<板名>.html
@@ -18,15 +19,19 @@ import sys
 import time
 import zipfile
 
+from solder_map_template import TEMPLATE
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ED = os.path.join(ROOT, 'el_driver')
 OUT = os.path.join(ED, '焊接图')
+NOTES = os.path.join(OUT, '说明')
 MIL = 0.0254
 sys.path.insert(0, os.path.join(ROOT, 'inventory'))
 
 # 板名, 目录, 文件标签, Gerber 文件名(不含路径), 不焊位号, 说明
 BOARDS = [
-    ('EL-IF D1.3', 'D1.3/制板文件', 'EL-IF_D1.3', 'Gerber_EL-IF_D1.3.zip', set(), ''),
+    ('EL-IF D1.3', 'D1.3/制板文件', 'EL-IF_D1.3', 'Gerber_EL-IF_D1.3.zip', set(),
+     'U1/U2（SN74AHCT245N）插在 DIP-20 座上（座子不在 BOM 里，A10后；先焊座子，缺口对丝印缺口）。'),
     ('PWR-DIST D1.1', 'PWR-DIST_D1/制板文件', 'PWR-DIST_D1.1', 'Gerber_PWR-DIST_D1.1.zip', set(),
      '两个 NID100 插在排母上（每个 1×6 + 1×7，塑高 8.5），装好后用扎带穿长条孔捆住。'),
     ('KBD-ADAPT D1', 'KBD-ADAPT_D1/制板文件', 'KBD-ADAPT_D1', 'Gerber_KBD-ADAPT_D1.zip', set(), ''),
@@ -152,6 +157,15 @@ def read_csv(path):
     return [dict(zip(h, [x.strip('"') for x in r])) for r in rows[1:] if len(r) >= 3]
 
 
+def load_notes(tag):
+    """读这块板的元件/电路说明，没有返回 None。"""
+    fn = os.path.join(NOTES, f'{tag}.json')
+    if not os.path.exists(fn):
+        return None
+    with open(fn, encoding='utf-8') as f:
+        return json.load(f)
+
+
 def build(name, sub, tag, gzip, dnp, note, locator=None):
     base = os.path.join(ED, sub)
     z = zipfile.ZipFile(os.path.join(base, gzip))
@@ -221,147 +235,15 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
                                          'when': time.strftime('%Y-%m-%d %H:%M')}, ensure_ascii=False))
     os.makedirs(OUT, exist_ok=True)
     fn = os.path.join(OUT, f'{tag}.html')
+    if '__NOTES__' not in page:
+        raise RuntimeError('模板缺 __NOTES__')
+    page = page.replace('__NOTES__', json.dumps(load_notes(tag), ensure_ascii=False))
     open(fn, 'w', encoding='utf-8').write(page)
     hand = sum(len(g['des']) for g in groups if not g['smt'] and not g['dnp'])
     print(f'{name}: {fn}  手焊 {hand} 个位号，{len(groups)} 组')
 
 
-TEMPLATE = r'''<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>__TITLE__</title>
-<style>
-:root{--bg:#f6f5f1;--fg:#1d1d1b;--muted:#6b6a64;--card:#fff;--line:#dcdad3;--pcb:#0f4d2c;--silk:#f3f1e8;--pad:#c9a646;--hl:#e8483b;--done:#9a9890}
-@media (prefers-color-scheme: dark){:root{--bg:#161614;--fg:#ecebe6;--muted:#9a9890;--card:#1f1f1c;--line:#34332f;--pcb:#0d3d24;--silk:#e9e6da;--pad:#b8963c;--hl:#ff6a5c;--done:#6b6a64}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,"Microsoft YaHei",sans-serif}
-header{padding:10px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
-h1{font-size:17px;margin:0}.note{color:var(--muted);font-size:13px;flex-basis:100%}
-.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:4px 10px;border-radius:6px;cursor:pointer}
-.btn.on{background:var(--fg);color:var(--bg)}
-main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:calc(100vh - 62px)}
-@media (max-width:820px){main{grid-template-columns:1fr;height:auto}#view{height:60vh}}
-#view{background:var(--pcb);position:relative;overflow:hidden}svg{width:100%;height:100%}
-.ol{fill:none;stroke:#ffd84a;stroke-linecap:round}.olf{fill:none}
-.st,.sb{fill:none;stroke:var(--silk);stroke-linecap:round;stroke-linejoin:round;opacity:.85}.stf,.sbf{fill:var(--silk);opacity:.85}
-.pad{fill:var(--pad);opacity:.9}.pad.hole{stroke:#000;stroke-opacity:.35;stroke-width:.15}
-.pad.p1{fill:#e2c25a}.pad.dim{opacity:.25}.pad.sel{fill:var(--hl);opacity:1}
-.box{fill:none;stroke:var(--hl);stroke-width:.35;stroke-dasharray:1 .6}
-#list{overflow:auto;border-left:1px solid var(--line)}
-.grp{display:grid;grid-template-columns:22px 1fr;gap:2px 8px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
-.grp:hover{background:var(--card)}.grp.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}
-.grp .v{font-weight:600}.grp .d{grid-column:2;color:var(--muted);font-size:12.5px;word-break:break-all}
-.grp .m{grid-column:2;color:var(--muted);font-size:12px}
-.grp.done .v,.grp.done .d{color:var(--done);text-decoration:line-through}
-.grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
-.grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
-.loc .warn{color:var(--hl)}.loc .q{color:var(--muted)}
-.sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
-#tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
-</style></head><body>
-<header><h1>__TITLE__</h1>
-<button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
-<button class="btn" id="bSort">按格子排</button><span id="prog" style="color:var(--muted)"></span>
-<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。__NOTE__</div></header>
-<main><div id="view"><svg id="svg" viewBox="__VB__">
-<g id="flip"><g id="silkB">__SILKBOT__</g><g id="silkT">__SILKTOP__</g><g>__OUTLINE__</g><g id="pads"></g><g id="boxes"></g></g>
-</svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main>
-<script>
-const D = __DATA__, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
-let done = {}; try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
-let side = 'T', active = null;
-const padsG = document.getElementById('pads'), boxesG = document.getElementById('boxes');
-const padEls = {};
-for (const [des, p] of Object.entries(D.parts)) {
-  padEls[des] = [];
-  const minN = p.pads.reduce((m, q) => (/^\d+$/.test(q.n) && (m === null || +q.n < m)) ? +q.n : m, null);
-  for (const q of p.pads) {
-    const e = document.createElementNS(NS, q.s === 'C' || q.s === 'E' ? 'ellipse' : 'rect');
-    if (e.tagName === 'ellipse') { e.setAttribute('cx', q.x); e.setAttribute('cy', q.y); e.setAttribute('rx', q.w / 2); e.setAttribute('ry', q.h / 2); }
-    else { e.setAttribute('x', q.x - q.w / 2); e.setAttribute('y', q.y - q.h / 2); e.setAttribute('width', q.w); e.setAttribute('height', q.h); }
-    if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
-    e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
-    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : ''); e.appendChild(t);
-    padsG.appendChild(e); padEls[des].push(e);
-  }
-}
-function render() {
-  document.getElementById('flip').setAttribute('transform', side === 'B' ? 'translate(__CX__,0) scale(-1,1)' : '');
-  document.getElementById('silkT').style.display = side === 'T' ? '' : 'none';
-  document.getElementById('silkB').style.display = side === 'B' ? '' : 'none';
-  bTop.classList.toggle('on', side === 'T'); bBot.classList.toggle('on', side === 'B');
-  for (const [des, els] of Object.entries(padEls)) for (const e of els) e.style.display = (e.dataset.side === 'B' || e.dataset.side === side) ? '' : 'none';
-  const sel = new Set(active ? active.des : []);
-  boxesG.innerHTML = '';
-  for (const [des, els] of Object.entries(padEls)) for (const e of els) { e.classList.toggle('sel', sel.has(des)); e.classList.toggle('dim', !!active && !sel.has(des)); }
-  for (const des of sel) { const p = D.parts[des]; if (!p || !p.pads.length) continue;
-    const xs = p.pads.map(q => q.x), ys = p.pads.map(q => q.y), m = 1.2;
-    const r = document.createElementNS(NS, 'rect'); r.setAttribute('class', 'box');
-    r.setAttribute('x', Math.min(...xs) - m); r.setAttribute('y', Math.min(...ys) - m);
-    r.setAttribute('width', Math.max(...xs) - Math.min(...xs) + 2 * m); r.setAttribute('height', Math.max(...ys) - Math.min(...ys) + 2 * m); boxesG.appendChild(r); }
-  const hand = D.groups.filter(g => !g.smt && !g.dnp), fin = hand.filter(g => done[g.des.join(',')]).length;
-  document.getElementById('prog').textContent = `手焊 ${fin}/${hand.length} 组`;
-}
-bTop.onclick = () => { side = 'T'; render(); }; bBot.onclick = () => { side = 'B'; render(); };
-const list = document.getElementById('list');
-function sec(t) { const s = document.createElement('div'); s.className = 'sec'; s.textContent = t; list.appendChild(s); }
-// 格子编号排序：A01前 < A01后 < … < AL6后 < B01前 …，库外的（层架、大盒子）和没找到的排最后
-function cellKey(c) { const m = /^([AB])(L?)(\d+)(前|后)$/.exec(c || ''); return m ? [m[1], m[2], m[3].padStart(2, '0'), m[4] === '前' ? 0 : 1].join('') : 'zz' + (c || '~'); }
-const firstCell = g => (g.loc && g.loc.cells.length) ? g.loc.cells.slice().sort((a, b) => cellKey(a) < cellKey(b) ? -1 : 1)[0] : '';
-let byCell = false; try { byCell = localStorage.getItem('solder:byCell') === '1'; } catch (e) {}
-function locLine(g) {
-  const el = document.createElement('div'); el.className = 'loc';
-  if (!g.loc) { el.innerHTML = '<span class="warn">库里没找到这个料</span>'; return el; }
-  for (const c of g.loc.cells) { const b = document.createElement('span'); b.className = 'cell'; b.textContent = c; el.appendChild(b); }
-  const need = g.des.length * D.copies, st = g.loc.stock;
-  const q = document.createElement('span');
-  q.className = st && st < need ? 'warn' : 'q';
-  q.textContent = st ? ` 库存 ${st}${st < need ? `，不够（${D.copies > 1 ? `做 ${D.copies} 块` : '这块板'}要 ${need}）` : ''}` : ' 库存数量没记';
-  el.appendChild(q);
-  if (g.loc.how !== 'C' && g.loc.how !== '型号') {
-    const w = document.createElement('span'); w.className = 'q';
-    w.textContent = `（${g.loc.how === '数值' ? '按数值找的同规格料' : '同系列型号'}：${g.loc.names.join('、')}，焊前核对）`; el.appendChild(w);
-  }
-  return el;
-}
-function buildList() {
-list.innerHTML = '';
-let lastSec = null;
-const order = D.groups.slice();
-if (byCell) order.sort((a, b) => { const ka = (a.smt || a.dnp ? 'zzz' : '') + cellKey(firstCell(a)), kb = (b.smt || b.dnp ? 'zzz' : '') + cellKey(firstCell(b)); return ka < kb ? -1 : ka > kb ? 1 : 0; });
-for (const g of order) {
-  const kind = g.dnp ? '不焊' : g.smt ? '嘉立创已贴（不用焊）' : byCell ? (firstCell(g) ? '格子 ' + firstCell(g) : '库里没找到') : '自己焊';
-  if (kind !== lastSec) { sec(kind); lastSec = kind; }
-  const row = document.createElement('div'); row.className = 'grp' + (g.smt || g.dnp ? ' skip' : '');
-  const k = g.des.join(','); const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[k];
-  cb.onclick = ev => { ev.stopPropagation(); done[k] = cb.checked; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} row.classList.toggle('done', cb.checked); render(); };
-  if (g.smt || g.dnp) cb.disabled = true;
-  row.classList.toggle('done', !!done[k]);
-  const v = document.createElement('div'); v.className = 'v'; v.textContent = `${g.val || g.comment}  ×${g.des.length}`;
-  if (g.side.includes('B') && !g.side.includes('T')) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = '背面'; v.appendChild(t); }
-  const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');
-  const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
-  row.append(cb, v, d, m);
-  if (D.hasLoc && !g.smt && !g.dnp) row.appendChild(locLine(g));
-  row.onclick = () => { active = active === g ? null : g; document.querySelectorAll('.grp.act').forEach(x => x.classList.remove('act')); if (active) row.classList.add('act');
-    if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; } render(); };
-  if (active === g) row.classList.add('act');
-  list.appendChild(row);
-}
-bSort.classList.toggle('on', byCell);
-}
-bSort.style.display = D.hasLoc ? '' : 'none';
-bSort.title = '格子数据来自 Part-DB，' + D.when + ' 生成';
-bSort.onclick = () => { byCell = !byCell; try { localStorage.setItem('solder:byCell', byCell ? '1' : '0'); } catch (e) {} buildList(); };
-buildList();
-const svg = document.getElementById('svg'); let vb = svg.getAttribute('viewBox').split(' ').map(Number), drag = null;
-svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect(), f = e.deltaY > 0 ? 1.15 : 1 / 1.15;
-  const px = vb[0] + (e.clientX - r.left) / r.width * vb[2], py = vb[1] + (e.clientY - r.top) / r.height * vb[3];
-  vb = [px - (px - vb[0]) * f, py - (py - vb[1]) * f, vb[2] * f, vb[3] * f]; svg.setAttribute('viewBox', vb.join(' ')); }, {passive: false});
-svg.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY, vb[0], vb[1]]; svg.setPointerCapture(e.pointerId); });
-svg.addEventListener('pointermove', e => { if (!drag) return; const r = svg.getBoundingClientRect();
-  vb[0] = drag[2] - (e.clientX - drag[0]) / r.width * vb[2]; vb[1] = drag[3] - (e.clientY - drag[1]) / r.height * vb[3]; svg.setAttribute('viewBox', vb.join(' ')); });
-svg.addEventListener('pointerup', () => drag = null);
-render();
-</script></body></html>'''
+
 
 if __name__ == '__main__':
     want = sys.argv[1] if len(sys.argv) > 1 else ''

@@ -115,6 +115,9 @@
 !/el_driver/焊接图/
 /el_driver/焊接图/*
 !/el_driver/焊接图/*.html
+!/el_driver/焊接图/说明/
+/el_driver/焊接图/说明/*
+!/el_driver/焊接图/说明/*.json
 !/el_driver/面包板图_D1.1/
 /el_driver/面包板图_D1.1/*.bak_r0
 /el_driver/面包板图_D1.1/src/*.png
