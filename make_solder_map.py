@@ -1,7 +1,8 @@
 """生成交互式焊接图（单个 HTML，浏览器打开即用，不联网）。
 
 数据只来自各板"制板文件"目录：Gerber 压缩包（丝印、板框、飞针表里的焊盘坐标）、BOM_*_全部.csv、
-JLC_SMT_CPL_*.csv（嘉立创已贴的位号，标灰）。
+JLC_SMT_CPL_*.csv（嘉立创已贴的位号，标灰）；每组料放在元件柜哪一格、库存多少从 Part-DB 查
+（inventory/bom_locate.py，连不上 Part-DB 时不显示格子）。
 用法：python make_solder_map.py            生成 BOARDS 里全部板子
       python make_solder_map.py NIXIE-DRV  只生成名字里含该字样的板子
 输出：el_driver/焊接图/<板名>.html
@@ -14,12 +15,14 @@ import math
 import os
 import re
 import sys
+import time
 import zipfile
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ED = os.path.join(ROOT, 'el_driver')
 OUT = os.path.join(ED, '焊接图')
 MIL = 0.0254
+sys.path.insert(0, os.path.join(ROOT, 'inventory'))
 
 # 板名, 目录, 文件标签, Gerber 文件名(不含路径), 不焊位号, 说明
 BOARDS = [
@@ -45,6 +48,10 @@ BOARDS = [
     ('IV18 D1', 'IV18_D1/制板文件', 'IV18_D1', 'Gerber_IV18_D1.zip', {'R17', 'R18', 'R19'},
      '贴片件钢网刷锡膏 + 加热台回流（2026-10-23 起不交嘉立创贴）；MAX6921（U1）1 脚对丝印圆点；R17–R19 不焊（тип 2 管）。直插件焊完把板底焊脚剪平到 ≤ 0.8 mm。'),
 ]
+
+COPIES = {'HV-UNI D1': 3, 'IN14-SOCK D1': 7}  # 要做几块（库存够不够按总数算）
+# BOM 里用占位封装代替的器件：板名 -> {位号: (显示名, 去 Part-DB 查的名字)}
+STAND_IN = {'IN14-SOCK D1': {'V1': ('IN-14 辉光管（BOM 里是 1×13 排针占位）', 'IN-14 辉光管')}}
 
 
 # ---------------- Gerber → SVG path ----------------
@@ -144,7 +151,7 @@ def read_csv(path):
     return [dict(zip(h, [x.strip('"') for x in r])) for r in rows[1:] if len(r) >= 3]
 
 
-def build(name, sub, tag, gzip, dnp, note):
+def build(name, sub, tag, gzip, dnp, note, locator=None):
     base = os.path.join(ED, sub)
     z = zipfile.ZipFile(os.path.join(base, gzip))
     names = z.namelist()
@@ -177,6 +184,10 @@ def build(name, sub, tag, gzip, dnp, note):
         if not ds:
             continue
         val = b.get('Value') or b.get('Comment') or ''
+        si = STAND_IN.get(name, {})
+        if len(ds) == 1 and ds[0] in si:
+            val, real = si[ds[0]]
+            b = {'Manufacturer Part': real, 'Comment': val}
         # 同一型号里有的嘉立创贴、有的不焊、有的自己焊时，拆成几行
         for kind in ('hand', 'smt', 'dnp'):
             sub = [d for d in ds if (d in dnp and kind == 'dnp') or (d not in dnp and d in smt and kind == 'smt')
@@ -187,7 +198,8 @@ def build(name, sub, tag, gzip, dnp, note):
                 'val': val, 'comment': b.get('Comment', ''), 'fp': b.get('Footprint', ''),
                 'mpn': b.get('Manufacturer Part', ''), 'sup': b.get('Supplier Part', ''),
                 'des': sub, 'smt': kind == 'smt', 'dnp': kind == 'dnp',
-                'side': sorted({comps[d][2] for d in sub if d in comps})})
+                'side': sorted({comps[d][2] for d in sub if d in comps}),
+                'loc': locator.locate(b) if (locator and kind == 'hand') else None})
     # 手焊在前（按数量多→少），嘉立创已贴、不焊在后
     groups.sort(key=lambda g: (2 if g['dnp'] else 1 if g['smt'] else 0, -len(g['des']), g['val']))
     parts = {d: {'x': round(r[3] * MIL, 3), 'y': round(-r[4] * MIL, 3), 'side': r[2], 'pads': pads.get(d, [])}
@@ -204,7 +216,8 @@ def build(name, sub, tag, gzip, dnp, note):
     page = TEMPLATE.replace('__TITLE__', html.escape(f'{name} 焊接图')).replace('__NOTE__', html.escape(note)) \
         .replace('__VB__', ' '.join(f'{v:.2f}' for v in vb)).replace('__CX__', f'{vb[0] * 2 + vb[2]:.2f}') \
         .replace('__OUTLINE__', layers['outline']).replace('__SILKTOP__', layers['top']).replace('__SILKBOT__', layers['bot']) \
-        .replace('__DATA__', json.dumps({'board': name, 'groups': groups, 'parts': parts}, ensure_ascii=False))
+        .replace('__DATA__', json.dumps({'board': name, 'groups': groups, 'parts': parts, 'hasLoc': bool(locator), 'copies': COPIES.get(name, 1),
+                                         'when': time.strftime('%Y-%m-%d %H:%M')}, ensure_ascii=False))
     os.makedirs(OUT, exist_ok=True)
     fn = os.path.join(OUT, f'{tag}.html')
     open(fn, 'w', encoding='utf-8').write(page)
@@ -238,13 +251,15 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .grp .m{grid-column:2;color:var(--muted);font-size:12px}
 .grp.done .v,.grp.done .d{color:var(--done);text-decoration:line-through}
 .grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
+.grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
+.loc .warn{color:var(--hl)}.loc .q{color:var(--muted)}
 .sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
 #tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
 </style></head><body>
 <header><h1>__TITLE__</h1>
 <button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
-<span id="prog" style="color:var(--muted)"></span>
-<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。__NOTE__</div></header>
+<button class="btn" id="bSort">按格子排</button><span id="prog" style="color:var(--muted)"></span>
+<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。__NOTE__</div></header>
 <main><div id="view"><svg id="svg" viewBox="__VB__">
 <g id="flip"><g id="silkB">__SILKBOT__</g><g id="silkT">__SILKTOP__</g><g>__OUTLINE__</g><g id="pads"></g><g id="boxes"></g></g>
 </svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main>
@@ -287,9 +302,32 @@ function render() {
 bTop.onclick = () => { side = 'T'; render(); }; bBot.onclick = () => { side = 'B'; render(); };
 const list = document.getElementById('list');
 function sec(t) { const s = document.createElement('div'); s.className = 'sec'; s.textContent = t; list.appendChild(s); }
+// 格子编号排序：A01前 < A01后 < … < AL6后 < B01前 …，库外的（层架、大盒子）和没找到的排最后
+function cellKey(c) { const m = /^([AB])(L?)(\d+)(前|后)$/.exec(c || ''); return m ? [m[1], m[2], m[3].padStart(2, '0'), m[4] === '前' ? 0 : 1].join('') : 'zz' + (c || '~'); }
+const firstCell = g => (g.loc && g.loc.cells.length) ? g.loc.cells.slice().sort((a, b) => cellKey(a) < cellKey(b) ? -1 : 1)[0] : '';
+let byCell = false; try { byCell = localStorage.getItem('solder:byCell') === '1'; } catch (e) {}
+function locLine(g) {
+  const el = document.createElement('div'); el.className = 'loc';
+  if (!g.loc) { el.innerHTML = '<span class="warn">库里没找到这个料</span>'; return el; }
+  for (const c of g.loc.cells) { const b = document.createElement('span'); b.className = 'cell'; b.textContent = c; el.appendChild(b); }
+  const need = g.des.length * D.copies, st = g.loc.stock;
+  const q = document.createElement('span');
+  q.className = st && st < need ? 'warn' : 'q';
+  q.textContent = st ? ` 库存 ${st}${st < need ? `，不够（${D.copies > 1 ? `做 ${D.copies} 块` : '这块板'}要 ${need}）` : ''}` : ' 库存数量没记';
+  el.appendChild(q);
+  if (g.loc.how !== 'C' && g.loc.how !== '型号') {
+    const w = document.createElement('span'); w.className = 'q';
+    w.textContent = `（${g.loc.how === '数值' ? '按数值找的同规格料' : '同系列型号'}：${g.loc.names.join('、')}，焊前核对）`; el.appendChild(w);
+  }
+  return el;
+}
+function buildList() {
+list.innerHTML = '';
 let lastSec = null;
-for (const g of D.groups) {
-  const kind = g.dnp ? '不焊' : g.smt ? '嘉立创已贴（不用焊）' : '自己焊';
+const order = D.groups.slice();
+if (byCell) order.sort((a, b) => { const ka = (a.smt || a.dnp ? 'zzz' : '') + cellKey(firstCell(a)), kb = (b.smt || b.dnp ? 'zzz' : '') + cellKey(firstCell(b)); return ka < kb ? -1 : ka > kb ? 1 : 0; });
+for (const g of order) {
+  const kind = g.dnp ? '不焊' : g.smt ? '嘉立创已贴（不用焊）' : byCell ? (firstCell(g) ? '格子 ' + firstCell(g) : '库里没找到') : '自己焊';
   if (kind !== lastSec) { sec(kind); lastSec = kind; }
   const row = document.createElement('div'); row.className = 'grp' + (g.smt || g.dnp ? ' skip' : '');
   const k = g.des.join(','); const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[k];
@@ -301,10 +339,18 @@ for (const g of D.groups) {
   const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');
   const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
   row.append(cb, v, d, m);
+  if (D.hasLoc && !g.smt && !g.dnp) row.appendChild(locLine(g));
   row.onclick = () => { active = active === g ? null : g; document.querySelectorAll('.grp.act').forEach(x => x.classList.remove('act')); if (active) row.classList.add('act');
     if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; } render(); };
+  if (active === g) row.classList.add('act');
   list.appendChild(row);
 }
+bSort.classList.toggle('on', byCell);
+}
+bSort.style.display = D.hasLoc ? '' : 'none';
+bSort.title = '格子数据来自 Part-DB，' + D.when + ' 生成';
+bSort.onclick = () => { byCell = !byCell; try { localStorage.setItem('solder:byCell', byCell ? '1' : '0'); } catch (e) {} buildList(); };
+buildList();
 const svg = document.getElementById('svg'); let vb = svg.getAttribute('viewBox').split(' ').map(Number), drag = null;
 svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect(), f = e.deltaY > 0 ? 1.15 : 1 / 1.15;
   const px = vb[0] + (e.clientX - r.left) / r.width * vb[2], py = vb[1] + (e.clientY - r.top) / r.height * vb[3];
@@ -318,6 +364,12 @@ render();
 
 if __name__ == '__main__':
     want = sys.argv[1] if len(sys.argv) > 1 else ''
+    try:
+        from bom_locate import Locator
+        loc = Locator()
+    except Exception as e:  # 不在家里网络、或没有 token 时照样出图，只是没有格子
+        print('Part-DB 连不上，焊接图里不显示格子：', e)
+        loc = None
     for b in BOARDS:
         if want in b[0] or want in b[2]:
-            build(*b)
+            build(*b, locator=loc)
