@@ -115,7 +115,7 @@ def slant():
     holes += [(W / 2 + x, U_EDGE + PD.SCREW_U, 3.4) for x in PD.SPEC["tongue_x"]]            # 键盘座舌片 M3 沉头
     FEATURES["slant"] = (cut, holes)                                                       # 斜面局部 (x, u)
     # 操作件
-    add("Rotary_selector_5pos", on_slant(F.rotary_selector(), *SEL), "knob", "ui")
+    add("Rotary_selector_6pos", on_slant(F.rotary_selector(), *SEL), "knob", "ui")
     for k, (x, u) in enumerate(USB):
         add("USB_dual_panel_ext", on_slant(F.usb_panel_ext(), x, u), "dark", "ui")
     for k, (x, u) in enumerate(ENC):
