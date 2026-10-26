@@ -82,7 +82,7 @@ MIS-01 盖革板（GEIGER）D1 设计记录
   GEIGER-CLIP_D1 板（原理图 f641b1ddb6500bdf，页 GEIGER_CLIP_D1；PCB 79cfdec0e6fac628）。原 15 个元件、32 脚；2026-10-21 删 HAC 夹子后 13 个、28 脚（见第十一节）。
   夹子用 LANSON LS-601（C182321，Ø6.35，两脚距 7.5，库里有封装；与 Littelfuse 102071 基本相同）：
     CLA1/CLK1 = J305 阳极/阴极位，CLA2/CLK2 = HAC2311S 位，只焊一组。
-  阳极端：R2 4.7 MΩ（C601772，碳膜 250 V，管子不放电时两端几乎无压）+ J_HVI 焊线盘（接主板 J_HV 的 400 V 线）。
+  阳极端：R2 4.7 MΩ（C601772，碳膜 250 V，管子不放电时两端几乎无压；2026-10-27 核对更正：实际装 Walsin WR25W4704FTL C172284 贴片 2512、1 W、250 V，自焊，见第十一节第 3 条与 procurement\build_lcsc_bom_order3.py）+ J_HVI 焊线盘（接主板 J_HV 的 400 V 线）。
   阴极端：C2 220 pF（C2832511）、R4 22 k / R7 100 k → Q2 2N3904（GM，开集电极，主板 R3 上拉）；
           R60 22 k / R61 100 k → Q5（PULSE，开集电极，经 R62 100 Ω；ESP 底板 10 k 上拉到 3.3 V）。
   J4 XH-3：1 GND、2 GM、3 PULSE，和主板 J3 一一对应。
