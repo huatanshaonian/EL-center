@@ -85,22 +85,32 @@ def build():
     build_extras()
 
 
-# ---------------------------------------------------------------- EL 接口板、Hub、Pi 散热（2026-10-22 暂定，待用户确认）
+# ---------------------------------------------------------------- EL 接口板、Hub、Pi 散热
 EL_IF_STEP = "el_driver/D1.3/制板文件/EL-IF_D1.3.step"          # EL-IF D1.3，100×100，原点 = 板左下角，元件最高 15.7；不进 git
-EL_IF_XY = (160.0, 40.0)                                       # 板占 x 160–260、y 40–140（Dock 前半部上方）
-EL_IF_STANDOFF = 10                                            # 吊在顶板下：M3×10 铜柱，元件朝下
+EL_IF_REF = (240.0, 160.0)                                     # 板绕 Z 转 180° 后，板本地原点落在全局 (240, 160)：全局 = (240 − lx, 160 − ly)，板占 x 140–240、y 60–160
+EL_IF_STANDOFF = 30                                            # 吊在电脑层板下：M3×30 母母铜柱，元件朝上；板面 z 230
+EL_IF_TOP = Z_SHELF - EL_IF_STANDOFF                           # 板元件面（顶面）z 230
+SHELF_PMOD_HOLE = (225.0, 85.0, 25.0)                          # 电脑层板新开 PMOD 过线孔 中心 x, y, 直径（孔阵孔 (225,85) 当导孔；孔边 y 97.5 在 Dock 前沿 98.4 前面）
+
+
+def el_if_pt(lx, ly):
+    """EL-IF 板本地坐标 → 全局 (x, y)"""
+    return EL_IF_REF[0] - lx, EL_IF_REF[1] - ly
 
 
 def el_if():
-    """EL 接口板吊在顶板下面（元件朝下）：离 Dock J5/J6/J14 近（PMOD 线 15 cm），离 EL 屏也近；
-    在 HDMI 软排线拱顶（约 z 368）和 Pi 风扇上面，层板上已经放不下 100×100（Pi、Dock 占满）。顶板要按四角孔打 4 个 M3 孔。"""
-    from assembly_base import H
-    x0, y0 = EL_IF_XY
-    zb = H - EL_IF_STANDOFF                                    # 板背面（原底面）z 410
-    b = V.load_abs(EL_IF_STEP).rotate((0, 0, 0), (1, 0, 0), 180).translate((x0, y0 + 100, zb))
+    """EL 接口板吊在电脑层板下面、EL 屏正后方（2026-10-28 用户确认；原暂定吊在顶板下，DF11 屏线要 40–45 cm，
+    用户手上只有一根 20 cm）。元件朝上、绕 Z 转 180°：
+    - J_EL（本地 (90.7, 47)，DF11 弯角，插头朝 −x）在全局 (149.3, 113)，到屏 CN5（x 160、y 26.5、z 229）走线约 12 cm；
+    - P1–P3（本地 x 4.2，y 50/30/74）在全局 x 235.8、y 110/130/86，线往上穿层板 Ø25 过线孔到 Dock 前沿 2×6 座，7–13 cm；
+    - 四个安装孔落在层板孔阵孔 (145/235, 65/155) 上，层板上面锪沉头（分别在 Hub、Dock、Pi 下面），M3×8 沉头 + M3×30 母母铜柱。"""
+    rx, ry = EL_IF_REF
+    zb = EL_IF_TOP - 1.6
+    b = V.load_abs(EL_IF_STEP).rotate((0, 0, 0), (0, 0, 1), 180).translate((rx, ry, zb))
     add("EL-IF_D1.3", b, "pcb_g", "computer")
     for hx, hy in ((5, 5), (95, 5), (5, 95), (95, 95)):
-        add("standoff_M3x10_ELIF", P.standoff_m3(EL_IF_STANDOFF).translate((x0 + hx, y0 + hy, zb)), "brass", "computer")
+        x, y = el_if_pt(hx, hy)
+        add("standoff_M3x30_ELIF", P.standoff_m3(EL_IF_STANDOFF).translate((x, y, EL_IF_TOP)), "brass", "computer")
 
 
 HUB_XY = (87.0, 40.0)                                          # Hub 模块左前角（2026-10-26 按实测 66×50 定）

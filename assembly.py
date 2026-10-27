@@ -37,7 +37,7 @@ def frame():
     add("deck_plate_bakelite", deck.translate((2, 2, Z_DECK)), "bakelite", "plates")
     add("shelf_plate_bakelite", P.plate(W - 4, D - 52, PLATE_T).translate((2, 30, Z_SHELF)), "bakelite", "plates")
     vents = [(40 + i * 20, 60 + j * 20, 8) for i in range(13) for j in range(6)]
-    vents += [(x, y, 3.2) for x, y in ((165, 45), (255, 45), (165, 135), (255, 135))]   # 吊 EL 接口板 M3（frame_spec.EXTRA_M3）
+    vents += [(x, y, 3.2) for x, y in ((165, 45), (255, 45), (165, 135), (255, 135))]   # 原吊 EL 接口板的 M3（frame_spec.EXTRA_M3），顶板已做好带着，现在空着
     add("top_plate_bakelite_vented", P.plate(W, D, PLATE_T, holes=vents).translate((0, 0, H)), "bakelite", "top")
 
 # ------------------------------------------------------------------ EL 屏
@@ -214,7 +214,7 @@ def pcb3_nid_modules(z_face):
 
 # ------------------------------------------------------------------ 电脑层
 # Orange Pi 4、Dock、HDMI 软排线两头小板：2026-10-23 用户确认，见 assembly_computers.py。
-# EL 接口板、Hub 模块、风扇小板还没放；后面板接口窗等布置定了再开。
+# 后面板接口窗等布置定了再开。
 def computers():
     AC.build()
 
