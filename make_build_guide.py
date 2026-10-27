@@ -11,6 +11,7 @@ import re
 import time
 
 from build_guide_steps import GENERAL, STAGES
+from assembly_issues import HARNESS, ISSUES
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ED = os.path.join(ROOT, 'el_driver')
@@ -42,6 +43,9 @@ def board_title(tag):
     return html.unescape(m.group(1)) if m else tag
 
 
+SEEN = {}   # 板子 tag -> (第一次列出必看事项的阶段 id, 阶段名)
+
+
 def stage_html(st, secs):
     e = html.escape
     boards = []
@@ -63,9 +67,20 @@ def stage_html(st, secs):
         src = f'../../png/{e(fn)}'  # 页面在 el_driver/焊接图/，图在仓库根 png/
         figs.append(f'<figure><img loading="lazy" src="{src}" alt="{e(cap)}" title="点开看大图"><figcaption>{e(cap)}</figcaption></figure>')
     figs = f'<div class="figs">{"".join(figs)}</div>' if figs else ''
+    iss = []
+    for t in st['boards'] + st.get('issue_keys', []):
+        nm = (board_title(t) or t).replace(' 焊接图', '')
+        if t in SEEN:   # 同一块板只在第一次出现的阶段列全，后面指过去
+            iss.append(f'<li><b>{e(nm)}</b>：必看事项见上面 <a href="#{SEEN[t][0]}">{e(SEEN[t][1])}</a>。</li>')
+            continue
+        items = HARNESS if t == 'HARNESS' else ISSUES.get(t, [])
+        if items: SEEN[t] = (st['id'], st['title'].split('　')[0])
+        for x in items:
+            iss.append(f'<li>{e(x)}</li>' if t == 'HARNESS' else f'<li><b>{e(nm)}</b>：{e(x)}</li>')
+    iss = f'<div class="iss"><div class="ih">焊前 / 装配必看（10-28 复审）</div><ul>{"".join(iss)}</ul></div>' if iss else ''
     return f'''<section id="{st["id"]}"><h2><span class="pg" data-s="{st["id"]}"></span>{e(st["title"])}</h2>
 <p class="why">{e(st["why"])}</p>{"<div class='bds'>焊接图：" + "".join(boards) + "</div>" if boards else ""}
-<ol>{steps}</ol>{figs}{"".join(tests)}</section>'''
+{iss}<ol>{steps}</ol>{figs}{"".join(tests)}</section>'''
 
 
 def main():
@@ -101,6 +116,9 @@ details{margin:6px 0;border-top:1px dashed var(--line);padding-top:6px}summary{c
 pre{white-space:pre-wrap;font:13px/1.6 ui-monospace,Consolas,"Microsoft YaHei",monospace;background:var(--bg);padding:8px 10px;border-radius:6px;overflow-x:auto}
 .pg{font-size:12px;color:var(--muted);margin-right:6px}.pg.all{color:var(--ok)}
 .toc li{margin:2px 0}.toc a{color:var(--fg)}
+.iss{border:1px solid #fdba74;background:#fff7ed;color:#7c2d12;border-radius:6px;padding:6px 12px;margin:8px 0;font-size:14px}
+@media (prefers-color-scheme: dark){.iss{background:#2a1a0e;color:#fdba74;border-color:#9a3412}}
+.iss .ih{font-weight:700;margin-bottom:2px}.iss ul{margin:2px 0;padding-left:20px}.iss li{margin:3px 0}
 .figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:10px 0}
 figure{margin:0;border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}
 figure img{display:block;width:100%;height:170px;object-fit:contain;cursor:zoom-in}

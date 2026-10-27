@@ -37,6 +37,9 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .tips{display:block;margin-top:4px;color:var(--hl)}.ex .pd{display:block}.ex .pd b{font-weight:600}
 .chip{display:inline-block;font-size:12px;border:1px solid var(--hl);color:var(--hl);border-radius:10px;padding:0 7px;margin:4px 4px 0 0;cursor:pointer}
 .sec.tg{cursor:pointer}
+.iss{padding:8px 12px 8px 30px;margin:0;border-bottom:1px solid var(--line);background:#fff7ed;color:#7c2d12;font-size:13px;line-height:1.55}
+@media (prefers-color-scheme: dark){.iss{background:#2a1a0e;color:#fdba74}}
+.iss li{margin:3px 0}
 .th{grid-column:3;grid-row:1/span 3;width:80px;height:80px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:4px;cursor:zoom-in}
 .idn{grid-column:2;font-size:12.5px;color:var(--muted)}.band{display:inline-block;width:14px;height:14px;border-radius:2px;border:1px solid #0006;vertical-align:-2px;margin-right:2px}
 #pic{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}#pic img{max-width:90vw;max-height:90vh;background:#fff;border-radius:6px}
@@ -185,8 +188,19 @@ function identLine(g) {
 }
 const pic = document.getElementById('pic');
 pic.onclick = () => { pic.style.display = 'none'; };
+let issOpen = true; try { issOpen = localStorage.getItem('solder:iss') !== '0'; } catch (e) {}
+function buildIssues() {
+  const h = document.createElement('div'); h.className = 'sec tg'; h.textContent = (issOpen ? '▾ ' : '▸ ') + `焊前必看（10-28 复审，${D.issues.length} 条）`;
+  h.onclick = () => { issOpen = !issOpen; try { localStorage.setItem('solder:iss', issOpen ? '1' : '0'); } catch (e) {} buildList(); };
+  list.appendChild(h);
+  if (!issOpen) return;
+  const ul = document.createElement('ul'); ul.className = 'iss';
+  for (const t of D.issues) { const li = document.createElement('li'); li.textContent = t; ul.appendChild(li); }
+  list.appendChild(ul);
+}
 function buildList() {
 list.innerHTML = '';
+if (D.issues && D.issues.length) buildIssues();
 if (N) buildNotes();
 let lastSec = null;
 const order = D.groups.slice();

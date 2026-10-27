@@ -109,7 +109,7 @@ STAGES = [
     dict(id='s6a', title='阶段 6a　辉光驱动板 + IN-14 ×6（用 HV-UNI #1）',
          why='数字从 ESP → 74HCT595 移位寄存器 → K155ID1 译码 → 拉低对应阴极，阳极 180 V 经 22 kΩ 限流点亮；焊接图“电路说明”里有这条链。'
              '先不插高压测逻辑，再插 HV-UNI 点一只管，最后全插。',
-         boards=['NIXIE-DRV_D1.1', 'IN14-SOCK_D1'], tests=['5'],
+         boards=['NIXIE-DRV_D1.1', 'IN14-SOCK_D1.1'], tests=['5'],
          steps=[
              '焊驱动板：6 个 DIP-16 座（K155ID1 插座，缺口对丝印）、595、MPSA42 ×6、排母；HV-UNI 的 J_HP / J_HH 排母。',
              '按清单 5 第 1–2 步：不插 K155ID1 和高压先量电压，再插 K155ID1 由 ESP 发帧测译码。',
@@ -161,7 +161,7 @@ STAGES = [
     dict(id='s8', title='阶段 8　EL 屏链路（最后做：屏坏了买不到）',
          why='Pi 的 HDMI → 软排线小板 → Dock 上的 FPGA 把画面转成 EL 屏要的格式 → EL 接口板把 3.3 V 信号放大到 5 V 并控制屏的两路电源。'
              '屏只有一块，所以先不接屏，把信号和上电时序全部验对了才接。',
-         boards=['EL-IF_D1.3'], tests=['9b', '9'],
+         boards=['EL-IF_D1.3'], issue_keys=['HDMI'], tests=['9b', '9'],
          steps=[
              'HDMI 两头小板：拖焊 J1（夹板式 HDMI 插头，正反两面各一排，脚距 1 mm）：多上助焊膏，刀头带锡拖过，连锡用吸锡带吸掉。',
              '按清单 9b 量通断（每块板 J1 ↔ J2 对应脚，18 脚不通），插排线再量一遍。',
@@ -172,7 +172,7 @@ STAGES = [
          ]),
     dict(id='s9', title='阶段 9　整机装配与联调',
          why='所有板子单独都测过了，再装进机架、做线束、按顺序一块一块接上去，每接一块看一次 24 V 总电流，哪一块出问题马上就能知道。',
-         boards=[], tests=['10'],
+         boards=[], issue_keys=['HARNESS'], tests=['10'],
          figs=[('22_exploded_front.png', '整机爆炸图（前）'), ('22_exploded_rear.png', '整机爆炸图（后）'),
                ('26_chin_exploded.png', '下巴托 + 键盘座爆炸图'), ('26_chin_iso.png', '下巴托 + 键盘座'),
                ('26_chin_side.png', '下巴托侧视'), ('27_drill_map.png', '层板上要自己钻的孔'),

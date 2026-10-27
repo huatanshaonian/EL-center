@@ -20,6 +20,7 @@ import time
 import zipfile
 
 from solder_map_template import TEMPLATE
+from assembly_issues import ISSUES
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ED = os.path.join(ROOT, 'el_driver')
@@ -232,7 +233,7 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
     page = TEMPLATE.replace('__TITLE__', html.escape(f'{name} 焊接图')).replace('__NOTE__', html.escape(note)) \
         .replace('__VB__', ' '.join(f'{v:.2f}' for v in vb)).replace('__CX__', f'{vb[0] * 2 + vb[2]:.2f}') \
         .replace('__OUTLINE__', layers['outline']).replace('__SILKTOP__', layers['top']).replace('__SILKBOT__', layers['bot']) \
-        .replace('__DATA__', json.dumps({'board': name, 'groups': groups, 'parts': parts, 'hasLoc': bool(locator), 'copies': COPIES.get(name, 1),
+        .replace('__DATA__', json.dumps({'board': name, 'groups': groups, 'parts': parts, 'hasLoc': bool(locator), 'copies': COPIES.get(name, 1), 'issues': ISSUES.get(tag, []),
                                          'when': time.strftime('%Y-%m-%d %H:%M')}, ensure_ascii=False))
     os.makedirs(OUT, exist_ok=True)
     fn = os.path.join(OUT, f'{tag}.html')
