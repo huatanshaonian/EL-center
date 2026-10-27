@@ -58,6 +58,12 @@ class Locator:
         db = db or PartDB()
         self.parts = {p['iri']: p for p in fetch_parts(db)}
         self.subst = _subst()
+        try:  # 旧库存表里的料（零件名 -> 原盒号），用户有的没收进柜子，焊接图要标出来
+            from import_legacy_xlsx import legacy_boxes
+            self.legacy = legacy_boxes()
+        except Exception as e:  # 旧表不在（换电脑）时只是不标
+            print('读不到旧库存表，焊接图不标“旧库存”：', e)
+            self.legacy = {}
         self.pic = {}  # 零件 IRI -> 商品图地址（立创导入时存的外链）
         for a in db.list_all('/api/attachments'):
             el = a.get('element') or {}
@@ -129,7 +135,7 @@ class Locator:
 
     def locate(self, row):
         """row 是 BOM 一行（dict）。返回 {'how': 'C'|'型号'|'数值'|'同系列', 'cells': [...], 'stock': n,
-        'names': [...], 'img': 商品图地址或 None} 或 None。"""
+        'names': [...], 'img': 商品图地址或 None, 'old': [[旧库存零件名, 原盒号], ...], 'allOld': 是否全是旧库存} 或 None。"""
         c = (row.get('Supplier Part') or '').strip()
         mpn = (row.get('Manufacturer Part') or '').strip() or (row.get('Comment') or '').split(' ')[0]
         for k, v in ALIAS.items():
@@ -148,6 +154,8 @@ class Locator:
                         if loc and loc not in cells:
                             cells.append(loc)
                 img = next((self.pic[p['iri']] for p in found if p['iri'] in self.pic), None)
+                old = sorted({(p['name'], self.legacy[p['name']]) for p in found if p['name'] in self.legacy})
                 return {'how': how, 'cells': cells, 'stock': sum(p['amount'] for p in found),
-                        'names': sorted({p['name'] for p in found}), 'img': img}
+                        'names': sorted({p['name'] for p in found}), 'img': img,
+                        'old': [list(o) for o in old], 'allOld': len(old) == len({p['name'] for p in found})}
         return None

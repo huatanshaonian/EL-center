@@ -11,24 +11,11 @@ import os
 import re
 import sys
 
-import openpyxl
-
-from import_legacy_xlsx import XLSX, build_rows, part_name
+from import_legacy_xlsx import legacy_boxes
 from make_storage_labels import CSS_BASE, CSS_GUIDE, OUT, to_pdf
 from partdb_client import PartDB
 from partdb_parts import fetch_parts
 from storage_plan import cells
-
-
-def old_boxes():
-    """旧库存表：零件名 -> 原盒号（L-01、R-K…）。"""
-    wb = openpyxl.load_workbook(XLSX, data_only=True)
-    out = {}
-    for r in build_rows(wb):
-        box = str(r.get('收纳位置', '')).strip()
-        if box and box != '待入库':
-            out[part_name(r)] = box
-    return out
 
 
 def lcsc_parts(db):
@@ -42,7 +29,7 @@ def lcsc_parts(db):
 def main():
     db = PartDB()
     lcsc = lcsc_parts(db)
-    boxes = old_boxes()
+    boxes = legacy_boxes()
     order = {c: i for i, (c, *_) in enumerate(cells())}
     groups = collections.defaultdict(list)
     for p in fetch_parts(db):

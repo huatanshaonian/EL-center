@@ -28,6 +28,7 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
 .grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
 .loc .warn{color:var(--hl)}.loc .q{color:var(--muted)}
+.old{display:inline-block;font-weight:700;font-size:12px;background:#f59e0b;color:#1d1d1b;border-radius:4px;padding:0 6px;margin-right:4px}
 .ov{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.6}
 .blk{padding:7px 12px;border-bottom:1px solid var(--line);cursor:pointer}.blk:hover{background:var(--card)}
 .blk.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}.blk .bn{font-weight:600}.blk .bc{color:var(--muted);font-size:12px;margin-left:6px}
@@ -99,6 +100,13 @@ function locLine(g) {
   const el = document.createElement('div'); el.className = 'loc';
   if (!g.loc) { el.innerHTML = '<span class="warn">库里没找到这个料</span>'; return el; }
   for (const c of g.loc.cells) { const b = document.createElement('span'); b.className = 'cell'; b.textContent = c; el.appendChild(b); }
+  if (g.loc.old && g.loc.old.length) {  // 旧库存件：可能没收进柜子，按原盒号找
+    const o = document.createElement('span'); o.className = 'old';
+    const boxes = [...new Set(g.loc.old.map(x => x[1]))].join('、');
+    o.textContent = (g.loc.allOld ? '旧库存' : '含旧库存') + ' · 原 ' + boxes + ' 盒';
+    o.title = '旧库存表里的料（' + g.loc.old.map(x => x[0]).join('、') + '）。没收进柜子的话去原盒子找；库位以 Part-DB 为准。';
+    el.appendChild(o);
+  }
   const need = g.des.length * D.copies, st = g.loc.stock;
   const q = document.createElement('span');
   q.className = st && st < need ? 'warn' : 'q';

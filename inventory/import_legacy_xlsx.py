@@ -79,6 +79,17 @@ def build_rows(wb):
     return rows
 
 
+def legacy_boxes(path=XLSX):
+    """旧库存表：零件名 -> 原盒号（L-01、T-01、R-K…；在途的不算）。收纳表、焊接图标“旧库存”用。"""
+    wb = openpyxl.load_workbook(path, data_only=True)
+    out = {}
+    for r in build_rows(wb):
+        box = str(r.get('收纳位置', '')).strip()
+        if box and box != '待入库':
+            out[part_name(r)] = box
+    return out
+
+
 def import_row(db, r, existing, types, use_provider):
     major, minor = str(r['大类']).strip(), str(r['子类']).strip()
     name = part_name(r)

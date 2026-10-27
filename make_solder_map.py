@@ -47,7 +47,7 @@ BOARDS = [
      '首次通电前 VR1 拧到 10 Ω；Q6（S8050）焊前定脚。LS1/LS2 二选一。'),
     ('GEIGER-CLIP D1', 'GEIGER_D1/制板文件_夹子板', 'GEIGER-CLIP_D1', 'Gerber_GEIGER-CLIP_D1.zip', set(), ''),
     ('NIXIE-DRV D1.1', 'NIXIE-DRV_D1/制板文件_驱动板', 'NIXIE-DRV_D1.1', 'Gerber_NIXIE-DRV_D1.1.zip', set(),
-     'K155ID1 插在 DIP-16 座上（缺口对丝印缺口）；HV-UNI 小板插 J_HP/J_HH。'),
+     'K155ID1 插在 DIP-16 座上（缺口对丝印缺口；6 片是旧库存，原 IC-01 盒，Part-DB 记在 A08前）；HV-UNI 小板插 J_HP/J_HH。'),
     ('IN14-SOCK D1', 'NIXIE-DRV_D1/制板文件_IN14小板', 'IN14-SOCK_D1', 'Gerber_IN14-SOCK_D1.zip', {'R_PL'},
      '做 7 块（6 装机 + 1 备）。R_PR 0 Ω 自己焊（或电阻腿短接）；J1 2×7 排针焊在板子底面。'),
     ('IV18 D1', 'IV18_D1/制板文件', 'IV18_D1', 'Gerber_IV18_D1.zip', {'R17', 'R18', 'R19'},
