@@ -28,9 +28,13 @@ SPEC = dict(
     cover_t=2.0,                                 # 背盖厚（1.2 → 1.5 → 2.0：嘉立创 MJF 对 100 mm 以上零件建议壁厚 ≥ 2.0，2026-10-27）
     cover_screw_x=150.5, cover_screw_z=(4.5, 10.5),   # 背盖 M2 自攻孔：|X|、Z（离两端 M3 孔 ≥ 1.7）；块上底孔 Ø1.7 深 6，背盖过孔 Ø2.4
     cable_slot=(46.0, 8.0),                      # 背盖下沿出线口 宽 × 高（从背盖下沿 Z 1.5 往上到 Z 8；POGO 小板顶 Z 6.2）
+    cover_rib=(3.0, 2.0, 145.0),                 # 背盖上沿外肋：往外凸 3 × 高 2，|X| ≤ 145（让开上排 M2 螺丝头 X 150.5）；
+    cover_lip=(2.0, 2.0, 0.3),                   # 背盖上沿内翻边：伸进座子 2 × 高 2，贴在顶板下面，遇横筋开缺口（每边留 0.3）。
+                                                 # 2026-10-27 嘉立创说长 320 的平片 MJF 易翘：截面改 T 形，抗弯约为平板 5 倍以上；外肋、内翻边都查过不碰下巴托 / 座子内件
 )
 SCREW_U = 5.0                                    # 斜面下沿 M3 沉头孔中心离下沿（沿斜面）：孔边离板边 3.3 ≥ 1.5T（原 3.3 只剩 1.6，2026-10-27）
 CSK_D = 6.5                                      # 斜面上这 3 个孔的 90° 沉头外径（M3 沉头螺钉头 Ø6.0–6.7），STEP 里画出来
+RIB_X = (40.2, 110.0, 120.0, 130.0, 140.0)       # 横向加强筋 |X|（座子内部；背盖内翻边在这些位置开缺口）
 INSERT_R = 2.0                                   # M3 热熔铜螺母孔 Ø4.0（尼龙打印件）
 
 def _inner(gap, w):
@@ -65,7 +69,7 @@ def keyboard_dock(hole_r=INSERT_R):
         b = b.union(box(tw, tt, th, x - tw / 2, s["wall"], H))
         b = b.cut(cyl(hole_r, tt + 2, x, s["wall"] - 1, H + SCREW_U, "Y"))      # 热熔铜螺母孔 Ø4.0（舌片厚 4，压 M3×4）
     # 横向加强筋（YZ 面）：只放在不装东西的区段 —— 第二对螺丝与第一对自攻孔之间、最外自攻孔以外
-    for x in (40.2, 110.0, 120.0, 130.0, 140.0):
+    for x in RIB_X:
         for sx in (-1, 1):
             b = b.union(box(s["rib_t"], D - s["wall"], H - z_fl, sx * x - s["rib_t"] / 2, s["wall"], z_fl))
 
@@ -133,6 +137,16 @@ def keyboard_dock_cover():
     corner = box(4.3, s["cover_t"] + 0.2, 4.3, -2.15, s["D"] - 0.1, -2.15).rotate((0, 0, 0), (0, 1, 0), 45)   # 转 45° 的方块：切掉直角边约 3 的三角
     for sx in (-1, 1):                                                         # 两端下角倒斜角：让开下巴托底板和侧板之间的折弯圆角
         c = c.cut(corner.translate((sx * s["L"] / 2, 0, zb - 1)))
+    # 上沿 T 形加强：外肋（往外）+ 内翻边（往里，横筋处开缺口）
+    rd, rh, rx = s["cover_rib"]
+    c = c.union(box(2 * rx, rd, rh, -rx, s["D"] + s["cover_t"] - 0.01, zt + 1 - rh))
+    ld, lh, lg = s["cover_lip"]
+    x0 = s["L"] / 2 - s["end_wall"] - lg
+    lip = box(2 * x0, ld + 0.01, lh, -x0, s["D"] - ld, zt - lh)
+    for x in RIB_X:
+        for sx in (-1, 1):
+            lip = lip.cut(box(s["rib_t"] + 2 * lg, ld + 1, lh + 1, sx * x - s["rib_t"] / 2 - lg, s["D"] - ld - 0.5, zt - lh - 0.5))
+    c = c.union(lip)
     sw, sh = s["cable_slot"]
     return c.cut(box(sw, s["cover_t"] + 0.02, sh - (zb - 1) + 0.01, -sw / 2, s["D"] - 0.01, zb - 1 - 0.01).edges("|Y and >Z").fillet(1.5))
 
