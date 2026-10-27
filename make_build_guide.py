@@ -16,6 +16,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 ED = os.path.join(ROOT, 'el_driver')
 OUT = os.path.join(ED, '焊接图', '装配调试流程.html')
 CHECKLIST = os.path.join(ED, '上电测试清单.txt')
+PNG = os.path.join(ROOT, 'png')
 
 
 def checklist_sections():
@@ -55,9 +56,16 @@ def stage_html(st, secs):
             raise KeyError(f'上电测试清单里找不到第 {n} 节')
         title, body = secs[n]
         tests.append(f'<details><summary>上电测试清单 {e(n)}. {e(title)}</summary><pre>{e(body)}</pre></details>')
+    figs = []
+    for fn, cap in st.get('figs', []):
+        if not os.path.exists(os.path.join(PNG, fn)):
+            raise FileNotFoundError(f'png/{fn} 不存在')
+        src = f'../../png/{e(fn)}'  # 页面在 el_driver/焊接图/，图在仓库根 png/
+        figs.append(f'<figure><img loading="lazy" src="{src}" alt="{e(cap)}" title="点开看大图"><figcaption>{e(cap)}</figcaption></figure>')
+    figs = f'<div class="figs">{"".join(figs)}</div>' if figs else ''
     return f'''<section id="{st["id"]}"><h2><span class="pg" data-s="{st["id"]}"></span>{e(st["title"])}</h2>
 <p class="why">{e(st["why"])}</p>{"<div class='bds'>焊接图：" + "".join(boards) + "</div>" if boards else ""}
-<ol>{steps}</ol>{"".join(tests)}</section>'''
+<ol>{steps}</ol>{figs}{"".join(tests)}</section>'''
 
 
 def main():
@@ -93,13 +101,22 @@ details{margin:6px 0;border-top:1px dashed var(--line);padding-top:6px}summary{c
 pre{white-space:pre-wrap;font:13px/1.6 ui-monospace,Consolas,"Microsoft YaHei",monospace;background:var(--bg);padding:8px 10px;border-radius:6px;overflow-x:auto}
 .pg{font-size:12px;color:var(--muted);margin-right:6px}.pg.all{color:var(--ok)}
 .toc li{margin:2px 0}.toc a{color:var(--fg)}
+.figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:10px 0}
+figure{margin:0;border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}
+figure img{display:block;width:100%;height:170px;object-fit:contain;cursor:zoom-in}
+figcaption{font-size:12.5px;color:#444;padding:4px 8px;border-top:1px solid var(--line);background:#fafafa}
+#big{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out;padding:12px}
+#big img{max-width:100%;max-height:100%;background:#fff;border-radius:6px}
 </style></head><body><div class="wrap">
 <h1>MIS-01 装配调试流程</h1>
 <div class="sub">按顺序一个阶段一个阶段做；每步做完打勾（记在这个浏览器里）。各板的元件作用、电路原理点“焊接图”看；测试数值嵌在每个阶段末尾（来自 el_driver/上电测试清单.txt，__WHEN__ 生成）。写“（叫我）”的步骤是要我在电脑上做的。</div>
 <div class="box"><h3>目录</h3><ol class="toc">__TOC__</ol></div>
 <div class="box"><h3>每块板都适用的规矩</h3><ul>__GEN__</ul></div>
 __BODY__
-</div><script>
+</div><div id="big"><img alt=""></div><script>
+const big = document.getElementById('big');
+big.onclick = () => { big.style.display = 'none'; };
+for (const im of document.querySelectorAll('figure img')) im.onclick = () => { big.firstChild.src = im.src; big.style.display = 'flex'; };
 const COUNTS = __COUNTS__, KEY = 'mis01-guide';
 let st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
 function refresh() {
