@@ -15,12 +15,12 @@ DRAWERS = {
     'A01': ('T-01 通用NPN', 'T-02 通用PNP'),
     'A02': ('T-03 大电流', 'T-04 高频NPN'),
     'A03': ('T-05 高压NPN', 'T-06 高压PNP'),
-    'A04': ('直插MOS管', '贴片三极管/MOS'),
+    'A04': ('直插MOS管', ''),  # 贴片管子 2026-10-27 挪去“贴片分立件盒”
     'A05': ('玻封稳压管', '1N4148 开关管'),
-    'A06': ('整流/TVS 直插', '贴片二极管'),
+    'A06': ('整流/TVS 直插', ''),
     'A07': ('LED', '光敏/热敏电阻'),
     'A08': ('DIP 数字IC', 'DIP 模拟IC'),
-    'A09': ('贴片IC', '贴片IC（2）'),
+    'A09': ('', ''),  # 贴片 IC 2026-10-27 挪去“贴片IC盒”
     'A10': ('IC座 8/14P', 'IC座 16/20P'),
     'A11': ('微调电位器', '继电器/蜂鸣器'),
     'A12': ('保险丝/保险夹', '自恢复/ATM座'),
@@ -35,8 +35,7 @@ DRAWERS = {
     # B01–B03 原放直插电阻（按量级 6 格），2026-10-27 用户把它们统一挪进单独的“电阻盒”，这三格空出
     'B01': ('', ''), 'B02': ('', ''), 'B03': ('', ''),
     'B04': ('功率电阻', '0Ω 直插'),
-    'B05': ('0603 电阻', '0805/2512 电阻'),
-    'B06': ('0603 电容', '0805+ 贴片电容'),
+    'B05': ('', ''), 'B06': ('', ''),  # 贴片阻容 2026-10-27 挪去“贴片阻容盒”
     'B07': ('瓷片 ≤1nF', '瓷片 10–100nF'),
     'B08': ('电解 ≤10µF', '电解 22–100µF'),
     'B09': ('电解 220–470µF', ''),
@@ -63,7 +62,7 @@ EXTRA = {
     'B19前': 'M3 六角铜柱 6/10/11 mm', 'B19后': 'M2.5×25 铜柱 + M2.5×6 螺丝',
     'B20前': 'M3 热熔铜螺母、M2/M3 自攻螺丝', 'B20后': 'M3 尼龙平垫等垫片',
     'AL6前': 'M4×8 螺丝', 'AL6后': 'M4 弹片 T 螺母（2020）',
-    'AL3后': 'ESP32 开发板等其他模块（装静电袋）', 'A09前': 'MAX6921 到货也放这里（静电袋）',
+    'AL3后': 'ESP32 开发板等其他模块（装静电袋）',
 }
 
 # 不进抽屉的
@@ -72,6 +71,9 @@ OUTSIDE = {
     '文件袋': 'FFC 软排线（不能折，平放）',
     '大盒子': '辉光管、IV18、6E2、盖革管、指针表头（连包装一起放）',
     '电阻盒': '直插金属膜电阻（原 B01–B03，按阻值排）',
+    '贴片分立件盒': '贴片三极管、MOS 管、二极管（原 A04后、A06后）',
+    '贴片阻容盒': '贴片电阻、电容（原 B05、B06）',
+    '贴片IC盒': '贴片 IC（原 A09，含 MAX6921，静电袋）',
 }
 
 # 旧盒子的三极管库位直接整格搬
@@ -93,7 +95,7 @@ def _val(p, unit):
 
 def _resistor(p):
     if p['cat'] == '电阻/贴片电阻':
-        return 'B05前' if '0603' in p['name'] else 'B05后'
+        return '贴片阻容盒'
     if '跳线' in p['desc'] or _val(p, 'Ω') == 0:
         return 'B04后'
     if p['cat'].startswith('电阻/功率') or re.search(r'(?<![/\d])[123]W|1/2W', p['desc']):
@@ -104,7 +106,7 @@ def _resistor(p):
 def _capacitor(p):
     cat, t = p['cat'], p['desc'] + ' ' + p['name']
     if cat == '电容/贴片电容':
-        return 'B06前' if ('0603' in p['name'] or p['name'].startswith('CL10')) else 'B06后'
+        return '贴片阻容盒'
     if cat == '电容/薄膜电容' or re.search(r'1\s*kV|1KV', t):
         return 'AL1后'
     if cat == '电容/固态电解电容':
@@ -140,13 +142,13 @@ def assign(p):
             if l in LEGACY_T.values():  # 已经挪到新格子了（apply_storage_locations.py 跑过之后）
                 return l
         if name.startswith('MMBT'):
-            return 'A04后'
+            return '贴片分立件盒'
         return 'A03前' if ('高压' in desc and cat.endswith('NPN')) else None
     if major == '场效应管':
-        return 'A04前' if name.startswith('IRF') else 'A04后'
+        return 'A04前' if name.startswith('IRF') else '贴片分立件盒'
     if major == '二极管':
         if name.startswith(('BAT', 'SMBJ', 'BZT')):
-            return 'A06后'
+            return '贴片分立件盒'
         if cat.endswith('稳压二极管'):
             return 'A05前'
         if '开关二极管' in cat:
@@ -158,7 +160,7 @@ def assign(p):
         return 'A07后'
     if major == '集成电路':
         if any(k in name for k in SMD_IC):
-            return 'A09前'
+            return '贴片IC盒'
         return 'A08后' if name.startswith(ANALOG_IC) else 'A08前'
     if major in ('显示器件', '电子管'):  # 表头、各种管子：大件，连包装放大盒子
         return '大盒子'
