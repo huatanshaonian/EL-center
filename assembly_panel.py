@@ -26,6 +26,9 @@ SEL = (37.0, 40)
 USB = ((28.0, 10),)                             # 上下叠放双口 USB 面板座 1 个（2026-10-26 实测，放斜面电路板左缺口；右缺口空着）
 PCB_D, PCB_T = 6.5, 1.6                           # 斜面电路板元件面到斜面内表面 6.5（推子贴死面板）
 PCB_CUT = (0.0, 17.0, 24.0, 3.5)                  # 左 USB 缺口加高：板本地 x 0–24、y 17–20.5 手工切掉（双口 USB 本体高 19.2，见 fig_slant_pcb_cut.py）
+SLANT_PCB_SCREWS = ((29.0, 68.0), (159.0, 72.0))  # 斜面电路板上沿两个 M3 安装孔（板孔 (12,68)(142,72)）。前壳已下单、斜面没开孔（2026-10-28 发现漏了固定）：
+                                                 # 补救 = M3×6 铜柱 + 垫片用 AB 胶粘在斜面内表面，板从背面用 M3×5 螺丝锁到铜柱上，斜面不开孔。
+                                                 # 下沿两个板孔 (90,8)(159,8) 不用（背面螺丝头压 J_K1 / J_K6 外框）
 PCB_X, PCB_U = (17.0, 166.0), (0.0, 78.0)         # SLANT D1 外形 x 17–166、u 0–78（下沿两个 USB 缺口，左上 x 17–21 只到 u 64）
 KBD_STEP = "el_driver/KBD-ADAPT_D1/制板文件/KBD-ADAPT_D1.step"   # 原点 = 板左下角，板顶面 z 0；不进 git
 SLANT_STEP = "el_driver/SLANT_D1/制板文件/SLANT_D1.1.step"   # 约 26 MB，不进 git；板原点 = 斜面 (17, 0)，板 +y = u，顶层（元件面）朝面板
@@ -145,6 +148,8 @@ def slant_pcb():
     x0, u0, w, h = PCB_CUT                                                          # 到货后手工切掉的一条（png/28），模型里也切掉
     b = b.cut(P.box(w, PCB_T + 1, h, PCB_X[0] + x0, 2 + PCB_D - 0.5, PCB_U[0] + u0))
     add("SLANT_board", place(b, 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
+    for x, u in SLANT_PCB_SCREWS:                                                   # M3×6 六角铜柱（对边 5.5）+ 垫片 + 胶层 ≈ PCB_D，粘在斜面内表面
+        add("standoff_M3x6.5_SLANT", on_slant_local(P.cyl(5.5 / 2 / 0.866, PCB_D, x, 2, u, "Y")), "brass", "ui")
     add("RPi_Pico(on_slant_PCB)", place(pico_on_slant(), 0, Y_BASE, Z_BASE, rot=(("X", -SLANT_ANG),)), "pcb_g", "ui")
     for k, h in enumerate(pico_sockets()):
         add(("Pico_socket_1x20", "Pico_pin_base_1x20")[k % 2], on_slant_local(h), "dark", "ui")
