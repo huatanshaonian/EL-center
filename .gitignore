@@ -14,6 +14,11 @@
 !/png/
 /png/*
 !/png/31_max6921_pinout.png
+!/png/28_slant_pcb_cut.png
+!/png/20_front_panel.png
+!/png/22_exploded_*.png
+!/png/26_chin_*.png
+!/png/27_drill_map.png
 
 # ---------------- FPGA ----------------
 !/fpga/
