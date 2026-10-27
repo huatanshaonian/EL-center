@@ -20,7 +20,7 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .pad.p1{fill:#e2c25a}.pad.dim{opacity:.25}.pad.sel{fill:var(--hl);opacity:1}
 .box{fill:none;stroke:var(--hl);stroke-width:.35;stroke-dasharray:1 .6}
 #list{overflow:auto;border-left:1px solid var(--line)}
-.grp{display:grid;grid-template-columns:22px 1fr;gap:2px 8px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+.grp{display:grid;grid-template-columns:22px 1fr auto;gap:2px 8px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
 .grp:hover{background:var(--card)}.grp.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}
 .grp .v{font-weight:600}.grp .d{grid-column:2;color:var(--muted);font-size:12.5px;word-break:break-all}
 .grp .m{grid-column:2;color:var(--muted);font-size:12px}
@@ -36,6 +36,9 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .tips{display:block;margin-top:4px;color:var(--hl)}.ex .pd{display:block}.ex .pd b{font-weight:600}
 .chip{display:inline-block;font-size:12px;border:1px solid var(--hl);color:var(--hl);border-radius:10px;padding:0 7px;margin:4px 4px 0 0;cursor:pointer}
 .sec.tg{cursor:pointer}
+.th{grid-column:3;grid-row:1/span 3;width:80px;height:80px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:4px;cursor:zoom-in}
+.idn{grid-column:2;font-size:12.5px;color:var(--muted)}.band{display:inline-block;width:14px;height:14px;border-radius:2px;border:1px solid #0006;vertical-align:-2px;margin-right:2px}
+#pic{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}#pic img{max-width:90vw;max-height:90vh;background:#fff;border-radius:6px}
 .sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
 #tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
 </style></head><body>
@@ -45,7 +48,7 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 <div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。点开一行能看到每个元件的作用；最上面“电路说明”讲每一块电路的原理，点一块板上就高亮那一块；点板上的焊盘会跳到它那一行。__NOTE__</div></header>
 <main><div id="view"><svg id="svg" viewBox="__VB__">
 <g id="flip"><g id="silkB">__SILKBOT__</g><g id="silkT">__SILKTOP__</g><g>__OUTLINE__</g><g id="pads"></g><g id="boxes"></g></g>
-</svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main>
+</svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main><div id="pic"><img alt=""></div>
 <script>
 const D = __DATA__, N = __NOTES__, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
 // 电路分块：每块做成和料组一样的 {des, side} 对象，选中时板上高亮
@@ -142,6 +145,38 @@ function partNotes(g) {
   }
   return ex;
 }
+// 帮助认料：直插电阻画五色环（1% 金属膜），直插瓷片给出表面印的三位码，电解提示极性
+const COLORS = [['黑', '#111'], ['棕', '#7a4a1e'], ['红', '#d22'], ['橙', '#f80'], ['黄', '#fd0'], ['绿', '#2a2'], ['蓝', '#24d'], ['紫', '#82c'], ['灰', '#888'], ['白', '#fff']];
+const MULT = {'-1': ['金', '#c9a646'], '-2': ['银', '#c0c0c0']};
+function parseVal(v, unit) {
+  const m = new RegExp('([0-9.]+)\\s*([pnuµμmkKMG]?)' + unit).exec(v || ''); if (!m) return null;
+  return +m[1] * ({p: 1e-12, n: 1e-9, u: 1e-6, 'µ': 1e-6, 'μ': 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9}[m[2]] || 1);
+}
+function identLine(g) {
+  const el = document.createElement('div'); el.className = 'idn'; const fp = g.fp || '';
+  if (/^RES-TH/.test(fp)) {
+    const r = parseVal(g.val, 'Ω'); if (r === null || r <= 0) return null;
+    let e = Math.floor(Math.log10(r)) - 2, n = Math.round(r / 10 ** e);
+    if (n >= 1000) { n = Math.round(n / 10); e += 1; }
+    const ds = String(n).split('').map(Number), mult = e >= 0 ? COLORS[e] : MULT[e]; if (!mult) return null;
+    const bands = [...ds.map(d => COLORS[d]), mult, COLORS[1]];
+    el.append('色环（五环 1%）：');
+    for (const [name, c] of bands) { const b = document.createElement('span'); b.className = 'band'; b.style.background = c; b.title = name; el.appendChild(b); }
+    el.append(' ' + bands.map(b => b[0]).join(' ') + '（棕色误差环和其他环隔得稍远，从另一头开始读）');
+    return el;
+  }
+  if (/^CAP-TH_L/.test(fp)) {
+    const c = parseVal(g.val, 'F'); if (c === null) return null;
+    const pf = Math.round(c * 1e12);
+    let code = pf < 100 ? String(pf) : (() => { const e = Math.floor(Math.log10(pf)) - 1; return String(Math.round(pf / 10 ** e)) + e; })();
+    el.textContent = `瓷片/薄膜表面印“${code}”（前两位是数字，第三位是后面跟几个 0，单位 pF）`;
+    return el;
+  }
+  if (/^CAP-TH_BD/.test(fp)) { el.textContent = '电解电容：外壳印着容量和耐压，白条（−）一侧是负极，长脚是正极'; return el; }
+  return null;
+}
+const pic = document.getElementById('pic');
+pic.onclick = () => { pic.style.display = 'none'; };
 function buildList() {
 list.innerHTML = '';
 if (N) buildNotes();
@@ -161,7 +196,15 @@ for (const g of order) {
   const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');
   const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
   row.append(cb, v, d, m);
+  if (g.loc && g.loc.img) {
+    const im = document.createElement('img'); im.className = 'th'; im.loading = 'lazy'; im.alt = ''; im.title = "立创商品实拍（坐标纸格子 1 mm），点开看大图";
+    im.src = g.loc.img.replace('/900x900/', '/224x224/');
+    im.onerror = () => im.remove();
+    im.onclick = ev => { ev.stopPropagation(); pic.firstChild.src = g.loc.img; pic.style.display = 'flex'; };
+    row.appendChild(im);
+  }
   if (D.hasLoc && !g.smt && !g.dnp) row.appendChild(locLine(g));
+  if (!g.smt && !g.dnp) { const idn = identLine(g); if (idn) row.appendChild(idn); }
   if (N) row.appendChild(partNotes(g));
   row.id = 'grp-' + D.groups.indexOf(g);
   row.onclick = () => select(g, row);

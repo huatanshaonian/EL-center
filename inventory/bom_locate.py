@@ -58,6 +58,11 @@ class Locator:
         db = db or PartDB()
         self.parts = {p['iri']: p for p in fetch_parts(db)}
         self.subst = _subst()
+        self.pic = {}  # 零件 IRI -> 商品图地址（立创导入时存的外链）
+        for a in db.list_all('/api/attachments'):
+            el = a.get('element') or {}
+            if a.get('picture') and el.get('@type') == 'Part' and a.get('media_url'):
+                self.pic.setdefault(el['@id'], a['media_url'])
         self.by_c = {}
         for od in db.list_all('/api/orderdetails'):
             pi = od['part']['@id'] if isinstance(od.get('part'), dict) else od.get('part')
@@ -123,7 +128,8 @@ class Locator:
         return plain or out
 
     def locate(self, row):
-        """row 是 BOM 一行（dict）。返回 {'how': 'C'|'型号'|'数值', 'cells': [...], 'stock': n, 'names': [...]} 或 None。"""
+        """row 是 BOM 一行（dict）。返回 {'how': 'C'|'型号'|'数值'|'同系列', 'cells': [...], 'stock': n,
+        'names': [...], 'img': 商品图地址或 None} 或 None。"""
         c = (row.get('Supplier Part') or '').strip()
         mpn = (row.get('Manufacturer Part') or '').strip() or (row.get('Comment') or '').split(' ')[0]
         for k, v in ALIAS.items():
@@ -141,6 +147,7 @@ class Locator:
                     for _, loc in p['lots']:
                         if loc and loc not in cells:
                             cells.append(loc)
+                img = next((self.pic[p['iri']] for p in found if p['iri'] in self.pic), None)
                 return {'how': how, 'cells': cells, 'stock': sum(p['amount'] for p in found),
-                        'names': sorted({p['name'] for p in found})}
+                        'names': sorted({p['name'] for p in found}), 'img': img}
         return None
