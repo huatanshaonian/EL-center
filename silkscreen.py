@@ -7,7 +7,7 @@ MIS-01 前壳丝印设计（2026-10-27 用户定：米白喷粉 + 黑色丝印�
 """
 import math
 import numpy as np
-from matplotlib.textpath import TextPath
+from matplotlib.textpath import TextPath, text_to_path
 from matplotlib.font_manager import FontProperties
 from matplotlib.path import Path
 import assembly_panel as AP
@@ -35,16 +35,32 @@ def _cap_scale():
 
 
 _K = _cap_scale()
+TRACK = 0.06                                 # 额外字距 = 字高 × 0.06（嘉立创：字符间隙 ≥ 0.3；Bahnschrift 原字距最紧处只有 0.25）
+
+
+def _width(s):
+    """字符串前进宽度（字体单位，size 100，含字偶距）"""
+    if not s:
+        return 0.0
+    fp = FONT.copy(); fp.set_size(100)
+    return text_to_path.get_text_width_height_descent(s, fp, ismath=False)[0]
 
 
 def text(s, x, y, cap, ha="center", va="center", rot=0.0):
     """文字 → 填充多边形（带孔）。va center = 大写字母高的中线；rot 绕 (x, y) 逆时针（度）"""
-    p = TextPath((0, 0), s, size=100, prop=FONT)
     k = cap * _K / 100
-    ext = p.get_extents()
-    dx = {"left": -ext.x0, "center": -(ext.x0 + ext.x1) / 2, "right": -ext.x1}[ha] * k
+    track = TRACK * cap / k                                     # 字距（字体单位）
+    raw = []
+    for i, ch in enumerate(s):                                   # 逐字排：前缀宽（含字偶距）+ 额外字距
+        if ch.isspace():
+            continue
+        x0 = _width(s[:i]) + i * track
+        raw += [np.asarray(q) + (x0, 0) for q in TextPath((0, 0), ch, size=100, prop=FONT).to_polygons(closed_only=True) if len(q) > 2]
+    a = np.vstack(raw)
+    ext_x0, ext_x1 = a[:, 0].min(), a[:, 0].max()
+    dx = {"left": -ext_x0, "center": -(ext_x0 + ext_x1) / 2, "right": -ext_x1}[ha] * k
     dy = {"base": 0.0, "center": -cap / 2, "top": -cap}[va]
-    polys = [np.asarray(q) * k + (dx, dy) for q in p.to_polygons(closed_only=True) if len(q) > 2]
+    polys = [q * k + (dx, dy) for q in raw]
     return [(_rot(o, x, y, rot), [_rot(h, x, y, rot) for h in hs]) for o, hs in _nest(polys)]
 
 

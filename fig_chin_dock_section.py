@@ -18,8 +18,8 @@ E = AP.SLANT_EXT                           # 斜面电路板下沿离斜面下�
 DH = PD.SPEC["H"]                          # 键盘座屏幕面高
 DD = PD.SPEC["D"]                          # 键盘座厚
 SPINE_T = 5.0                              # 键盘连接条厚（用户实测突出 5）
-TONGUE_U, TONGUE_T = 6.0, 4.5              # 舌片：沿斜面向上 6，厚 4.5（斜面内表面到斜面电路板元件面 6.5）
-SCREW_U = 3.0
+TONGUE_U, TONGUE_T = PD.SPEC["tongue"][1], PD.SPEC["tongue"][2]   # 舌片沿斜面向上高、厚（取自 parts_dock）
+SCREW_U = PD.SCREW_U
 
 
 def P(u, t):

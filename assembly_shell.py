@@ -62,6 +62,9 @@ def _slant():
     e = AP.U_EDGE
     s = P.panel(W, AP.SLANT_L - D_TAN, T, [(x, u - e, *rest) for x, u, *rest in cut],
                 [(x, u - e, d) for x, u, d in holes]).translate((0, 0, e))
+    r = PD.CSK_D / 2 + 0.5                                                   # 键盘座 3 颗 M3 沉头：90° 锥从外表面（局部 Y 0）往里
+    for x in PD.SPEC["tongue_x"]:
+        s = s.cut(cq.Workplane().add(cq.Solid.makeCone(r, 0, r, cq.Vector(W / 2 + x, -0.5, e + PD.SCREW_U), cq.Vector(0, 1, 0))))
     u0, u1 = AP.FLANGE_U
     fl = _flange_left()
     for mirror in (False, True):

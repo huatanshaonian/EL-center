@@ -1,4 +1,4 @@
-"""丝印设计稿：png/29_silkscreen.png（两面预览，带操作件外形）+ 外壳加工/丝印/ 下 1:1 的 PDF、DXF（给丝印厂）。
+"""丝印设计稿：png/29_silkscreen.png（两面预览，带操作件外形）+ 外壳加工/丝印/ 下两面 1:1 PDF 和给嘉立创的合并 DXF（silk_dxf.py）。
 图形取自 silkscreen.py，开孔取自 assembly_panel.FEATURES。
 运行：PYTHONIOENCODING=utf-8 .venv/Scripts/python.exe fig_silkscreen.py"""
 import os
@@ -8,7 +8,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import PathPatch, Rectangle, Circle, FancyBboxPatch
 from matplotlib.path import Path
-import ezdxf
 import assembly_panel as AP
 import parts_dock as PD
 import parts_panel as F
@@ -110,31 +109,8 @@ def pdf_1to1(face, fname):
     print("saved", fname)
 
 
-def dxf(face, fname):
-    """DXF：SILK 层 = 丝印（闭合多段线 + 实心填充），REF 层 = 外形与开孔"""
-    doc = ezdxf.new("R2010", units=ezdxf.units.MM)
-    doc.layers.add("SILK", color=7); doc.layers.add("REF", color=1)
-    msp = doc.modelspace()
-    for o, hs in dict(S.elements())[face]:
-        hatch = msp.add_hatch(color=7, dxfattribs=dict(layer="SILK"))
-        hatch.paths.add_polyline_path([tuple(p) for p in o], is_closed=True, flags=ezdxf.const.BOUNDARY_PATH_EXTERNAL)
-        msp.add_lwpolyline([tuple(p) for p in o], close=True, dxfattribs=dict(layer="SILK"))
-        for hl in hs:
-            hatch.paths.add_polyline_path([tuple(p) for p in hl], is_closed=True)
-            msp.add_lwpolyline([tuple(p) for p in hl], close=True, dxfattribs=dict(layer="SILK"))
-    (x0, y0, w, h), _ = FACE[face]
-    msp.add_lwpolyline([(x0, y0), (x0 + w, y0), (x0 + w, y0 + h), (x0, y0 + h)], close=True, dxfattribs=dict(layer="REF"))
-    cut, holes = AP.FEATURES[face]
-    for c in cut:
-        x, y, cw, ch = c[:4]
-        msp.add_lwpolyline([(x, y), (x + cw, y), (x + cw, y + ch), (x, y + ch)], close=True, dxfattribs=dict(layer="REF"))
-    for x, y, d in holes:
-        msp.add_circle((x, y), d / 2, dxfattribs=dict(layer="REF"))
-    doc.saveas(fname)
-    print("saved", fname)
-
-
 def main():
+    import silk_dxf
     AP.front_panel(); AP.slant()                                                   # 填 FEATURES
     for m in S.check():
         print("CHECK", m)
@@ -142,7 +118,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for face, name in (("front", "前面板"), ("slant", "斜面")):
         pdf_1to1(face, f"{OUT}/丝印_{name}_1比1.pdf")
-        dxf(face, f"{OUT}/丝印_{name}.dxf")
+    silk_dxf.write(f"{OUT}/{silk_dxf.NAME}")
 
 
 if __name__ == "__main__":
