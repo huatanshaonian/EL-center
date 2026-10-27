@@ -41,7 +41,8 @@ def chip(ax, x0, title, wiring):
     w, pitch, top = 3.2, 1.0, 13.5
     body = Rectangle((x0, top - 13 * pitch - 0.7), w, 13 * pitch + 1.4, fc="#2b2b2b", ec="black", lw=1.5)
     ax.add_patch(body)
-    ax.add_patch(Circle((x0 + 1.15, top - 0.05), 0.24, fc="#9e9e9e", ec="none"))            # 1 脚圆点
+    ax.add_patch(Circle((x0 + 1.15, top - 0.05), 0.24, fc="#9e9e9e", ec="none"))
+    ax.add_patch(matplotlib.patches.Wedge((x0 + w / 2, top + 0.7), 0.45, 180, 360, fc="white", ec="#555", lw=1))  # 半圆缺口（有的芯片只有这个）            # 1 脚圆点
     ax.plot([x0 + 0.08, x0 + 0.08], [top - 13 * pitch - 0.62, top + 0.62], color="#bdbdbd", lw=3)  # 1–14 侧倒角
     ax.text(x0 + w / 2, top - 6.5 * pitch, "MAX6921AWI", color="white", ha="center", va="center",
             fontproperties=F, fontsize=10, rotation=270)  # 字底朝 1–14 脚那条长边
@@ -82,6 +83,7 @@ ax.add_patch(FancyArrowPatch((x0 + 0.5, top - 13.3), (x0 + w - 0.5, top - 13.3),
 ax.text(0.2, -1.6,
         "认 1 脚：\n"
         "• 芯片表面有个小圆坑（圆点）的那个角就是 1 脚。\n"
+        "• 也有的是一头有半圆缺口：缺口朝上，缺口左边第一只是 1 脚。\n"
         "• 没有圆点时，看两条长边：带斜面（倒角）的那条长边是 1–14 脚这一排。\n"
         "• 多数芯片字正着读时，1 脚在左下角（左图是把芯片顺时针转了 90° 画的）。\n"
         "• 数法：1 脚在左上，沿左边往下数到 14，绕到右下是 15，沿右边往上数到 28（逆时针一圈）。",
@@ -90,9 +92,9 @@ ax.text(0.2, -1.6,
 # 右：测试座接线
 x1, *_ = chip(ax, 22.6, "② 放进测试座后，面包板上每只脚接什么", wiring=True)
 ax.text(17.2, -1.6,
-        "测试座：翻盖座上有“1”或三角形标记，芯片 1 脚（圆点）对准这个标记放进去再合盖。\n"
+        "测试座：翻盖座上有“1”或三角形标记，芯片 1 脚（圆点或缺口那头）对准这个标记放进去再合盖。\n"
         "座子下面的 28 根针就是标准 DIP-28 排法：和左图一样逆时针数，针号 = 芯片脚号，一一对应。\n"
-        "插面包板时让两排针跨在中间的槽上，1 脚放左上，面包板的行号就好对了。\n"
+        "座子针插不进面包板时，按 png/32 用杜邦线母头直接套针；合盖后用通断档确认 1、28 号针各通到芯片对应脚。\n"
         "上电顺序：先给 28 脚 3.3 V，再给 1 脚 VBB；断电反过来。\n"
         "红 = 电源　黑 = 地　蓝 = 控制 / 读数脚　灰 = 20 个输出 OUT0–OUT19（用表量对地电压）",
         fontproperties=F, fontsize=10, va="top", ha="left")
