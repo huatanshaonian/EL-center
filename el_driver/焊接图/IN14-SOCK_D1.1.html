@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IN14-SOCK D1.1 焊接图</title>
+<style>
+:root{--bg:#f6f5f1;--fg:#1d1d1b;--muted:#6b6a64;--card:#fff;--line:#dcdad3;--pcb:#0f4d2c;--silk:#f3f1e8;--pad:#c9a646;--hl:#e8483b;--done:#9a9890}
+@media (prefers-color-scheme: dark){:root{--bg:#161614;--fg:#ecebe6;--muted:#9a9890;--card:#1f1f1c;--line:#34332f;--pcb:#0d3d24;--silk:#e9e6da;--pad:#b8963c;--hl:#ff6a5c;--done:#6b6a64}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,"Microsoft YaHei",sans-serif}
+header{padding:10px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+h1{font-size:17px;margin:0}.note{color:var(--muted);font-size:13px;flex-basis:100%}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:4px 10px;border-radius:6px;cursor:pointer}
+.btn.on{background:var(--fg);color:var(--bg)}
+main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:calc(100vh - 62px)}
+@media (max-width:820px){main{grid-template-columns:1fr;height:auto}#view{height:60vh}}
+#view{background:var(--pcb);position:relative;overflow:hidden}svg{width:100%;height:100%}
+.ol{fill:none;stroke:#ffd84a;stroke-linecap:round}.olf{fill:none}
+.st,.sb{fill:none;stroke:var(--silk);stroke-linecap:round;stroke-linejoin:round;opacity:.85}.stf,.sbf{fill:var(--silk);opacity:.85}
+.pad{fill:var(--pad);opacity:.9}.pad.hole{stroke:#000;stroke-opacity:.35;stroke-width:.15}
+.pad.p1{fill:#e2c25a}.pad.dim{opacity:.25}.pad.sel{fill:var(--hl);opacity:1}
+.box{fill:none;stroke:var(--hl);stroke-width:.35;stroke-dasharray:1 .6}
+#list{overflow:auto;border-left:1px solid var(--line)}
+.grp{display:grid;grid-template-columns:22px 1fr auto;gap:2px 8px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+.grp:hover{background:var(--card)}.grp.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}
+.grp .v{font-weight:600}.grp .d{grid-column:2;color:var(--muted);font-size:12.5px;word-break:break-all}
+.grp .m{grid-column:2;color:var(--muted);font-size:12px}
+.grp.done .v,.grp.done .d{color:var(--done);text-decoration:line-through}
+.grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
+.grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
+.loc .warn{color:var(--hl)}.loc .q{color:var(--muted)}
+.old{display:inline-block;font-weight:700;font-size:12px;background:#f59e0b;color:#1d1d1b;border-radius:4px;padding:0 6px;margin-right:4px}
+.ov{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.6}
+.blk{padding:7px 12px;border-bottom:1px solid var(--line);cursor:pointer}.blk:hover{background:var(--card)}
+.blk.act{background:var(--card);box-shadow:inset 3px 0 0 var(--hl)}.blk .bn{font-weight:600}.blk .bc{color:var(--muted);font-size:12px;margin-left:6px}
+.blk .bt,.grp .ex{display:none;font-size:13px;line-height:1.6;margin-top:4px;white-space:pre-wrap}
+.blk.act .bt{display:block}.grp.act .ex{display:block;grid-column:2}
+.tips{display:block;margin-top:4px;color:var(--hl)}.ex .pd{display:block}.ex .pd b{font-weight:600}
+.chip{display:inline-block;font-size:12px;border:1px solid var(--hl);color:var(--hl);border-radius:10px;padding:0 7px;margin:4px 4px 0 0;cursor:pointer}
+.sec.tg{cursor:pointer}
+.th{grid-column:3;grid-row:1/span 3;width:80px;height:80px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:4px;cursor:zoom-in}
+.idn{grid-column:2;font-size:12.5px;color:var(--muted)}.band{display:inline-block;width:14px;height:14px;border-radius:2px;border:1px solid #0006;vertical-align:-2px;margin-right:2px}
+#pic{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}#pic img{max-width:90vw;max-height:90vh;background:#fff;border-radius:6px}
+.sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
+#tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
+</style></head><body>
+<header><h1>IN14-SOCK D1.1 焊接图</h1>
+<button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
+<button class="btn" id="bSort">按格子排</button><span id="prog" style="color:var(--muted)"></span>
+<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。点开一行能看到每个元件的作用；最上面“电路说明”讲每一块电路的原理，点一块板上就高亮那一块；点板上的焊盘会跳到它那一行。做 7 块（6 装机 + 1 备）。D1.1：正面只装管子（电木底座 Ø18.5 平贴板面），R_A、R_PR、J1 全在背面。顺序：背面 R_PR（0805 0 Ω）→ R_A（身子贴背面，从背面焊，正面剪平）→ J1 → 最后管子（背面焊、剪脚 ≤ 2 mm）。</div></header>
+<main><div id="view"><svg id="svg" viewBox="-2.00 -42.00 25.00 44.00">
+<g id="flip"><g id="silkB"><path class="sb" d="M1.869,-25.814 L1.869,-26.309 L1.839,-26.400 L1.808,-26.433 L1.745,-26.464 L1.684,-26.464 L1.620,-26.433 L1.590,-26.400 L1.559,-26.309 L1.559,-26.245" stroke-width="0.152"/>
+<path class="sb" d="M2.171,-25.938 L2.232,-25.905 L2.324,-25.814 L2.324,-26.464" stroke-width="0.152"/>
+<path class="sb" d="M6.320,-22.277 L6.320,-22.844" stroke-width="0.152"/>
+<path class="sb" d="M6.320,-22.277 L6.564,-22.277 L6.645,-22.303 L6.671,-22.331 L6.699,-22.384 L6.699,-22.437 L6.671,-22.493 L6.645,-22.519 L6.564,-22.547 L6.320,-22.547" stroke-width="0.152"/>
+<path class="sb" d="M6.508,-22.547 L6.699,-22.844" stroke-width="0.152"/>
+<path class="sb" d="M6.981,-23.032 L7.466,-23.032" stroke-width="0.152"/>
+<path class="sb" d="M7.964,-22.277 L7.748,-22.844" stroke-width="0.152"/>
+<path class="sb" d="M7.964,-22.277 L8.180,-22.844" stroke-width="0.152"/>
+<path class="sb" d="M7.829,-22.653 L8.098,-22.653" stroke-width="0.152"/>
+<path class="sb" d="M1.120,-19.275 L1.435,-19.275" stroke-width="0.152"/>
+<path class="sb" d="M1.120,-19.275 L1.120,-19.140 L1.135,-19.094 L1.150,-19.079 L1.181,-19.064 L1.209,-19.064 L1.239,-19.079 L1.254,-19.094 L1.270,-19.140 L1.270,-19.275" stroke-width="0.152"/>
+<path class="sb" d="M1.270,-19.168 L1.435,-19.064" stroke-width="0.152"/>
+<path class="sb" d="M1.541,-18.838 L1.541,-18.569" stroke-width="0.152"/>
+<path class="sb" d="M1.120,-18.343 L1.435,-18.343" stroke-width="0.152"/>
+<path class="sb" d="M1.120,-18.343 L1.120,-18.208 L1.135,-18.162 L1.150,-18.147 L1.181,-18.132 L1.224,-18.132 L1.254,-18.147 L1.270,-18.162 L1.285,-18.208 L1.285,-18.343" stroke-width="0.152"/>
+<path class="sb" d="M1.120,-17.906 L1.435,-17.906" stroke-width="0.152"/>
+<path class="sb" d="M1.435,-17.906 L1.435,-17.725" stroke-width="0.152"/>
+<path class="sb" d="M19.520,-19.290 L19.835,-19.290" stroke-width="0.152"/>
+<path class="sb" d="M19.520,-19.290 L19.520,-19.155 L19.535,-19.110 L19.550,-19.094 L19.581,-19.079 L19.609,-19.079 L19.639,-19.094 L19.654,-19.110 L19.670,-19.155 L19.670,-19.290" stroke-width="0.152"/>
+<path class="sb" d="M19.670,-19.183 L19.835,-19.079" stroke-width="0.152"/>
+<path class="sb" d="M19.941,-18.853 L19.941,-18.584" stroke-width="0.152"/>
+<path class="sb" d="M19.520,-18.358 L19.835,-18.358" stroke-width="0.152"/>
+<path class="sb" d="M19.520,-18.358 L19.520,-18.223 L19.535,-18.177 L19.550,-18.162 L19.581,-18.147 L19.624,-18.147 L19.654,-18.162 L19.670,-18.177 L19.685,-18.223 L19.685,-18.358" stroke-width="0.152"/>
+<path class="sb" d="M19.520,-17.921 L19.835,-17.921" stroke-width="0.152"/>
+<path class="sb" d="M19.520,-17.921 L19.520,-17.786 L19.535,-17.741 L19.550,-17.725 L19.581,-17.710 L19.609,-17.710 L19.639,-17.725 L19.654,-17.741 L19.670,-17.786 L19.670,-17.921" stroke-width="0.152"/>
+<path class="sb" d="M19.670,-17.817 L19.835,-17.710" stroke-width="0.152"/>
+<path class="sb" d="M6.894,-25.663 L6.894,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M6.894,-25.663 L6.988,-25.663 L7.029,-25.647 L7.057,-25.622 L7.070,-25.594 L7.082,-25.553 L7.082,-25.487 L7.070,-25.447 L7.057,-25.419 L7.029,-25.391 L6.988,-25.378 L6.894,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M7.275,-25.663 L7.275,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M7.275,-25.663 L7.395,-25.663 L7.435,-25.647 L7.451,-25.635 L7.463,-25.607 L7.463,-25.569 L7.451,-25.541 L7.435,-25.528 L7.395,-25.513 L7.275,-25.513" stroke-width="0.127"/>
+<path class="sb" d="M7.669,-25.541 L7.656,-25.528 L7.669,-25.513 L7.682,-25.528 L7.669,-25.541" stroke-width="0.127"/>
+<path class="sb" d="M7.669,-25.447 L7.656,-25.431 L7.669,-25.419 L7.682,-25.431 L7.669,-25.447" stroke-width="0.127"/>
+<path class="sb" d="M8.177,-25.663 L8.177,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M8.177,-25.663 L8.352,-25.663" stroke-width="0.127"/>
+<path class="sb" d="M8.177,-25.528 L8.284,-25.528" stroke-width="0.127"/>
+<path class="sb" d="M8.545,-25.663 L8.545,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M8.832,-25.663 L8.832,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M8.739,-25.663 L8.926,-25.663" stroke-width="0.127"/>
+<path class="sb" d="M9.422,-25.663 L9.422,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M9.422,-25.663 L9.541,-25.663 L9.582,-25.647 L9.597,-25.635 L9.610,-25.607 L9.610,-25.581 L9.597,-25.553 L9.582,-25.541 L9.541,-25.528 L9.422,-25.528" stroke-width="0.127"/>
+<path class="sb" d="M9.516,-25.528 L9.610,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M9.803,-25.284 L10.044,-25.284" stroke-width="0.127"/>
+<path class="sb" d="M10.237,-25.663 L10.237,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M10.237,-25.663 L10.356,-25.663 L10.397,-25.647 L10.412,-25.635 L10.425,-25.607 L10.425,-25.569 L10.412,-25.541 L10.397,-25.528 L10.356,-25.513 L10.237,-25.513" stroke-width="0.127"/>
+<path class="sb" d="M10.618,-25.663 L10.618,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M10.618,-25.663 L10.737,-25.663 L10.778,-25.647 L10.793,-25.635 L10.806,-25.607 L10.806,-25.581 L10.793,-25.553 L10.778,-25.541 L10.737,-25.528 L10.618,-25.528" stroke-width="0.127"/>
+<path class="sb" d="M10.712,-25.528 L10.806,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M11.395,-25.716 L11.367,-25.688 L11.339,-25.647 L11.314,-25.594 L11.301,-25.528 L11.301,-25.472 L11.314,-25.406 L11.339,-25.353 L11.367,-25.312 L11.395,-25.284" stroke-width="0.127"/>
+<path class="sb" d="M11.588,-25.663 L11.588,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M11.588,-25.378 L11.748,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M11.954,-25.541 L11.941,-25.528 L11.954,-25.513 L11.967,-25.528 L11.954,-25.541" stroke-width="0.127"/>
+<path class="sb" d="M11.954,-25.447 L11.941,-25.431 L11.954,-25.419 L11.967,-25.431 L11.954,-25.447" stroke-width="0.127"/>
+<path class="sb" d="M12.462,-25.663 L12.462,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M12.462,-25.663 L12.582,-25.663 L12.622,-25.647 L12.637,-25.635 L12.650,-25.607 L12.650,-25.581 L12.637,-25.553 L12.622,-25.541 L12.582,-25.528 L12.462,-25.528" stroke-width="0.127"/>
+<path class="sb" d="M12.556,-25.528 L12.650,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M12.843,-25.284 L13.084,-25.284" stroke-width="0.127"/>
+<path class="sb" d="M13.277,-25.663 L13.277,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M13.277,-25.663 L13.397,-25.663 L13.438,-25.647 L13.453,-25.635 L13.465,-25.607 L13.465,-25.569 L13.453,-25.541 L13.438,-25.528 L13.397,-25.513 L13.277,-25.513" stroke-width="0.127"/>
+<path class="sb" d="M13.658,-25.663 L13.658,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M13.658,-25.378 L13.819,-25.378" stroke-width="0.127"/>
+<path class="sb" d="M14.012,-25.716 L14.037,-25.688 L14.065,-25.647 L14.090,-25.594 L14.106,-25.528 L14.106,-25.472 L14.090,-25.406 L14.065,-25.353 L14.037,-25.312 L14.012,-25.284" stroke-width="0.127"/>
+<path class="sb" d="M4.200,-29.550 L1.610,-29.550" stroke-width="0.254"/>
+<path class="sb" d="M4.200,-32.090 L4.200,-29.550" stroke-width="0.254"/>
+<path class="sb" d="M1.610,-32.090 L19.390,-32.090" stroke-width="0.254"/>
+<path class="sb" d="M1.610,-27.010 L1.610,-32.090" stroke-width="0.254"/>
+<path class="sb" d="M19.390,-27.010 L1.610,-27.010" stroke-width="0.254"/>
+<path class="sb" d="M19.390,-32.090 L19.390,-27.010" stroke-width="0.254"/>
+<path class="sb" d="M2.931,-22.600 L4.000,-22.600" stroke-width="0.254"/>
+<path class="sb" d="M10.500,-22.604 L11.569,-22.604" stroke-width="0.254"/>
+<path class="sb" d="M4.000,-23.750 L4.000,-21.450" stroke-width="0.254"/>
+<path class="sb" d="M4.000,-21.450 L10.500,-21.450" stroke-width="0.254"/>
+<path class="sb" d="M10.500,-21.480 L10.500,-23.720" stroke-width="0.254"/>
+<path class="sb" d="M10.500,-23.750 L4.000,-23.750" stroke-width="0.254"/>
+<path class="sb" d="M5.476,-19.417 L6.761,-19.417 L6.761,-17.583 L5.476,-17.583" stroke-width="0.152"/>
+<path class="sb" d="M4.524,-19.417 L3.239,-19.417 L3.239,-17.583 L4.524,-17.583" stroke-width="0.152"/>
+<path class="sb" d="M15.524,-17.583 L14.239,-17.583 L14.239,-19.417 L15.524,-19.417" stroke-width="0.152"/>
+<path class="sb" d="M16.476,-17.583 L17.761,-17.583 L17.761,-19.417 L16.476,-19.417" stroke-width="0.152"/></g><g id="silkT"><path class="st" d="M10.177,-23.097 L10.744,-23.313" stroke-width="0.152"/>
+<path class="st" d="M10.177,-23.529 L10.744,-23.313" stroke-width="0.152"/>
+<path class="st" d="M10.284,-23.811 L10.256,-23.864 L10.177,-23.945 L10.744,-23.945" stroke-width="0.152"/>
+<path class="st" d="M5.875,-1.239 L5.875,-0.822" stroke-width="0.127"/>
+<path class="st" d="M5.875,-1.239 L6.134,-1.239" stroke-width="0.127"/>
+<path class="st" d="M5.875,-1.041 L6.035,-1.041" stroke-width="0.127"/>
+<path class="st" d="M6.357,-1.239 L6.357,-0.822" stroke-width="0.127"/>
+<path class="st" d="M6.357,-1.239 L6.535,-1.239 L6.593,-1.218 L6.614,-1.198 L6.634,-1.157 L6.634,-1.119 L6.614,-1.079 L6.593,-1.058 L6.535,-1.041 L6.357,-1.041" stroke-width="0.127"/>
+<path class="st" d="M6.494,-1.041 L6.634,-0.822" stroke-width="0.127"/>
+<path class="st" d="M6.974,-1.239 L6.936,-1.218 L6.896,-1.178 L6.875,-1.140 L6.858,-1.079 L6.858,-0.980 L6.875,-0.921 L6.896,-0.881 L6.936,-0.840 L6.974,-0.822 L7.056,-0.822 L7.094,-0.840 L7.135,-0.881 L7.155,-0.921 L7.175,-0.980 L7.175,-1.079 L7.155,-1.140 L7.135,-1.178 L7.094,-1.218 L7.056,-1.239 L6.974,-1.239" stroke-width="0.127"/>
+<path class="st" d="M7.399,-1.239 L7.399,-0.822" stroke-width="0.127"/>
+<path class="st" d="M7.399,-1.239 L7.676,-0.822" stroke-width="0.127"/>
+<path class="st" d="M7.676,-1.239 L7.676,-0.822" stroke-width="0.127"/>
+<path class="st" d="M8.036,-1.239 L8.036,-0.822" stroke-width="0.127"/>
+<path class="st" d="M7.899,-1.239 L8.176,-1.239" stroke-width="0.127"/>
+<path class="st" d="M9.288,-1.239 L9.288,-0.822" stroke-width="0.127"/>
+<path class="st" d="M9.512,-1.239 L9.512,-0.822" stroke-width="0.127"/>
+<path class="st" d="M9.512,-1.239 L9.789,-0.822" stroke-width="0.127"/>
+<path class="st" d="M9.789,-1.239 L9.789,-0.822" stroke-width="0.127"/>
+<path class="st" d="M10.012,-1.157 L10.050,-1.178 L10.111,-1.239 L10.111,-0.822" stroke-width="0.127"/>
+<path class="st" d="M10.533,-1.239 L10.335,-0.959 L10.632,-0.959" stroke-width="0.127"/>
+<path class="st" d="M10.533,-1.239 L10.533,-0.822" stroke-width="0.127"/>
+<path class="st" d="M10.856,-1.000 L11.211,-1.000" stroke-width="0.127"/>
+<path class="st" d="M11.712,-1.178 L11.671,-1.218 L11.613,-1.239 L11.534,-1.239 L11.473,-1.218 L11.435,-1.178 L11.435,-1.140 L11.453,-1.099 L11.473,-1.079 L11.513,-1.058 L11.633,-1.020 L11.671,-1.000 L11.691,-0.980 L11.712,-0.942 L11.712,-0.881 L11.671,-0.840 L11.613,-0.822 L11.534,-0.822 L11.473,-0.840 L11.435,-0.881" stroke-width="0.127"/>
+<path class="st" d="M12.052,-1.239 L12.014,-1.218 L11.973,-1.178 L11.953,-1.140 L11.935,-1.079 L11.935,-0.980 L11.953,-0.921 L11.973,-0.881 L12.014,-0.840 L12.052,-0.822 L12.133,-0.822 L12.171,-0.840 L12.212,-0.881 L12.232,-0.921 L12.253,-0.980 L12.253,-1.079 L12.232,-1.140 L12.212,-1.178 L12.171,-1.218 L12.133,-1.239 L12.052,-1.239" stroke-width="0.127"/>
+<path class="st" d="M12.773,-1.140 L12.753,-1.178 L12.712,-1.218 L12.674,-1.239 L12.593,-1.239 L12.555,-1.218 L12.514,-1.178 L12.494,-1.140 L12.476,-1.079 L12.476,-0.980 L12.494,-0.921 L12.514,-0.881 L12.555,-0.840 L12.593,-0.822 L12.674,-0.822 L12.712,-0.840 L12.753,-0.881 L12.773,-0.921" stroke-width="0.127"/>
+<path class="st" d="M12.997,-1.239 L12.997,-0.822" stroke-width="0.127"/>
+<path class="st" d="M13.274,-1.239 L12.997,-0.959" stroke-width="0.127"/>
+<path class="st" d="M13.096,-1.058 L13.274,-0.822" stroke-width="0.127"/>
+<path class="st" d="M13.942,-1.239 L13.942,-0.822" stroke-width="0.127"/>
+<path class="st" d="M13.942,-1.239 L14.079,-1.239 L14.140,-1.218 L14.178,-1.178 L14.198,-1.140 L14.219,-1.079 L14.219,-0.980 L14.198,-0.921 L14.178,-0.881 L14.140,-0.840 L14.079,-0.822 L13.942,-0.822" stroke-width="0.127"/>
+<path class="st" d="M14.442,-1.157 L14.480,-1.178 L14.541,-1.239 L14.541,-0.822" stroke-width="0.127"/>
+<path class="st" d="M14.782,-0.921 L14.765,-0.901 L14.782,-0.881 L14.803,-0.901 L14.782,-0.921" stroke-width="0.127"/>
+<path class="st" d="M15.026,-1.157 L15.064,-1.178 L15.125,-1.239 L15.125,-0.822" stroke-width="0.127"/>
+<path class="st" d="M6.451,-22.180 L6.451,-21.865" stroke-width="0.127"/>
+<path class="st" d="M6.451,-22.180 L6.586,-22.180 L6.632,-22.165 L6.647,-22.150 L6.662,-22.119 L6.662,-22.076 L6.647,-22.046 L6.632,-22.030 L6.586,-22.015 L6.451,-22.015" stroke-width="0.127"/>
+<path class="st" d="M6.863,-22.180 L6.863,-21.865" stroke-width="0.127"/>
+<path class="st" d="M7.064,-22.180 L7.064,-21.865" stroke-width="0.127"/>
+<path class="st" d="M7.064,-22.180 L7.274,-21.865" stroke-width="0.127"/>
+<path class="st" d="M7.274,-22.180 L7.274,-21.865" stroke-width="0.127"/>
+<path class="st" d="M7.475,-22.119 L7.503,-22.135 L7.549,-22.180 L7.549,-21.865" stroke-width="0.127"/>
+<path class="st" d="M7.066,-39.513 L7.066,-39.228" stroke-width="0.127"/>
+<path class="st" d="M7.066,-39.513 L7.188,-39.513 L7.228,-39.497 L7.241,-39.485 L7.254,-39.457 L7.254,-39.431 L7.241,-39.403 L7.228,-39.391 L7.188,-39.378" stroke-width="0.127"/>
+<path class="st" d="M7.066,-39.378 L7.188,-39.378 L7.228,-39.363 L7.241,-39.350 L7.254,-39.322 L7.254,-39.281 L7.241,-39.256 L7.228,-39.241 L7.188,-39.228 L7.066,-39.228" stroke-width="0.127"/>
+<path class="st" d="M7.554,-39.513 L7.447,-39.228" stroke-width="0.127"/>
+<path class="st" d="M7.554,-39.513 L7.663,-39.228" stroke-width="0.127"/>
+<path class="st" d="M7.485,-39.322 L7.622,-39.322" stroke-width="0.127"/>
+<path class="st" d="M8.044,-39.472 L8.016,-39.497 L7.975,-39.513 L7.922,-39.513 L7.881,-39.497 L7.856,-39.472 L7.856,-39.444 L7.869,-39.419 L7.881,-39.403 L7.909,-39.391 L7.990,-39.363 L8.016,-39.350 L8.031,-39.337 L8.044,-39.309 L8.044,-39.269 L8.016,-39.241 L7.975,-39.228 L7.922,-39.228 L7.881,-39.241 L7.856,-39.269" stroke-width="0.127"/>
+<path class="st" d="M8.237,-39.513 L8.237,-39.228" stroke-width="0.127"/>
+<path class="st" d="M8.237,-39.513 L8.412,-39.513" stroke-width="0.127"/>
+<path class="st" d="M8.237,-39.378 L8.344,-39.378" stroke-width="0.127"/>
+<path class="st" d="M8.237,-39.228 L8.412,-39.228" stroke-width="0.127"/>
+<path class="st" d="M8.907,-39.513 L8.907,-39.228" stroke-width="0.127"/>
+<path class="st" d="M8.907,-39.513 L9.083,-39.513" stroke-width="0.127"/>
+<path class="st" d="M8.907,-39.378 L9.014,-39.378" stroke-width="0.127"/>
+<path class="st" d="M9.276,-39.513 L9.276,-39.228" stroke-width="0.127"/>
+<path class="st" d="M9.276,-39.228 L9.436,-39.228" stroke-width="0.127"/>
+<path class="st" d="M9.629,-39.513 L9.629,-39.309 L9.641,-39.269 L9.667,-39.241 L9.708,-39.228 L9.735,-39.228 L9.776,-39.241 L9.804,-39.269 L9.817,-39.309 L9.817,-39.513" stroke-width="0.127"/>
+<path class="st" d="M10.198,-39.472 L10.170,-39.497 L10.129,-39.513 L10.076,-39.513 L10.035,-39.497 L10.010,-39.472 L10.010,-39.444 L10.022,-39.419 L10.035,-39.403 L10.063,-39.391 L10.144,-39.363 L10.170,-39.350 L10.185,-39.337 L10.198,-39.309 L10.198,-39.269 L10.170,-39.241 L10.129,-39.228 L10.076,-39.228 L10.035,-39.241 L10.010,-39.269" stroke-width="0.127"/>
+<path class="st" d="M10.391,-39.513 L10.391,-39.228" stroke-width="0.127"/>
+<path class="st" d="M10.579,-39.513 L10.579,-39.228" stroke-width="0.127"/>
+<path class="st" d="M10.391,-39.378 L10.579,-39.378" stroke-width="0.127"/>
+<path class="st" d="M11.153,-39.513 L11.127,-39.497 L11.099,-39.472 L11.087,-39.444 L11.074,-39.403 L11.074,-39.337 L11.087,-39.297 L11.099,-39.269 L11.127,-39.241 L11.153,-39.228 L11.209,-39.228 L11.234,-39.241 L11.262,-39.269 L11.275,-39.297 L11.290,-39.337 L11.290,-39.403 L11.275,-39.444 L11.262,-39.472 L11.234,-39.497 L11.209,-39.513 L11.153,-39.513" stroke-width="0.127"/>
+<path class="st" d="M11.483,-39.513 L11.483,-39.228" stroke-width="0.127"/>
+<path class="st" d="M11.483,-39.513 L11.671,-39.228" stroke-width="0.127"/>
+<path class="st" d="M11.671,-39.513 L11.671,-39.228" stroke-width="0.127"/>
+<path class="st" d="M12.166,-39.513 L12.166,-39.228" stroke-width="0.127"/>
+<path class="st" d="M12.166,-39.513 L12.286,-39.513 L12.326,-39.497 L12.341,-39.485 L12.354,-39.457 L12.354,-39.431 L12.341,-39.403 L12.326,-39.391 L12.286,-39.378" stroke-width="0.127"/>
+<path class="st" d="M12.166,-39.378 L12.286,-39.378 L12.326,-39.363 L12.341,-39.350 L12.354,-39.322 L12.354,-39.281 L12.341,-39.256 L12.326,-39.241 L12.286,-39.228 L12.166,-39.228" stroke-width="0.127"/>
+<path class="st" d="M12.626,-39.513 L12.601,-39.497 L12.573,-39.472 L12.560,-39.444 L12.547,-39.403 L12.547,-39.337 L12.560,-39.297 L12.573,-39.269 L12.601,-39.241 L12.626,-39.228 L12.682,-39.228 L12.707,-39.241 L12.735,-39.269 L12.748,-39.297 L12.763,-39.337 L12.763,-39.403 L12.748,-39.444 L12.735,-39.472 L12.707,-39.497 L12.682,-39.513 L12.626,-39.513" stroke-width="0.127"/>
+<path class="st" d="M13.063,-39.513 L12.956,-39.228" stroke-width="0.127"/>
+<path class="st" d="M13.063,-39.513 L13.172,-39.228" stroke-width="0.127"/>
+<path class="st" d="M12.994,-39.322 L13.131,-39.322" stroke-width="0.127"/>
+<path class="st" d="M13.365,-39.513 L13.365,-39.228" stroke-width="0.127"/>
+<path class="st" d="M13.365,-39.513 L13.485,-39.513 L13.525,-39.497 L13.540,-39.485 L13.553,-39.457 L13.553,-39.431 L13.540,-39.403 L13.525,-39.391 L13.485,-39.378 L13.365,-39.378" stroke-width="0.127"/>
+<path class="st" d="M13.459,-39.378 L13.553,-39.228" stroke-width="0.127"/>
+<path class="st" d="M13.746,-39.513 L13.746,-39.228" stroke-width="0.127"/>
+<path class="st" d="M13.746,-39.513 L13.840,-39.513 L13.881,-39.497 L13.906,-39.472 L13.921,-39.444 L13.934,-39.403 L13.934,-39.337 L13.921,-39.297 L13.906,-39.269 L13.881,-39.241 L13.840,-39.228 L13.746,-39.228" stroke-width="0.127"/>
+<path class="st" d="M10.500,-21.600 L10.500,-22.600" stroke-width="0.203"/>
+<path class="st" d="M19.750,-12.000 L19.715,-11.194 L19.609,-10.394 L19.435,-9.606 L19.192,-8.836 L18.883,-8.091 L18.511,-7.375 L18.077,-6.694 L17.586,-6.054 L17.041,-5.459 L16.446,-4.914 L15.806,-4.423 L15.125,-3.989 L14.409,-3.617 L13.664,-3.308 L12.894,-3.065 L12.106,-2.891 L11.306,-2.785 L10.500,-2.750 L9.694,-2.785 L8.894,-2.891 L8.106,-3.065 L7.336,-3.308 L6.591,-3.617 L5.875,-3.989 L5.194,-4.423 L4.554,-4.914 L3.959,-5.459 L3.414,-6.054 L2.923,-6.694 L2.489,-7.375 L2.117,-8.091 L1.808,-8.836 L1.565,-9.606 L1.391,-10.394 L1.285,-11.194 L1.250,-12.000 L1.285,-12.806 L1.391,-13.606 L1.565,-14.394 L1.808,-15.164 L2.117,-15.909 L2.489,-16.625 L2.923,-17.306 L3.414,-17.946 L3.959,-18.541 L4.554,-19.086 L5.194,-19.577 L5.875,-20.011 L6.591,-20.383 L7.336,-20.692 L8.106,-20.935 L8.894,-21.109 L9.694,-21.215 L10.500,-21.250 L11.306,-21.215 L12.106,-21.109 L12.894,-20.935 L13.664,-20.692 L14.409,-20.383 L15.125,-20.011 L15.806,-19.577 L16.446,-19.086 L17.041,-18.541 L17.586,-17.946 L18.077,-17.306 L18.511,-16.625 L18.883,-15.909 L19.192,-15.164 L19.435,-14.394 L19.609,-13.606 L19.715,-12.806 L19.750,-12.000" stroke-width="0.152"/>
+<path class="st" d="M1.500,-12.000 L19.500,-12.000 L1.500,-12.000" stroke-width="0.152"/></g><g><path class="ol" d="M0.000,-0.000 L0.000,-40.000 L21.000,-40.000 L21.000,-0.000 L0.000,-0.000" stroke-width="0.254"/></g><g id="pads"></g><g id="boxes"></g></g>
+</svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main><div id="pic"><img alt=""></div>
+<script>
+const D = {"board": "IN14-SOCK D1.1", "groups": [{"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PR"], "smt": false, "dnp": false, "side": ["B"], "loc": {"how": "C", "cells": ["贴片阻容盒"], "stock": 100, "names": ["0805W8F0000T5E"], "img": "https://assets.lcsc.com/images/lcsc/900x900/20250904_UNI-ROYAL-0805W8F0000T5E_C17477_front.jpg", "old": [], "allOld": false}}, {"val": "22kΩ", "comment": "22kΩ", "fp": "RES-TH_BD2.3-L6.5-P10.50-D0.5", "mpn": "MF1/4W-22KΩ±1% T", "sup": "C119354", "des": ["R_A"], "smt": false, "dnp": false, "side": ["B"], "loc": {"how": "C", "cells": ["电阻盒"], "stock": 50, "names": ["MF1/4W-22KΩ±1% T"], "img": "https://assets.lcsc.com/images/lcsc/900x900/20230101_CCO-Chian-Chia-Elec-MF1-4W-22KR-1--T_C119354_front.jpg", "old": [], "allOld": false}}, {"val": "IN-14 辉光管（BOM 里是 1×13 排针占位）", "comment": "IN-14 辉光管（BOM 里是 1×13 排针占位）", "fp": "", "mpn": "IN-14 辉光管", "sup": "", "des": ["V1"], "smt": false, "dnp": false, "side": ["T"], "loc": {"how": "型号", "cells": ["大盒子"], "stock": 7, "names": ["IN-14 辉光管"], "img": null, "old": [], "allOld": false}}, {"val": "PZ254V-12-14P", "comment": "PZ254V-12-14P", "fp": "HDR-TH_14P-P2.54-V-M-R2-C7-S2.54", "mpn": "PZ254V-12-14P", "sup": "C492424", "des": ["J1"], "smt": false, "dnp": false, "side": ["B"], "loc": {"how": "C", "cells": ["B10后"], "stock": 10, "names": ["PZ254V-12-14P"], "img": "https://assets.lcsc.com/images/lcsc/900x900/20240304_XFCN-PZ254V-12-14P_C492424_front.jpg", "old": [], "allOld": false}}, {"val": "0Ω", "comment": "0Ω", "fp": "R0805", "mpn": "0805W8F0000T5E", "sup": "C17477", "des": ["R_PL"], "smt": false, "dnp": true, "side": ["B"], "loc": null}], "parts": {"J1": {"x": 10.5, "y": -29.55, "side": "B", "pads": [{"n": "1", "x": 2.88, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "R", "th": true, "l": "T", "net": "NET_1"}, {"n": "2", "x": 2.88, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "3", "x": 5.42, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "DP"}, {"n": "4", "x": 5.42, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "NET_2"}, {"n": "5", "x": 7.96, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "6", "x": 7.96, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "7", "x": 10.5, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "8", "x": 10.5, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "9", "x": 13.04, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "10", "x": 13.04, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "11", "x": 15.58, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "12", "x": 15.58, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "13", "x": 18.12, "y": -30.82, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "14", "x": 18.12, "y": -28.28, "w": 1.7, "h": 1.7, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}]}, "R_A": {"x": 7.25, "y": -22.6, "side": "B", "pads": [{"n": "1", "x": 2.0, "y": -22.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "HV"}, {"n": "2", "x": 12.5, "y": -22.6, "w": 1.4, "h": 1.4, "a": 0, "s": "C", "th": true, "l": "T", "net": "AN"}]}, "R_PL": {"x": 5.0, "y": -18.5, "side": "B", "pads": [{"n": "1", "x": 4.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "B", "net": "DP"}, {"n": "2", "x": 6.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 0, "s": "R", "th": false, "l": "B", "net": "PL"}]}, "R_PR": {"x": 16.0, "y": -18.5, "side": "B", "pads": [{"n": "1", "x": 17.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "B", "net": "DP"}, {"n": "2", "x": 15.0, "y": -18.5, "w": 1.133, "h": 1.377, "a": 180, "s": "R", "th": false, "l": "B", "net": "PR"}]}, "V1": {"x": 10.5, "y": -12.0, "side": "T", "pads": [{"n": "1", "x": 10.5, "y": -18.0, "w": 1.6, "h": 1.6, "a": 0, "s": "R", "th": true, "l": "T", "net": "AN"}, {"n": "2", "x": 7.712, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PL"}, {"n": "3", "x": 5.562, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K1"}, {"n": "4", "x": 4.544, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K2"}, {"n": "5", "x": 4.89, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K3"}, {"n": "6", "x": 6.521, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K4"}, {"n": "7", "x": 9.064, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K5"}, {"n": "8", "x": 11.936, "y": -6.174, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K6"}, {"n": "9", "x": 14.479, "y": -7.509, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K7"}, {"n": "10", "x": 16.11, "y": -9.872, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K8"}, {"n": "11", "x": 16.456, "y": -12.723, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K9"}, {"n": "12", "x": 15.438, "y": -15.408, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "K0"}, {"n": "13", "x": 13.288, "y": -17.313, "w": 1.6, "h": 1.6, "a": 0, "s": "C", "th": true, "l": "T", "net": "PR"}]}}, "hasLoc": true, "copies": 7, "when": "2026-10-28 02:22"}, N = {"board": "IN14-SOCK D1", "overview": "每只 IN-14 辉光管焊在一块 21×40 的小板上（做 7 块，6 块装机 + 1 块备用），小板底面的 2×7 排针插进驱动板 NIXIE-DRV 的排母，再用一颗 M3 螺丝和铜柱锁住。驱动板送来 170–185 V 的 HV、一路小数点和 10 路数字阴极：HV 经本板 R_A 22 k 限流后接管子阳极，阴极由驱动板的 K155ID1 选一路接地，那个数字就亮。小数点经 0 Ω 电阻 R_PR（或 R_PL）选到管子的右（或左）小数点。全板只有三部分：管子与阳极电阻、小数点左右选择、插针。V1 是管子本身，BOM 里用排针占位，不买。", "blocks": [{"name": "IN-14 管与阳极限流电阻", "refs": ["V1", "R_A"], "text": "IN-14 是辉光管：玻壳里充氖气，阳极和数字形阴极之间加上一百多伏，被接地的那个阴极表面会发橙色辉光。管脚（底视图）：1 阳极，2 左小数点，3–11 = 数字 1–9，12 = 数字 0，13 = 右小数点。辉光一旦起来，管子本身不限电流，必须串电阻限流（推断），这就是 R_A：网表 J1-2（HV）→ R_A 22 k → V1-1（网络 AN，阳极）。170 V 时阳极电流约 1.1–1.4 mA（偏暗、寿命长），185 V 时约 1.5–1.8 mA，目标 1.5–2.5 mA，嫌暗调高 HV-UNI（不超过 200 V）。小数点和数字共用这只 R_A。V1 在 BOM 里显示为 1×13 排针，只是占位，实物是自有的 IN-14；封装改成直径 12 mm 圆周 13 孔（孔 0.9、焊盘 1.6，1 脚方焊盘在后侧朝排针，7、8 脚在前）。管子直接焊在板上，玻壳底离板约 4 mm，R_A 卧装在玻壳下面。", "tips": "先焊 R_A（卧装贴板，它在玻壳下面，管子焊上后就够不着了），管子最后焊。1 脚方焊盘在后（排针一侧）；顶视图方向按“左小数点 2 脚在左”推定，装反时数字由固件 LUT 修正、小数点改焊 R_PL。玻壳底离板约 4 mm，不要压到底。焊完背面剪脚 ≤2 mm，否则顶到下方 IV-18 玻壳。高压危险：通电时 J1 2 脚和 R_A 一端是 170 V 以上，插拔前断电等放电。量阳极电流：R_A 两端电压 ÷ 22 kΩ。"}, {"name": "小数点左右选择", "refs": ["R_PR", "R_PL"], "text": "驱动板给每只管只有一路小数点（本板 J1-3，网络 DP）。IN-14 管内左右各有一个小数点（2 脚左、13 脚右），而顶视图方向是推定的，所以留了两个 0805 的 0 Ω 电阻当跳线：R_PR 把 DP 接到 13 脚（右小数点，默认焊），R_PL 把 DP 接到 2 脚（左小数点）。正常只焊 R_PR；上电后若小数点在左边亮，说明管子方向与推定相反，拆 R_PR 改焊 R_PL。两者二选一，不能都焊。两个焊盘之间穿过了阴极线，所以只能焊电阻，不能用焊锡直接桥接，否则会和阴极线短路。小数点的电流由驱动板上的 RDP 限制。", "tips": "R_PR 默认焊，R_PL 默认不焊。0805 很小：先给一个焊盘上点锡，用镊子按住电阻熔化这点锡固定，再焊另一端。没有 0 Ω 电阻可以用剪下的电阻腿当跳线（采购单注明），但不能用焊锡桥。焊后用表确认 J1-3 到管子 13 脚导通、到 2 脚不通。"}, {"name": "插针（接驱动板）", "refs": ["J1"], "text": "J1 是 2×7 直针排针，装在小板底面（PCB 底层），向下插进驱动板的排母。因为翻了面，每列两排对调，小板 J1 脚号 = 驱动板脚号奇偶互换：2 = HV、3 = 小数点 DP、6 = 数字 0、5 = 1、8 = 2、7 = 3、10 = 4、9 = 5、12 = 6、11 = 7、14 = 8、13 = 9（网表 K0–K9），1、4 不接（对应驱动板的 2、3 空脚，隔开高压）。原理图已按位置对好，插上后脚对脚。排针中心在管心后方，排针后面是 M3 孔（Ø6.6 空铜环），用 M3×11 铜柱锁到驱动板。布线时 HV、AN 两个高压网络对其他线留了 1.3 mm 间距。", "tips": "J1 装在底面：塑料座贴底面、针朝下，焊点在正面（管子那面）（推断，底层直插件常规做法）。建议先焊 J1 再焊管子，免得烙铁伸不进去（推断）。可以先把排针插在驱动板排母上对齐再焊，保证 6 块都插得进。焊针时别让锡流到 2 脚（HV）和相邻的 1、4 空脚之间。"}], "parts": {"V1": "IN-14 辉光管本体（BOM 用 1×13 排针占位，实物自有，不买）", "R_A": "阳极限流 22 k：HV → 管子 1 脚，定阳极电流", "R_PR": "0 Ω 跳线：小数点接 13 脚（右小数点），默认焊", "R_PL": "0 Ω 跳线：小数点接 2 脚（左小数点），默认不焊", "J1": "2×7 排针（底面），插驱动板：2 HV、3 小数点、5–14 数字"}}, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
+// 电路分块：每块做成和料组一样的 {des, side} 对象，选中时板上高亮
+const BLOCKS = N ? N.blocks.map(b => ({...b, des: b.refs, side: [...new Set(b.refs.map(r => (D.parts[r] || {}).side).filter(Boolean))]})) : [];
+const blocksOf = des => BLOCKS.filter(b => b.refs.includes(des));
+let done = {}; try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+let side = 'T', active = null;
+const padsG = document.getElementById('pads'), boxesG = document.getElementById('boxes');
+const padEls = {};
+for (const [des, p] of Object.entries(D.parts)) {
+  padEls[des] = [];
+  const minN = p.pads.reduce((m, q) => (/^\d+$/.test(q.n) && (m === null || +q.n < m)) ? +q.n : m, null);
+  for (const q of p.pads) {
+    const e = document.createElementNS(NS, q.s === 'C' || q.s === 'E' ? 'ellipse' : 'rect');
+    if (e.tagName === 'ellipse') { e.setAttribute('cx', q.x); e.setAttribute('cy', q.y); e.setAttribute('rx', q.w / 2); e.setAttribute('ry', q.h / 2); }
+    else { e.setAttribute('x', q.x - q.w / 2); e.setAttribute('y', q.y - q.h / 2); e.setAttribute('width', q.w); e.setAttribute('height', q.h); }
+    if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
+    e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
+    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
+    padsG.appendChild(e); padEls[des].push(e);
+  }
+}
+function render() {
+  document.getElementById('flip').setAttribute('transform', side === 'B' ? 'translate(21.00,0) scale(-1,1)' : '');
+  document.getElementById('silkT').style.display = side === 'T' ? '' : 'none';
+  document.getElementById('silkB').style.display = side === 'B' ? '' : 'none';
+  bTop.classList.toggle('on', side === 'T'); bBot.classList.toggle('on', side === 'B');
+  for (const [des, els] of Object.entries(padEls)) for (const e of els) e.style.display = (e.dataset.side === 'B' || e.dataset.side === side) ? '' : 'none';
+  const sel = new Set(active ? active.des : []);
+  boxesG.innerHTML = '';
+  for (const [des, els] of Object.entries(padEls)) for (const e of els) { e.classList.toggle('sel', sel.has(des)); e.classList.toggle('dim', !!active && !sel.has(des)); }
+  for (const des of sel) { const p = D.parts[des]; if (!p || !p.pads.length) continue;
+    const xs = p.pads.map(q => q.x), ys = p.pads.map(q => q.y), m = 1.2;
+    const r = document.createElementNS(NS, 'rect'); r.setAttribute('class', 'box');
+    r.setAttribute('x', Math.min(...xs) - m); r.setAttribute('y', Math.min(...ys) - m);
+    r.setAttribute('width', Math.max(...xs) - Math.min(...xs) + 2 * m); r.setAttribute('height', Math.max(...ys) - Math.min(...ys) + 2 * m); boxesG.appendChild(r); }
+  const hand = D.groups.filter(g => !g.smt && !g.dnp), fin = hand.filter(g => done[g.des.join(',')]).length;
+  document.getElementById('prog').textContent = `手焊 ${fin}/${hand.length} 组`;
+}
+bTop.onclick = () => { side = 'T'; render(); }; bBot.onclick = () => { side = 'B'; render(); };
+const list = document.getElementById('list');
+function sec(t) { const s = document.createElement('div'); s.className = 'sec'; s.textContent = t; list.appendChild(s); }
+// 格子编号排序：A01前 < A01后 < … < AL6后 < B01前 …，库外的（层架、大盒子）和没找到的排最后
+function cellKey(c) { const m = /^([AB])(L?)(\d+)(前|后)$/.exec(c || ''); return m ? [m[1], m[2], m[3].padStart(2, '0'), m[4] === '前' ? 0 : 1].join('') : 'zz' + (c || '~'); }
+const firstCell = g => (g.loc && g.loc.cells.length) ? g.loc.cells.slice().sort((a, b) => cellKey(a) < cellKey(b) ? -1 : 1)[0] : '';
+let byCell = false; try { byCell = localStorage.getItem('solder:byCell') === '1'; } catch (e) {}
+function locLine(g) {
+  const el = document.createElement('div'); el.className = 'loc';
+  if (!g.loc) { el.innerHTML = '<span class="warn">库里没找到这个料</span>'; return el; }
+  for (const c of g.loc.cells) { const b = document.createElement('span'); b.className = 'cell'; b.textContent = c; el.appendChild(b); }
+  if (g.loc.old && g.loc.old.length) {  // 旧库存件：可能没收进柜子，按原盒号找
+    const o = document.createElement('span'); o.className = 'old';
+    const boxes = [...new Set(g.loc.old.map(x => x[1]))].join('、');
+    o.textContent = (g.loc.allOld ? '旧库存' : '含旧库存') + ' · 原 ' + boxes + ' 盒';
+    o.title = '旧库存表里的料（' + g.loc.old.map(x => x[0]).join('、') + '）。没收进柜子的话去原盒子找；库位以 Part-DB 为准。';
+    el.appendChild(o);
+  }
+  const need = g.des.length * D.copies, st = g.loc.stock;
+  const q = document.createElement('span');
+  q.className = st && st < need ? 'warn' : 'q';
+  q.textContent = st ? ` 库存 ${st}${st < need ? `，不够（${D.copies > 1 ? `做 ${D.copies} 块` : '这块板'}要 ${need}）` : ''}` : ' 库存数量没记';
+  el.appendChild(q);
+  if (g.loc.how !== 'C' && g.loc.how !== '型号') {
+    const w = document.createElement('span'); w.className = 'q';
+    w.textContent = `（${g.loc.how === '数值' ? '按数值找的同规格料' : '同系列型号'}：${g.loc.names.join('、')}，焊前核对）`; el.appendChild(w);
+  }
+  return el;
+}
+let notesOpen = true; try { notesOpen = localStorage.getItem('solder:notes') !== '0'; } catch (e) {}
+function select(obj, el) {
+  active = active === obj ? null : obj;
+  document.querySelectorAll('.grp.act,.blk.act').forEach(x => x.classList.remove('act'));
+  if (active && el) el.classList.add('act');
+  if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; }
+  render();
+}
+function buildNotes() {
+  const h = document.createElement('div'); h.className = 'sec tg'; h.textContent = (notesOpen ? '▾ ' : '▸ ') + '电路说明（点一块看原理，板上高亮这一块）';
+  h.onclick = () => { notesOpen = !notesOpen; try { localStorage.setItem('solder:notes', notesOpen ? '1' : '0'); } catch (e) {} buildList(); };
+  list.appendChild(h);
+  if (!notesOpen) return;
+  const ov = document.createElement('div'); ov.className = 'ov'; ov.textContent = N.overview; list.appendChild(ov);
+  for (const b of BLOCKS) {
+    const el = document.createElement('div'); el.className = 'blk' + (active === b ? ' act' : ''); el.id = 'blk-' + BLOCKS.indexOf(b);
+    const n = document.createElement('div'); n.innerHTML = '<span class="bn"></span><span class="bc"></span>';
+    n.firstChild.textContent = b.name; n.lastChild.textContent = `${b.refs.length} 个元件`;
+    const t = document.createElement('div'); t.className = 'bt'; t.textContent = b.text;
+    if (b.tips) { const tp = document.createElement('span'); tp.className = 'tips'; tp.textContent = '焊接 / 上电注意：' + b.tips; t.appendChild(tp); }
+    el.append(n, t); el.onclick = () => select(b, el); list.appendChild(el);
+  }
+}
+function partNotes(g) {
+  const ex = document.createElement('div'); ex.className = 'ex';
+  const byText = new Map();
+  for (const d of g.des) { const t = N.parts[d] || ''; if (!byText.has(t)) byText.set(t, []); byText.get(t).push(d); }
+  for (const [t, ds] of byText) { if (!t) continue; const p = document.createElement('span'); p.className = 'pd'; p.innerHTML = '<b></b>：'; p.firstChild.textContent = ds.join(' '); p.append(t); ex.appendChild(p); }
+  for (const b of new Set(g.des.flatMap(blocksOf))) {
+    const c = document.createElement('span'); c.className = 'chip'; c.textContent = '属于：' + b.name;
+    c.onclick = ev => { ev.stopPropagation(); if (!notesOpen) { notesOpen = true; buildList(); } const el = document.getElementById('blk-' + BLOCKS.indexOf(b)); select(b, el); el.scrollIntoView({block: 'nearest'}); };
+    ex.appendChild(c);
+  }
+  return ex;
+}
+// 帮助认料：直插电阻画五色环（1% 金属膜），直插瓷片给出表面印的三位码，电解提示极性
+const COLORS = [['黑', '#111'], ['棕', '#7a4a1e'], ['红', '#d22'], ['橙', '#f80'], ['黄', '#fd0'], ['绿', '#2a2'], ['蓝', '#24d'], ['紫', '#82c'], ['灰', '#888'], ['白', '#fff']];
+const MULT = {'-1': ['金', '#c9a646'], '-2': ['银', '#c0c0c0']};
+function parseVal(v, unit) {
+  const m = new RegExp('([0-9.]+)\\s*([pnuµμmkKMG]?)' + unit).exec(v || ''); if (!m) return null;
+  return +m[1] * ({p: 1e-12, n: 1e-9, u: 1e-6, 'µ': 1e-6, 'μ': 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9}[m[2]] || 1);
+}
+function identLine(g) {
+  const el = document.createElement('div'); el.className = 'idn'; const fp = g.fp || '';
+  if (/^RES-TH/.test(fp)) {
+    const r = parseVal(g.val, 'Ω'); if (r === null || r <= 0) return null;
+    let e = Math.floor(Math.log10(r)) - 2, n = Math.round(r / 10 ** e);
+    if (n >= 1000) { n = Math.round(n / 10); e += 1; }
+    const ds = String(n).split('').map(Number), mult = e >= 0 ? COLORS[e] : MULT[e]; if (!mult) return null;
+    const bands = [...ds.map(d => COLORS[d]), mult, COLORS[1]];
+    el.append('色环（五环 1%）：');
+    for (const [name, c] of bands) { const b = document.createElement('span'); b.className = 'band'; b.style.background = c; b.title = name; el.appendChild(b); }
+    el.append(' ' + bands.map(b => b[0]).join(' ') + '（棕色误差环和其他环隔得稍远，从另一头开始读）');
+    return el;
+  }
+  if (/^CAP-TH_L/.test(fp)) {
+    const c = parseVal(g.val, 'F'); if (c === null) return null;
+    const pf = Math.round(c * 1e12);
+    let code = pf < 100 ? String(pf) : (() => { const e = Math.floor(Math.log10(pf)) - 1; return String(Math.round(pf / 10 ** e)) + e; })();
+    el.textContent = `瓷片/薄膜表面印“${code}”（前两位是数字，第三位是后面跟几个 0，单位 pF）`;
+    return el;
+  }
+  if (/^CAP-TH_BD/.test(fp)) { el.textContent = '电解电容：外壳印着容量和耐压，白条（−）一侧是负极，长脚是正极'; return el; }
+  return null;
+}
+const pic = document.getElementById('pic');
+pic.onclick = () => { pic.style.display = 'none'; };
+function buildList() {
+list.innerHTML = '';
+if (N) buildNotes();
+let lastSec = null;
+const order = D.groups.slice();
+if (byCell) order.sort((a, b) => { const ka = (a.smt || a.dnp ? 'zzz' : '') + cellKey(firstCell(a)), kb = (b.smt || b.dnp ? 'zzz' : '') + cellKey(firstCell(b)); return ka < kb ? -1 : ka > kb ? 1 : 0; });
+for (const g of order) {
+  const kind = g.dnp ? '不焊' : g.smt ? '嘉立创已贴（不用焊）' : byCell ? (firstCell(g) ? '格子 ' + firstCell(g) : '库里没找到') : '自己焊';
+  if (kind !== lastSec) { sec(kind); lastSec = kind; }
+  const row = document.createElement('div'); row.className = 'grp' + (g.smt || g.dnp ? ' skip' : '');
+  const k = g.des.join(','); const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[k];
+  cb.onclick = ev => { ev.stopPropagation(); done[k] = cb.checked; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} row.classList.toggle('done', cb.checked); render(); };
+  if (g.smt || g.dnp) cb.disabled = true;
+  row.classList.toggle('done', !!done[k]);
+  const v = document.createElement('div'); v.className = 'v'; v.textContent = `${g.val || g.comment}  ×${g.des.length}`;
+  if (g.side.includes('B') && !g.side.includes('T')) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = '背面'; v.appendChild(t); }
+  const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');
+  const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
+  row.append(cb, v, d, m);
+  if (g.loc && g.loc.img) {
+    const im = document.createElement('img'); im.className = 'th'; im.loading = 'lazy'; im.alt = ''; im.title = "立创商品实拍（坐标纸格子 1 mm），点开看大图";
+    im.src = g.loc.img.replace('/900x900/', '/224x224/');
+    im.onerror = () => im.remove();
+    im.onclick = ev => { ev.stopPropagation(); pic.firstChild.src = g.loc.img; pic.style.display = 'flex'; };
+    row.appendChild(im);
+  }
+  if (D.hasLoc && !g.smt && !g.dnp) row.appendChild(locLine(g));
+  if (!g.smt && !g.dnp) { const idn = identLine(g); if (idn) row.appendChild(idn); }
+  if (N) row.appendChild(partNotes(g));
+  row.id = 'grp-' + D.groups.indexOf(g);
+  row.onclick = () => select(g, row);
+  if (active === g) row.classList.add('act');
+  list.appendChild(row);
+}
+bSort.classList.toggle('on', byCell);
+}
+bSort.style.display = D.hasLoc ? '' : 'none';
+bSort.title = '格子数据来自 Part-DB，' + D.when + ' 生成';
+bSort.onclick = () => { byCell = !byCell; try { localStorage.setItem('solder:byCell', byCell ? '1' : '0'); } catch (e) {} buildList(); };
+buildList();
+const svg = document.getElementById('svg'); let vb = svg.getAttribute('viewBox').split(' ').map(Number), drag = null;
+svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect(), f = e.deltaY > 0 ? 1.15 : 1 / 1.15;
+  const px = vb[0] + (e.clientX - r.left) / r.width * vb[2], py = vb[1] + (e.clientY - r.top) / r.height * vb[3];
+  vb = [px - (px - vb[0]) * f, py - (py - vb[1]) * f, vb[2] * f, vb[3] * f]; svg.setAttribute('viewBox', vb.join(' ')); }, {passive: false});
+svg.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY, vb[0], vb[1]]; svg.setPointerCapture(e.pointerId); });
+svg.addEventListener('pointermove', e => { if (!drag) return; const r = svg.getBoundingClientRect();
+  vb[0] = drag[2] - (e.clientX - drag[0]) / r.width * vb[2]; vb[1] = drag[3] - (e.clientY - drag[1]) / r.height * vb[3]; svg.setAttribute('viewBox', vb.join(' ')); });
+svg.addEventListener('pointerup', e => {
+  const moved = drag && Math.hypot(e.clientX - drag[0], e.clientY - drag[1]) > 4; drag = null;
+  if (moved) return;
+  const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.dataset && x.dataset.des);  // 点焊盘：跳到它那一行
+  const g = hit && D.groups.find(q => q.des.includes(hit.dataset.des));
+  if (!g) return;
+  const el = document.getElementById('grp-' + D.groups.indexOf(g));
+  if (active !== g) select(g, el);
+  el.scrollIntoView({block: 'nearest'});
+});
+render();
+</script></body></html>

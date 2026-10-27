@@ -48,15 +48,16 @@ BOARDS = [
     ('GEIGER-CLIP D1', 'GEIGER_D1/制板文件_夹子板', 'GEIGER-CLIP_D1', 'Gerber_GEIGER-CLIP_D1.zip', set(), ''),
     ('NIXIE-DRV D1.1', 'NIXIE-DRV_D1/制板文件_驱动板', 'NIXIE-DRV_D1.1', 'Gerber_NIXIE-DRV_D1.1.zip', set(),
      'K155ID1 插在 DIP-16 座上（缺口对丝印缺口；6 片是旧库存，原 IC-01 盒，Part-DB 记在 A08前）；HV-UNI 小板插 J_HP/J_HH。'),
-    ('IN14-SOCK D1', 'NIXIE-DRV_D1/制板文件_IN14小板', 'IN14-SOCK_D1', 'Gerber_IN14-SOCK_D1.zip', {'R_PL'},
-     '做 7 块（6 装机 + 1 备）。R_PR 0 Ω 自己焊（或电阻腿短接）；J1 2×7 排针焊在板子底面。'),
+    ('IN14-SOCK D1.1', 'NIXIE-DRV_D1/制板文件_IN14小板_D1.1', 'IN14-SOCK_D1.1', 'Gerber_IN14-SOCK_D1.1.zip', {'R_PL'},
+     '做 7 块（6 装机 + 1 备）。D1.1：正面只装管子（电木底座 Ø18.5 平贴板面），R_A、R_PR、J1 全在背面。'
+     '顺序：背面 R_PR（0805 0 Ω）→ R_A（身子贴背面，从背面焊，正面剪平）→ J1 → 最后管子（背面焊、剪脚 ≤ 2 mm）。'),
     ('IV18 D1', 'IV18_D1/制板文件', 'IV18_D1', 'Gerber_IV18_D1.zip', {'R17', 'R18', 'R19'},
      '贴片件钢网刷锡膏 + 加热台回流（2026-10-23 起不交嘉立创贴）；MAX6921（U1）1 脚对丝印圆点；R17–R19 不焊（тип 2 管）。直插件焊完把板底焊脚剪平到 ≤ 0.8 mm。'),
 ]
 
-COPIES = {'HV-UNI D1': 3, 'IN14-SOCK D1': 7}  # 要做几块（库存够不够按总数算）
+COPIES = {'HV-UNI D1': 3, 'IN14-SOCK D1.1': 7}  # 要做几块（库存够不够按总数算）
 # BOM 里用占位封装代替的器件、或焊的时候换成库存料的：板名 -> {位号: (显示名, 去 Part-DB 查的名字)}
-STAND_IN = {'IN14-SOCK D1': {'V1': ('IN-14 辉光管（BOM 里是 1×13 排针占位）', 'IN-14 辉光管')},
+STAND_IN = {'IN14-SOCK D1.1': {'V1': ('IN-14 辉光管（BOM 里是 1×13 排针占位）', 'IN-14 辉光管')},
             'HV-UNI D1': {'R3': ('20Ω（BOM 写 22Ω；栅极串阻用库存 20Ω 代替，见设计记录）', '固定电阻 20 Ω')}}
 
 
