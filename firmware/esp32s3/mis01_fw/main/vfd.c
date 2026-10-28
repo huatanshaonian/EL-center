@@ -23,6 +23,9 @@ static uint8_t s_host_segs[8];
 static uint8_t s_host_sym;
 static bool s_forced_off;
 
+// 电台项（VFD RADIO）：AUTO 轮换的最后一项，Pi 放电台时才有
+static struct { bool on, has_to, jump; uint32_t expire_ms, resets; char txt[24]; } s_radio;
+
 void vfd_init(void) { vfd_scan_init(); }
 
 int vfd_show(const char *txt, int t_s)
@@ -35,6 +38,36 @@ int vfd_show(const char *txt, int t_s)
     taskEXIT_CRITICAL(&s_mux);
     dm_set_host(DM_VFD, t_s);
     return 0;
+}
+
+int vfd_radio(const char *txt, int t_s)
+{
+    uint8_t segs[8];
+    if (txt && (strlen(txt) >= sizeof(s_radio.txt) || vfd_text_to_segs(txt, segs) < 0)) return -1;
+    taskENTER_CRITICAL(&s_mux);
+    if (!txt) s_radio.on = false;
+    else {
+        if (!s_radio.on || strcmp(s_radio.txt, txt)) s_radio.jump = true;   // 新设或换台：立即切过去
+        strcpy(s_radio.txt, txt);
+        s_radio.on = true;
+        s_radio.has_to = t_s > 0;
+        s_radio.expire_ms = now_ms() + (uint32_t)t_s * 1000u;
+        s_radio.resets = dm_reset_count();
+    }
+    taskEXIT_CRITICAL(&s_mux);
+    return 0;
+}
+
+// T= 到期、或全部退回 AUTO（DTR 掉、PI_RUN 低）后去掉电台项
+static bool radio_active(void)
+{
+    bool on;
+    taskENTER_CRITICAL(&s_mux);
+    if (s_radio.on && ((s_radio.has_to && (int32_t)(now_ms() - s_radio.expire_ms) >= 0) || s_radio.resets != dm_reset_count()))
+        s_radio.on = false;
+    on = s_radio.on;
+    taskEXIT_CRITICAL(&s_mux);
+    return on;
 }
 
 void vfd_sym(int bits, int t_s)
@@ -57,13 +90,14 @@ bool vfd_is_on(void) { return vfd_scan_is_on(); }
 void IRAM_ATTR vfd_emergency_off_isr(void) { vfd_scan_emergency_off_isr(); }
 void vfd_on_pfail(void) { vfd_scan_power(false); }
 
-// AUTO 本地内容（F5 防烧屏）：日期 → CPM → 温度 → 室外温度轮换（时间无效时没有日期；没有天气数据时没有室外温度）
-enum { ITEM_DATE = 0, ITEM_CPM, ITEM_TEMP, ITEM_WX, ITEM_N };
+// AUTO 本地内容（F5 防烧屏）：日期 → CPM → 温度 → 室外温度 → 电台轮换（时间无效时没有日期；没有天气数据时没有室外温度；不放电台时没有电台）
+enum { ITEM_DATE = 0, ITEM_CPM, ITEM_TEMP, ITEM_WX, ITEM_RADIO, ITEM_N };
 
 static bool item_ok(int item)
 {
     if (item == ITEM_DATE) return clk_time_valid();
     if (item == ITEM_WX) return weather_get(NULL, NULL, NULL, NULL);
+    if (item == ITEM_RADIO) return radio_active();
     return true;
 }
 
@@ -86,6 +120,11 @@ static void item_text(int item, char *buf, int n)
     case ITEM_CPM:
         if (gm_valid()) snprintf(buf, n, "CP%6d", clampi(gm_cpm(), 0, 999999));
         else snprintf(buf, n, "CP  ----");
+        break;
+    case ITEM_RADIO:
+        taskENTER_CRITICAL(&s_mux);
+        snprintf(buf, n, "%s", s_radio.txt);
+        taskEXIT_CRITICAL(&s_mux);
         break;
     case ITEM_WX: {
         int t = 0;
@@ -113,13 +152,22 @@ static uint8_t s_shown[8];        // 上一帧实际显示的字形（擦除动�
 
 static void auto_segs(uint8_t segs[8])
 {
+    bool jump = false;
+    taskENTER_CRITICAL(&s_mux);
+    if (s_radio.jump) { jump = s_radio.on; s_radio.jump = false; }
+    taskEXIT_CRITICAL(&s_mux);
+    if (jump && radio_active()) {
+        s_item = ITEM_RADIO;
+        s_item_ms = now_ms();
+        vfdfx_wipe_start(s_shown);
+    }
     if (!item_ok(s_item)) s_item = ITEM_CPM;
     if (now_ms() - s_item_ms >= (uint32_t)g_cfg.vfd_rot_s * 1000u) {
         s_item_ms = now_ms();
         do { s_item = (s_item + 1) % ITEM_N; } while (!item_ok(s_item));
         vfdfx_wipe_start(s_shown);
     }
-    char buf[20];
+    char buf[32];
     item_text(s_item, buf, sizeof(buf));
     vfd_text_to_segs(buf, segs);
     vfdfx_wipe_apply(segs);
@@ -155,6 +203,7 @@ void vfd_tick(void)
         taskEXIT_CRITICAL(&s_mux);
     } else {
         auto_segs(segs);
+        if (radio_active()) sym = 4;   // G1 点：正在放电台
     }
     memcpy(s_shown, segs, 8);
     uint32_t f[VFD_GRIDS];

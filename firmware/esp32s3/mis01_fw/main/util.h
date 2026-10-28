@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include "esp_timer.h"
 
-#define FW_VERSION   "0.2.0"
-#define FW_SPEC      "0.9.6"
+#define FW_VERSION   "0.2.1"
+#define FW_SPEC      "0.9.8"
 
 static inline uint32_t now_ms(void) { return (uint32_t)(esp_timer_get_time() / 1000); }
 

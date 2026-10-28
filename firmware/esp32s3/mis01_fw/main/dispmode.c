@@ -9,6 +9,7 @@
 static const char *TAG = "dm";
 static portMUX_TYPE s_mux = portMUX_INITIALIZER_UNLOCKED;
 static struct { bool host; bool has_to; uint32_t expire_ms; } s_dm[DM_COUNT];
+static volatile uint32_t s_resets;
 
 void dm_set_host(dm_item_t it, int timeout_s)
 {
@@ -31,11 +32,13 @@ void dm_all_auto(const char *why)
     bool any = false;
     taskENTER_CRITICAL(&s_mux);
     for (int i = 0; i < DM_COUNT; i++) { any |= s_dm[i].host; s_dm[i].host = false; }
+    s_resets++;
     taskEXIT_CRITICAL(&s_mux);
     if (any) ESP_LOGI(TAG, "全部退回 AUTO：%s", why);
 }
 
 bool dm_is_host(dm_item_t it) { return s_dm[it].host; }
+uint32_t dm_reset_count(void) { return s_resets; }
 
 void dm_tick(void)
 {

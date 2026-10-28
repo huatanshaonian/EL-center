@@ -134,6 +134,9 @@ static void cmd_vfd(proto_cmd_t *c)
     else if (is(a, "SHOW") && c->argc == 3) {
         if (vfd_show(c->argv[2], c->t_s)) ERR("RANGE", "undisplayable char or more than 8");
         else OK();
+    } else if (is(a, "RADIO") && c->argc == 3) {
+        if (vfd_radio(is(c->argv[2], "OFF") ? NULL : c->argv[2], c->t_s)) ERR("RANGE", "undisplayable char or more than 8");
+        else OK();
     } else if (is(a, "SYM") && c->argc == 3) {
         if (!to_int(c->argv[2], 0, 7, &v)) { ERR("RANGE", "SYM 0..7"); return; }
         vfd_sym(v, c->t_s);
@@ -143,7 +146,7 @@ static void cmd_vfd(proto_cmd_t *c)
         else if (to_int(c->argv[2], 0, 1000, &v)) vfd_set_brt(v);
         else { ERR("RANGE", "BRT AUTO|0..1000"); return; }
         OK();
-    } else ERR("SYNTAX", "VFD AUTO|SHOW|SYM|BRT|OFF");
+    } else ERR("SYNTAX", "VFD AUTO|SHOW|RADIO|SYM|BRT|OFF");
 }
 
 static void cmd_eye(proto_cmd_t *c)

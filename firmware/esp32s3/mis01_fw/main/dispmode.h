@@ -2,12 +2,14 @@
 // 任一发生时全部退回 AUTO：CDC 的 DTR 掉；PI_RUN 变低；命令带的 T=<秒> 到期而 Pi 没有续发。
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 
 typedef enum { DM_NIX = 0, DM_VFD, DM_EYE_A, DM_EYE_B, DM_MTR, DM_COUNT } dm_item_t;
 
 void dm_set_host(dm_item_t it, int timeout_s);   // timeout_s ≤ 0：不超时
 void dm_set_auto(dm_item_t it);
 void dm_all_auto(const char *why);
+uint32_t dm_reset_count(void);                  // dm_all_auto 的次数：其他模块据此清掉 Pi 给的附加内容（如电台项）
 bool dm_is_host(dm_item_t it);
 void dm_tick(void);                              // 处理 T= 到期
 
