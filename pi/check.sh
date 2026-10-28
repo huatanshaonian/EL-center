@@ -20,3 +20,9 @@ printf "uart4 状态："; tr -d '\0' < /proc/device-tree/serial@ff370000/status;
 echo "== 服务"
 systemctl is-active mis01d
 journalctl -u mis01d -b --no-pager -n 25
+
+echo "== 电台服务 mis01radio（管理网页 :8080）"
+systemctl is-active mis01radio
+command -v mpv chromium chromium-browser xvfb-run 2>/dev/null
+grep -iE "es8316|\]:" /proc/asound/cards
+journalctl -u mis01radio -b --no-pager -n 10

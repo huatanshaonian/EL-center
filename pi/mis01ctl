@@ -4,14 +4,78 @@
   mis01ctl "?"                  查状态
   mis01ctl "NIX SHOW 123456"    一条命令
   mis01ctl                      交互模式，一行一条，Ctrl-D 退出
+
+电台（经 mis01radio 的本机接口，不用密码）：
+  mis01ctl radio                状态
+  mis01ctl radio list           电台表
+  mis01ctl radio play <编号|序号>
+  mis01ctl radio stop|next|prev
+  mis01ctl radio vol <0-100|+5|-5>
 """
+import json
 import socket
 import sys
+import urllib.error
+import urllib.request
 
 SOCK = "/run/mis01/esp.sock"
+RADIO = "http://127.0.0.1:8080"
+
+
+def radio(args):
+    def call(path, body=None):
+        req = urllib.request.Request(RADIO + path, data=None if body is None else json.dumps(body).encode(),
+                                     headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            return json.loads(e.read() or b"{}")
+        except OSError as e:
+            print("连不上 mis01radio（%s）：systemctl status mis01radio" % e, file=sys.stderr)
+            sys.exit(1)
+
+    def show(st):
+        if not st.get("station"):
+            print("停止  音量 %d" % st["volume"])
+        else:
+            print("%s [%s] %s  IV-18 \"%s\"  音量 %d  %s" % (st["name"], st["station"], st["state"], st["vfd"],
+                                                         st["volume"], st.get("title") or st.get("detail") or ""))
+
+    cmd = args[0] if args else ""
+    if cmd == "":
+        show(call("/api/status"))
+        return 0
+    if cmd == "list":
+        d = call("/api/state")
+        for i, s in enumerate(d["stations"], 1):
+            print("%2d  %-12s %-20s %-8s \"%s\"%s" % (i, s["id"], s["name"], s["type"], s["vfd"],
+                                                    "" if s.get("enabled", True) else "  （未启用）"))
+        return 0
+    if cmd == "play" and len(args) == 2:
+        sid = args[1]
+        if sid.isdigit():
+            lst = call("/api/state")["stations"]
+            sid = lst[int(sid) - 1]["id"] if 0 < int(sid) <= len(lst) else sid
+        r = call("/api/play", {"id": sid})
+    elif cmd in ("stop", "next", "prev"):
+        r = call("/api/" + cmd, {})
+    elif cmd == "vol" and len(args) == 2:
+        v = args[1]
+        r = call("/api/volume", {"delta": int(v)} if v[0] in "+-" else {"volume": int(v)})
+    else:
+        print(__doc__)
+        return 2
+    if "error" in r:
+        print("错误：" + r["error"], file=sys.stderr)
+        return 1
+    show(r["status"])
+    return 0
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "radio":
+        return radio(sys.argv[2:])
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     try:
         s.connect(SOCK)

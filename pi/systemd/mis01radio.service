@@ -1,0 +1,23 @@
+[Unit]
+Description=MIS-01 network radio (mpv / Chromium, IV-18 display, web UI :8080)
+After=network-online.target sound.target mis01d.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=mis01radio
+Group=mis01radio
+# audio：声卡；dialout：/run/mis01/esp.sock（mis01d 建的套接字属 dialout 组）
+SupplementaryGroups=audio dialout
+Environment=PYTHONPATH=/opt/mis01
+Environment=PYTHONUNBUFFERED=1
+Environment=HOME=/var/lib/mis01radio
+ExecStart=/usr/bin/python3 -m mis01radio --data /var/lib/mis01radio/radio.json --port 8080
+StateDirectory=mis01radio
+StateDirectoryMode=0700
+Restart=always
+RestartSec=3
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

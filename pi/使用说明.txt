@@ -1,4 +1,4 @@
-MIS-01 Orange Pi 侧程序（服务 mis01d）
+MIS-01 Orange Pi 侧程序（服务 mis01d、mis01radio）
 ====================================================================
 依据：firmware/esp32s3/ESP32-S3功能规格.txt 第 4 节（Pi 侧要求）、第 6 节（协议）。
 
@@ -9,6 +9,7 @@ MIS-01 Orange Pi 侧程序（服务 mis01d）
   - PI_RUN（16 脚）由设备树补丁 overlay/mis01-pi-run.dts 在内核里拉高，直到断电，不靠本服务。
   - ESP 连上后：Pi 已 NTP 同步就发 TIME 对时（之后每 6 h），按配置 [esp_cfg] 节核对并写入 ESP 的 CFG 键（Wi-Fi 账号等）。
   - 其他程序经 /run/mis01/esp.sock 给 ESP 发命令；命令行用 mis01ctl。
+  - 网络电台（服务 mis01radio，见下面“电台”一节）。
 
 引脚（Orange Pi 4 用户手册 v2.4 第 70 页，原理图 v1.3 第 15/25 页）
   16 脚 GPIO1_C6 = gpiochip1 第 22 线（PI_RUN，输出）
@@ -24,11 +25,31 @@ MIS-01 Orange Pi 侧程序（服务 mis01d）
        line 22 应为 output、"MIS01_PI_RUN"；line 24 应为 input、consumer "mis01d"；
        日志里"PI_SHDN_REQ 已读到高，开始监视"（ESP 没接时靠内部上拉读高）。
 
+电台（服务 mis01radio，程序 mis01radio/）
+  声音：Pi 耳机口 → PAM8403 → 两只喇叭。播放时 IV-18 轮换里多一项电台文字，最左位的点亮表示在播。
+  管理网页：http://<Pi 的地址>:8080（如 http://orangepi4.local:8080）
+    - 电台表：添加、编辑、删除、排序、启用；每台的“IV-18 文字”在网页上改，边输入边预览，“在 IV-18 上试显示”看实物效果。
+    - 两种类型：
+        直链（mpv）：填流地址，如 Radio Caroline http://sc6.radiocaroline.net:8040/stream
+        网页（Pi 上的浏览器）：只能在网页上听的（如 BR24：德国以外直链不能播，要登录）。填网页地址和“播放 JS”（点播放键）。
+    - 远程画面：看到 Pi 上浏览器的画面，点图片 = 点网页，文字框输入后“发送”。
+      第一次放 BR24 前在这里打开 https://www.br.de/radio/live/br24/：点掉 Cookie 提示、登录。登录状态保存在
+      /var/lib/mis01radio/chromium，以后自动用。
+    - 设置：声卡（默认自动找耳机口 ES8316）、代理、浏览器模式、开机续播、网页密码（设了以后局域网访问要输；用户名随便填）。
+  加新的电台类型：在 mis01radio/players/ 写一个 Player 子类（声明 FIELDS），加进 players/__init__.py 的 TYPES，网页自动出输入框。
+  电台表和设置存在 /var/lib/mis01radio/radio.json。
+  排查：
+    journalctl -u mis01radio -f                看日志
+    网页电台“没在播”：打开远程画面看是不是要登录 / Cookie 提示 / 播放键位置变了（改“播放 JS”）
+    网页电台没声音但状态是“播放中”：设置里浏览器模式改“虚拟屏幕 xvfb”
+    amixer -c <声卡> sget "MIS01 Radio"        看音量控件（第一次播放后才出现）
+
 常用
   mis01ctl "?"                     ESP 状态
   mis01ctl "NIX SHOW 123456"       发一条命令
   journalctl -u mis01d -f          看服务日志
   sudo systemctl restart mis01d    改配置后重启服务
+  mis01ctl radio                   电台状态；radio list / play 2 / next / prev / stop / vol 50 / vol +5
 
 电脑上给 ESP 写配置（ESP 插电脑 USB，协议口如 COM8）
   python -m mis01d.cfgsync --port COM8 --conf 我的配置.conf
