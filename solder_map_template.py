@@ -27,6 +27,7 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .grp.done .v,.grp.done .d{color:var(--done);text-decoration:line-through}
 .grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
 .tag.side{font-weight:600}.tag.t{border-color:#2e7d32;color:#2e7d32}.tag.b{border-color:#c25e00;color:#c25e00}.tag.mix{border-color:var(--muted);color:var(--muted)}
+.tag.sp{border-color:#c25e00;color:#c25e00;background:rgba(194,94,0,.08)}
 .body{fill:rgba(74,144,217,.18);stroke:#4a90d9;stroke-width:.25}.body.b{fill:rgba(224,122,31,.18);stroke:#e07a1f}
 .body.dnp{fill:none;stroke-dasharray:.6 .4;opacity:.7}
 .grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
@@ -79,7 +80,7 @@ for (const [des, p] of Object.entries(D.parts)) {
     else { e.setAttribute('x', q.x - q.w / 2); e.setAttribute('y', q.y - q.h / 2); e.setAttribute('width', q.w); e.setAttribute('height', q.h); }
     if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
     e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
-    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (p.sideText ? '（' + p.sideText + '）' : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
+    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (p.sideText ? '（' + p.sideText + '）' : '') + (p.special ? ' · 特殊焊法：' + p.special : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
     padsG.appendChild(e); padEls[des].push(e);
   }
 }
@@ -177,6 +178,9 @@ function partNotes(g) {
   const byText = new Map();
   for (const d of g.des) { const t = N.parts[d] || ''; if (!byText.has(t)) byText.set(t, []); byText.get(t).push(d); }
   for (const [t, ds] of byText) { if (!t) continue; const p = document.createElement('span'); p.className = 'pd'; p.innerHTML = '<b></b>：'; p.firstChild.textContent = ds.map(x => x + (D.parts[x] && D.parts[x].sideText ? `（${D.parts[x].sideText}）` : '')).join(' '); p.append(t); ex.appendChild(p); }
+  const bySp = new Map();
+  for (const [d, s] of Object.entries(g.special || {})) { if (!bySp.has(s)) bySp.set(s, []); bySp.get(s).push(d); }
+  for (const [s, ds] of bySp) { const p = document.createElement('span'); p.className = 'tips'; p.textContent = '特殊焊法（' + ds.join('、') + '）：' + s; ex.appendChild(p); }
   for (const b of new Set(g.des.flatMap(blocksOf))) {
     const c = document.createElement('span'); c.className = 'chip'; c.textContent = '属于：' + b.name;
     c.onclick = ev => { ev.stopPropagation(); if (!notesOpen) { notesOpen = true; buildList(); } const el = document.getElementById('blk-' + BLOCKS.indexOf(b)); select(b, el); el.scrollIntoView({block: 'nearest'}); };
@@ -246,6 +250,11 @@ for (const g of order) {
     const t = document.createElement('span');
     t.className = 'tag side ' + (g.sideText.startsWith('正面') ? 't' : g.sideText.startsWith('背面') ? 'b' : 'mix');
     t.textContent = g.sideText;
+    v.appendChild(t);
+  }
+  if (g.special && Object.keys(g.special).length) {
+    const t = document.createElement('span'); t.className = 'tag sp'; t.textContent = '特殊焊法';
+    t.title = Object.entries(g.special).map(([d, s]) => d + '：' + s).join('\n');
     v.appendChild(t);
   }
   const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');

@@ -21,6 +21,7 @@ import zipfile
 
 from solder_map_template import TEMPLATE
 from assembly_issues import ISSUES
+from weld_special import SPECIAL
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ED = os.path.join(ROOT, 'el_driver')
@@ -270,6 +271,7 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
                 'mpn': b.get('Manufacturer Part', ''), 'sup': b.get('Supplier Part', ''),
                 'des': sub, 'smt': kind == 'smt', 'dnp': kind == 'dnp',
                 'side': body, 'solder': solder, 'th': th, 'sideText': side_text(body, solder, th),
+                'special': {d: SPECIAL.get(tag, {}).get(d, '') for d in sub if SPECIAL.get(tag, {}).get(d)},
                 'loc': locator.locate(b) if (locator and kind == 'hand') else None})
     # 手焊在前（按数量多→少），嘉立创已贴、不焊在后
     groups.sort(key=lambda g: (2 if g['dnp'] else 1 if g['smt'] else 0, -len(g['des']), g['val']))
@@ -286,7 +288,8 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
         parts[d] = {'x': round(r[3] * MIL, 3), 'y': round(-r[4] * MIL, 3), 'side': body,
                     'solder': solder, 'th': th, 'sideText': side_text([body], [solder], th),
                     'bw': round(bw, 3), 'bh': round(bh, 3), 'ba': (r[5] or 0) if ba else 0,
-                    'shape': shape, 'dnp': d in dnp, 'pads': pads.get(d, [])}
+                    'shape': shape, 'dnp': d in dnp, 'special': SPECIAL.get(tag, {}).get(d, ''),
+                    'pads': pads.get(d, [])}
     gko = gerber_paths(get('.GKO'))
     xs = [p[0] for w, pts in gko[0] for p in pts] + [p[0] for poly in gko[2] for p in poly]
     ys = [-p[1] for w, pts in gko[0] for p in pts] + [-p[1] for poly in gko[2] for p in poly]
