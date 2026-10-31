@@ -42,7 +42,9 @@ BOARDS = [
     ('ESP-BASE D1', 'ESP-BASE_D1/制板文件', 'ESP-BASE_D1', 'Gerber_ESP-BASE_D1.zip', {'U1', 'J_EXP'},
      'U1（PCA9555）与 J_EXP 预留不焊；JP_BZ 插跳线帽。'),
     ('HV-UNI D1', 'HV-UNI_D1/制板文件', 'HV-UNI_D1', 'Gerber_HV-UNI_D1.zip', set(),
-     '做 3 块。R21/R22 库存件确认不是迷你体；Q1 散热片带高压，套热缩。'),
+     '做 3 块。R21/R22 库存件确认不是迷你体；Q1 散热片带高压，套热缩。'
+     '2026-11-01 改装：在 R18.1（VREF 5 V）和 R19.2（OVK，U2 阴极）之间加一只 10 kΩ 上拉；'
+     '这两个焊盘并排、底部相距约 2.6 mm，直接跨焊即可，不用碰 U2。R19 保持 10 kΩ 或原来的 2.2 kΩ 都可以，不必换回。'),
     ('EYE-6E2 D1.1', 'EYE-6E2_D1/制板文件', 'EYE-6E2_D1.1', 'Gerber_EYE-6E2_D1.1.zip', {'R_HA', 'R_HB'},
      'R_HA/R_HB 灯丝均衡默认不焊（灯丝电压偏差大时才焊一只）；管座用自己的实物管座。'),
     ('GEIGER-MAIN D1', 'GEIGER_D1/制板文件_主板', 'GEIGER-MAIN_D1', 'Gerber_GEIGER-MAIN_D1.zip', set(),
