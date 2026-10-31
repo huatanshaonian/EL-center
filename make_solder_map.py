@@ -65,6 +65,15 @@ COPIES = {'HV-UNI D1': 3, 'IN14-SOCK D1.1': 7}  # 要做几块（库存够不够
 STAND_IN = {'IN14-SOCK D1.1': {'V1': ('IN-14 辉光管（BOM 里是 1×13 排针占位）', 'IN-14 辉光管')},
             'HV-UNI D1': {'R3': ('20Ω（BOM 写 22Ω；栅极串阻用库存 20Ω 代替，见设计记录）', '固定电阻 20 Ω')}}
 
+# 改装/飞线：当作一个“零件”列在页面顶部，点中后高亮两个焊盘并画虚线。
+MODS = {
+    'HV-UNI_D1': [
+        {'kind': 'mod', 'name': '10 kΩ 上拉（改装）', 'from': ['R18', '1'], 'to': ['R19', '2'],
+         'text': '在 R18.1（VREF 5 V）和 R19.2（OVK，U2 阴极）之间加一只 10 kΩ；'
+                 '两个底部焊盘并排、相距约 2.6 mm，直接跨焊，不用碰 U2。R19 保持 10 k 不用换回 2.2 k。'},
+    ],
+}
+
 
 # ---------------- Gerber → SVG path ----------------
 def gerber_paths(txt):
@@ -304,7 +313,7 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
     page = TEMPLATE.replace('__TITLE__', html.escape(f'{name} 焊接图')).replace('__NOTE__', html.escape(note)) \
         .replace('__VB__', ' '.join(f'{v:.2f}' for v in vb)).replace('__CX__', f'{vb[0] * 2 + vb[2]:.2f}') \
         .replace('__OUTLINE__', layers['outline']).replace('__SILKTOP__', layers['top']).replace('__SILKBOT__', layers['bot']) \
-        .replace('__DATA__', json.dumps({'board': name, 'groups': groups, 'parts': parts, 'hasLoc': bool(locator), 'copies': COPIES.get(name, 1), 'issues': ISSUES.get(tag, []),
+        .replace('__DATA__', json.dumps({'board': name, 'groups': groups, 'parts': parts, 'mods': MODS.get(tag, []), 'hasLoc': bool(locator), 'copies': COPIES.get(name, 1), 'issues': ISSUES.get(tag, []),
                                          'when': time.strftime('%Y-%m-%d %H:%M')}, ensure_ascii=False))
     os.makedirs(OUT, exist_ok=True)
     fn = os.path.join(OUT, f'{tag}.html')

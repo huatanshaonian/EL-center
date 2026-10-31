@@ -28,6 +28,9 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);flex:1 1
 .grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
 .tag.side{font-weight:600}.tag.t{border-color:#2e7d32;color:#2e7d32}.tag.b{border-color:#c25e00;color:#c25e00}.tag.mix{border-color:var(--muted);color:var(--muted)}
 .tag.sp{border-color:#c25e00;color:#c25e00;background:rgba(194,94,0,.08)}
+.modline{stroke:#ffd84a;stroke-width:.45;stroke-dasharray:1 .55;fill:none}
+.pad.mod{stroke:#ffd84a;stroke-width:.6}
+.grp.mod .v{color:#c25e00}
 .body{fill:rgba(74,144,217,.18);stroke:#4a90d9;stroke-width:.25}.body.b{fill:rgba(224,122,31,.18);stroke:#e07a1f}
 .body.dnp{fill:none;stroke-dasharray:.6 .4;opacity:.7}
 .grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
@@ -112,9 +115,24 @@ function render() {
       bodiesG.appendChild(r);
     }
   }
-  const sel = new Set(active ? active.des : []);
+  const isMod = active && active.kind === 'mod';
+  const sel = new Set(!isMod && active ? active.des : []);
   boxesG.innerHTML = '';
-  for (const [des, els] of Object.entries(padEls)) for (const e of els) { e.classList.toggle('sel', sel.has(des)); e.classList.toggle('dim', !!active && !sel.has(des)); }
+  for (const [des, els] of Object.entries(padEls)) for (const e of els) {
+    const hit = !!(isMod && active.pins.some(([d, p]) => d === des && e.dataset.pin === p));
+    e.classList.toggle('sel', sel.has(des) || hit);
+    e.classList.toggle('mod', hit);
+    e.classList.toggle('dim', !!active && !sel.has(des) && !hit);
+  }
+  if (isMod) {
+    const pts = active.pins.map(([d, p]) => ((D.parts[d] || {}).pads || []).find(q => q.n === p)).filter(Boolean);
+    if (pts.length === 2) {
+      const l = document.createElementNS(NS, 'line'); l.setAttribute('class', 'modline');
+      l.setAttribute('x1', pts[0].x); l.setAttribute('y1', pts[0].y);
+      l.setAttribute('x2', pts[1].x); l.setAttribute('y2', pts[1].y);
+      boxesG.appendChild(l);
+    }
+  }
   for (const des of sel) { const p = D.parts[des]; if (!p || !p.pads.length) continue;
     const xs = p.pads.map(q => q.x), ys = p.pads.map(q => q.y), m = 1.2;
     const r = document.createElementNS(NS, 'rect'); r.setAttribute('class', 'box');
@@ -158,7 +176,10 @@ function select(obj, el) {
   active = active === obj ? null : obj;
   document.querySelectorAll('.grp.act,.blk.act').forEach(x => x.classList.remove('act'));
   if (active && el) el.classList.add('act');
-  if (active) { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; }
+  if (active) {
+    if (active.kind === 'mod') { active.pins = [active.from, active.to]; side = (D.parts[active.from[0]] || {}).side || side; }
+    else { const s = new Set(active.side); if (!s.has(side) && s.size === 1) side = [...s][0]; }
+  }
   render();
 }
 function buildNotes() {
@@ -237,6 +258,27 @@ function buildList() {
 list.innerHTML = '';
 if (D.issues && D.issues.length) buildIssues();
 if (N) buildNotes();
+if (D.mods && D.mods.length) {
+  sec('改装 / 飞线');
+  for (const m of D.mods) {
+    const row = document.createElement('div'); row.className = 'grp mod' + (active === m ? ' act' : '');
+    const k = 'mod:' + m.name;
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!done[k];
+    cb.onclick = ev => { ev.stopPropagation(); done[k] = cb.checked; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} row.classList.toggle('done', cb.checked); };
+    row.classList.toggle('done', !!done[k]);
+    const v = document.createElement('div'); v.className = 'v'; v.textContent = m.name;
+    const tag = document.createElement('span'); tag.className = 'tag sp'; tag.textContent = '改装'; v.appendChild(tag);
+    const netOf = (d, p) => { const q = ((D.parts[d] || {}).pads || []).find(x => x.n === p); return q && q.net ? ' · ' + q.net : ''; };
+    const d = document.createElement('div'); d.className = 'd';
+    d.textContent = m.from[0] + '.' + m.from[1] + netOf(m.from[0], m.from[1]) + '  ↔  ' + m.to[0] + '.' + m.to[1] + netOf(m.to[0], m.to[1]);
+    const t = document.createElement('div'); t.className = 'm'; t.textContent = m.text;
+    row.append(cb, v, d, t);
+    row.id = 'mod-' + D.mods.indexOf(m);
+    row.onclick = () => select(m, row);
+    if (active === m) row.classList.add('act');
+    list.appendChild(row);
+  }
+}
 let lastSec = null;
 const order = D.groups.slice();
 if (byCell) order.sort((a, b) => { const ka = (a.smt || a.dnp ? 'zzz' : '') + cellKey(firstCell(a)), kb = (b.smt || b.dnp ? 'zzz' : '') + cellKey(firstCell(b)); return ka < kb ? -1 : ka > kb ? 1 : 0; });
