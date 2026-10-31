@@ -6,13 +6,13 @@ TEMPLATE = r'''<!doctype html>
 <style>
 :root{--bg:#f6f5f1;--fg:#1d1d1b;--muted:#6b6a64;--card:#fff;--line:#dcdad3;--pcb:#0f4d2c;--silk:#f3f1e8;--pad:#c9a646;--hl:#e8483b;--done:#9a9890}
 @media (prefers-color-scheme: dark){:root{--bg:#161614;--fg:#ecebe6;--muted:#9a9890;--card:#1f1f1c;--line:#34332f;--pcb:#0d3d24;--silk:#e9e6da;--pad:#b8963c;--hl:#ff6a5c;--done:#6b6a64}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,"Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,"Microsoft YaHei",sans-serif;display:flex;flex-direction:column;overflow:hidden}
 header{padding:10px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
 h1{font-size:17px;margin:0}.note{color:var(--muted);font-size:13px;flex-basis:100%}
 .btn{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:4px 10px;border-radius:6px;cursor:pointer}
 .btn.on{background:var(--fg);color:var(--bg)}
-main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:calc(100vh - 62px)}
-@media (max-width:820px){main{grid-template-columns:1fr;height:auto}#view{height:60vh}}
+main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);flex:1 1 auto;min-height:0}
+@media (max-width:820px){body{overflow:auto;height:auto}main{grid-template-columns:1fr;flex:none;height:auto}#view{height:60vh}}
 #view{background:var(--pcb);position:relative;overflow:hidden}svg{width:100%;height:100%}
 .ol{fill:none;stroke:#ffd84a;stroke-linecap:round}.olf{fill:none}
 .st,.sb{fill:none;stroke:var(--silk);stroke-linecap:round;stroke-linejoin:round;opacity:.85}.stf,.sbf{fill:var(--silk);opacity:.85}
@@ -49,6 +49,8 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 #pic{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}#pic img{max-width:90vw;max-height:90vh;background:#fff;border-radius:6px}
 .sec{padding:6px 12px;font-size:12px;color:var(--muted);background:var(--bg);position:sticky;top:0;border-bottom:1px solid var(--line)}
 #tip{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:4px;font-size:12px}
+#tip.pin{background:rgba(0,0,0,.85);color:#ffd84a;font-size:13px;font-weight:600}
+.pad.pin{stroke:#fff;stroke-width:.45}
 </style></head><body>
 <header><h1>__TITLE__</h1>
 <button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
@@ -81,6 +83,7 @@ for (const [des, p] of Object.entries(D.parts)) {
     if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
     e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
     e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (p.sideText ? '（' + p.sideText + '）' : '') + (p.special ? ' · 特殊焊法：' + p.special : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
+    e.dataset.pin = q.n; e.dataset.net = q.net || '';
     padsG.appendChild(e); padEls[des].push(e);
   }
 }
@@ -288,11 +291,21 @@ svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundi
 svg.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY, vb[0], vb[1]]; svg.setPointerCapture(e.pointerId); });
 svg.addEventListener('pointermove', e => { if (!drag) return; const r = svg.getBoundingClientRect();
   vb[0] = drag[2] - (e.clientX - drag[0]) / r.width * vb[2]; vb[1] = drag[3] - (e.clientY - drag[1]) / r.height * vb[3]; svg.setAttribute('viewBox', vb.join(' ')); });
+const tip = document.getElementById('tip');
+let pinEl = null;
 svg.addEventListener('pointerup', e => {
   const moved = drag && Math.hypot(e.clientX - drag[0], e.clientY - drag[1]) > 4; drag = null;
   if (moved) return;
-  const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.dataset && x.dataset.des);  // 点焊盘：跳到它那一行
-  const g = hit && D.groups.find(q => q.des.includes(hit.dataset.des));
+  const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.dataset && x.dataset.des);  // 点焊盘：显示位号并跳到那一行
+  if (!hit) { tip.textContent = '滚轮缩放，拖动平移'; tip.classList.remove('pin'); if (pinEl) { pinEl.classList.remove('pin'); pinEl = null; } return; }
+  const des = hit.dataset.des, pin = hit.dataset.pin, net = hit.dataset.net;
+  const g = D.groups.find(q => q.des.includes(des));
+  const p = D.parts[des] || {};
+  tip.textContent = des + '.' + pin + (g && g.val ? ' · ' + g.val : '') + (net ? ' · ' + net : '') +
+    (p.sideText ? '（' + p.sideText + '）' : '') + (p.special ? ' · 特殊焊法' : '');
+  tip.classList.add('pin');
+  if (pinEl) pinEl.classList.remove('pin');
+  pinEl = hit; hit.classList.add('pin');
   if (!g) return;
   const el = document.getElementById('grp-' + D.groups.indexOf(g));
   if (active !== g) select(g, el);
