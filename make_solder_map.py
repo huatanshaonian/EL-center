@@ -50,8 +50,9 @@ BOARDS = [
     ('NIXIE-DRV D1.1', 'NIXIE-DRV_D1/制板文件_驱动板', 'NIXIE-DRV_D1.1', 'Gerber_NIXIE-DRV_D1.1.zip', set(),
      'K155ID1 插在 DIP-16 座上（缺口对丝印缺口；6 片是旧库存，原 IC-01 盒，Part-DB 记在 A08前）；HV-UNI 小板插 J_HP/J_HH。'),
     ('IN14-SOCK D1.1', 'NIXIE-DRV_D1/制板文件_IN14小板_D1.1', 'IN14-SOCK_D1.1', 'Gerber_IN14-SOCK_D1.1.zip', {'R_PL'},
-     '做 7 块（6 装机 + 1 备）。D1.1：正面只装管子（电木底座 Ø18.5 平贴板面），R_A、R_PR、J1 全在背面。'
-     '顺序：背面 R_PR（0805 0 Ω）→ R_A（身子贴背面，从背面焊，正面剪平）→ J1 → 最后管子（背面焊、剪脚 ≤ 2 mm）。'),
+     '做 7 块（6 装机 + 1 备）。D1.1：正面只装管子（电木底座 Ø18.5 平贴板面），R_A、R_PR、J1 的本体都在背面。'
+     '顺序：R_PR（0805，背面贴、背面焊）→ R_A（本体背面、从背面插入、正面焊）→ J1（本体背面、焊点正面）→ '
+     '最后管子（底座正面、引线到背面焊、剪脚 ≤ 2 mm）。'),
     ('IV18 D1', 'IV18_D1/制板文件', 'IV18_D1', 'Gerber_IV18_D1.zip', {'R17', 'R18', 'R19'},
      '贴片件钢网刷锡膏 + 加热台回流（2026-10-23 起不交嘉立创贴）；MAX6921（U1）1 脚对丝印圆点；R17–R19 不焊（тип 2 管）。直插件焊完把板底焊脚剪平到 ≤ 0.8 mm。'),
 ]
@@ -168,6 +169,50 @@ def load_notes(tag):
         return json.load(f)
 
 
+SIDE_NAME = {'T': '正面', 'B': '背面'}
+
+
+def side_text(body, solder, th):
+    """元件焊在哪一面：贴片件 = 本体面；直插件 = 本体面 / 焊点面（本体对面）。"""
+    if len(body) == 1 and len(solder) == 1:
+        if th:
+            return f'{SIDE_NAME[body[0]]}装 · {SIDE_NAME[solder[0]]}焊'
+        return f'{SIDE_NAME[body[0]]}贴'
+    return '正面+背面（见位号）'
+
+
+def body_size(fp, pads):
+    """按封装名估元件本体尺寸（mm），返回 (宽, 高, 是否按封装角度旋转)。
+    封装名里没有尺寸的（排针、XH 座、管座等）用焊盘包围盒 + 0.8 mm，这种包围盒已经是板坐标，不再旋转。"""
+    fp = fp or ''
+    m = re.search(r'(?:^|_)L([\d.]+)[-_]W([\d.]+)', fp)
+    if m:
+        return float(m.group(1)), float(m.group(2)), True
+    m = re.search(r'BD([\d.]+)[-_]L([\d.]+)', fp)
+    if m:
+        return float(m.group(2)), float(m.group(1)), True
+    m = re.search(r'BD([\d.]+)', fp)
+    if m:
+        d = float(m.group(1))
+        return d, d, True
+    m = re.match(r'(?:R|C)(0402|0603|0805|1206|1210|1812|2512)', fp)
+    if m:
+        bw, bh = {'0402': (1.0, 0.5), '0603': (1.6, 0.8), '0805': (2.0, 1.25), '1206': (3.2, 1.6),
+                  '1210': (3.2, 2.5), '1812': (4.5, 3.2), '2512': (6.3, 3.2)}[m.group(1)]
+        return bw, bh, True
+    if pads:
+        xs = [q['x'] - q['w'] / 2 for q in pads] + [q['x'] + q['w'] / 2 for q in pads]
+        ys = [q['y'] - q['h'] / 2 for q in pads] + [q['y'] + q['h'] / 2 for q in pads]
+        w, h = max(max(xs) - min(xs) + 0.8, 1.2), max(max(ys) - min(ys) + 0.8, 1.2)
+        if 'XH' in fp:  # XH 座塑料体比焊盘宽得多（约 7.5 mm），按短边补到 7.5
+            if w >= h:
+                h = max(h, 7.5)
+            else:
+                w = max(w, 7.5)
+        return w, h, False
+    return 1.5, 1.5, False
+
+
 def build(name, sub, tag, gzip, dnp, note, locator=None):
     base = os.path.join(ED, sub)
     z = zipfile.ZipFile(os.path.join(base, gzip))
@@ -195,6 +240,10 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
     cplp = os.path.join(base, f'JLC_SMT_CPL_{tag}.csv')
     if os.path.exists(cplp):
         smt = {r['Designator'] for r in read_csv(cplp)}
+    fp_by_des = {}
+    for b in bom:
+        for d in [x.strip() for x in b.get('Designator', '').split(',') if x.strip()]:
+            fp_by_des[d] = b.get('Footprint', '')
     groups = []
     for b in bom:
         ds = [d.strip() for d in b.get('Designator', '').split(',') if d.strip()]
@@ -211,16 +260,33 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
                    or (d not in dnp and d not in smt and kind == 'hand')]
             if not sub:
                 continue
+            body = sorted({comps[d][2] for d in sub if d in comps})
+            th = any(pads.get(d) and any(q['th'] for q in pads[d]) for d in sub)
+            solder = sorted({('B' if comps[d][2] == 'T' else 'T')
+                             if (pads.get(d) and any(q['th'] for q in pads[d])) else comps[d][2]
+                             for d in sub if d in comps})
             groups.append({
                 'val': val, 'comment': b.get('Comment', ''), 'fp': b.get('Footprint', ''),
                 'mpn': b.get('Manufacturer Part', ''), 'sup': b.get('Supplier Part', ''),
                 'des': sub, 'smt': kind == 'smt', 'dnp': kind == 'dnp',
-                'side': sorted({comps[d][2] for d in sub if d in comps}),
+                'side': body, 'solder': solder, 'th': th, 'sideText': side_text(body, solder, th),
                 'loc': locator.locate(b) if (locator and kind == 'hand') else None})
     # 手焊在前（按数量多→少），嘉立创已贴、不焊在后
     groups.sort(key=lambda g: (2 if g['dnp'] else 1 if g['smt'] else 0, -len(g['des']), g['val']))
-    parts = {d: {'x': round(r[3] * MIL, 3), 'y': round(-r[4] * MIL, 3), 'side': r[2], 'pads': pads.get(d, [])}
-             for d, r in comps.items()}
+    parts = {}
+    for d, r in comps.items():
+        body = r[2]
+        th = any(q['th'] for q in pads.get(d, []))
+        solder = ('B' if body == 'T' else 'T') if th else body
+        bw, bh, ba = body_size(fp_by_des.get(d, ''), pads.get(d, []))
+        shape = 'rect'
+        if name == 'IN14-SOCK D1.1' and d == 'V1':  # 管子按电木底座 Ø18.5 画，不按 13 孔封装
+            bw = bh = 18.5
+            shape = 'circle'
+        parts[d] = {'x': round(r[3] * MIL, 3), 'y': round(-r[4] * MIL, 3), 'side': body,
+                    'solder': solder, 'th': th, 'sideText': side_text([body], [solder], th),
+                    'bw': round(bw, 3), 'bh': round(bh, 3), 'ba': (r[5] or 0) if ba else 0,
+                    'shape': shape, 'dnp': d in dnp, 'pads': pads.get(d, [])}
     gko = gerber_paths(get('.GKO'))
     xs = [p[0] for w, pts in gko[0] for p in pts] + [p[0] for poly in gko[2] for p in poly]
     ys = [-p[1] for w, pts in gko[0] for p in pts] + [-p[1] for poly in gko[2] for p in poly]

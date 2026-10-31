@@ -26,6 +26,9 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 .grp .m{grid-column:2;color:var(--muted);font-size:12px}
 .grp.done .v,.grp.done .d{color:var(--done);text-decoration:line-through}
 .grp.skip{opacity:.55}.tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;color:var(--muted)}
+.tag.side{font-weight:600}.tag.t{border-color:#2e7d32;color:#2e7d32}.tag.b{border-color:#c25e00;color:#c25e00}.tag.mix{border-color:var(--muted);color:var(--muted)}
+.body{fill:rgba(74,144,217,.18);stroke:#4a90d9;stroke-width:.25}.body.b{fill:rgba(224,122,31,.18);stroke:#e07a1f}
+.body.dnp{fill:none;stroke-dasharray:.6 .4;opacity:.7}
 .grp .loc{grid-column:2;font-size:12.5px}.cell{display:inline-block;font-weight:700;border:1px solid var(--fg);border-radius:4px;padding:0 5px;margin-right:4px}
 .loc .warn{color:var(--hl)}.loc .q{color:var(--muted)}
 .old{display:inline-block;font-weight:700;font-size:12px;background:#f59e0b;color:#1d1d1b;border-radius:4px;padding:0 6px;margin-right:4px}
@@ -48,10 +51,11 @@ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(300px,2fr);height:c
 </style></head><body>
 <header><h1>__TITLE__</h1>
 <button class="btn on" id="bTop">正面（顶层）</button><button class="btn" id="bBot">背面（底层，镜像）</button>
-<button class="btn" id="bSort">按格子排</button><span id="prog" style="color:var(--muted)"></span>
-<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。点开一行能看到每个元件的作用；最上面“电路说明”讲每一块电路的原理，点一块板上就高亮那一块；点板上的焊盘会跳到它那一行。__NOTE__</div></header>
+<button class="btn" id="bSort">按格子排</button><button class="btn" id="bBody">成品示意</button><span id="prog" style="color:var(--muted)"></span>
+<div class="note">点右侧一行：板上对应位置变红。勾选＝这一组焊完了（存在本机浏览器里）。方焊盘/偏亮的焊盘是 1 脚。方框里是元件柜格子（“按格子排”可以一格一格取料）。点开一行能看到每个元件的作用；最上面“电路说明”讲每一块电路的原理，点一块板上就高亮那一块；点板上的焊盘会跳到它那一行。__NOTE__</div>
+<div class="note"><b>正面 = 顶层（丝印面），背面 = 底层。</b>贴片件标“正面贴 / 背面贴”；直插件标“X 面装 · Y 面焊”（X = 本体在哪面，Y = 焊点在哪面，两面相反）。点“成品示意”按封装外形画出焊好的样子，蓝 = 正面件，橙 = 背面件，虚线框 = 不焊。</div></header>
 <main><div id="view"><svg id="svg" viewBox="__VB__">
-<g id="flip"><g id="silkB">__SILKBOT__</g><g id="silkT">__SILKTOP__</g><g>__OUTLINE__</g><g id="pads"></g><g id="boxes"></g></g>
+<g id="flip"><g id="silkB">__SILKBOT__</g><g id="silkT">__SILKTOP__</g><g>__OUTLINE__</g><g id="bodies"></g><g id="pads"></g><g id="boxes"></g></g>
 </svg><div id="tip">滚轮缩放，拖动平移</div></div><div id="list"></div></main><div id="pic"><img alt=""></div>
 <script>
 const D = __DATA__, N = __NOTES__, NS = 'http://www.w3.org/2000/svg', KEY = 'solder:' + D.board;
@@ -60,7 +64,11 @@ const BLOCKS = N ? N.blocks.map(b => ({...b, des: b.refs, side: [...new Set(b.re
 const blocksOf = des => BLOCKS.filter(b => b.refs.includes(des));
 let done = {}; try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
 let side = 'T', active = null;
+let showBody = false; try { showBody = localStorage.getItem('solder:body') === '1'; } catch (e) {}
+const CX = __CX__;
+const DNP = new Set(D.groups.filter(g => g.dnp).flatMap(g => g.des));
 const padsG = document.getElementById('pads'), boxesG = document.getElementById('boxes');
+const bodiesG = document.getElementById('bodies');
 const padEls = {};
 for (const [des, p] of Object.entries(D.parts)) {
   padEls[des] = [];
@@ -71,7 +79,7 @@ for (const [des, p] of Object.entries(D.parts)) {
     else { e.setAttribute('x', q.x - q.w / 2); e.setAttribute('y', q.y - q.h / 2); e.setAttribute('width', q.w); e.setAttribute('height', q.h); }
     if (q.a) e.setAttribute('transform', `rotate(${-q.a} ${q.x} ${q.y})`);
     e.setAttribute('class', 'pad' + (q.th ? ' hole' : '') + (+q.n === minN && p.pads.length > 1 ? ' p1' : ''));
-    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
+    e.dataset.side = q.th ? 'B' : q.l; const t = document.createElementNS(NS, 'title'); t.textContent = des + '.' + q.n + (q.net ? ' ' + q.net : '') + (p.sideText ? '（' + p.sideText + '）' : '') + (N && N.parts[des] ? ' — ' + N.parts[des] : ''); e.appendChild(t); e.dataset.des = des;
     padsG.appendChild(e); padEls[des].push(e);
   }
 }
@@ -81,6 +89,25 @@ function render() {
   document.getElementById('silkB').style.display = side === 'B' ? '' : 'none';
   bTop.classList.toggle('on', side === 'T'); bBot.classList.toggle('on', side === 'B');
   for (const [des, els] of Object.entries(padEls)) for (const e of els) e.style.display = (e.dataset.side === 'B' || e.dataset.side === side) ? '' : 'none';
+  document.getElementById('bBody').classList.toggle('on', showBody);
+  bodiesG.innerHTML = '';
+  if (showBody) {
+    for (const [des, p] of Object.entries(D.parts)) {
+      if (!p.bw || p.side !== side) continue;
+      const r = document.createElementNS(NS, p.shape === 'circle' ? 'circle' : 'rect');
+      if (p.shape === 'circle') {
+        r.setAttribute('cx', p.x); r.setAttribute('cy', p.y); r.setAttribute('r', p.bw / 2);
+      } else {
+        r.setAttribute('x', p.x - p.bw / 2); r.setAttribute('y', p.y - p.bh / 2);
+        r.setAttribute('width', p.bw); r.setAttribute('height', p.bh);
+        r.setAttribute('rx', Math.min(p.bw, p.bh) * 0.15);
+      }
+      r.setAttribute('class', 'body' + (p.side === 'B' ? ' b' : '') + (DNP.has(des) ? ' dnp' : ''));
+      if (p.ba) r.setAttribute('transform', `rotate(${-p.ba} ${p.x} ${p.y})`);
+      const t = document.createElementNS(NS, 'title'); t.textContent = des + (p.sideText ? '（' + p.sideText + '）' : ''); r.appendChild(t);
+      bodiesG.appendChild(r);
+    }
+  }
   const sel = new Set(active ? active.des : []);
   boxesG.innerHTML = '';
   for (const [des, els] of Object.entries(padEls)) for (const e of els) { e.classList.toggle('sel', sel.has(des)); e.classList.toggle('dim', !!active && !sel.has(des)); }
@@ -93,6 +120,7 @@ function render() {
   document.getElementById('prog').textContent = `手焊 ${fin}/${hand.length} 组`;
 }
 bTop.onclick = () => { side = 'T'; render(); }; bBot.onclick = () => { side = 'B'; render(); };
+document.getElementById('bBody').onclick = () => { showBody = !showBody; try { localStorage.setItem('solder:body', showBody ? '1' : '0'); } catch (e) {} render(); };
 const list = document.getElementById('list');
 function sec(t) { const s = document.createElement('div'); s.className = 'sec'; s.textContent = t; list.appendChild(s); }
 // 格子编号排序：A01前 < A01后 < … < AL6后 < B01前 …，库外的（层架、大盒子）和没找到的排最后
@@ -148,7 +176,7 @@ function partNotes(g) {
   const ex = document.createElement('div'); ex.className = 'ex';
   const byText = new Map();
   for (const d of g.des) { const t = N.parts[d] || ''; if (!byText.has(t)) byText.set(t, []); byText.get(t).push(d); }
-  for (const [t, ds] of byText) { if (!t) continue; const p = document.createElement('span'); p.className = 'pd'; p.innerHTML = '<b></b>：'; p.firstChild.textContent = ds.join(' '); p.append(t); ex.appendChild(p); }
+  for (const [t, ds] of byText) { if (!t) continue; const p = document.createElement('span'); p.className = 'pd'; p.innerHTML = '<b></b>：'; p.firstChild.textContent = ds.map(x => x + (D.parts[x] && D.parts[x].sideText ? `（${D.parts[x].sideText}）` : '')).join(' '); p.append(t); ex.appendChild(p); }
   for (const b of new Set(g.des.flatMap(blocksOf))) {
     const c = document.createElement('span'); c.className = 'chip'; c.textContent = '属于：' + b.name;
     c.onclick = ev => { ev.stopPropagation(); if (!notesOpen) { notesOpen = true; buildList(); } const el = document.getElementById('blk-' + BLOCKS.indexOf(b)); select(b, el); el.scrollIntoView({block: 'nearest'}); };
@@ -214,7 +242,12 @@ for (const g of order) {
   if (g.smt || g.dnp) cb.disabled = true;
   row.classList.toggle('done', !!done[k]);
   const v = document.createElement('div'); v.className = 'v'; v.textContent = `${g.val || g.comment}  ×${g.des.length}`;
-  if (g.side.includes('B') && !g.side.includes('T')) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = '背面'; v.appendChild(t); }
+  if (g.sideText) {
+    const t = document.createElement('span');
+    t.className = 'tag side ' + (g.sideText.startsWith('正面') ? 't' : g.sideText.startsWith('背面') ? 'b' : 'mix');
+    t.textContent = g.sideText;
+    v.appendChild(t);
+  }
   const d = document.createElement('div'); d.className = 'd'; d.textContent = g.des.join('  ');
   const m = document.createElement('div'); m.className = 'm'; m.textContent = [g.mpn, g.fp, g.sup].filter(Boolean).join(' · ');
   row.append(cb, v, d, m);
