@@ -67,6 +67,10 @@ COPIES = {'HV-UNI D1': 3, 'IN14-SOCK D1.1': 7}  # 要做几块（库存够不够
 STAND_IN = {'IN14-SOCK D1.1': {'V1': ('IN-14 辉光管（BOM 里是 1×13 排针占位）', 'IN-14 辉光管')},
             'HV-UNI D1': {'R3': ('20Ω（BOM 写 22Ω；栅极串阻用库存 20Ω 代替，见设计记录）', '固定电阻 20 Ω')}}
 
+# 物理装配面与 EDA 元件层不一致的：HV-UNI 的 J1/J2 塑料座在底面、从背面插，
+# 短针穿到正面焊；飞针表按 EDA 层记 T，这里覆盖为 B（本体面），焊点面自动取 T。
+MOUNT_OVERRIDE = {'HV-UNI D1': {'J1': 'B', 'J2': 'B'}}
+
 # 改装/飞线：当作一个“零件”列在页面顶部，点中后高亮两个焊盘并画虚线。
 MODS = {
     'HV-UNI_D1': [
@@ -275,10 +279,10 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
                    or (d not in dnp and d not in smt and kind == 'hand')]
             if not sub:
                 continue
-            body = sorted({comps[d][2] for d in sub if d in comps})
+            body = sorted({MOUNT_OVERRIDE.get(name, {}).get(d, comps[d][2]) for d in sub if d in comps})
             th = any(pads.get(d) and any(q['th'] for q in pads[d]) for d in sub)
-            solder = sorted({('B' if comps[d][2] == 'T' else 'T')
-                             if (pads.get(d) and any(q['th'] for q in pads[d])) else comps[d][2]
+            solder = sorted({('B' if MOUNT_OVERRIDE.get(name, {}).get(d, comps[d][2]) == 'T' else 'T')
+                             if (pads.get(d) and any(q['th'] for q in pads[d])) else MOUNT_OVERRIDE.get(name, {}).get(d, comps[d][2])
                              for d in sub if d in comps})
             groups.append({
                 'val': val, 'comment': b.get('Comment', ''), 'fp': b.get('Footprint', ''),
@@ -291,7 +295,7 @@ def build(name, sub, tag, gzip, dnp, note, locator=None):
     groups.sort(key=lambda g: (2 if g['dnp'] else 1 if g['smt'] else 0, -len(g['des']), g['val']))
     parts = {}
     for d, r in comps.items():
-        body = r[2]
+        body = MOUNT_OVERRIDE.get(name, {}).get(d, r[2])
         th = any(q['th'] for q in pads.get(d, []))
         solder = ('B' if body == 'T' else 'T') if th else body
         bw, bh, ba = body_size(fp_by_des.get(d, ''), pads.get(d, []))
