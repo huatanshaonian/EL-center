@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HDMI-PI D1 焊接与方向</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+:root {
+  --bg: #f2efe7;
+  --surface: #fbfaf6;
+  --surface-2: #eae5d9;
+  --fg: #20262b;
+  --muted: #647079;
+  --line: #d4cec0;
+  --accent: #a04d16;
+  --accent-2: #0d6864;
+  --ok: #2f6b3a;
+  --danger: #a22922;
+  --focus: #0d6864;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111518;
+    --surface: #191d21;
+    --surface-2: #23282d;
+    --fg: #e9e5db;
+    --muted: #9ba5ad;
+    --line: #31373d;
+    --accent: #e49a5b;
+    --accent-2: #68c9c2;
+    --ok: #84d39b;
+    --danger: #ff8379;
+    --focus: #68c9c2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111518;
+  --surface: #191d21;
+  --surface-2: #23282d;
+  --fg: #e9e5db;
+  --muted: #9ba5ad;
+  --line: #31373d;
+  --accent: #e49a5b;
+  --accent-2: #68c9c2;
+  --ok: #84d39b;
+  --danger: #ff8379;
+  --focus: #68c9c2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 15px/1.6 "Noto Sans SC", "IBM Plex Sans", "Microsoft YaHei", sans-serif;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { width: min(1000px, 100%); margin: 0 auto; padding-block: 28px 58px; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+h1, h2, h3 {
+  font-family: "IBM Plex Sans Condensed", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
+h2 { font-size: clamp(1.25rem, 2.8vw, 1.65rem); }
+h3 { font-size: 1rem; }
+code, .mono {
+  font-family: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace;
+  font-variant-numeric: tabular-nums;
+}
+code { color: var(--accent-2); font-size: 0.92em; overflow-wrap: anywhere; }
+a { color: var(--accent-2); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.hero { display: grid; gap: 14px; padding: 4px 0 26px; border-bottom: 1px solid var(--line); }
+.eyebrow, .kicker {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lede { max-width: 72ch; color: var(--muted); font-size: 1.02rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.7rem;
+}
+.links { display: flex; flex-wrap: wrap; gap: 7px; }
+.links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+}
+.links a:hover { border-color: var(--accent-2); color: var(--accent-2); }
+main { display: grid; gap: 20px; margin-top: 24px; }
+.card {
+  padding: clamp(17px, 3vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.card.danger { border-color: var(--danger); }
+.card h2 { margin: 3px 0 9px; }
+.card p { color: var(--muted); }
+.card p + p { margin-top: 7px; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.diagram {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+  overflow-x: auto;
+}
+.diagram svg { display: block; width: 100%; height: auto; }
+.svg-board { fill: var(--surface); stroke: var(--fg); stroke-width: 2; }
+.svg-plug { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2.5; }
+.svg-pin { fill: var(--accent-2); }
+.svg-pin2 { fill: var(--accent); }
+.svg-line { stroke: var(--line); stroke-width: 1.5; fill: none; }
+.svg-text { fill: var(--fg); font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; font-size: 13px; }
+.svg-small { fill: var(--muted); font-family: "IBM Plex Mono", "Cascadia Mono", monospace; font-size: 11px; }
+.svg-accent { fill: var(--accent); font-family: "IBM Plex Mono", "Cascadia Mono", monospace; font-size: 12px; font-weight: 500; }
+.svg-teal { fill: var(--accent-2); font-family: "IBM Plex Mono", "Cascadia Mono", monospace; font-size: 12px; font-weight: 500; }
+.rules { display: grid; gap: 9px; }
+.rules li {
+  padding-left: 12px;
+  border-left: 2px solid var(--accent-2);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.rules strong { color: var(--fg); font-weight: 600; }
+.rules ul { list-style: none; padding: 0; display: grid; gap: 8px; }
+.warn-list { list-style: none; padding: 0; display: grid; gap: 7px; }
+.warn-list li {
+  padding-left: 12px;
+  border-left: 2px solid var(--danger);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; margin-top: 10px; }
+table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 0.82rem; }
+th, td { padding: 7px 9px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th {
+  background: var(--surface-2);
+  color: var(--muted);
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+tr:last-child td { border-bottom: 0; }
+td code { white-space: nowrap; }
+.note {
+  margin-top: 11px;
+  padding: 11px 13px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.note strong { color: var(--fg); }
+.steps { display: grid; gap: 2px; padding: 0; list-style: none; }
+.steps li {
+  display: grid;
+  grid-template-columns: 1.9em minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.steps li:last-child { border-bottom: 0; }
+.steps .n {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  color: var(--accent);
+  font-size: 0.78rem;
+}
+.steps strong { font-weight: 600; }
+.footer {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.79rem;
+}
+.footer p { max-width: 90ch; }
+@media (max-width: 760px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .page { padding-block: 18px 42px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="hero">
+    <p class="eyebrow">MIS-01 · HDMI 软排线小板 · 手焊与方向</p>
+    <h1>HDMI-PI D1</h1>
+    <p class="lede">Pi 端只做直通：HDMI A 公头 J1 → 0.5 mm 20P FPC 座 J2。板 18×26 mm，没有安装孔，靠插头吊在 Pi 的 HDMI 口上；J1 自己拖焊，J2 由嘉立创贴片。</p>
+    <div class="chips"><span class="chip">J1 自焊</span><span class="chip">J2 贴片</span><span class="chip">0.5 mm 20P A 型</span><span class="chip">板厚 1.6</span><span class="chip">18×26 mm</span></div>
+    <nav class="links" aria-label="相关页面">
+      <a href="HDMI-DOCK_D1.html">配对板：HDMI-DOCK D1</a>
+      <a href="MIS-01_上电与联调.html#stage-10">测试顺序 §10</a>
+      <a href="装配调试流程.html#s8">装配流程 §8</a>
+      <a href="HDMI-PI_D1.html">HDMI-PI</a>
+      <a href="HDMI-DOCK_D1.html">HDMI-DOCK</a>
+    </nav>
+  </header>
+  <main>
+    
+<section class="card danger">
+  <p class="kicker">最要紧</p>
+  <h2>J1 的正反：梯形长边朝上，奇数脚在顶层</h2>
+  <div class="grid2">
+    
+<div class="diagram">
+<svg viewBox="0 0 620 275" role="img" aria-label="HDMI A 夹板式公头端面示意：梯形长边朝上，奇数脚在顶层，偶数脚在底层">
+  <path class="svg-plug" d="M88 42 L474 42 L402 226 L160 226 Z"/>
+  <rect class="svg-board" x="220" y="129" width="330" height="18" rx="2"/>
+  <text class="svg-text" x="300" y="26" text-anchor="middle">顶层 / 元件面（+Z）</text>
+  <text class="svg-text" x="300" y="258" text-anchor="middle">底层</text>
+  <text class="svg-small" x="470" y="123" text-anchor="middle">PCB 1.6 mm</text>
+  <text class="svg-accent" x="300" y="70" text-anchor="middle">梯形长边朝上（宽边）</text>
+  <text class="svg-accent" x="300" y="212" text-anchor="middle">斜角 / 窄边朝下，靠 PCB</text>
+  <text class="svg-teal" x="300" y="105" text-anchor="middle">奇数脚 1,3,5 … 19（顶层）</text>
+  <text class="svg-teal" x="300" y="166" text-anchor="middle">偶数脚 2,4,6 … 18（底层）</text>
+  <text class="svg-small" x="300" y="240" text-anchor="middle">HDMI A 公头，夹板式；插口朝板前沿（−Y）</text>
+  <g class="svg-pin">
+    <rect x="238" y="111" width="12" height="7" rx="1"/><rect x="262" y="111" width="12" height="7" rx="1"/>
+    <rect x="286" y="111" width="12" height="7" rx="1"/><rect x="310" y="111" width="12" height="7" rx="1"/>
+    <rect x="334" y="111" width="12" height="7" rx="1"/><rect x="358" y="111" width="12" height="7" rx="1"/>
+    <rect x="382" y="111" width="12" height="7" rx="1"/><rect x="406" y="111" width="12" height="7" rx="1"/>
+    <rect x="430" y="111" width="12" height="7" rx="1"/><rect x="454" y="111" width="12" height="7" rx="1"/>
+  </g>
+  <g class="svg-pin2">
+    <rect x="250" y="159" width="12" height="7" rx="1"/><rect x="274" y="159" width="12" height="7" rx="1"/>
+    <rect x="298" y="159" width="12" height="7" rx="1"/><rect x="322" y="159" width="12" height="7" rx="1"/>
+    <rect x="346" y="159" width="12" height="7" rx="1"/><rect x="370" y="159" width="12" height="7" rx="1"/>
+    <rect x="394" y="159" width="12" height="7" rx="1"/><rect x="418" y="159" width="12" height="7" rx="1"/>
+    <rect x="442" y="159" width="12" height="7" rx="1"/>
+  </g>
+</svg>
+</div>
+
+    <div class="rules">
+      <p><strong>看插头端面，不看板子大小。</strong> J1 是 HDMI A 夹板式公头；梯形长边（宽边）朝上，斜角/窄边朝下、靠 PCB。板子的元件面也在上，两者同向。</p>
+      <ul>
+        <li><strong>顶层</strong> = 元件面 = +Z；奇数脚 <code>1,3,5…19</code> 在这一面。</li>
+        <li><strong>底层</strong> = 偶数脚 <code>2,4,6…18</code>；两面都有焊盘，两面都要焊。</li>
+        <li><strong>Pi 和 Dock 相同。</strong> 不要因为一块板大、一块板小就把 J1 翻面。</li>
+        <li><strong>插座同向。</strong> Pi 和 Dock 的 HDMI 座宽边朝上、斜角靠 PCB；插头宽边朝上才插得进。</li>
+        <li><strong>板厚 1.6 mm。</strong> 夹板式插头靠板边夹住；板厚不对会夹不紧或插不进。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    <section class="card">
+      <p class="kicker">板子方向</p>
+      <h2>J1 在前沿，J2 在 y=17；J2 90°</h2>
+      <div class="grid2">
+        
+<div class="diagram">
+<svg viewBox="0 0 360 300" role="img" aria-label="18×26 mm 小板顶视示意，J2 90°">
+  <text class="svg-small" x="180" y="20" text-anchor="middle">板顶（元件面）</text>
+  <rect class="svg-board" x="108.0" y="40" width="144.0" height="208.0" rx="3"/>
+  <rect class="svg-plug" x="146.0" y="238.0" width="68" height="11" rx="2"/>
+  <text class="svg-accent" x="180" y="265.0" text-anchor="middle">J1（插口朝下 / 前）</text>
+  <rect class="svg-plug" x="163.0" y="136.0" width="34" height="80" rx="3"/>
+  <text class="svg-teal" x="180" y="128.0" text-anchor="middle">J2 90°</text>
+  
+  <text class="svg-small" x="180" y="278" text-anchor="middle">示意：18 × 26 mm，J2 中心 y=17；元件位置以 Gerber / 丝印为准</text>
+</svg>
+</div>
+
+        <div class="rules">
+          <p>板顶是元件面；J1 在板前沿，插口朝 −Y；J2 中心 y=17，长边沿 Y，排线竖直出座。</p>
+          <ul>
+            <li><strong>J1</strong> 在前沿，本体向后压住板边；插进 Pi/Dock 的 HDMI 口。</li>
+            <li><strong>J2</strong> 在板后部；Pi 板转 90°，触点朝向与另一端相反。</li>
+            <li>两块板都没有安装孔，靠 HDMI 插头吊在口上；不要用板边受力。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+<section class="card">
+  <p class="kicker">FPC 座</p>
+  <h2>J2 看触点面，不看板子正反</h2>
+  <div class="grid2">
+    
+<div class="diagram">
+<svg viewBox="0 0 620 205" role="img" aria-label="FPC 座方向示意：Pi 与 Dock 的座子转 180 度，触点朝向相反">
+  <rect class="svg-board" x="28" y="145" width="240" height="15" rx="2"/>
+  <rect class="svg-board" x="352" y="145" width="240" height="15" rx="2"/>
+  <rect class="svg-plug" x="132" y="62" width="30" height="83" rx="3"/>
+  <rect class="svg-plug" x="458" y="62" width="30" height="83" rx="3"/>
+  <line class="svg-line" x1="132" y1="78" x2="112" y2="78"/>
+  <line class="svg-line" x1="132" y1="94" x2="112" y2="94"/>
+  <line class="svg-line" x1="132" y1="110" x2="112" y2="110"/>
+  <line class="svg-line" x1="132" y1="126" x2="112" y2="126"/>
+  <line class="svg-line" x1="488" y1="78" x2="508" y2="78"/>
+  <line class="svg-line" x1="488" y1="94" x2="508" y2="94"/>
+  <line class="svg-line" x1="488" y1="110" x2="508" y2="110"/>
+  <line class="svg-line" x1="488" y1="126" x2="508" y2="126"/>
+  <path class="svg-line" d="M112 78 L112 35 L508 35 L508 78"/>
+  <path class="svg-line" d="M112 126 L112 170 L508 170 L508 126"/>
+  <text class="svg-text" x="148" y="30" text-anchor="middle">Pi 板 J2：90°</text>
+  <text class="svg-text" x="472" y="30" text-anchor="middle">Dock 板 J2：270°</text>
+  <text class="svg-small" x="148" y="184" text-anchor="middle">触点朝左（示意，以座上标记为准）</text>
+  <text class="svg-small" x="472" y="184" text-anchor="middle">触点朝右（示意，以座上标记为准）</text>
+  <text class="svg-accent" x="310" y="58" text-anchor="middle">同一根 A 型同向排线；两端座子转 180°</text>
+  <text class="svg-teal" x="310" y="195" text-anchor="middle">金手指朝座子触点，不要按板子正反猜</text>
+</svg>
+</div>
+
+    <div class="rules">
+      <p><strong>Pi 板 J2 转 90°，Dock 板 J2 转 270°。</strong> 两端座子相对转 180°，触点朝向相反；同一根 A 型同向排线在 Dock 端的 J2 脚号会反过来。</p>
+      <ul>
+        <li>排线是 <strong>0.5 mm 20P 同向 A 型</strong>；金手指（触点面）朝座子触点一侧插到底，再推上抽屉锁。</li>
+        <li>两端都断电再插拔；排线从两个座竖直向上，在上方拱过去，不要折死角。</li>
+        <li>20 cm 够用；30 cm 会顶到顶部后横梁，不推荐。</li>
+        <li>不要按“同向线 1↔1”想当然：板上 J1→J2 的脚号在 Dock 端是 <code>21−k</code>；装好后 Pi J1 k ↔ Dock J1 k。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    <section class="card">
+      <p class="kicker">脚号</p>
+      <h2>J1 → J2：Pi 直通，Dock 反向</h2>
+      
+<div class="table-wrap">
+<table>
+  <thead><tr><th>J1 HDMI 脚</th><th>信号</th><th>FPC 导体</th><th>Pi 板 J2 脚</th><th>Dock 板 J2 脚</th></tr></thead>
+  <tbody>
+    <tr><td><code>1</code></td><td>D2+</td><td><code>c1</code></td><td><code>1</code></td><td><code>20</code></td></tr>
+<tr><td><code>2</code></td><td>GND</td><td><code>c2</code></td><td><code>2</code></td><td><code>19</code></td></tr>
+<tr><td><code>3</code></td><td>D2−</td><td><code>c3</code></td><td><code>3</code></td><td><code>18</code></td></tr>
+<tr><td><code>4</code></td><td>D1+</td><td><code>c4</code></td><td><code>4</code></td><td><code>17</code></td></tr>
+<tr><td><code>5</code></td><td>GND</td><td><code>c5</code></td><td><code>5</code></td><td><code>16</code></td></tr>
+<tr><td><code>6</code></td><td>D1−</td><td><code>c6</code></td><td><code>6</code></td><td><code>15</code></td></tr>
+<tr><td><code>7</code></td><td>D0+</td><td><code>c7</code></td><td><code>7</code></td><td><code>14</code></td></tr>
+<tr><td><code>8</code></td><td>GND</td><td><code>c8</code></td><td><code>8</code></td><td><code>13</code></td></tr>
+<tr><td><code>9</code></td><td>D0−</td><td><code>c9</code></td><td><code>9</code></td><td><code>12</code></td></tr>
+<tr><td><code>10</code></td><td>CLK+</td><td><code>c10</code></td><td><code>10</code></td><td><code>11</code></td></tr>
+<tr><td><code>11</code></td><td>GND</td><td><code>c11</code></td><td><code>11</code></td><td><code>10</code></td></tr>
+<tr><td><code>12</code></td><td>CLK−</td><td><code>c12</code></td><td><code>12</code></td><td><code>9</code></td></tr>
+<tr><td><code>13</code></td><td>CEC</td><td><code>c13</code></td><td><code>13</code></td><td><code>8</code></td></tr>
+<tr><td><code>14</code></td><td>UTIL</td><td><code>c14</code></td><td><code>14</code></td><td><code>7</code></td></tr>
+<tr><td><code>15</code></td><td>SCL</td><td><code>c15</code></td><td><code>15</code></td><td><code>6</code></td></tr>
+<tr><td><code>16</code></td><td>SDA</td><td><code>c16</code></td><td><code>16</code></td><td><code>5</code></td></tr>
+<tr><td><code>17</code></td><td>GND</td><td><code>c17</code></td><td><code>17</code></td><td><code>4</code></td></tr>
+<tr><td><code>18</code></td><td>+5 V</td><td><code>—</code></td><td><code>NC</code></td><td><code>U1</code></td></tr>
+<tr><td><code>19</code></td><td>HPD</td><td><code>c19</code></td><td><code>19</code></td><td><code>2</code></td></tr>
+<tr><td><code>—</code></td><td>GND</td><td><code>c18</code></td><td><code>18</code></td><td><code>3</code></td></tr>
+<tr><td><code>—</code></td><td>GND</td><td><code>c20</code></td><td><code>20</code></td><td><code>1</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note"><strong>J2 脚号是 FPC 座脚号，不是 HDMI 脚号。</strong> Pi 板 J2 第 k 脚 = c(k)；Dock 板 J2 第 j 脚 = c(21−j)。J1-18（+5 V）不上排线：Pi 端悬空，Dock 端只到 U1。c18、c20 是 GND。</p>
+
+    </section>
+    <section class="card">
+      <p class="kicker">焊接</p>
+      <h2>先焊 J1，再检查贴片</h2>
+      <ol class="steps"><li><span class="n">01</span><span><strong>J1 自焊。</strong> 两面各一排：顶层奇数脚、底层偶数脚；脚距 1 mm。先上助焊剂，刀头带锡拖焊，吸锡带清连锡；外壳固定脚也要焊。</span></li>
+<li><span class="n">02</span><span><strong>J2 已贴片。</strong> 不要再用烙铁碰 J2；先目视 1 脚标记、抽屉锁和连锡。</span></li>
+<li><span class="n">03</span><span>焊完用 IPA 清洗，放大镜看 J1 两排和板边；不要掰插头。</span></li>
+<li><span class="n">04</span><span>板厚必须 1.6 mm；J1 本体后端面贴板前沿，插口朝 −Y。</span></li></ol>
+    </section>
+    <section class="card">
+      <p class="kicker">上电前</p>
+      <h2>通断与方向检查</h2>
+      
+<div class="table-wrap">
+<table>
+  <thead><tr><th>检查</th><th>预期</th><th>说明</th></tr></thead>
+  <tbody><tr><td>不插 FPC：J1 k ↔ J2 k</td><td><code>k=1–17,19，<1Ω</code></td><td>Pi 板直通；J1 18 不接 J2。</td></tr>
+<tr><td>J1 18 ↔ J2 任何脚</td><td><code>不通</code></td><td>Pi 端 5 V 悬空，不上排线。</td></tr>
+<tr><td>J2 18 / 20 ↔ GND</td><td><code>通</code></td><td>c18 / c20 是地。</td></tr>
+<tr><td>相邻 J1 / J2 脚</td><td><code>不短路</code></td><td>1 mm 脚距，重点看 J1 两排。</td></tr>
+<tr><td>插 FPC 后：Pi J1 k ↔ Dock J1 k</td><td><code>k=1–17,19，<1Ω</code></td><td>Dock 座转 270°，J2 脚号反向。</td></tr>
+<tr><td>Pi 上电：PHY_STAT0</td><td><code>0xF3</code></td><td>RX_SENSE 全 1、HPD、PHY 锁定。</td></tr></tbody>
+</table>
+</div>
+
+      <p class="note">先不插 FPC，只在 Pi 板上量 J1↔J2；通过后再插 FPC 到 Dock 板。插拔排线时 Pi 和 Dock 都断电。</p>
+    </section>
+    <section class="card">
+      <p class="kicker">装机</p>
+      <h2>插头、排线、上电顺序</h2>
+      <ol class="steps">
+        <li><span class="n">01</span><span><strong>插头：</strong>板顶朝上，J1 梯形长边朝上，插进 Pi/Dock 的 HDMI 口，推到底；不要翻面。</span></li>
+        <li><span class="n">02</span><span><strong>排线：</strong>0.5 mm 20P A 型同向；金手指朝 J2 座子触点，插到底，压抽屉锁。两端都断电。</span></li>
+        <li><span class="n">03</span><span><strong>走向：</strong>从两个 J2 竖直向上，在上方拱过去；不要折死角，不要拉紧。</span></li>
+        <li><span class="n">04</span><span><strong>上电：</strong>先 Dock 端 C2 = 3.3 V，再 Pi；PHY_STAT0 = 0xF3，FPGA 串口 HDMI=1。</span></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>依据：<code>el_driver/HDMI_FPC_D1/设计记录_HDMI_FPC_D1.txt</code>；<code>el_driver/上电测试清单.txt</code> 第 9b 节；<code>HDMI_FPC_D1</code> 网表/制板文件。</p>
+    <p>本页是手焊与方向页，不是逐焊盘 Gerber 图；J1/J2 的精确焊盘位置以板图/丝印为准。两块板的 J1 方向相同，J2 相差 180°。</p>
+    <p>相关：<a href="MIS-01_上电与联调.html">MIS-01 上电与联调</a> · <a href="装配调试流程.html#s8">装配流程 §8</a> · <a href="HDMI-DOCK_D1.html">HDMI-DOCK D1</a></p>
+  </footer>
+</div>
+</body>
+</html>

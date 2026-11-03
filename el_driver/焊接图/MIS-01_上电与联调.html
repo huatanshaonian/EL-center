@@ -1,0 +1,1387 @@
+<title>MIS-01 上电与联调</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+/* 设计计划：台架记录纸 / 仪器面板。暖灰纸面 + 铜色主调 + 青绿色状态色；
+   标题 IBM Plex Sans Condensed，正文 Noto Sans SC，读数与位号 IBM Plex Mono。 */
+:root {
+  --bg: #f2efe7;
+  --surface: #fbfaf6;
+  --surface-2: #eae5d9;
+  --fg: #20262b;
+  --muted: #647079;
+  --line: #d4cec0;
+  --accent: #a04d16;
+  --accent-2: #0d6864;
+  --ok: #2f6b3a;
+  --warn: #8a5b00;
+  --danger: #a22922;
+  --focus: #0d6864;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111518;
+    --surface: #191d21;
+    --surface-2: #23282d;
+    --fg: #e9e5db;
+    --muted: #9ba5ad;
+    --line: #31373d;
+    --accent: #e49a5b;
+    --accent-2: #68c9c2;
+    --ok: #84d39b;
+    --warn: #e4b64c;
+    --danger: #ff8379;
+    --focus: #68c9c2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111518;
+  --surface: #191d21;
+  --surface-2: #23282d;
+  --fg: #e9e5db;
+  --muted: #9ba5ad;
+  --line: #31373d;
+  --accent: #e49a5b;
+  --accent-2: #68c9c2;
+  --ok: #84d39b;
+  --warn: #e4b64c;
+  --danger: #ff8379;
+  --focus: #68c9c2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 15px/1.6 "Noto Sans SC", "IBM Plex Sans", "Microsoft YaHei", sans-serif;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding-block: 28px 64px;
+}
+h1, h2, h3, p, ul, ol, dl, table { margin: 0; }
+h1, h2, h3 {
+  font-family: "IBM Plex Sans Condensed", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2.1rem, 6vw, 3.7rem); }
+h2 { font-size: clamp(1.3rem, 2.8vw, 1.8rem); }
+h3 { font-size: 1rem; letter-spacing: 0; }
+code, .mono {
+  font-family: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace;
+  font-variant-numeric: tabular-nums;
+}
+code {
+  font-size: 0.92em;
+  color: var(--accent-2);
+  overflow-wrap: anywhere;
+}
+a { color: var(--accent-2); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.hero {
+  display: grid;
+  gap: 18px;
+  padding: 8px 0 30px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow, .kicker {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lede {
+  max-width: 68ch;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  color: var(--muted);
+}
+.hero-note {
+  max-width: 78ch;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.safety {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 26px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--danger);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.safety h2 { margin: 4px 0 8px; }
+.safety p { color: var(--muted); }
+.rules { list-style: none; padding: 0; display: grid; gap: 10px; }
+.rules li {
+  display: grid;
+  grid-template-columns: 5.6em 1fr;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.rules li:last-child { border-bottom: 0; padding-bottom: 0; }
+.rules strong {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--danger);
+  font-weight: 500;
+}
+.principles {
+  display: grid;
+  gap: 14px;
+  margin-top: 26px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.principles ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 0;
+  list-style: none;
+}
+.principles li {
+  padding-left: 12px;
+  border-left: 2px solid var(--accent-2);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.principles li strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--fg);
+  font-weight: 600;
+}
+.progress-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 26px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.progress-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.progress-top strong {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 1.15rem;
+  white-space: nowrap;
+  color: var(--accent-2);
+}
+.progress-top p { color: var(--muted); font-size: 0.85rem; }
+.bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+.bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: var(--accent-2);
+  transition: width 180ms ease;
+}
+.progress-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+button {
+  font: inherit;
+}
+.reset {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+}
+.reset:hover { border-color: var(--danger); color: var(--danger); }
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 0;
+}
+.flow a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--fg);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.flow a:hover { border-color: var(--accent-2); color: var(--accent-2); }
+.flow span {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.flow-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.order-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.order-note strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--fg);
+  font-weight: 600;
+}
+.order-note a { color: var(--accent-2); }
+.board-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-top: 10px;
+  font-size: 0.78rem;
+}
+.link-label {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.board-links a, .board-index-grid a {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent-2);
+  text-decoration: none;
+  line-height: 1.35;
+}
+.board-links a:hover, .board-index-grid a:hover {
+  border-color: var(--accent-2);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+.board-links a.assembly-link {
+  color: var(--muted);
+  border-style: dashed;
+}
+.board-index {
+  margin-top: 30px;
+  padding: clamp(18px, 3vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  display: grid;
+  gap: 10px;
+}
+.board-index h2 { margin: 2px 0 4px; }
+.board-index-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.board-index p { color: var(--muted); font-size: 0.82rem; }
+main { display: grid; gap: 22px; margin-top: 28px; }
+.stage {
+  scroll-margin-top: 18px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.stage-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: start;
+  gap: 12px 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.stage-no {
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 1.05rem;
+  color: var(--accent);
+  padding-top: 2px;
+}
+.stage-title .kicker { margin-bottom: 3px; }
+.stage-title h2 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); }
+.badge, .stage-state {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+.badge.low { color: var(--ok); }
+.badge.power { color: var(--accent); }
+.badge.mid { color: var(--warn); }
+.badge.hv { color: var(--danger); }
+.stage-state.state-todo { color: var(--muted); }
+.stage-state.state-progress { color: var(--warn); }
+.stage-state.state-done { color: var(--ok); }
+.goal {
+  max-width: 80ch;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.stage-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+.stage-main h3, .stage-side h3 { margin-bottom: 8px; }
+.checklist { display: grid; gap: 2px; }
+.check-item {
+  display: grid;
+  grid-template-columns: 1.15em minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 9px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.91rem;
+}
+.check-item:hover { background: var(--surface-2); }
+.check-item input {
+  width: 1.12em;
+  height: 1.12em;
+  margin: 0.22em 0 0;
+  accent-color: var(--accent-2);
+}
+.check-item input:checked + span {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--line);
+}
+.check-item strong { color: var(--fg); font-weight: 600; }
+.check-item input:checked + span strong { color: var(--muted); }
+.stage-side { display: grid; align-content: start; gap: 12px; }
+.gate, .avoid, .note {
+  padding: 12px 14px;
+  border-left: 3px solid var(--line);
+  background: var(--surface-2);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.86rem;
+}
+.gate { border-left-color: var(--ok); }
+.avoid { border-left-color: var(--danger); }
+.note { border-left-color: var(--accent); }
+.gate h3 { color: var(--ok); }
+.avoid h3 { color: var(--danger); }
+.note h3 { color: var(--accent); }
+.gate p, .avoid p, .note p { color: var(--muted); }
+.gate ul, .avoid ul, .note ul { margin: 6px 0 0; padding-left: 1.1em; color: var(--muted); }
+.gate li, .avoid li, .note li { margin-top: 3px; }
+details {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+summary {
+  cursor: pointer;
+  color: var(--accent-2);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+summary:hover { text-decoration: underline; text-underline-offset: 0.18em; }
+details > *:not(summary) { margin-top: 12px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+th, td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--surface-2);
+  color: var(--muted);
+  font-family: "IBM Plex Mono", "Cascadia Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+tr:last-child td { border-bottom: 0; }
+td code { white-space: nowrap; }
+.failure { color: var(--muted); font-size: 0.86rem; }
+.failure li { margin-top: 4px; }
+.source { color: var(--muted); font-size: 0.78rem; }
+.footer {
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.footer p { max-width: 90ch; }
+@media (max-width: 860px) {
+  .safety, .stage-grid { grid-template-columns: 1fr; }
+  .principles ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .page { padding-block: 18px 44px; }
+  .stage-head { grid-template-columns: auto minmax(0, 1fr); }
+  .stage-head .badge, .stage-head .stage-state { grid-column: 2; justify-self: start; }
+  .principles ol { grid-template-columns: 1fr; }
+  .rules li { grid-template-columns: 1fr; gap: 2px; }
+  .chip { white-space: normal; }
+  .check-item { padding: 9px 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar span { transition: none; }
+}
+</style>
+
+<div class="page">
+  <header class="hero">
+    <p class="eyebrow">MIS-01 · EL-Driver D1.1 · 台架验收</p>
+    <h1>上电与联调顺序</h1>
+    <p class="lede">先让电源板单独通过，再让 ESP 底板通过，然后一块一块验收子板。高压板放在后段，整机联调放在最后。</p>
+    <div class="chip-row" aria-label="顺序原则">
+      <span class="chip">先电源</span>
+      <span class="chip">单板限流</span>
+      <span class="chip">高压后段</span>
+      <span class="chip">整机最后</span>
+      <span class="chip">单路电源可用</span>
+    </div>
+    <p class="hero-note">本页是顺序和判据，不替代设计记录。所有读数以板上丝印、TP 和 <code>el_driver/上电测试清单.txt</code> 为准；焊接/装配顺序另见 <a href="装配调试流程.html">装配调试流程</a>；不确定时先停下来查。</p>
+  </header>
+
+  <section class="safety" aria-labelledby="safety-title">
+    <div>
+      <p class="kicker">先看红线</p>
+      <h2 id="safety-title">高压从第一块板就按规则来</h2>
+      <p>HV-UNI、NIXIE、EYE、GEIGER 都带高压。测试台不是整机，表笔、鳄鱼夹和板边都可能是回路的一部分。</p>
+    </div>
+    <ul class="rules">
+      <li><strong>断电等待</strong><span>HV-UNI 至少 3 s，盖革至少 4 s；再用表确认高压点 &lt; 30 V，必要时用 10 kΩ / 5 W 放电棒。</span></li>
+      <li><strong>限流上电</strong><span>第一次一律用可调限流电源，限流设到正常电流的 1.5 倍；读数不对就停，不往下走。</span></li>
+      <li><strong>共地</strong><span>电源负极、ESP/开发板 GND、被测板 GND、示波器/逻辑分析仪 GND 接在一起。</span></li>
+      <li><strong>不热插拔</strong><span>改线、插拔 J1/J2、换排线都先断电；高压板单手操作，表笔先夹地。</span></li>
+    </ul>
+  </section>
+
+  <section class="principles" aria-labelledby="principles-title">
+    <p class="kicker">为什么是这个顺序</p>
+    <h2 id="principles-title">四个门，不要跳</h2>
+    <ol>
+      <li><strong>电源先过</strong>所有板都吃 PWR-DIST。先空载、再假负载，确认 5 V、5V_P、12 V、24 V 和 PFAIL，再带板。</li>
+      <li><strong>控制板第二</strong>ESP-BASE 决定开关时序、HOLD、HV_EN。先不接子板，只看默认电平和 3.3 V/5 V。</li>
+      <li><strong>低压先、高压后</strong>SLANT、KBD 和 IV18 逻辑先过；HV-UNI、NIXIE、EYE、GEIGER 一次只上一块。</li>
+      <li><strong>单板过门、整机最后</strong>整机一次只加一块板，盯着 24 V 总电流；不要用完整架构当首测台。</li>
+    </ol>
+  </section>
+
+  <section class="progress-card" aria-labelledby="progress-title">
+    <div class="progress-top">
+      <div>
+        <p class="kicker">总进度</p>
+        <h2 id="progress-title">打勾会尽量保存在本机</h2>
+        <p>只影响这个浏览器里的显示，不上传，也不会写回项目文件。</p>
+      </div>
+      <strong id="progressText">0 / 0 项</strong>
+    </div>
+    <div class="bar" role="progressbar" aria-labelledby="progress-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBarWrap"><span id="progressBar"></span></div>
+    <div class="progress-foot">
+      <span>阶段全部打勾后，右上角会变成“已完成”。</span>
+      <button class="reset" id="reset" type="button">清空打勾</button>
+      <span id="resetNote" role="status"></span>
+    </div>
+  </section>
+
+  <nav class="flow" aria-label="阶段导航">
+    <a href="#stage-0"><span>00</span>台架</a>
+    <a href="#stage-1"><span>01</span>PWR-DIST</a>
+    <a href="#stage-2"><span>02</span>ESP-BASE</a>
+    <a href="#stage-3"><span>03</span>SLANT</a>
+    <a href="#stage-4"><span>04</span>KBD</a>
+    <a href="#stage-5"><span>05</span>IV18</a>
+    <a href="#stage-6"><span>06</span>HV-UNI</a>
+    <a href="#stage-7"><span>07</span>NIXIE</a>
+    <a href="#stage-8"><span>08</span>EYE</a>
+    <a href="#stage-9"><span>09</span>GEIGER</a>
+    <a href="#stage-10"><span>10</span>显示链</a>
+    <a href="#stage-11"><span>11</span>整机</a>
+  </nav>
+  <p class="flow-note">主轨是 00 → 11。低压板 SLANT/KBD 和显示链 EL-IF/HDMI 可以在电源/控制板通过后并行，但不要和高压板同时上电；高压阶段一次只上一块。</p>
+
+  <aside class="order-note">
+    <strong>焊接顺序 ≠ 上电顺序</strong>
+    <p>《装配调试流程》按焊接工艺排：先直插热身（KBD + IN14）→ HV-UNI → 三块回流（IV18 / PWR-DIST / EL-IF）→ 电源测试 → ESP 底板 → 显示板……。本页按上电和带载风险排：电源 → 控制 → 低压 → 中压 → 高压 → 整机。两种顺序不要求一致；例如 KBD 可以先焊好，但等电源和 ESP 通过后再插上测。每块板的焊接图和对应装配阶段都放在各节标题下面。</p>
+  </aside>
+
+  <main>
+    <section class="stage" id="stage-0" data-stage="0">
+      <div class="stage-head">
+        <div class="stage-no">00</div>
+        <div class="stage-title">
+          <p class="kicker">准备</p>
+          <h2>台架、工具与安全</h2>
+        </div>
+        <span class="badge low">准备</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">这一阶段不上任何板。先把电源、表、地线、假负载和放电工具摆好，后面每一步才有可重复的判据。</p>
+      <div class="board-links">
+        <span class="link-label">焊接/装配</span>
+        <a href="装配调试流程.html">装配调试流程</a>
+        <a class="assembly-link" href="装配调试流程.html#s0">§0 准备</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s0-1" data-key="s0-1"><span><strong>0.1 电源空载</strong> 可调电源设 0–30 V，限流 0.1–1 A；先空载确认电压和限流都正常。</span></label>
+            <label class="check-item"><input type="checkbox" id="s0-2" data-key="s0-2"><span><strong>0.2 表与放电棒</strong> 万用表 10 MΩ、DC 1000 V 档；10 kΩ / 5 W 放电棒、绝缘夹线就位。</span></label>
+            <label class="check-item"><input type="checkbox" id="s0-3" data-key="s0-3"><span><strong>0.3 共地</strong> 电源负极、ESP/开发板 GND、被测板 GND、示波器/逻辑分析仪 GND 接在一起。</span></label>
+            <label class="check-item"><input type="checkbox" id="s0-4" data-key="s0-4"><span><strong>0.4 高压规则</strong> 断电等待、量 &lt; 30 V、单手操作、表笔先夹地；这些动作在第一次上高压前练一遍。</span></label>
+            <label class="check-item"><input type="checkbox" id="s0-5" data-key="s0-5"><span><strong>0.5 单路电源分工</strong> PWR-DIST 之前：12 V 只给 VBB，ESP 开发板 USB 给 3.3 V/5 V。PWR-DIST 之后：24 V 进，多路出。</span></label>
+            <label class="check-item"><input type="checkbox" id="s0-6" data-key="s0-6"><span><strong>0.6 单板上桌</strong> 每块板先单独上桌，通过本阶段 gate 再进机；整机联调只放在最后。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>电源空载读数正常，地线和放电工具就位；台面上没有带电的板子。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要把所有板先插满再找故障。</li>
+              <li>不要用电脑 USB 给带灯丝的 IV18 长期供 5 V。</li>
+              <li>不要带电插拔 J1/J2 或高压线。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>工具清单与台架布置</summary>
+        <ul class="failure">
+          <li>万用表、示波器（有就用）、逻辑分析仪、可调限流电源。</li>
+          <li>假负载：56 Ω / 1 W（IV18 灯丝）、8.5 kΩ / 5 W（HV-UNI 20 mA）、220 Ω、10 kΩ 临时上拉。</li>
+          <li>XH 线、杜邦线、鳄鱼夹、绝缘胶带/热缩管；高压板用单手操作。</li>
+          <li>四颗 TPS259470 是锁死版：跳了要关主机钮子再开，不会自恢复。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 0 节；<code>assembly_issues.py</code> 通用安全条。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-1" data-stage="1">
+      <div class="stage-head">
+        <div class="stage-no">01</div>
+        <div class="stage-title">
+          <p class="kicker">电源</p>
+          <h2>PWR-DIST D1.1 · 先让 24 V 变成多路</h2>
+        </div>
+        <span class="badge power">电源</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">不接任何子板，先看空载；再确认 PFAIL、主机域、高压域和 HOLD。它是后面所有板的电，第一块必须单独过。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="PWR-DIST_D1.1.html">PWR-DIST D1.1</a>
+        <a class="assembly-link" href="装配调试流程.html#s4">装配流程 §4 电源测试</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s1-1" data-key="s1-1"><span><strong>1.1 空载上电</strong> J_24V 接 24 V / 0.5 A，不接负载；空载电流应 &lt; 0.3 A。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-2" data-key="s1-2"><span><strong>1.2 三路基本输出</strong> NID100-12 = 12.0 V ± 0.2；NID100-5 = 5.0 V ± 0.1；C_LDOO 或 C_INV 两端 = 3.3 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-3" data-key="s1-3"><span><strong>1.3 PFAIL</strong> 24 V 慢慢降到约 21.0 V，PFAIL_EL_N / PFAIL_ESP_N 变低；回到约 21.9 V 恢复。单板测时在 TPPFD、TPPFO 各临时接 10 kΩ 上拉到 3.3 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-4" data-key="s1-4"><span><strong>1.4 主机域</strong> 主机钮子断开：J_OPI、J_HUB、J_EL_PWR 都是 0 V；合上：5 V、5 V、12 V/5 V 出来，绿灯亮。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-5" data-key="s1-5"><span><strong>1.5 高压域</strong> 高压钮子合上但 J_CTL-4 悬空：HV-A/B/C 都是 0 V；J_CTL-4 接 3.3 V：HV-A/B = 12 V、HV-C = 5 V，红灯亮；钮子断开都回 0 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-6" data-key="s1-6"><span><strong>1.6 HOLD</strong> 主机钮子断开、J_CTL-3 接 3.3 V：主机 5 V 仍有输出（ESP 保持）。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-7" data-key="s1-7"><span><strong>1.7 常电分路</strong> J_INST 的 24 V、12 V、5 V 都在；J_KEYL = 12 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s1-8" data-key="s1-8"><span><strong>1.8 假负载与温度</strong> 可选：按清单加电子负载/功率电阻，看限流点和温升；四颗电子保险跳了要关钮子再开。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>空载电流 &lt; 0.3 A；12 V、5 V、3.3 V 正确；PFAIL 在 21.0/21.9 V 翻转；主机域和高压域按开关动作；HOLD 有效。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要直接带 ESP/子板做第一次上电。</li>
+              <li>不要用小于 0.5 A 的电源做 4.9 A 限流测试。</li>
+              <li>NID100 插反或错一位会把 24 V 短到地；插好后数针、量 +24 V 对地不短。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>读数表与失败先查</summary>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>测点</th><th>预期</th></tr></thead>
+            <tbody>
+              <tr><td>J_24V 输入</td><td>24 V，空载 &lt; 0.3 A</td></tr>
+              <tr><td>NID100-12 输出</td><td>12.0 V ± 0.2</td></tr>
+              <tr><td>NID100-5 输出</td><td>5.0 V ± 0.1</td></tr>
+              <tr><td>C_LDOO / C_INV</td><td>3.3 V（板上没有 3.3 V 测试点）</td></tr>
+              <tr><td>TPPFD / TPPFO</td><td>21.0 V 变低，21.9 V 恢复（临时 10 kΩ 上拉）</td></tr>
+              <tr><td>HV-A / HV-B / HV-C</td><td>关 0 V；HV_EN=3.3 V 时 12 / 12 / 5 V</td></tr>
+              <tr><td>J_INST / J_KEYL</td><td>24 / 12 / 5 V；12 V</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="failure">
+          <li>输入电流大：先查 24 V 对地、TVS、NID100 插座方向。</li>
+          <li>12 V 或 5 V 没有：查 NID100 是否插到底、1 脚对丝印方焊盘、模块是否被扎带压歪。</li>
+          <li>PFAIL 不翻转：单板没有上拉，先补 10 kΩ 再看。</li>
+          <li>高压域关不断：查 HV_GATE_N 公共节点和三路 P-MOS 栅极。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 1 节；<code>assembly_issues.py</code> PWR-DIST 条。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-2" data-stage="2">
+      <div class="stage-head">
+        <div class="stage-no">02</div>
+        <div class="stage-title">
+          <p class="kicker">控制</p>
+          <h2>ESP-BASE D1 + 微雪 ESP32-S3 开发板</h2>
+        </div>
+        <span class="badge power">控制</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">先不接任何子板，确认 3.3 V、5 V、5V_P、24 V 和 J_IV18 的默认电平；开发板单独插拔，避免 USB 5 V 倒灌。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="ESP-BASE_D1.html">ESP-BASE D1</a>
+        <a class="assembly-link" href="装配调试流程.html#s5">装配流程 §5 ESP 底板</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s2-1" data-key="s2-1"><span><strong>2.1 不插开发板</strong> J_CTL 接 PWR-DIST（主机钮子合上）：J_P1-21 = 5 V，J_P1-1/2 的 3V3 ≈ 0 V；J_INST 的 24 V、12 V、5V_P 都在。</span></label>
+            <label class="check-item"><input type="checkbox" id="s2-2" data-key="s2-2"><span><strong>2.2 子板供电</strong> J_NIX-1、J_GM-1、J_LD-1、J_IV18-12 = 5 V（+5V_P）；J_IV18-13 = 24 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s2-3" data-key="s2-3"><span><strong>2.3 插开发板</strong> USB 端朝左、1 针在天线端；不接 USB 时，3V3 针 = 3.3 V；J_I2C-1、J_RTC-5、J_IV18-1 = 3.3 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s2-4" data-key="s2-4"><span><strong>2.4 默认电平</strong> 按 RESET：J_IV18-8 BLANK 高、J_IV18-11 PWR_EN 低、J_CTL-3 HOLD 低、J_CTL-4 HV_EN 低、J_PI-1 PI_RUN 低。</span></label>
+            <label class="check-item"><input type="checkbox" id="s2-5" data-key="s2-5"><span><strong>2.5 JP_BZ</strong> 1-2 = 默认咔哒开，2-3 = 默认静音；量 R15 远端确认。</span></label>
+            <label class="check-item"><input type="checkbox" id="s2-6" data-key="s2-6"><span><strong>2.6 外设接线</strong> DS3231 0x68；BH1750 的 SDA/SCL 与 J_I2C 交叉；LD2410B 的 OUT/TX/RX/GND/VCC 不能照 1↔1 直连。</span></label>
+            <label class="check-item"><input type="checkbox" id="s2-7" data-key="s2-7"><span><strong>2.7 表头</strong> 如果 85C1 已到：J_MTR 接表头，100% 占空比调 VR1 到 1.000 mA；先量表头内阻。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>5 V、3.3 V、5V_P、24 V 都在；复位默认 BLANK 高、PWR_EN 低；没有接任何子板。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>台架刷固件时先拔 J_CTL 和 J_INST，否则电脑 USB 5 V 会倒灌整条 5 V/5V_P。</li>
+              <li>LD2410B 1↔1 直连会把 +5 V 接到 OUT 脚，必须按两头丝印做转接线。</li>
+              <li>DS3231 装 CR2032 前先拆充电电阻或二极管。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>电源链与失败先查</summary>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>测点</th><th>预期</th></tr></thead>
+            <tbody>
+              <tr><td>J_P1-21（开发板 5V）</td><td>5.0 V</td></tr>
+              <tr><td>J_P1-1/2（3V3）</td><td>不插开发板约 0 V；插上 3.3 V</td></tr>
+              <tr><td>J_IV18-12 / J_IV18-13</td><td>5V_P / 24 V</td></tr>
+              <tr><td>J_IV18-1 / J_I2C-1 / J_RTC-5</td><td>3.3 V</td></tr>
+              <tr><td>J_IV18-8 / J_IV18-11</td><td>复位默认高 / 低</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="failure">
+          <li>没有 3.3 V：开发板没插好或 USB 供电不足；先单独用 USB 确认开发板。</li>
+          <li>没有 5V_P：J_INST-3 或 PWR-DIST 的 5 V 路；J_CTL 的 +5 V 不是 5V_P。</li>
+          <li>BLANK 不是高：R12 10 kΩ 上拉；PWR_EN 不是低：R13 10 kΩ 下拉。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 2 节；<code>ESP-BASE_D1</code> 设计记录。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-3" data-stage="3">
+      <div class="stage-head">
+        <div class="stage-no">03</div>
+        <div class="stage-title">
+          <p class="kicker">低压输入</p>
+          <h2>SLANT D1.1 · Pico、按键、编码器、推子</h2>
+        </div>
+        <span class="badge low">低压</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">只接 12 V 和 Pico USB，不接高压。先确认按键/编码器/推子/模式开关都能读，再让 ULN2803 点键灯。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="SLANT_D1.1.html">SLANT D1.1</a>
+        <a class="assembly-link" href="装配调试流程.html#s7">装配流程 §7 斜面板</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s3-1" data-key="s3-1"><span><strong>3.1 不插 Pico</strong> J_12V 接 12 V，量 ULN2803 的 COM（10 脚）= 12 V；插 Pico 前先量每个 J_K 的 1 脚对地不是 12 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s3-2" data-key="s3-2"><span><strong>3.2 插 Pico</strong> USB 接电脑：3V3(OUT) = 3.3 V；Pico 芯片面朝外、USB 朝上沿、1 脚对方焊盘。</span></label>
+            <label class="check-item"><input type="checkbox" id="s3-3" data-key="s3-3"><span><strong>3.3 输入</strong> GP2–7 按键按下 = 0；GP14–22 编码器转一格 A/B 各一个边沿；GP26/27 推子 0→4095 线性；GP28 模式开关 6 档约 1/7…6/7。</span></label>
+            <label class="check-item"><input type="checkbox" id="s3-4" data-key="s3-4"><span><strong>3.4 键灯</strong> GP8–13 依次拉高，对应 LAMP 灯亮（12 V，ULN2803 灌电流）。</span></label>
+            <label class="check-item"><input type="checkbox" id="s3-5" data-key="s3-5"><span><strong>3.5 ADC_VREF</strong> 量到约 3.07 V 属正常（板上分压负载约 1.1 mA，Pico 200 Ω 滤波电阻掉 0.2 V）。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>所有按键/编码器/推子/模式开关都能读；12 V 键灯能亮；Pico 不 reset。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>插 Pico 前不量 J_K 的 1 脚，键线压错时 12 V 会灌进 Pico。</li>
+              <li>不要接高压板；这块只做低压输入。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>Pico 装配顺序</summary>
+        <p class="failure">D1.1 起 Pico 插针装：先焊背面两条 1×20 排母（推子、编码器之前）。排针插进排母、排母放进板孔、套上 Pico，先焊 Pico 上的排针（短头从 Pico 背面插、正面焊），再拔下 Pico 到斜面板正面焊排母。Pico 芯片面朝外、USB 朝上沿、1 脚对方焊盘。</p>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 3 节；SLANT D1.1 设计记录。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-4" data-stage="4">
+      <div class="stage-head">
+        <div class="stage-no">04</div>
+        <div class="stage-title">
+          <p class="kicker">低压输入</p>
+          <h2>KBD-ADAPT D1 · FPC、USB 与键盘</h2>
+        </div>
+        <span class="badge low">低压</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">先只插排线、不吸键盘，确认 H13 对 H11 不短路；再接 USB、最后才接键盘。反接 5 V 会烧键盘。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="KBD-ADAPT_D1.html">KBD-ADAPT D1</a>
+        <a href="KBD-ADAPT_D1_测试2_排线方向.html">排线方向测试页</a>
+        <a class="assembly-link" href="装配调试流程.html#s1">装配流程 §1 直插热身</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s4-1" data-key="s4-1"><span><strong>4.1 只插排线</strong> 蜂鸣挡 H13 对 H11 必须 OL；触点小板触点面朝上、排线朝下，从左到右是触点 6、5、4、3、2、1。</span></label>
+            <label class="check-item"><input type="checkbox" id="s4-2" data-key="s4-2"><span><strong>4.2 逐点核对</strong> 按 <code>KBD-ADAPT_D1_测试2_排线方向.html</code> 逐个量到 H_TEST；不能只对调 1↔4。</span></label>
+            <label class="check-item"><input type="checkbox" id="s4-3" data-key="s4-3"><span><strong>4.3 XH 线序</strong> XH1 红 5 V、XH2 绿 D+、XH3 白 D−、XH4 黑 GND；用表认线，不信成品线颜色。目标：5V→H13、D−→H8、D+→H10、GND→H11。</span></label>
+            <label class="check-item"><input type="checkbox" id="s4-4" data-key="s4-4"><span><strong>4.4 USB 不接键盘</strong> USB 插电脑、不吸键盘：H13 对 H11 = +5 V；如果 −5 V 就是反了，先改线。</span></label>
+            <label class="check-item"><input type="checkbox" id="s4-5" data-key="s4-5"><span><strong>4.5 吸键盘</strong> 设备管理器出现 HID 键盘/鼠标（VID_17EF）；不识别时量 H10 对地约 3.3 V，换 USB 口/电脑再试。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>H13/H11 不短路；USB 5 V 方向正确；键盘能被电脑识别。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要先吸键盘再量线序。</li>
+              <li>不要用颜色判断线序；两边都按焊盘/触点量。</li>
+              <li>不需要 R_DET；检测脚不接也能枚举。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>线序与失败先查</summary>
+        <p class="failure">板上 J_USB-2 实际接键盘 D+，与网传定义相反。成品线要按 USB-A 公头四片量：两边长片是 5 V/GND，挨着 5 V 的是 D−，挨着 GND 的是 D+。</p>
+        <p class="failure">想用标准红白绿黑线序：取下 R_DM、R_DP，改焊 R_XM、R_XP，再按标准线序压线。</p>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 3b 节；KBD-ADAPT D1 设计记录第七节。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-5" data-stage="5">
+      <div class="stage-head">
+        <div class="stage-no">05</div>
+        <div class="stage-title">
+          <p class="kicker">中压 / 显示</p>
+          <h2>IV18 D1 · MAX6921、灯丝、35 V、端板与管</h2>
+        </div>
+        <span class="badge mid">35 V</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">先不装端板、不插管，用 12 V VBB 把 MAX6921 和灯丝看门狗跑通；再上 35 V；最后焊端板 T 形点、装管。不要直接上 35 V 找逻辑故障。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="IV18_D1.html">IV18 D1</a>
+        <a class="assembly-link" href="装配调试流程.html#s6d">装配流程 §6d IV-18</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s5-1" data-key="s5-1"><span><strong>5.1 装配前提</strong> J1/J2 塑料座在底面、短针正面焊；J1/J2、TP1–TP5 板底剪脚 ≤ 0.8 mm；端板先不装。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-2" data-key="s5-2"><span><strong>5.2 空板默认</strong> 不装端板、不插管、J2 不接：TP2（+5V_FIL）= 0 V、TP4（BLANK_IC）= 3.3 V、J2-1 = 0 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-3" data-key="s5-3"><span><strong>5.3 灯丝假负载</strong> R15/R16 外侧 TA4/TA9 之间接 56 Ω / 1 W；FIL 20 kHz，约 20 ms 后 PWR_EN 高；TP3（FIL_OK）≈ 2.7 V、TP2 ≈ 5 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-4" data-key="s5-4"><span><strong>5.4 看门狗</strong> 示波器看假负载两端互补方波 4.0–4.5 V；停 FIL（停高、停低各一次）→ 80 ms 内 TP2 掉 0、TP4 变高。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-5" data-key="s5-5"><span><strong>5.5 MAX6921 逻辑</strong> 12 V VBB、3.3 V VCC、BLANK 低、SPI 20 位；全 0、全 1、walking 1，在 PAD1–PAD22 量 17 路（G1–G9、a–g/dp），逻辑分析仪只抓 3.3 V SPI。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-6" data-key="s5-6"><span><strong>5.6 35 V 通路</strong> XL6009 空载调 35 V；J2 串 2.2 Ω / 2 W；PWR_EN 高时 TP1 ≈ 35 V；断电后 1–8 s 降到 5 V 以下；输出电容耐压 ≥ 50 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-7" data-key="s5-7"><span><strong>5.7 端板 T 形点</strong> 22 个点、两面各 11 个；目视 + 主板 PAD ↔ 端板焊盘 &lt; 1 Ω；相邻点不短路；先不穿管。</span></label>
+            <label class="check-item"><input type="checkbox" id="s5-8" data-key="s5-8"><span><strong>5.8 装管</strong> 先 25–30 V 看段/栅，再 35 V；灯丝 4.3–5 V、85 ± 10 mA；扫描每位约 1 ms、换位消隐 ≥ 5 µs；刷三防漆。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>12 V 逻辑全过、灯丝看门狗 80 ms 内动作、35 V 泄放正常、22 个 T 形点全通、装管后段/栅/灯丝都正常。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要先装端板/管子再找 MAX6921 故障。</li>
+              <li>不要把逻辑分析仪直接接 35 V 输出；用示波器/分压。</li>
+              <li>J2 的 2.2 Ω 串阻不能省：PWR_EN 瞬间冲击约 19 A，超过 Q1 的 IDM。</li>
+              <li>插拔 J1 前先断 24 V。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>读数表、PAD 说明与失败先查</summary>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>测点</th><th>预期</th></tr></thead>
+            <tbody>
+              <tr><td>TP2 +5V_FIL</td><td>FIL 关 0 V；FIL 开约 5 V</td></tr>
+              <tr><td>TP3 FIL_OK</td><td>约 2.7 V（FIL 开、PWR_EN 高）</td></tr>
+              <tr><td>TP4 BLANK_IC</td><td>默认 3.3 V；FIL_OK 后由 ESP 拉低</td></tr>
+              <tr><td>TP1 VBB</td><td>12 V 逻辑测试；装 XL6009 后 35 V</td></tr>
+              <tr><td>R15/R16 假负载</td><td>20 kHz 互补方波，4.0–4.5 V</td></tr>
+              <tr><td>PAD1–PAD22</td><td>20 路 MAX6921 + 2 路灯丝；type 2 只用 17 路</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="failure">
+          <li>20 路全不动：先查 BLANK 是否被 FIL_OK 拉高、VBB/VCC、LOAD、SPI。</li>
+          <li>某一路不动：查 MAX6921 对应脚、走线、PAD；相邻两路一起短：回流连锡。</li>
+          <li>端板某个 T 形点不通：补焊；相邻短路：吸锡带清；先过 22 点再穿管。</li>
+          <li>灯丝看门狗不动作：查 U2 74HCT132、U3 L9110、Q3/Q4、TP3。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 8a/8 节；IV18 D1 设计记录；<code>assembly_issues.py</code> IV18 条。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-6" data-stage="6">
+      <div class="stage-head">
+        <div class="stage-no">06</div>
+        <div class="stage-title">
+          <p class="kicker">高压</p>
+          <h2>HV-UNI D1 ×3 · 先把三块高压小板调好</h2>
+        </div>
+        <span class="badge hv">高压</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">三块都单独上桌：12 V 输入、空载调压、泄放、OVP，再加 8.5 kΩ 假负载。调好后再插 NIXIE/EYE，不要带宿主板调。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="HV-UNI_D1.html">HV-UNI D1</a>
+        <a class="assembly-link" href="装配调试流程.html#s2">装配流程 §2 HV-UNI</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s6-1" data-key="s6-1"><span><strong>6.1 空载上电</strong> RV1 先拧到最大阻值（最低电压）；J1 接 12 V / 0.5 A；空载输入电流 &lt; 50 mA。</span></label>
+            <label class="check-item"><input type="checkbox" id="s6-2" data-key="s6-2"><span><strong>6.2 调压</strong> TP1（DC 600 V 档）：#1 辉光 180–185 V、#2 6E2 250 V、#3 备用 180 V；可调范围约 112–296 V，开机过冲 &lt; 4%。</span></label>
+            <label class="check-item"><input type="checkbox" id="s6-3" data-key="s6-3"><span><strong>6.3 泄放</strong> 断电后 3 s 内 TP1 降到 30 V 以下；降得慢先查 R21/R22。</span></label>
+            <label class="check-item"><input type="checkbox" id="s6-4" data-key="s6-4"><span><strong>6.4 OVP</strong> 可选：R17 1 k 临时换 4.7 k → 约 240 V 被钳住；或抬起 R8 → 约 324 V；做完恢复。</span></label>
+            <label class="check-item"><input type="checkbox" id="s6-5" data-key="s6-5"><span><strong>6.5 带载</strong> 170 V 档接 8.5 kΩ / 5 W（20 mA），电压跌 &lt; 3 V；Q1 温热；296 V / 10 mA 只短时试。</span></label>
+            <label class="check-item"><input type="checkbox" id="s6-6" data-key="s6-6"><span><strong>6.6 2.2 kΩ 上拉</strong> 三块当前板确认 R18.1（VREF）↔ R19.2（OVK）已有 2.2 kΩ；新版本是 R24。没有会在 200 V 出头被钳住。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>三块都到目标电压；3 s 泄放到 30 V 以下；OVP 能动作；20 mA 负载下跌 &lt; 3 V。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要带宿主板调压；先单独调好再插。</li>
+              <li>Q1 散热片就是漏极高压；带载时不要摸。</li>
+              <li>TP1/TP2 只隔 3.7 mm；地线夹 TP2，表笔别滑。</li>
+              <li>没有 2.2 kΩ 上拉时断开 R20 只能做测试，不能长期断开。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>OVP 说明、读数与失败先查</summary>
+        <p class="failure">R18.1 是 VREF 5 V，R19.2 是 OVK（TL431 阴极）。当前三块板用 2.2 kΩ 飞线跨在 R18.1/R19.2 两个并排焊盘上；R19 保持 2.2 k 或 10 k 都可以。2.2 k 让 TL431 过压时约有 1.5 mA 阴极电流；10 k 只有约 0.46 mA，刚过 TL431AILP 的 400 µA 最小阴极电流，余量小。</p>
+        <ul class="failure">
+          <li>输出停在 200 V 出头：先量 U2 阴极约 4.2 V、Q2 Vbe 约 0.65 V；查 2.2 kΩ 上拉是否在。</li>
+          <li>电压上不去但输入电流大：查 Q1/RS1/L1，或 RV1 接法。</li>
+          <li>泄放慢：R21/R22 是否迷你体、是否漏焊。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 4 节；HV-UNI D1 设计记录 2026-11-01 实测与 R24 记录。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-7" data-stage="7">
+      <div class="stage-head">
+        <div class="stage-no">07</div>
+        <div class="stage-title">
+          <p class="kicker">高压 / 辉光</p>
+          <h2>NIXIE-DRV D1.1 + IN14-SOCK D1.1 ×6</h2>
+        </div>
+        <span class="badge hv">170–185 V</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">先 5 V 逻辑、再 HV-UNI #1、最后插一块 IN14 小板。数字、右小数点、R_A 电流都对，再插其余五块。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="NIXIE-DRV_D1.1.html">NIXIE-DRV D1.1</a>
+        <a href="IN14-SOCK_D1.1.html">IN14-SOCK D1.1</a>
+        <a class="assembly-link" href="装配调试流程.html#s6a">装配流程 §6a 辉光</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s7-1" data-key="s7-1"><span><strong>7.1 5 V 逻辑</strong> 不插 K155ID1、HV-UNI、小板：J_LOG 接 5 V；各插座 5 脚 = 5 V、12 脚 = 0。</span></label>
+            <label class="check-item"><input type="checkbox" id="s7-2" data-key="s7-2"><span><strong>7.2 K155ID1</strong> 插 K155ID1，ESP 按 F4 位序发帧；选中输出对地导通、其余高阻；发 0xF 全不导通。</span></label>
+            <label class="check-item"><input type="checkbox" id="s7-3" data-key="s7-3"><span><strong>7.3 第一块 IN14</strong> HV-UNI #1 已调 180–185 V 再插；先只插一块（R_PR 已焊）：数字 0–9 逐个亮、右小数点亮。</span></label>
+            <label class="check-item"><input type="checkbox" id="s7-4" data-key="s7-4"><span><strong>7.4 阳极电流</strong> 量 R_A 两端电压 ÷ 22 kΩ，目标 1.5–2.5 mA；偏暗调高 HV-UNI（不超过 200 V）；RDP 只在 22–100 k 之间选。</span></label>
+            <label class="check-item"><input type="checkbox" id="s7-5" data-key="s7-5"><span><strong>7.5 六块全插</strong> 确认每一块数字/小数点；长时间跑防阴极中毒轮换；Q1–Q6/RDP 一带刷三防漆。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>六块数字和小数点都对；R_A 电流 1.5–2.5 mA；没有连锡/漏电；HV-UNI 稳定。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要先插 HV-UNI 再查 5 V 逻辑。</li>
+              <li>不要一次插六块找故障；先一块。</li>
+              <li>RDP 不要短接，否则小数点抢电流。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>IN14 小板脚号、R_A 与失败先查</summary>
+        <p class="failure">IN14 小板 J1 是 2×7 排针，装在小板底面，向下插驱动板排母。翻了面，每列两排对调：小板 J1 脚号 = 驱动板脚号奇偶互换。2 = HV、3 = 小数点 DP、6 = 数字 0、5 = 1、8 = 2、7 = 3、10 = 4、9 = 5、12 = 6、11 = 7、14 = 8、13 = 9；1、4 不接。R_A 是 22 kΩ（C119354），不是 20 kΩ。</p>
+        <ul class="failure">
+          <li>数字对不上：先查固件 LUT，再查 J1 奇偶脚号。</li>
+          <li>小数点在左边亮：拆 R_PR，改焊 R_PL。</li>
+          <li>某一位不亮：查 K155ID1 输出、IN14 引线、R_A/阴极线；不要带电插拔。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 5 节；IN14-SOCK D1.1 说明；NIXIE-DRV D1.1 设计记录。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-8" data-stage="8">
+      <div class="stage-head">
+        <div class="stage-no">08</div>
+        <div class="stage-title">
+          <p class="kicker">高压 / 猫眼</p>
+          <h2>EYE-6E2 D1.1 · 灯丝、250 V、PWM</h2>
+        </div>
+        <span class="badge hv">250 V</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">先只接灯丝，确认两支 5.7–6.6 V；再插 HV-UNI #2（250 V）；最后插管扫 PWM 并做 11 点校准。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="EYE-6E2_D1.1.html">EYE-6E2 D1.1</a>
+        <a class="assembly-link" href="装配调试流程.html#s6b">装配流程 §6b 6E2</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s8-1" data-key="s8-1"><span><strong>8.1 灯丝</strong> 只接 J_HVB 12 V，不插 HV-UNI：两支灯丝各 5.7–6.6 V；偏高那支并 R_HA/R_HB（220 Ω / 1 W）拉回约 6.0 V。</span></label>
+            <label class="check-item"><input type="checkbox" id="s8-2" data-key="s8-2"><span><strong>8.2 250 V</strong> HV-UNI #2 单独调到 250 V、确认泄放后再插；不要先插高压再查灯丝。</span></label>
+            <label class="check-item"><input type="checkbox" id="s8-3" data-key="s8-3"><span><strong>8.3 插管扫 PWM</strong> D = 0…100%：0% 光条最短，约 79% 两段合拢，100% 略重叠；每支管记 11 点写进 ESP 校准表。</span></label>
+            <label class="check-item"><input type="checkbox" id="s8-4" data-key="s8-4"><span><strong>8.4 零点与三防漆</strong> 栅极高阻，焊后清洗 + 三防漆；否则 250 V 漏电会让零点漂 0.5–1 mm。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>两支灯丝 5.7–6.6 V；250 V 稳定；PWM 全程可扫；11 点校准写入；零点不漂。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>焊了均衡电阻后，不要只插一支管长时间通电。</li>
+              <li>HV-UNI 未泄放不要碰管座。</li>
+              <li>后耳孔/铜柱孔周围用尼龙垫片，避免压破阻焊。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>灯丝/校准失败先查</summary>
+        <ul class="failure">
+          <li>灯丝电压偏差大：先量 J_HVB 12 V、R_HA/R_HB 是否焊；两支管对调再看。</li>
+          <li>光条不重合：查 PWM 校准点、栅极漏电、三防漆是否固化。</li>
+          <li>零点漂：清洗助焊剂，栅极区补三防漆；查 250 V 对低压间距。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 6 节；EYE-6E2 D1.1 设计记录。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-9" data-stage="9">
+      <div class="stage-head">
+        <div class="stage-no">09</div>
+        <div class="stage-title">
+          <p class="kicker">高压 / 盖革</p>
+          <h2>GEIGER-MAIN D1 + GEIGER-CLIP D1 · 400 V</h2>
+        </div>
+        <span class="badge hv">400 V</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">最后一块高压板。VR1 先拧到 10 Ω，TP1 用 ×9.8 系数读到 400 V；断电等 4 s 再碰。J305 本底、脉冲、蜂鸣器、遮光都过再进机。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="GEIGER-MAIN_D1.html">GEIGER-MAIN D1</a>
+        <a href="GEIGER-CLIP_D1.html">GEIGER-CLIP D1</a>
+        <a class="assembly-link" href="装配调试流程.html#s6c">装配流程 §6c 盖革</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s9-1" data-key="s9-1"><span><strong>9.1 初始位置</strong> VR1（峰值限流）先拧到 10 Ω；VR2 拧到 0；J1 接 5 V / 0.2 A，J2 接 5 V 常电。</span></label>
+            <label class="check-item"><input type="checkbox" id="s9-2" data-key="s9-2"><span><strong>9.2 调 400 V</strong> 量 TP1（10 MΩ 表 DC 200 V 档），读数 × 9.8 = 高压；TP1 约 40.8 V 对应 400 V；纹波约 3.4 Vpp。</span></label>
+            <label class="check-item"><input type="checkbox" id="s9-3" data-key="s9-3"><span><strong>9.3 断电与绝缘</strong> 断电等 ≥ 4 s 再碰；J_HV 焊点剪平、套热缩；右前角用尼龙螺丝/尼龙柱；夹子板 400 V 线走板内侧。</span></label>
+            <label class="check-item"><input type="checkbox" id="s9-4" data-key="s9-4"><span><strong>9.4 接夹子板/J305</strong> 阳极朝右；本底约 10–30 CPM；每个脉冲咔哒一声；PULSE 在 ESP 侧是 11–125 µs 低脉冲。</span></label>
+            <label class="check-item"><input type="checkbox" id="s9-5" data-key="s9-5"><span><strong>9.5 蜂鸣器与光敏</strong> BZ 拉低静音（0.2 s 内）；4 kHz 方波报警；遮光/照光各计 10 min 看 J305 光敏性。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>400 V 稳定；本底 10–30 CPM；脉冲/蜂鸣器正常；遮光有反应；高压点绝缘和间距都检查过。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>VR1 不要拧到 0；开环会冲过 KSP44 耐压。</li>
+              <li>不要追到 450–470 V；KSP44 只保证 400 V。</li>
+              <li>台架单测不接 ESP 时 BZ 悬空，要插 JP1 才会咔哒；PULSE 要临时 10 kΩ 上拉。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>TP1 系数、分压与失败先查</summary>
+        <p class="failure">R90–R93 四只 22 MΩ 逐只量，按实际值算 TP1 系数 =（四只之和 + 表内阻）÷ 表内阻；标称约 ×9.8，±5% 公差时 400 V 读数对应 383–418 V。R80–R83 是闭环反馈分压，影响设定值，不影响 TP1 系数。</p>
+        <ul class="failure">
+          <li>高压上不去/不可调：查 VR1/VR2、Q6 脚序、KSP44、LM393。</li>
+          <li>本底异常高：查 J305 遮光、阳极接触、400 V 漏电、湿度/助焊剂。</li>
+          <li>没有咔哒：查 Q5、BZ、JP1；PULSE 上拉。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 7 节；GEIGER D1 设计记录第八、十节。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-10" data-stage="10">
+      <div class="stage-head">
+        <div class="stage-no">10</div>
+        <div class="stage-title">
+          <p class="kicker">显示链 / 低压</p>
+          <h2>EL-IF D1.3 + HDMI 小板 + Dock/Pi</h2>
+        </div>
+        <span class="badge low">低压</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">EL 屏很贵，接屏前先把时序、排线方向和 HDMI 端接全部量过。没有通过 EL-IF 测试图案前，不要接屏。</p>
+      <div class="board-links">
+        <span class="link-label">焊接图</span>
+        <a href="EL-IF_D1.3.html">EL-IF D1.3</a>
+        <a href="HDMI-PI_D1.html">HDMI-PI D1</a>
+        <a href="HDMI-DOCK_D1.html">HDMI-DOCK D1</a>
+        <a class="assembly-link" href="装配调试流程.html#s8">装配流程 §8 显示链</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s10-1" data-key="s10-1"><span><strong>10.1 EL-IF 电源/时序</strong> 按 D1.2/D1.3 变更记录的 35 个测试点逐项量电源与开关时序；不接屏。</span></label>
+            <label class="check-item"><input type="checkbox" id="s10-2" data-key="s10-2"><span><strong>10.2 FPGA 波形</strong> 烧 el_test：J_EL 侧 CP1、CP2、S 和 8 路数据，5 V 电平、周期/相位符合说明；VD 先出黑场 ≥ 1 帧再开。</span></label>
+            <label class="check-item"><input type="checkbox" id="s10-3" data-key="s10-3"><span><strong>10.3 屏线方向</strong> 对照实物确认排线 1 脚方向，不能只看面包板文档图；两项都过再接屏，先 el_test 图案再切 HDMI。</span></label>
+            <label class="check-item"><input type="checkbox" id="s10-4" data-key="s10-4"><span><strong>10.4 P1–P3 / J_PF</strong> P1–P3 与 Dock 奇偶编号一致；2×6 公对母线两头 1 脚对 1 脚；J_PF 1↔1；上电前量 3V3 与 GND 不短。</span></label>
+            <label class="check-item"><input type="checkbox" id="s10-5" data-key="s10-5"><span><strong>10.5 HDMI</strong> 两块板逐脚通断；18 脚不通；Dock 板 C2 = 3.3 V；TMDS 对地约 3.0 V；Pi 的 <code>PHY_STAT0</code> 应为 0xF3。</span></label>
+            <label class="check-item"><input type="checkbox" id="s10-6" data-key="s10-6"><span><strong>10.6 FPGA HDMI</strong> Dock 烧 el_hdmi（27 MHz EDID 版），Pi 覆盖 EDID；串口发 <code>?</code> 应回 <code>HDMI=1 VID=1 H=280 V=1E0</code>。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>EL-IF 35 点/时序过，el_test 图案正常；HDMI 端接 0xF3、FPGA 解码正常；排线方向确认。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>没有通过 EL-IF 波形前不要接 EL 屏。</li>
+              <li>排线插拔一律断电；不要带电翻锁扣。</li>
+              <li>只开 Dock 不开 Pi 时 DDC 上拉会往 Pi 灌 mA 级电流，尽量一起上电。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>EL-IF/HDMI 失败先查</summary>
+        <ul class="failure">
+          <li>EL-IF 无波形：先查 FPGA 供电/时钟/固件，再查 J_EL 排线方向；不要先怀疑屏。</li>
+          <li>HDMI 0x03 而不是 0xF3：查两块小板、排线、Dock 端接；4a 过、4b 不过才是 FPGA 对齐/解码。</li>
+          <li>EL 屏不亮：先确认 el_test 图案和 VD 时序，再查屏线 1 脚方向。</li>
+        </ul>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 9/9b 节；EL-IF D1.3、HDMI_FPC_D1 设计记录。</p>
+      </details>
+    </section>
+
+    <section class="stage" id="stage-11" data-stage="11">
+      <div class="stage-head">
+        <div class="stage-no">11</div>
+        <div class="stage-title">
+          <p class="kicker">整机</p>
+          <h2>PWR-DIST + ESP-BASE + 一块一块加子板</h2>
+        </div>
+        <span class="badge power">联调</span>
+        <span class="stage-state state-todo" data-stage-state>待测</span>
+      </div>
+      <p class="goal">每块板都过了自己的 gate 才进机。先只上电源和控制板，再按“斜面板 → 辉光 → 6E2 → 盖革 → IV18 → 表头/传感器”的顺序加，每加一块看 24 V 总电流。</p>
+      <div class="board-links">
+        <span class="link-label">装配</span>
+        <a href="装配调试流程.html#s9">装配调试流程 §9 整机联调</a>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-main">
+          <h3>步骤</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" id="s11-1" data-key="s11-1"><span><strong>11.1 只上电源+控制</strong> PWR-DIST + ESP-BASE，不接子板；主机钮子开 → Pi 起 → PI_RUN → HOLD；关 → PI_SHDN_REQ → Pi 关 → 5 s 后松 HOLD。</span></label>
+            <label class="check-item"><input type="checkbox" id="s11-2" data-key="s11-2"><span><strong>11.2 逐块加板</strong> 斜面板 → 辉光（先不开高压）→ 开高压 → 6E2 → 盖革 → IV18 → 表头/传感器；每加一块看 24 V 总电流和温度。</span></label>
+            <label class="check-item"><input type="checkbox" id="s11-3" data-key="s11-3"><span><strong>11.3 PFAIL</strong> 断 24 V（拔 IEC）：PFAIL 先到，ESP 关高压、灭 IV18、记日志；EL-IF 关 VD；再上电恢复。</span></label>
+            <label class="check-item"><input type="checkbox" id="s11-4" data-key="s11-4"><span><strong>11.4 长时间运行</strong> 全功能跑一轮：显示、辉光轮换、6E2、盖革、键盘、推子、模式开关；无 reset/无高压打火/无明显温升。</span></label>
+          </div>
+        </div>
+        <aside class="stage-side">
+          <div class="gate">
+            <h3>通过再往下</h3>
+            <p>整机开关时序正确；每块板单独工作正常；PFAIL 能安全关机；长时间运行稳定。</p>
+          </div>
+          <div class="avoid">
+            <h3>不要</h3>
+            <ul>
+              <li>不要一次插满所有板做第一次整机上电。</li>
+              <li>不要在整机上直接调 HV-UNI；先按第 6 阶段单独调好。</li>
+              <li>不要带电插拔板间线束。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <details>
+        <summary>整机顺序与判据</summary>
+        <p class="failure">先电源/控制，后子板；先低压，后高压；每加一块板都看 24 V 总电流。辉光驱动板先不开高压，确认 5 V 逻辑和 K155ID1 后再开 HV-UNI；6E2 先灯丝后 250 V；盖革最后上 400 V；IV18 先逻辑/灯丝，再 35 V，最后装管。</p>
+        <p class="source">依据：<code>el_driver/上电测试清单.txt</code> 第 10 节；<code>assembly_issues.py</code> 各板装配注意。</p>
+      </details>
+    </section>
+  </main>
+
+  <section class="board-index" aria-labelledby="board-index-title">
+    <p class="kicker">索引</p>
+    <h2 id="board-index-title">全部焊接图</h2>
+    <div class="board-index-grid">
+      <a href="PWR-DIST_D1.1.html">PWR-DIST D1.1</a>
+      <a href="ESP-BASE_D1.html">ESP-BASE D1</a>
+      <a href="SLANT_D1.1.html">SLANT D1.1</a>
+      <a href="KBD-ADAPT_D1.html">KBD-ADAPT D1</a>
+      <a href="KBD-ADAPT_D1_测试2_排线方向.html">KBD 排线方向测试</a>
+      <a href="IV18_D1.html">IV18 D1</a>
+      <a href="HV-UNI_D1.html">HV-UNI D1</a>
+      <a href="NIXIE-DRV_D1.1.html">NIXIE-DRV D1.1</a>
+      <a href="IN14-SOCK_D1.1.html">IN14-SOCK D1.1</a>
+      <a href="EYE-6E2_D1.1.html">EYE-6E2 D1.1</a>
+      <a href="GEIGER-MAIN_D1.html">GEIGER-MAIN D1</a>
+      <a href="GEIGER-CLIP_D1.html">GEIGER-CLIP D1</a>
+      <a href="EL-IF_D1.3.html">EL-IF D1.3</a>
+      <a href="HDMI-PI_D1.html">HDMI-PI D1</a>
+      <a href="HDMI-DOCK_D1.html">HDMI-DOCK D1</a>
+      <a href="装配调试流程.html">装配调试流程</a>
+    </div>
+    <p>HDMI-PI / HDMI-DOCK 的 J1 自焊，J2 和 Dock 的阻容/LDO 由嘉立创贴片；两页都标了 J1 正反和 J2 脚号。页面在 <code>el_driver/焊接图/</code>，以上链接是相对路径；移动页面会断链。</p>
+  </section>
+
+  <footer class="footer">
+    <p>依据：<code>el_driver/上电测试清单.txt</code>（2026-10-21 / 10-22）、各板设计记录、<code>assembly_issues.py</code>。整理日期：2026-11-03。</p>
+    <p>本页是测试顺序和判据，不替代设计记录。J1/J2 的底面装/正面焊、HV-UNI 的 2.2 kΩ 上拉与 R24、IV18 端板 T 形点、R_A 22 kΩ 等细节，以对应设计记录和板上丝印为准。</p>
+    <p>焊接/装配顺序看《装配调试流程》，测试顺序看本页；两者不必一致。每块板的焊接图链接在各阶段标题下和页尾索引。</p>
+    <p>打勾只保存在当前浏览器，不会写回项目文件；换浏览器或清站点数据会丢。</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mis01.bringup.v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-key]'));
+  var stages = Array.prototype.slice.call(document.querySelectorAll('.stage[data-stage]'));
+  var progressText = document.getElementById('progressText');
+  var progressBar = document.getElementById('progressBar');
+  var progressBarWrap = document.getElementById('progressBarWrap');
+  var resetButton = document.getElementById('reset');
+  var resetNote = document.getElementById('resetNote');
+  var noteTimer = null;
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return {};
+      var data = JSON.parse(raw);
+      return data && typeof data === 'object' ? data : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveState() {
+    var data = {};
+    boxes.forEach(function (box) {
+      if (box.checked) data[box.getAttribute('data-key')] = true;
+    });
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      // 私密窗口或站点数据被禁用时，页面仍然可以打勾。
+    }
+  }
+
+  function setStageState(stage) {
+    var stageBoxes = Array.prototype.slice.call(stage.querySelectorAll('input[type="checkbox"][data-key]'));
+    var state = stage.querySelector('[data-stage-state]');
+    if (!state) return;
+    var done = stageBoxes.filter(function (box) { return box.checked; }).length;
+    state.classList.remove('state-todo', 'state-progress', 'state-done');
+    if (done === 0) {
+      state.classList.add('state-todo');
+      state.textContent = '待测';
+    } else if (done === stageBoxes.length) {
+      state.classList.add('state-done');
+      state.textContent = '已完成';
+    } else {
+      state.classList.add('state-progress');
+      state.textContent = '进行中 ' + done + '/' + stageBoxes.length;
+    }
+  }
+
+  function update() {
+    var done = boxes.filter(function (box) { return box.checked; }).length;
+    var total = boxes.length;
+    var pct = total ? Math.round(done / total * 100) : 0;
+    if (progressText) progressText.textContent = done + ' / ' + total + ' 项';
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (progressBarWrap) progressBarWrap.setAttribute('aria-valuenow', String(pct));
+    stages.forEach(setStageState);
+  }
+
+  var saved = loadState();
+  boxes.forEach(function (box) {
+    if (saved[box.getAttribute('data-key')] === true) box.checked = true;
+    box.addEventListener('change', function () {
+      saveState();
+      update();
+    });
+  });
+  update();
+
+  if (resetButton) {
+    resetButton.addEventListener('click', function () {
+      boxes.forEach(function (box) { box.checked = false; });
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      update();
+      if (resetNote) {
+        resetNote.textContent = '已清空';
+        if (noteTimer) clearTimeout(noteTimer);
+        noteTimer = setTimeout(function () { resetNote.textContent = ''; }, 2000);
+      }
+    });
+  }
+
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) {
+      mq.addEventListener('change', function () { /* 颜色由 CSS 处理 */ });
+    }
+  }
+})();
+</script>
